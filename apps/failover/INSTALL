@@ -1,0 +1,242 @@
+Installing the failover support
+===============================
+
+Prerequisites:
+
+   - NOX installed and properly configured to be managed by
+     /etc/init.d/nox.  It's essential the configuration has the dpctl
+     based probe tool properly configured; without the probing
+     configured the cluster management system has to base its NOX
+     status determination to a PID file.
+
+     Please do test /etc/init.d/nox by manually running executing the
+     actions 'start', 'stop', and 'status'.
+
+
+0. Plan the fail-over setup:
+
+   - Allocate two hosts for the fail-over system.  At any given time,
+     eithor of the hosts runs NOX while either is on standby.
+     Configure a unique IP address and a name for both hosts.
+
+   - Allocate also a unique fail-over IP address for NOX.  Heartbeat
+     cluster management system will run NOX bound to listen for
+     incoming connections on this IP on either of the hosts.  (This
+     fail-over IP address is configured dynamically by the heartbeat
+     system as an IP alias next to the primary IP address.)
+
+   - The availability of the system depends largely on the heartbeat
+     communication between the two hosts.  Therefore, the
+     communication path between two hosts should *not* contain a
+     single point of failure.  The easiest approach is connect both
+     hosts to a switch and then have an additional cross-over cable
+     between the hosts.
+
+   - Determine stable IP, intra-site, addresses for both hosts to ping
+     when determining whether the IP connectivity is alive.
+     Router/switch IP addresses are excellent candidates.
+
+
+1. Install the Heartbeat application.  The package is available for
+   most major Linux distributions.  For example, to install on Debian,
+   at root shell prompt type:
+
+   # apt-get install heartbeat-2
+
+
+2. Copy the main configuration file of heartbeat, ha.cf, to
+   /etc/heartbeat/ on both hosts and at minimum, edit the lines below
+   the EDIT marker:
+
+   - Configure the stable ping addresses.
+
+   - Configure the interfaces to use for heartbeat communication.  If
+     the configuration is based on a combined use of crossover cable
+     and switch, both Ethernet interfaces should be defined here.
+
+   - Configure the names of the hosts.
+
+   - As a default, if heartbeat can't boot NOX properly, it'll
+     eventually reboot the host.  During installation, this can be
+     inconvenient, and hence, by the default the 'crm' parameter is
+     set to 'respawn' which merely reboots the heartbeat software.
+
+
+3. Generate authkeys for intra-cluster communication.  Run as a root:
+
+   # ( echo -ne "auth 1\n1 sha1 "; \
+      dd if=/dev/urandom bs=512 count=1 | openssl md5 ) > /etc/ha.d/authkeys
+   # chmod 0600 /etc/heartbeat/authkeys
+
+   Copy the file /etc/heartbeat/authkeys to both hosts.
+
+
+4. Start heartbeat on both hosts.  For example, on Debian, as a root
+   run:
+
+   # /etc/init.d/heartbeart start
+
+   To validate the hosts found each other, check the output of
+   'crm_mon' tool.  Both configured nodes should be visible on the
+   node list:
+
+   Node: nox02 (bf4bfb61-4a5e-47ca-91c7-9887d3ab4955): online
+   Node: nox01 (24c1df02-91c3-4ec4-93f6-04937185caa6): online
+
+
+5. Configure NOX for heartbeat Cluster Information Base (CIB).  First,
+   edit the resource.xml and then pass it for heartbeat using cibadmin
+   tool:
+
+   # cibadmin -C -o resources -x resource.xml
+
+   Note: the above imports two coupled resources for heartbeat to
+         manage: an IP address and the actual NOX.  They are defined
+         as a resource group, i.e., the heartbeat can't run them in
+         different nodes.
+
+   If the import succeeded, nothing is printed on console.  Finally,
+   you may cross-check the verification doesn't print any warnings:
+
+   # crm_verify -L -V
+
+   If CIB is OK, nothing should be output.
+
+
+6. Define the preferred node to run NOX.  First, edit the
+   constraints.xml to define the preferred host to run NOX and then
+   import the file to CIB:
+
+   # cibadmin -C -o constraints -x constraints.xml
+
+
+7. Check everything is running properly using crm_mon tool.
+
+   # crm_mon
+
+   Output can be for example:
+
+   ============
+   Last updated: Sat Jul  5 07:43:15 2008
+   Current DC: nox02 (bf4bfb61-4a5e-47ca-91c7-9887d3ab4955)
+   2 Nodes configured.
+   1 Resources configured.
+   ============
+
+   Node: nox02 (bf4bfb61-4a5e-47ca-91c7-9887d3ab4955): online
+   Node: nox01 (24c1df02-91c3-4ec4-93f6-04937185caa6): online
+
+   Resource Group: nox_group
+       ip_resource (heartbeat::ocf:IPaddr2):       Started nox01
+       nox (lsb:nox):      Started nox01
+
+
+8. That's all!
+
+
+Managing the NOX failover
+-------------------------
+
+Heartbeat cluster management system provides the necessary command
+line tools for cluster management.  It's worthwhile to note that in
+general these tools can be run in either node; the system properly
+distributes the actions to both nodes. (
+
+   - 'crm_mon' displays the overall cluster status.
+   - 'crm_resource' provides tools to manage the highly-available
+     resources.
+
+
+In the following, the commands to execute most common management tasks
+are described:
+
+To check where NOX is running, run on any node:
+
+   # crm_resource --locate --resource nox
+
+
+To gracefully shutdown a node (e.g., for maintenance), just run:
+
+   # /etc/init.d/heartbeat stop
+
+The cluster will migrate the NOX instance to the other node, if it was
+running in the node prepared for maintenance.  
+
+Note: shutdowing the heartbeat is the easiest way to revive the node
+after the heartbeat has considered the node to be permanently unusable
+for running NOX, which will happen if NOX can't be started or it
+doesn't remain running after multiple attempts.  (In such conditions,
+'crm_mon' will show 'failed actions' for the specific node.)
+
+
+To test resource migration to a node, while logged on the node, run:
+
+   # crm_resource --resource nox --migrate --host-uname `uname -n`
+
+Note, since the above command results in a *persistent* change, and
+it's essential to undo the migration after testing by running:
+
+   # crm_resource --resource nox --un-migrate
+
+To shutdown NOX entirely without shutting down the cluster management
+system, it's easiest to shutdown the failover IP address since the
+cluster management system can't run NOX without it.
+
+   # crm_resource -r ip_resource -p target_role -v stopped
+
+
+To again restart the failover IP, and subsequently NOX:
+
+   # crm_resource -r ip_resource -p target_role -v started
+
+
+Replicating the storage
+-----------------------
+
+The heartbeat cluster management system doesn't replicate any
+application state between the nodes.  If the NOX system configuration
+requires replicating the transactional storage contents, one should
+install the 'replicator' application and corresponding rsync based
+replication scripts. 
+
+Prerequisites:
+
+   - Shutdown the heartbeat cluster management system on both nodes by
+     running '/etc/init.d/heartbeat stop'.
+
+Then execute the following tasks on both nodes:
+
+1. Configure the failover by editing included 'failover.conf' and then
+   append its contents to the NOX default init.d configuration file
+   (in /etc/default).  In a typical setting, only the
+   REPLICATION_REMOTE path needs to be checked. 
+
+Note: the file is unique to both nodes due to IP addresses included.
+
+2. Prepare the user account running NOX on both nodes to access the
+   other cluster node over SSH using public key authentication.  If
+   necessary, create a SSH private/public key (without a key password)
+   to '$HOME/.ssh/' and update the '$HOME/.ssh/authorized_keys'
+   accordingly.  Check the SSH access is functional to the other node
+   from both nodes by manual logging.
+
+3. Install the 'replicate' script to a proper location and update the
+   NOX user account's crontab to execute the replicate script every
+   minute by adding a proper entry to crontab.  For example:
+
+   0-59 *    *   *   *   /opt/nox/bin/replicate
+
+   Now a cron job fetches the latest database snapshot from the other
+   node, checks it for integrity, and whenever NOX is booted on this
+   machine, the remote snapshot is taken in use if it's more fresh
+   than the local on.
+
+4. Configure the 'replicator' application to produce storage snapshots
+   for the replication script to copy.  For example, by appending the
+   following string to the NOX_ARGS defined in the NOX default init.d
+   configuration file ('/etc/default/nox'), NOX dumps the database to
+   /tmp every 60 seconds for the replication script to replicate.
+
+   "replicator=60,/tmp/nox.snapshot"
+
+5. That's all!

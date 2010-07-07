@@ -1,0 +1,92 @@
+/*
+ * Copyright 2008 (C) Nicira, Inc.
+ */
+
+/*
+ * General
+ */
+html, body {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding-top: 10px;
+    margin: 0;
+    font-family: sans-serif;
+    color: #000000;
+    /*background-color: #BA9D9D;*/
+    background-color: #CFCFCF;
+}
+
+#container, #banner, #heading, #loginForm, #loginTable, #redirMsg {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#container {
+    width: 475px;
+    display: block;
+    background-color: #FFFFFF;
+    border-bottom: 2px solid #1c6434;
+    border-top: 2px solid #1c6434;
+    border-left: 2px solid #1c6434;
+    border-right: 2px solid #1c6434;
+}
+
+#heading {
+}
+
+div.serverMsg, span.serverMsg {
+    color: #bb0000;
+    font-weight: bold;
+}
+
+div.errorMsg, span.errorMsg {
+    color: #ff0000;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+/*
+ * Login
+ */
+#loginMsg {
+    color: #bb0000;
+    font-weight: bold;
+}
+
+#bannerMsg {
+    padding-top: 10px;
+}
+
+#loginTable {
+    padding: 10px;
+}
+
+#login .textinput {
+  width: 11em;
+}
+
+/*
+ * Success
+ */
+#successMsg {
+}
+
+#successStatusMsg {
+    color: #0000ff;
+    font-weight: bold;
+}
+
+#redirMsg {
+    padding: 10px;
+}
+
+/*
+ * Error
+ */
+#error {
+    padding-top: 10px;
+}
+
+

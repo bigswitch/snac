@@ -1,0 +1,18 @@
+Rules stored in the properties database table have the following
+format:
+
+destination.N.name = spammer
+destination.N.type = smtp
+destination.N.from = addr@foo.bar
+destination.N.to = [ addr@foo.bar, ... ]
+
+rule.N.condition = and | or
+rule.N.expr = [ exprs, ... ]
+rule.N.destination = [dst, ...]
+
+exprs = expr 
+expr = event_field op value
+
+op = < | <= | == | != | > | >=
+value = <string>
+event_field = "logid" | "timestamp" | "app" | "level" | "msg"

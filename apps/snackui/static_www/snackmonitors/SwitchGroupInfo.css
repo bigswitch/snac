@@ -1,0 +1,21 @@
+div#no-hosts-msg {
+    display: none;
+    margin-bottom: 1ex;
+}
+
+div#select-host {
+    display: none;
+    margin-bottom: 1ex;
+}
+
+span#unknown-host-err {
+    display: none;
+}
+
+div#monitor_content {
+    /*visibility: hidden;*/
+}
+
+table.item-table {
+    width: 99%;
+}

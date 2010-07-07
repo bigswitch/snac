@@ -1,0 +1,49 @@
+/* Copyright 2008 (C) Nicira, Inc. */
+
+table#interfaces_header_table { 
+  width : 100%; 
+} 
+
+table#interfaces_header_table th {
+    text-align: center;
+    font-weight : bold;
+    border-bottom: 1px solid black;  
+}
+
+table#interfaces_header_table td { 
+} 
+
+/* these classes are both in 'interfaces_header_table' and 'interfaces_table' */ 
+.name {
+    width: 6%;
+} 
+.hwaddr {
+    width: 13%;
+} 
+.ip4addr {
+    width: 13%;
+}
+.ip4mask {
+    width: 13%;
+}
+.ip4bcast {
+    width: 13%;
+}
+.ip4gw {
+    width: 13%;
+}
+.ip4dns {
+    width: 17%;
+}
+.configure {
+    text-align: center; 
+    width: 12%;
+}
+
+div#confirmation_dialog {
+    text-align: center; 
+}
+
+div#certificate_warning_dialog {
+    text-align: center; 
+}

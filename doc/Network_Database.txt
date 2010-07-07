@@ -1,0 +1,214 @@
+Vigil Network Database
+======================
+
+Introduction
+------------
+
+The document describes the network database design, design rationale,
+and how network applications can use the database.  While the document
+is merely a stub in its current state, over the time this document
+will evolve into a full network database specification.
+
+
+Overview
+--------
+
+Network database is the repository of network state.  Since most of
+the system components somehow rely on the network state (directly or
+indirectly), the database implementation has rather demanding
+requirements to meet:
+
+- Performance: The database mustn't become a performance
+  bottleneck. Options to scale up must exist to avoid it becoming a
+  limiting factor in system scale up.
+
+- Availability: The database must remain available for system
+  components depending on it.
+
+- Consistency: the database state must remain consistent over time.
+
+At the same time, the network application developer should have a
+simple, but powerful enough, API to the database. 
+
+Fortunately, the database is expected to be mostly read-only and
+relatively small. The estimate is that the database size is in order
+of a few megabytes.
+
+
+Basic API
+---------
+
+The network database consists of tables, which network applications
+read, write, and modify. The tables further consist of columns, each
+having a well-specified type.  For now, the supported column types
+are:
+
+- int (32-bit signed integer)
+- long (arbitrary precision integer)
+- float    
+- str      
+- unicode  
+- buffer
+
+For example, consider a table named 'binding' that stores the DNS name
+and IP address bindings:
+
+  IP(int) |  name(string)
+----------+-----------------
+  1.2.3.4 | "a.domain1.tld"
+  1.2.3.5 | "b.domain1.tld"  
+  1.2.3.4 | "c.domain1.tld"
+
+The table above has two columns: column IP with type of int and column
+name with type of string. The table stores three rows.
+
+To access tables, applications have two types of operations to
+execute: GetOps and PutOps. Their basic signatures are as follows:
+
+- GetOp(table, match [, callback]) -> [rows]:
+
+  Obtains the rows in 'table' satisfying 'match'.  'table' is the
+  table name as a string.  'match' must be a dictionary in the form
+  {'column1': value1, 'column2': value2, ...}.  It matches any row in
+  which column1 contains value1, column2 contains value2, and so on.
+  For example, GetOp('binding', {'IP': 1.2.3.4}) executed for the
+  above table would return two rows.
+
+  The optional 'callback' argument is explained under "Caching",
+  below.
+
+- PutOp(table, {new_row} [, {replace_match}]) -> void
+
+  Inserts 'new_row' into 'table'.  'table' is the table name as a
+  string.  'new_row' is a dictionary that includes a mapping from
+  column name to value for every column in 'table'.  For example, to
+  insert the third row of the above example, an application would
+  execute PutOp('binding', {'IP': 1.2.3.4, 'name': 'c.domain1.tld'}).
+
+  The optional 'replace_match' argument has the same syntax as the
+  'match' argument to GetOp.  The PutOp deletes any and all matching
+  rows from the table before inserting 'new_row'.
+
+  To delete a row, specify None for 'new_row' and the row to delete as
+  'replace_match'.
+
+  To replace an existing row, specify the new row as 'new_row' and the
+  old row as 'replace_match'.
+
+Transactions
+------------
+
+The API guarantees transactional consistency, and hence, provides a
+transactional access to the network database.  In other words,
+operations can grouped together and the database will either execute
+them all in an atomic manner, or none of them.
+
+Traditional database interfaces provides functions to open a
+transaction, execute a series of operations, and then commit/rollback
+the transaction.  Such design, while being powerful and easy to use
+for application developers, results in strong coupling between the
+application and the database.  Fortunately, we expect network database
+queries to be relatively simple and mostly read-only, and therefore, a
+less coupling and simpler API can be used.
+
+To access the network database tables, the API provides only a single
+method/function: 
+
+- execute(operations [, dependencies]) -> void
+
+  The previously introduced operations, GetOps and PutOps, are given
+  as a list of 'operations'.  The list 'operations' may contain either GetOps
+  or PutOps, but not both.  The API executes the operations in a
+  single transaction or fails.
+
+  The 'dependencies' argument allows for consistency checks in PutOp
+  transactions.  If specified, it consists of a list of previously
+  executed GetOp operations.  The API then re-executes the GetOp
+  before executing the PutOp and confirms the results from the
+  database are the same as passed together with the PutOp for the API.
+
+Caching
+-------
+
+Recall that the network database is expected to be a mostly read-only
+database.  Therefore, caching any data retrieved from the database
+will improve the application performance. However, once such per
+application caching is supported, the API must provide means for rapid
+invalidation of any cached data if the cached data changes in the
+database.
+
+For cache invalidations, the API provides GetOp callbacks. In addition
+to the query, a GetOp operation may include a callback function to be
+called when the GetOp results become invalid. In other words, the full
+GetOp signature is:
+
+GetOp(vals, callback) -> result rows.
+
+Using the API from an application
+---------------------------------
+
+The API is available for Python and C++ applications.  It has seen
+more use and therefore been more thoroughly tested from Python.
+
+Python API:
+
+    The public API, including GetOp and PutOp, is in vigil.ndb.
+
+    Use ndb.execute to execute a transaction.  It returns its results
+    asynchronously, by returning a Deferred object from Twisted (see
+    http://twistedmatrix.com/projects/core/documentation/howto/async.html#auto5).
+    To cause a function to be called with the results when they are
+    available, call the addCallback method on the Deferred object.
+    The Python "lambda" operator can be useful here.  See the existing
+    Python applications for details.
+
+    Python value None has a special meaning in the API: it maps to a NULL
+    database type in the database and is distinct from other ``empty''
+    values like 0 or the string "".
+
+    Use ndb.create_table and ndb.drop_table to create and drop tables
+    in the application.
+
+C++ API: 
+
+    See controller/public/ndb.hh.
+
+Schema
+------
+
+Controller applications are expected to initialize the database
+themselves using the 'create_table' and 'drop_table' methods while
+booting. For more information, see the corresponding method
+signatures.
+
+Components and Interfaces
+-------------------------
+
+API:
+
+The API discussed in this document is designed for network
+applications. However, its implementation may be provided by different
+components for the applications: currently, it's implemented by both
+master and cache components.
+
+Master: 
+
+Master component wraps a SQLite database and maps the API to simple
+SQL queries to provide the API for any network applications running
+within the same vigil process.
+
+Cache:
+
+Cache component has a simple hash table, which it populates with the
+results it gets from the master component it connects to.  The cache
+component uses the master API's callback functionality to invalidate
+any results it has cached to its local hash table.
+
+Protocol:
+
+Cache connects to its master over a TCP based protocol, which supports
+pipelining of requests to improve performance in presence of
+considerable latency.  The connectivity is reliable: in case of
+breaks, the connection is re-established and the messages exchanged
+over the connection are explicitly acknowledged. Moreover, end-points
+have unique names.

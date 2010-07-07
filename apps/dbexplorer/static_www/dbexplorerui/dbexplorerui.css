@@ -1,0 +1,14 @@
+td.insertFormLabel {
+    text-align: right;
+    vertical-align: baseline;
+}
+
+td.insertFormControl {
+    text-align: left;
+    vertical-align: baseline;
+}
+
+td.insertFormSubmitBtn {
+    text-align: right;
+    vertical-align: baseline;
+}

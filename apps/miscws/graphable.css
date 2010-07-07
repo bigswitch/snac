@@ -1,0 +1,43 @@
+div.node
+{
+    position: absolute;
+    background: url("node.gif") no-repeat;
+    background-color: #F44;
+    width: 16px;
+    height: 16px;
+    font-family: monospace;
+    font-size: .9em;
+    color: blue;
+    text-indent: 18px;
+    z-index: 2;
+    cursor: pointer;
+    border: 2px solid white;
+}
+
+div.node.related
+{
+    background-color: #FA2;
+    border-color: black;
+}
+
+div.node:hover
+{
+    background-color: #FF4;
+    font-weight: bold;
+}
+
+div.node:active, div.node:focus { cursor: move; }
+
+div.line
+{
+    position: absolute;
+    z-index: 1;
+}
+
+span.point
+{
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: #4F4;
+}

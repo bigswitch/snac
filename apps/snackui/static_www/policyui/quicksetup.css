@@ -1,0 +1,8 @@
+table#quicksetup-groups {
+    margin-top: 12pt;
+}
+
+table#quicksetup-groups tr {
+    background: #FFFFFF url(/static/nox/apps/coreui/coreui/images/statusHeaderBg.png) repeat-x scroll left bottom;
+    border: 1px solid #DADDDE;
+}

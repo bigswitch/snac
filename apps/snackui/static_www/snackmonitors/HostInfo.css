@@ -1,0 +1,52 @@
+/*
+ Copyright 2008 (C) Nicira,
+ */
+
+div#no-hosts-msg {
+    display: none;
+    margin-bottom: 1ex;
+}
+
+div#invalid-name-error {
+	width: 45%;
+	background: #FFF url("/static/nox/apps/coreui/coreui/images/dotRed.png") no-repeat 3px 50%;
+	margin: 0 0 1.3em 0;
+	padding: 6px 12px 6px 36px;
+	border: 1px solid #FC5816;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+}
+
+div#select-host {
+    display: none;
+    margin-bottom: 1ex;
+}
+
+span#unknown-host-err {
+    display: none;
+}
+
+div#host-info {
+    /*visibility: hidden;*/
+}
+
+div#monitor_content {
+    /*visibility: hidden;*/
+}
+
+.dj_ff2 div#monitor_content {
+	overflow-x: hidden;
+}
+
+div#host-nav {
+    margin: 1px;
+    margin-bottom: 1ex;
+}
+
+table.item-table {
+    width: 99%;
+}
+
+table.item-table td.number,td.speed,td.rx-pkt,td.tx-pkt,td.drop-pkt {
+    text-align: right;
+}

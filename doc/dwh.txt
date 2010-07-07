@@ -1,0 +1,182 @@
++----------------+
+| Data Warehouse |
++----------------+
+
+Overview
+========
+
+TimeMachine as a DWH system
+---------------------------
+
+Data warehouse is the main repository of an organization's historical
+data, its corporate memory. It contains the raw material or
+management's decision support system. The critical factor leading to
+the use of a data warehouse is that data analyst can perform complex
+queries, such as data mining, on the information without slowing down
+the operational systems. [http://www.wikipedia.org, 2008/01]
+
+In NOX, the data warehouse stores all network database tables as well
+flow modifications/expirations. The data warehousing is decoupled from
+the main controller functionality; it's a task of a controller
+application, 'dwh', to Extract flat files of this information on the
+controller disk system. These files are further Transformed and Loaded
+by the scripts and SQL procedures into the DWH database. (Together,
+this process is called ETL in the DWH lingo.)
+
+Typically the DWH database, as well as, the loading process, are
+hosted on a dedicated database computer optimized for database
+usage. While this host will be called in the following text as 'DWH
+host', it's logical and may co-exist with the NOX controller in the
+same host for the sake of simplicity.
+
+Loading process details
+-----------------------
+
+On a controller host, the controller produces a comma separated flat
+file per a table (including flows) per every database commit period,
+if there was something to write. The flat file names have the
+following syntax:
+
+'<table>-<timestamp-of-first-entry>-<timestamp-of-latest-entry>-<serial>.sql'
+
+The files are comma separated ASCII text files. Text and binary fields
+are quoted (") and escapified using '\'. The first line of the file is
+a list of columns the file has. The file contains two kinds of rows:
+ones that 'OPEN' entries and ones that 'CLOSE' entries. (These rows
+will be combined into one by the import process in the database.) Note
+that when the controller boots, it creates a special all matching row
+right after the header file to close any pending OPEN entries
+preceding the NOX shutdown.
+
+The controller prepares the files under '/usr/local/var/nox/' and
+moves them to '/usr/local/var/nox/export/', once the database commits
+(default is every 10 minutes).  The locations can be configured
+compile time.
+
+From there on, standard UNIX shell tools are expected to be used in
+moving the files to DWH host to location '/usr/local/var/nox/import'.
+If the DWH and controller hosts are the same, 'mv' command is
+sufficient. If not, 'rsync -e ssh' with public key authentication is
+the preferred method to move (and delete) files at '.../export/'.
+
+Once the files are on the DWH host, the import process can be run by
+executing 'import.py'. (If the database connection defaults are
+non-default, they can be configured by passing them on command line.)
+The import executes the following file loading process:
+
+    - It creates a directory lock into the import directory. If
+      locked, quits by printing an error message (and not, if -q
+      switch is given).
+
+    - It determines the file(s) and the procedures to use based on the
+      file name(s).
+
+    - It loads the file(s) using MySQL 'LOAD DATA INFILE' command.
+
+    - It runs the post-processing SQL stored procedure(s), which
+        - create a load log entry with a file name, dump source, table
+          and date,
+        - merge open and close entries into a single row with open and
+          close time (optional), and
+        - create a snapshot entry.
+
+    - It finalizes by moving ove the loaded file to
+      '/usr/local/var/nox/loaded/' and deletes the lock.
+
+Once the import process finishes, the files are ready for compression
+or deletion in '.../loaded/'. Import won't touch them anymore.
+
+It's assumed the 'import.py' as well as the following optional
+compressing of already loaded files will be peridiocally run using,
+e.g., UNIX cron.
+
+Installation and using the DWH
+==============================
+
+DWH Schema
+----------
+
+'dwh.sql' has the DWH schema.  The schema contains the following
+tables:
+
+- A table per a network database table (with identical name).
+
+- A 'FLOW' table for network flows added/removed by NOX.
+
+- A 'FLOW_SETUP' table for packet-in events (flow setup attempts).
+
+- Staging tables for each of the above tables. The 'import.py' loads
+  the flat files into these tables for further pre-preprocessing by
+  the SQL procedures, which will load the contents into the actual
+  tables mentioned above.
+
+- Snapshot tables for each of the network database tables and 'FLOW'
+  tables. Into these tables, the SQL proceduces create a 'snapshot' of
+  the table state after every successful loading of a file by
+  'import.py'. In other words, if the NOX controller extracts a flat
+  file every 10 minutes, a snapshot is created every 10 minutes. The
+  snapshot tables optimize the accelerate querying of historical data.
+
+- Various meta data tables to identify the tables, source controllers,
+  and to maintain a loading log.
+
+In addition, per each network database table (and the 'FLOW' table),
+there's a set of SQL procedures:
+
+- LOAD_<table name> procedure is called by the 'import.py' script to
+  process the just loaded data in the corresponding
+  '<table_name>_STAGING' table.  The procedure calls the subsequent
+  procedures in addition to creating a log entry to the 'LOAD_LOG'
+  table.
+
+- PRE_PROCESS_<table_name> processes the contents of the
+  '<table_name>_STAGING' table by creating a new entry per 'OPEN'
+  entry to the '<table_name>' table and by closing matching entries in
+  the '<table_name>' per a 'CLOSE' entry. (Closing occurs by replacing
+  the MAX_LONG value of the DELETED_DT column with the time of
+  closing.)
+
+- CREATE_<table_name>_SNAPSHOT creates a snapshot to the
+  '<table_name>_SNAPSHOT' that includes all the 'OPEN' entries till
+  the time of the latest entry was created. In other words, for
+  example if a flow expired at the snapshot time, the flow is not
+  anymore included in the snapshot. However, if the flow was
+  established at the snapshot time, it is included in the snapshot.
+
+Querying the DWH
+----------------
+
+vigil/dwh/api.py contains an example of a 'DWHConnection' class for
+querying and replaying the DWH. In short, the idea is to open a cursor
+to the table of interest (say, 'FLOW') and then keep iterating the
+history with the cursor (using the standard Python DB API
+functionality).  If the state of additional tables becomes necessary
+at any given time, they can be queried in a similar manner by opening
+another cursor.
+
+If performance is an issue, the additional tables can be browsed in a
+similar manner to the 'FLOW' table above and by maintaining the current
+state of additional tables instead of opening cursors on demand. The
+optimal approach depends on the application.
+
+Setting up MySQL for DWH
+------------------------
+
+First, create a MySQL user account for the NOX:
+
+$ mysql -u root -p 
+
+mysql> create database nox_dwh;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> grant all privileges on *.* to 'nox_dwh'@'localhost' identified by 'nox_dwh' with grant option;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> quit
+
+Then load the NOX DWH schema with the SQL procedures in:
+
+$ mysql -D nox_dwh -u nox_dwh -p < dwh.sql
+
+[when prompted, enter password 'nox_dwh']
+

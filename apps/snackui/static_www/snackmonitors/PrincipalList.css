@@ -1,0 +1,47 @@
+.headerRow {
+	width: 98%;
+	height: 26px;
+	margin-bottom: 12px;
+  background: #FFF url("/static/nox/apps/coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
+	 
+  border: 1px solid #DADDDE !important;
+	/*-moz-border-radius:8px;*/
+}
+
+th#table-column {
+    width: 16%
+}
+
+table {
+	border-collapse: collapse;
+	margin: 0 0 0 0;
+	width: 99%;
+}
+
+th {
+  text-align: left;
+	text-indent: 0px;
+	padding-left:8px;
+	height: 26px !important; 
+	border: none;
+  vertical-align: middle;
+	font-weight: normal;
+	font-size: 1.1em;
+	color: #707070;
+	line-height: 22px;
+	margin: 3px 0 0 15px;
+	border-right: 1px solid #E7EAEB;
+}
+
+td {
+  text-align: left;
+	text-indent: 0px;
+	padding-left:8px;
+  height: 24px !important; 
+	border: none;
+  vertical-align: middle;
+	font-weight: normal;
+	font-size: 1.0em;
+	line-height: 22px;
+	margin: 3px 0 0 15px; 
+}

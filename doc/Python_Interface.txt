@@ -1,0 +1,153 @@
+=======================================================================
+                      NOX Python Interface
+=======================================================================
+
+Intro:
+-----
+
+NOX can optionally be configured to support an embedded Python
+interpreter.  The interpreter allows Python scripts to manipulate the
+controller/control path runtime by exposing the C++ event loop and
+auxilliary classes to Python.
+
+Configuration:
+--------------
+
+See INSTALL at the top level of this distribution for instructions on
+how to configure and build NOX with support for Python.
+
+To verify that the ctlpath has been successfully configured to support
+embeded Python, run it with the pyloop application, which should
+display the Python command prompt in interactive mode.
+
+Alternatively, you can have the controlpath execute a Python file
+directly using the pyrun application, e.g. "controller pyrun=PYFILE".
+
+Running Python Applications in the Controller:
+----------------------------------------------
+
+To make Python applications available for execution at runtime, add
+them to controller/pyapps.  Specify their names as applications on the
+controller command to load them into the controller.
+
+To distribute Python applications with NOX when "make dist" is
+executed, add them to the files listed on nobase_dist_pkgdata_DATA in
+controller/Makefile.am.
+
+The embedded Python interpreter has full support for twisted.core
+which has been integrated with the C++ event loop.  For an example
+application which does not use any NOX specific functions, see
+pyapps/fortune.py.
+
+NOX specific functions (including access to events and the event loop)
+are implemented within the vigil module (see src/switch/controller/vigil/).
+You can query the contents of the vigil module directly from the Python
+interpreter:
+
+badwater:~/projects/vigil/src/switch/controller> ./controller -i
+>>> import vigil
+>>> dir(vigil)
+    ['Dispatcher', 'Dispatcher_get_instance',
+    'Dispatcher_swigregister', 'Event', 'Event_swigregister',
+    'Event_type', 'Event_type_allocate', 'Event_type_swigregister',
+    '__builtins__', '__doc__', '__file__', '__name__', '__path__',
+    '_vigil', 'cvar', 'new', 'new_instancemethod', 'pyevent',
+    'pyevent_swigregister', 'pyvigilreactor', 'vigil',
+    'vigilreactor', 'vigilreactor_get_reactor',
+    'vigilreactor_swigregister']
+>>>
+
+All applications intended to interact directly with the NOX event loop
+(e.g. managing events from within Python) must use the functions and
+classes exported by this module. See pyapps/packetdump.py for an example
+of an app that handles PACKET_IN_EVENTS.  
+
+Interacting with NOX in Python
+------------------------------
+
+The primary interface between Python and C++ is the set of interfaces
+in the "vigil" package and its subpackages, plus the pyapps.pyapi.
+Take a look at the existing applications in pyapps/ for examples of
+use of each of these.  The most useful of them are:
+
+  - pyapps.pyapi: by far the most useful and important APIs.  Read
+    pyapi.py for terse explanations.  
+
+  - vigil.ndb.api: The Python interface to the network database.  See
+    Network_Database.txt in this directory for an introduction to the
+    network database and its API.
+
+  - vigil.packet.*: Classes for dissecting and assembling network
+    protocols.
+
+Exposing C++ Events to Python
+--------------------------------
+
+All Events that are going to be exposed to C++ must inherit from the
+abstract base class python_compatible_event and override the
+fill_python_event pure virtual function (see packet-in.hh for an
+example).  Each member attribute that is to be exposed to Python must be
+explicitly wrapped using a to_python converter (the existing set of
+converters can be found in pyglue.hh). (Note: if a converter for the type you
+wish to expose doesn't exist, it must be implemented as a specialization
+of to_python(..) using the Python C API.)
+
+For example, assume we create a foo_event and want to expose it to
+Python along with an internal member variable bar of an integer type.
+Then the fill_python method for foo would look as follows:
+
+    inline void
+    foo_event::fill_python_event(PyObject* proxy) const
+    {
+    #ifdef TWISTED_ENABLED
+        pyglue_setattr_string(proxy, "bar", to_python(bar));
+    #endif // TWISTED_ENABLED
+    }
+
+All attributes set with pyglue_setattr_string(..) are accessible from
+Python as member attributes of the event that is passed in to the
+registered callback.
+
+The final step for exposing a C++ event to Python is to add a static
+Event_type (with the same value assigned to the C++ Event_type) in
+pyevent.hh.  For foo_event, this might look like:
+
+   static const Event_type FOO_EVENT_TYPE;
+
+With the following static initializer:
+
+   const Event_type pyevent::FOO_EVENT_TYPE = foo_event::static_get_type(); 
+
+Note that this approach obviates exposing dynamically typed Events to
+Python.
+
+Exposing C++ Classes to Python 
+--------------------------------
+
+Write a .i swig file that contains the declarations to be exposed.  Be
+wary of memory contract issues (www.swig.org)
+
+We want to keep the interface between C++ and Python as minimal as
+possible.  If you wish to build an asynchronous network application, use
+the twisted interface in Python (rather than expose a C++ class written
+on top of the event harness).  If you wish to pass data to Python from
+C++, create a new event.  However, keep in mind that events are meant to
+be correlated with actual system events (e.g. packet in, user logged in,
+flow setup, etc.) not as an ad hoc RPC mechanism.  
+
+Overview of Python Related Source Files:
+---------------------------------------
+
+*.i             - swig wrappers to expose C++ classes to Python.
+twistedglue.*   - Wrapper for the C++ event loop which is exported to
+                  Python and replaces the twisted default reactor.
+pyevent.hh      - Event class that is exposed to Python.  Handles
+                  the translation of static C++ Events to a dynamic
+                  Python event object
+pyglue.hh       - Set of to_python<> specializations to map C++ types
+                  to Python objects
+python_compatible_event.hh - ABC for exposing C++ Event attributes to
+                             Python
+dispatcherpyglue.hh - hides some uggliness for casting C++ Events to
+                      pyevents and passing them to registered Python
+                      callbacks. 

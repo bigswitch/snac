@@ -1,0 +1,27 @@
+# -*- makefile -*-
+
+define ext_configure
+cd src/nox/ext && (test -e configure || ./boot.sh)
+cd src/nox/ext && (test -d _debian || mkdir _debian)
+cd src/nox/ext/_debian && ( \
+        test -e Makefile || \
+        ../configure --enable-ndebug --prefix=/opt/nox --with-python=yes)
+endef
+
+define ext_build
+cd src/nox/ext/_debian && $(MAKE) -j6
+endef
+
+define ext_clean
+cd src/nox/ext && rm -rf _debian
+cd src/nox/ext && ([ ! -f Makefile ] || $(MAKE) distclean)
+endef
+
+define ext_install
+cd src/nox/ext/_debian && $(MAKE) DESTDIR=$(CURDIR)/debian/noxext install
+install -m1777 -d debian/noxext/var/log/snacdb
+endef
+
+define snac_install
+cd src/nox/ext/_debian/apps/snackui/help_src/ && $(MAKE) DESTDIR=$(CURDIR)/debian/snacdocs/opt/nox/bin/nox/ext/apps/snackui/help_src/ install
+endef

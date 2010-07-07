@@ -1,0 +1,167 @@
+table.item-inspector td.item-inspector-label.item-inspector-separator {
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    background: black;
+    color: white;
+}
+
+table#layout1 {
+	width:100%;
+}
+
+table#layout1 tr td {
+    vertical-align: top;
+}
+
+div#graphs {
+    height: 363px;
+    margin: 0.8em 1em 0.25em 1em;
+}
+
+// not used yet
+.chart-normal { 
+  background-color: white; 
+  width: 475px; 
+  height: 326px; 
+  display: none;
+}
+
+.chart-error-msg { 
+  color: gray;
+  width: 14em;
+  line-height: 325px; 
+  margin-left: auto; 
+  margin-right: auto; 
+}
+
+.graphsContainer {
+	width:475px;
+}
+
+.chartsControls {
+	float: left;
+	width: 100%;
+	height: 34px;
+	background: #FFF url("/static/nox/apps/coreui/coreui/images/chartsControlsBg.png") repeat-x bottom left;
+	border: 1px solid #CECECE;
+}
+
+#statsContainer {
+	padding-right:20px;
+}
+
+.chartsFilterLeft,
+.chartsFilterRight {
+	float: left;
+	margin: 6px 0 0 7px;
+}
+
+.chartsFilterLeft {
+}
+
+.chartsFilterRight {
+}
+
+.chartsFilterLeft .dijitComboBox {
+	width: 250px;
+}
+
+.chartsFilterRight .dijitComboBox {
+	width: 120px;
+}
+
+.chartsFilterLeft .dijitInputField,
+.chartsFilterRight .dijitInputField {
+	padding: 3px 0 0 3px;
+}
+
+.dj_ff2 .chartsFilterLeft .dijitInputField,
+.dj_ff2 .chartsFilterRight .dijitInputField {
+	padding: 2px 0 0 3px;
+}
+
+.dj_ie .chartsFilterLeft .dijitInputField,
+.dj_ie .chartsFilterRight .dijitInputField {
+	padding: 5px 0 0 3px;
+}
+
+.chartButtons {
+	float: right;
+	margin: 4px 7px 0 0;
+}
+
+.chartButtons .buttonBack,
+.chartButtons .buttonCycle,
+.chartButtons .buttonPause,
+.chartButtons .buttonForward {
+	float: left;
+}
+
+.chartsBack,
+.chartsCycle,
+.chartsPause,
+.chartsForward {
+	height: 9px;
+	width: 12px;
+	margin: 1px 0 0 5px;
+	background: url("/static/nox/apps/coreui/coreui/images/spriteControls.png") no-repeat;
+	background-position: 0 0;
+}
+
+.dj_safari .chartsBack,
+.dj_safari .chartsCycle,
+.dj_safari .chartsPause,
+.dj_safari .chartsForward {
+	margin: -4px 0 0 5px;
+}
+
+.chartsBack {
+	
+}
+
+.chartsCycle {
+	background-position: -12px 0;
+}
+
+.chartsPause {
+	background-position: -36px 0;
+}
+
+.chartsForward {
+	background-position: -24px 0;
+}
+
+.dijitButtonHover .chartsBack,
+.dijitButtonHover .chartsCycle,
+.dijitButtonHover .chartsPause,
+.dijitButtonHover .chartsForward {
+	height: 9px;
+	width: 12px;
+	background: url("/static/nox/apps/coreui/coreui/images/spriteControls.png") no-repeat;
+	background-position: 0 0;
+}
+
+.dijitButtonHover .chartsBack {
+	background-position: 0 -9px;
+}
+
+.dijitButtonHover .chartsCycle {
+	background-position: -12px -9px;
+}
+
+.dijitButtonHover .chartsForward {
+	background-position: -24px -9px;
+}
+
+.dijitButtonHover .chartsPause {
+	background-position: -36px -9px;
+}
+
+.chartsContainer {
+	clear: both;
+	width: 100%;
+	height: 326px;
+	background: #FFF;
+	border: 1px solid #CED5D7;
+	border-top: none;
+}

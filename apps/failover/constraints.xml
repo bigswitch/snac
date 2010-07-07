@@ -1,0 +1,7 @@
+<constraints>
+  <rsc_location id="nox_group" rsc="nox_group">
+    <rule id="pref_run_nox_group" score="100">
+      <expression attribute="#uname" operation="eq" value="EDIT_NAME_PREFERRED_NODE"/>
+    </rule>
+  </rsc_location>
+</constraints>

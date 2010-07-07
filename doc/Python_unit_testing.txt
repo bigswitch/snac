@@ -1,0 +1,77 @@
+=======================================================================
+                      Vigil Unit Testing 
+=======================================================================
+
+Intro:
+-----
+
+pyUnit is currently being used as the primary testing framework for
+the controller.  All test files are located in src/switch/controller/pyt/.
+To run the tests, execute 'make check' in the src/switch/controller.
+
+The existing unit tests are pretty feeble.  Even the ones that have
+been written have not all been hooked up to "make check".  We need a
+lot of work in this area.
+
+Creating Tests:
+---------------
+
+- create new test file in src/switch/controller/pyt/
+- See pyt/event_test.py as a example. 
+- Note that all test files are expected to have a "suite()" method which
+  returns the pyunit testing suite
+- make sure new file has a "suite()" method to return pyUnit test suite
+- To make the test run automatically from "make check", add
+  <test_name>.pytest to TESTS at the end of Makefile.am.
+
+For information on writing pyunit tests, check out the following
+resource:
+
+ - http://docs.python.org/lib/module-unittest.html
+
+C++ Unit Tests:
+---------------
+
+While the testing harness is run from python, it is still possible to
+do fine-grained unit testing of C++ objects.  To do so, simply write
+the tests as a function in C++ and expose it to python via swig.  You
+can then create a python unit test which asserts that the C++ method
+ran successfully.
+
+
+Asynchronous C++ Unit Tests:
+--------------------------
+
+The testing infrastructure supports asynchronous C++ unit tests which
+rely on one or more callback methods to be called from the dispatcher
+to complete.  
+
+Assume you've created a shiny new class "Foo".  The steps to expose an
+asynchronous test of Foo to python are as follows:
+(see tests/ssl-test.[hh|cc] as an example)
+
+1. Add a static method to Foo with the following declaration:
+
+    static
+    void
+    run_unit_test(boost::function<void (bool)> f)
+
+    This method will be called when the test is being executed by
+    python.  The function "f" that is passed in must be called when the
+    tests has completed with a bool indicating the outcome of the test
+
+2.  The definition of run_unit_tests(..) should execute the tests (it may
+    interact with the dispatcher as normal) and call f when completed.
+
+3. Expose run_unit_tests(..) to python in c_unit_tests.py.  For the case
+   of Foo, this will require adding the line 
+
+   %template(footest) run_test<Foo>;
+
+4. Finally, add the test to pyt/c_unit_test.py in the same manner as the
+   other tests.  Be sure to return a deferred object so that the harness
+   knows to wait until the deferred object has fired before exiting.
+
+5. Ensure all new .cc files are included in the Makefile.am
+
+Please limit testing code to the tests/ directory.

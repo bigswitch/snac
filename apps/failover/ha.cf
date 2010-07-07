@@ -1,0 +1,26 @@
+logfacility daemon
+keepalive 500ms
+deadtime 10
+warntime 5
+initdead 120
+udpport 694
+auto_failback off
+use_logd no
+compression bz2
+compression_threshold 2
+
+# EDIT the lines below as necessary
+
+# Add stable router/switch IPs usable for testing IP connectivity
+ping 192.168.0.1 192.168.0.2
+
+# Interfaces to use for heartbeat communication with other cluster
+# nodes
+bcast eth0 eth1
+
+# NOX node names
+node nox01
+node nox02
+
+# Once ready for production, change this to yes.
+crm respawn

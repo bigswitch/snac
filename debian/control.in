@@ -1,0 +1,11 @@
+Package: noxext
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, noxcore (= ${source:Version}), nox-monitor (= ${source:Version}), tmpreaper
+Description: NOX network control platform extensions
+    NOX network control platform extensions
+
+Package: snacdocs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, noxext (= ${source:Version})
+Description: SNAC html documentation 
+    SNAC html documentation 

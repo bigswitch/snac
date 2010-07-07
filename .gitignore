@@ -1,0 +1,14 @@
+#*#
+*~
+.#*
+.*.swp
+*.pyc
+/_debian
+/aclocal.m4
+/autom4te.cache
+/config.h.in
+/configure
+Makefile.in
+TAGS
+cscope.*
+tags

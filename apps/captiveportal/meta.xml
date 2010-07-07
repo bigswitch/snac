@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
+
+  <component>
+    <name>captiveportal</name>
+    <dependency>
+      <name>authui</name>
+    </dependency>
+    <dependency>
+      <name>pytransactional storage</name>
+    </dependency>
+    <dependency>
+      <name>redirproxy</name>
+    </dependency>
+    <dependency>
+      <name>coreui</name>
+    </dependency>
+    <dependency>
+      <name>directorymanager</name>
+    </dependency>
+    <dependency>
+      <name>pybindings_storage</name>
+    </dependency>
+    <dependency>
+      <name>pyhttp_redirector</name>
+    </dependency>
+    <dependency>
+      <name>pyauthenticator</name>
+    </dependency>
+    <dependency>
+      <name>pyuser_event_log</name>
+    </dependency>
+    <dependency>
+      <name>configuration</name>
+    </dependency>
+    <python>nox.ext.apps.captiveportal.captiveportal</python>
+  </component>
+
+</components:components>

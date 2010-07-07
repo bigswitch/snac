@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -x "/etc/init.d/noxcore" ]; then
+    /etc/init.d/noxcore restart || exit $?
+fi
+
+#DEBHELPER#

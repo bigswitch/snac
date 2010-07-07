@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
+  <component>
+    <name>http_redirector</name>
+    <library>http_redirector</library>
+    <dependency>
+      <!-- for mapping function names to policy -->
+      <name>flow_util</name>
+    </dependency>
+    <dependency>
+      <name>transactional_storage_backend</name>
+    </dependency>
+    <dependency>
+      <name>configuration</name>
+    </dependency>
+  </component>
+  <component>
+    <name>pyhttp_redirector</name>
+    <dependency>
+      <name>http_redirector</name>
+    </dependency>
+    <python>nox.ext.apps.http_redirector.pyhttp_redirector</python>
+  </component>
+</components:components>

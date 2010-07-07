@@ -1,0 +1,162 @@
+<div class="rule-editor" dojoAttachPoint="content">
+  <!-- We're temporarily going with a simplified versino of the rule editor
+       that requires python syntax rules to be written by the user.  The more
+       sophisticated dynamic rule editor here is commented out for now because
+       all this will be needed again in the near future when we go back
+       to this.
+
+  <div class="rule-sep">Action</div>
+  <div class="rule-action">
+    <select name="action0" dojoType="dijit.form.ComboBox"
+            autocomplete="true" value="allow" dojoAttachPoint="action0">
+      <option>deny</option>
+      <option selected="selected">allow</option>
+      <option>authenticate</option>
+      <option>log</option>
+    </select>
+  </div>
+  <div class="rule-protocol">
+    <select name="protocol0" dojoType="dijit.form.ComboBox"
+            autocomplete="true" value="any protocol"
+            dojoAttachPoint="protocol0">
+      <option selected="selected">any protocol</option>
+      <option>the protocol</option>
+      <option>any protocol but</option>
+      <option>any protocol in the set</option>
+      <option>any protocol not in the set</option>
+    </select>
+  </div>
+  <div class="rule-from">
+    <select name="fromtype0" dojoType="dijit.form.ComboBox"
+            autocomplete="true" value="with any source"
+            dojoAttachPoint="fromtype0">
+      <option selected="selected">with any source</option>
+      <option>with source user</option>
+      <option>with source host</option>
+      <option>with source location</option>
+      <option>with source transport port</option>
+      <option>with source network address</option>
+      <option>with source link address</option>
+    </select>
+  </div>
+  <div class="rule-to">
+    <select name="totype0" dojoType="dijit.form.ComboBox"
+            autocomplete="true" value="and any destination"
+            dojoAttachPoint="totype0">
+      <option selected="selected">and any destination</option>
+      <option>and destination user</option>
+      <option>and destination host</option>
+      <option>and destination location</option>
+      <option>and destination transport port</option>
+      <option>and destination network address</option>
+      <option>and destination link address</option>
+    </select>
+  </div>
+  <div class="rule-response">
+    <input type="checkbox" dojoType="dijit.form.CheckBox"
+           checked="checked" value="on" dojoAttachPoint="responsetoo"/>
+    <label>including response traffic</label>
+  </div>
+  <div class="rule-time">
+    <select name="day-1" dojoType="dijit.form.ComboBox"
+            autocomplete="true" value="on any day"
+            dojoAttachPoint="datetype">
+      <option selected="selected">on any day</option>
+      <option>when the day of the week is</option>
+      <option>when the day of the week is not</option>
+      <option>when the day of the week is in the set</option>
+      <option>when the day of the week is not in the set</option>
+      <option>on the date</option>
+      <option>on any date but</option>
+      <option>in the date range<option>
+      <option>not in the date range</option>
+      <option>in the set of dates</option>
+      <option>not in the set of dates</option>
+    </select>
+    <select name="time-1" dojoType="dijit.form.ComboBox"
+            autocomplete="true" value="at any time"
+            dojoAttachPoint="timetype">
+      <option selected="selected">at any time</option>
+      <option>in the time range</option>
+      <option>not in the time range</option>
+      <option>in the set of time ranges</option>
+      <option>not in the set of time ranges</option>
+    </select>
+  </div>
+--><form dojoType="dijit.form.Form">
+  <div class="ruleSpecification">
+    <div class="rule-sep">Rule Specification</div>
+  
+    <textarea dojoType="dijit.form.SimpleTextarea"
+              dojoAttachPoint="pyrule"></textarea>
+    </div>
+    <div class="protectedRuleNotice">
+      <table>
+        <tr>
+            <td><img src="/static/nox/apps/coreui/coreui/images/protectedRuleLock.png" alt="Protected Rule" class="protectedIcon" /></td>
+            <td>
+                <h3>Protected Rule</h3>
+                <p>This rule is vital to system integrity. To edit, you must first unselected the protected toggle below.</p>
+            </td>
+        </tr>
+      </table>
+    </div>
+    <div class="rule-sep">Metadata</div>
+    <div class="rule-metadata">
+      <table>
+        <tr>
+          <td>
+            <table class="labeledinfo">
+              <tr>
+                <td class="label"><span>Description:</span></td>
+                <td class="metadata"><input type="text" dojoType="dijit.form.TextBox"
+                                            trim="true" dojoAttachPoint="description"/></td>
+              </tr>
+              <tr>
+                <td class="label"><span>Comment:</span></td>
+                <td class="metadata"><textarea dojoType="dijit.form.SimpleTextarea"
+                                               dojoAttachPoint="comment"></textarea></td>
+              </tr>
+              <tr>
+                <td class="label"><span>Exception:</span></td>
+                <td class="metadata">
+                  <!-- Make this a set of radio buttons ??? -->
+                  <input type="checkbox" dojoType="dijit.form.CheckBox"
+                         dojoAttachPoint="exception"/>
+                </td>
+              </tr>
+              <tr>
+                <td class="label"><span>Protected:</span></td>
+                <td class="metadata">
+                  <!-- Make this a set of radio buttons ??? -->
+                  <input type="checkbox" dojoType="dijit.form.CheckBox"
+                         dojoAttachPoint="protect"/>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="metaRight">
+            <table class="labeledinfo">
+              <!-- Do we need support added as well as modified information?
+                   Currently the webservice only has modified?
+                   <tr>
+                     <td class="label"><span>Added:</span></td>
+                     <td class="metadata" dojoAttachPoint="addedmsg"></td>
+                   </tr>
+                   -->
+              <tr>
+                <td class="label"><span>Last Modified:</span></td>
+                <td class="metadata" dojoAttachPoint="modifiedmsg"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="rule-sep"></div>
+    <div class="rule-buttons">
+      <button dojoType="dijit.form.Button" dojoAttachPoint="doneBtn">Done</button>
+      <button dojoType="dijit.form.Button" dojoAttachPoint="cancelBtn">Cancel</button>
+    </div>
+  </form>
+</div>

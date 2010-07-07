@@ -1,0 +1,97 @@
+#################
+# In auth_login:
+#################
+#Title bar
+{organization name} Network Authentication
+{organization name} ネットワークアクセス認証
+# Header:
+Authentication Required.
+アクセス認証が必要です
+# Status msg 1:
+Log in failed, please try again.
+ログインに失敗しました。入力内容をもう一度ご確認ください。
+
+#Status msg 2:
+You have been logged out.
+ログアウトしました。
+
+#Login form heading:
+Please log in to gain access to the network.
+このネットワークにアクセスするためログインが必要です。
+#Login form field descriptions:
+Username:
+ユーザ名:
+Password:
+パスワード:
+
+#Login form button:
+Log In
+ログイン
+#While waiting for login
+Logging in, please wait.
+ログインしています。お待ちください。
+#################
+# In auth_logout
+#################
+#Title bar
+{organization name} Network Authentication
+{organization name} ネットワークアクセス認証
+## if popup:
+#Status Msg:
+Log in successful.
+ログインに成功しました。
+Close this window or click below to log off.
+このウィンドウを閉じるか、下のボタンをクリックしログオフしてください。
+#Logout form button:
+Log Out
+ログアウト
+
+## if not popup:
+#Status Msg:
+Log in successful.
+ログインに成功しました。
+Close this window or click below to log off.
+このウィンドウを閉じるか、下のボタンをクリックしログオフしてください。
+#No popup warning:
+A popup window failed to load.  If you have a popup blocker, disable
+it and click <link>here</link>.
+ポップアップウィンドウの表示に失敗しました。ポップアップブロッカーが適用されている場合は無効にし、<link>ここ</link> をクリックして下さい。 
+You will be logged off if you navigate away from this page or close
+this window.
+このページから移動、もしくはウィンドウを閉じるとログオフされます。
+#Logout form button:
+Log Out
+ログアウト
+
+#################
+# In auth_success
+#################
+#Status msg:
+Log in successful.
+ログインに成功しました。
+You are now logged in as {username}.
+{username}でログイン中です。
+
+## if redirect about to happen
+You should be redirected to <link>URL..</link>.  
+<link>URL...</link> へ自動転送されます。
+If you are not redirected, you can click <link>here</link>, or reissue your request.
+自動転送されない場合、<link>ここ</link> をクリックするか、再送信してください。
+## if no redirect possible
+You may now access the network.
+ネットワークにアクセス可能になりました。
+
+#####################
+# Unknown error page
+#####################
+#Error msg
+An Error has occured while processing your request. If you are experiencing network problems, please contact network administrator.
+ネットワークエラーが発生しました。ネットワーク管理者にお問い合わせください。
+
+#Page title
+Network Error
+ネットワークエラー
+
+
+
+

@@ -1,0 +1,95 @@
+Packet Classifier
+
+1. Goals 
+
+The Controller will want to treat individual flows/packets differently
+based on the current policy/system state.  To accomplish this, desired
+behaviour is specified in terms of rules, where a rule is composed of
+an expression and an action.  An expression describes the packets the
+rule should be applied to, while an action points to a function that
+should be called on the packet.  Rules also have priorities that
+provide ordering should multiple rule expressions apply to a single
+packet.
+
+The classifier is used to quickly find the rules that apply to a
+particular packet.  At a high level, its strategy is to organize rule
+sets into a tree.  The tree branches on attributes that the rule
+expressions are defined over (e.g. packet headers).  Rules are then
+placed at points in the tree corresponding to their expressions'
+values for these attributes.  When the rules applying to a particular
+packet need to be found, only the branches with attribute values
+matching those of the packet need be followed.
+
+The classifier only branches on an attribute when the cost of the
+branching is outweighed by the cost of checking a packet against all
+of the rules that the branching would otherwise eliminate.
+Additionally, an expression can define attributes it does not expose
+to the classifier for branching.  Thus, the rules resulting from
+traversal of the tree may not fully match the packet and still need to
+be checked against the packet for a complete match.
+
+2. Design Decisions
+
+The classifier is templated over rule expressions, to allow for use in
+any situation where some form of packet classification is needed
+(i.e. different expression types may be needed in different
+classification situations).  See "classifer.hh" and "expr.hh" for
+further descriptions.
+
+Hashing vs. Range-based Hi-Cuts
+
+We're assuming that most rule expressions will be exact match as
+opposed to range based.  Hashing allows us to eliminate rules that are
+not exact matches for the attribute being split on.  We might
+implement range splits should range/prefix rules become common and
+thus worth the additional tree-node type.
+
+Duplicating ANY rules
+
+Many rule expressions will not specify constraints on all expression
+attributes.  Should a tree branch on an attribute a rule does not
+constrain, the rule should be checked by all packets traversing that
+node.  These semantics can be achieved by either:
+
+a. duplicating these "ANY" rules to all children of the node.  
+
+b. have a specific "ANY" sub-tree that should always be traversed
+in addition to the value sub-tree corresponding to the packet.  
+
+Option A allows for simple traversal and greater rule elimination by a
+single hash, however it can incur a significant memory cost in heavily
+wildcarded rule sets.  As a result, the current implementation follows
+option B.  Should the extra hashing hurt performance, we can look into
+heuristics that optimally use duplication.
+
+Hypercuts
+
+Varghese's paper discusses simultaneously branching over multiple
+attributes at a single level in the tree, decreasing the overall depth
+of the tree.  This technique works best when the subset of attributes
+split on are often defined together (i.e. when one is defined, the
+other one usually is as well).  Since it's unclear how often this
+trend will come up in our rule sets, this feature is not encoded in
+the Cnode structure.  However, expressions internally can define
+composite field made up of multiple attributes.  To the Cnode this
+appears as just another attribute, but it in fact accomplishes the
+Hypercuts gain.
+
+Port/IP ranges/non-exact match predicates
+
+The Cnode class does not currently support these types of attributes,
+but an expression can still do so.  It's just that the tree will not
+utilize this information.  Instead these attributes are checked after
+the traversal of the tree.  Support for ranges etc. can be added to
+the Cnode class should it prove useful.
+
+Group Expansion
+
+Rule expressions themselves cannot have multiple values for a single
+field, but packets or other data structures that traverse the tree may
+(i.e. a single packet can be part of many groups).  Thus during
+traversal, the classifier asks the packet for multiple values of a
+single field by index until an index fails (e.g. get_field(SRC_GROUP,
+0), get_field(SRC_GROUP, 1)).  If a packet (other structure) has no
+values for a given field, should it be considered a wildcard?  or
+should that be explicity asked?

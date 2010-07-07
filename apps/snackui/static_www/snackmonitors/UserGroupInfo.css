@@ -1,0 +1,31 @@
+div#no-users-msg {
+    display: none;
+    margin-bottom: 1ex;
+}
+
+div#invalid-name-error {
+	width: 45%;
+	background: #FFF url("/static/nox/apps/coreui/coreui/images/dotRed.png") no-repeat 3px 50%;
+	margin: 0 0 1.3em 0;
+	padding: 6px 12px 6px 36px;
+	border: 1px solid #FC5816;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+}
+
+div#select-user {
+    display: none;
+    margin-bottom: 1ex;
+}
+
+span#unknown-user-err {
+    display: none;
+}
+
+div#monitor_content {
+    /*visibility: hidden;*/
+}
+
+table.item-table {
+    width: 99%;
+}

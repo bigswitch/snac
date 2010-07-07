@@ -1,0 +1,921 @@
+==== GENERAL PRINCIPLES ====
+- When errors occur in a request, the underlying state must not be
+  partially modified.
+- Requests to change things to existing values should return success
+  and the same data as if a change had been done.
+- Should try to include links to related information as much as
+  possible.
+- Every URI specified here should accept the specified requests.  If
+  we haven't implement it yet, it should return a server error with the
+  message "Request:\n\n<request info>\n\nNot yet implemented.">
+- In general, GET requests accept query parameters.  This is primarily
+  intended to support interaction with the data warehouse where query
+  parameters will allow retrieving previous versions of the requested
+  state by timestamp.  Unless otherwise specified, if all query
+  parameters are omitted the meaning of the URI is "the currently
+  active state".  Some request allow additional query parameters to
+  limit the scope of information retrieved.
+
+
+==== NOX Component Management ====
+
+GET /ws.v1/nox/version
+    - Version number of the core NOX engine
+
+GET /ws.v1/nox/uptime
+    - The number of seconds since NOX was started
+
+GET /ws.v1/components
+    - List of installed components
+
+POST /ws.v1/components
+    - Load the component in the shared library specified in the message
+      body.
+    - NOT CURRENTLY SUPPORTED
+
+DELETE /ws.v1/component/<component name>
+    - Unload component <component name>
+    - NOT CURRENTLY SUPPORTED
+
+GET /ws.v1/component/<component name>/version
+    - Version of component <component name>
+    - Currently this is the same as /ws.v1/nox/versin for all
+      components but is here to support furture third-party components
+      that may have their own version information.
+
+GET /ws.v1/component/<component name>/uptime
+    - The number of seconds since the component last entered the
+      operational state.
+    - Currently this is the same as /ws.v1/nox/uptime for all
+      components.
+
+GET /ws.v1/component/<component name>/status
+    - Current status of the component.
+    - The idea here is that components may be able to be present but
+      not running either because administratively disabled, because
+      they crashed, because their dependencies couldn't be loaded, or
+      some other reason.  This would give that information.
+
+PUT /ws.v1/component/<component name>/status
+    - Change the current status of the component.
+    - Assuming there is an administratively disabled status, this would
+      allow changing it.
+
+GET /ws.v1/component/<component name>/dependencies
+    - List of components directly required by component <component
+      name>
+
+GET /ws.v1/component/<component name>/dependents
+    - List of components directly requiring component <component name>
+
+
+ ==== Switch Management ====
+
+ GET /ws.v1/switches
+    - List of switches
+
+GET /ws.v1/switches/stats
+    - Aggregate statistics for the entire network
+    - This style URI could be extended further to the right to address
+      table-based statistics.  Need to document these as we create them.
+
+GET /ws.v1/switches/<switch name>/config
+    - Current switch-level configuration (all values)
+
+GET /ws.v1/switch/<switch name>/config/<config param>
+    - Current switch-level configuration for <config param>
+
+PUT /ws.v1/switch/<switch name>
+    - Modify switch-level configuration (all values)
+    - Missing values are left at current value
+
+PUT /ws.v1/switch/<switch name>/config/<config param>
+    - Modify switch-level configuration for <config param>
+
+ GET /ws.v1/switch/<switch name>/stats
+    - Current aggregate statistics for switch (all values)
+
+GET /ws.v1/switch/<switch name>/stats/<stat>
+    - Current value for stat <stat> on switch <switch name>
+    - This style URI could be extended further to the right to address
+      table-based statistics.  Need to document these as we create them.
+
+DELETE /ws.v1/switch/<switch name>/stats
+    - Clears all clearable statistics
+    - No body content required.
+
+DELETE /ws.v1/switch/<switch name>/stats/<stat>
+    - Clear stat <stat> on switch <switch name>
+    - No body content required
+
+DELETE /ws.v1/switch/<switch name>
+    - Remove a switch from the system
+
+ GET /ws.v1/switch/<switch name>/ports
+    - List of ports on switch <switch name>
+
+GET /ws.v1/switch/<switch name>/port/<switch port>/config
+    - Current port-level configuration (all values)
+    - One configuration value is the location(s) for the port, which
+      determines membership in locations groups (see below under group
+      management).
+
+GET /ws.v1/switch/<switch name>/port/<switch port>/config/<config param>
+    - Current port-level configuration for <config param>
+
+PUT /ws.v1/switch/<switch name>/port/<switch port>/config
+    - Modify port-level configuration
+    - Missing values are left at current value
+
+PUT /ws.v1/switch/<switch name>/port/<switch port>/config/<config param>
+    - Modify port-level configuration for <config param>
+
+ GET /ws.v1/switch/<switch name>/port/<switch port>/stats
+    - Current port-level statistics (all values)
+
+GET /ws.v1/switch/<switch name>/port/<switch port>/stats/<stat>
+    - Current value for port-level statistic <stat>
+    - This style URI could be extended further to the right to address
+      table-based statistics.  Need to document these as we create them.
+
+DELETE /ws.v1/switch/<switch name>/port/<switch port>/stats
+    - Clear all clearable port-level statistics for port <switch port>
+    - No body content required
+
+DELETE /ws.v1/switch/<switch name>/port/<switch port>/stats/<stat>
+    - Clear port-level statistic <stat>
+    - No body content required
+
+
+==== Directory Store Management ====
+
+GET /ws.v1/directories
+    - Return current list of directories in search priority order
+
+PUT /ws.v1/directories
+    - Reorder search priority order of directories
+
+GET /ws.v1/directories/stats
+    - Aggregate statistics for all directories
+
+PUT /ws.v1/directory/<dir name>/config
+    - Modify configuration of named directories <dir name>
+    - If <dir name> doesn't exist, add to system at lowest search priority
+    - Message body contains directory type and type specific parameters
+    - Inital supported types are "nox", "ldap".
+    - Only one instance of a "nox" directory is allowed (preconfigured
+      with name "nox").
+
+GET /ws.v1/directory/<dir name>/config
+    - Current configuration of named directory <dir name>
+
+PUT /ws.v1/directory/<dir name>/config
+    - Modify configuration of named directory <dir name>
+
+DELETE /ws.v1/directory/<dir name>/config
+    - Delete named directory <dir name>
+
+GET /ws.v1/directory/<dir name>/stats
+    - Current statistics for named directory <dir name> (all values)
+
+DELETE /ws.v1/directory/<dir name>/stats
+    - Clear all clearable statistics for named directory <dir name>
+
+GET /ws.v1/directory/<dir name>/stats/<stat>
+    - Current value of statistic <stat> for directory <dir name>
+
+DELETE /ws.v1/directory/<dir name>/stats/<stat>
+    - Clear statistic <stat> of directory <dir name>
+
+
+==== User Management ====
+
+GET /ws.v1/users?<query params>
+    - List of users matching <query params>
+    - If no query parameters are specified, list all users, on all directories
+
+GET /ws.v1/users/<dir name>?<query params>
+    - List of users matching <query params> in directory <dir name>
+    - If no query parameters are specified, list all users, in
+      directory <dir name>
+
+GET /ws.v1/user/<dir name>/<user name>
+    - Information about user <user name> in directory <dir name>
+
+PUT /ws.v1/user/<dir name>/<user name>
+    - Modify information about user <user name> in directory <dir name>
+    - If user <user name> does not exists, creates it
+    - Changing name parameter attempts to rename user but may
+      fail if another user of that name already exists.
+    - Missing values are left at current value.
+
+DELETE /ws.v1/user/<dir name>/<user name>
+    - Delete user <user name> in directory <dir name>
+
+GET /ws.v1/user/<dir name>/<user name>/groups
+    - List of groups user <user name> in directory <dir name> is a member of
+    - Implicitly all groups must be in the same directory store.
+
+PUT /ws.v1/user/<dir name>/<user name>/groups
+    - Replace the list of groups in directory <dir name> of which user
+      <user name> is a member.
+    - Membership in some groups may be determined algorithmically,
+      in which case attempts to modify membership in those groups will
+      silently have no effect.
+
+GET /ws.v1/user/<dir name>/<user name>/groups/<group name>
+    - Is user <user name> a member of group <group name> in
+      directory <dir name>
+
+PUT /ws.v1/user/<dir name>/<user name>/groups/<group name>
+    - Add user <user name> to group <group name> in directory <dir name>
+    - Silently returns success if user is already a member of the group
+
+DELETE /ws.v1/user/<dir name>/<user name>/groups/<group name>
+    - Remove user <user name> from group <group name> directory <dir name>
+    - Silently returns success if not already a member or group does not
+      exist.
+
+
+==== Host Management ====
+
+GET /ws.v1/hosts?<query params>
+    - List of hosts matching <query params>
+    - If no query parameters are specified, list all hosts, on all directories
+
+GET /ws.v1/hosts/<dir name>?<query params>
+    - List of hosts matching <query params> in directory <dir name>
+    - If no query parameters are specified, list all hosts, in
+      directory <dir name>
+
+GET /ws.v1/host/<dir name>/<host name>
+    - Information about host <host name> in directory <dir name>
+    - For the 'nox' directory service only, in addition to textual
+      host names, host names can also take the form "ipv4;a.b.c.d" to
+      indicate a host by IP address and "mac;a-b-c-d-e-f" to indicate
+      a hsot by ethernet MAC address.  In the future we should also
+      support at least "ipv6;<octets separated by :>" and
+      "eui64:a-b-c-d-e-f-g-h" for IPv6.
+
+PUT /ws.v1/host/<dir name>/<host name>
+    - Modify information about host <host name> in directory <dir name>
+    - If host <host name> does not exists, creates it
+    - Changing name parameter attempts to rename host but may
+      fail if another host of that name already exists.
+    - Missing values are left at current value.
+
+DELETE /ws.v1/host/<dir name>/<host name>
+    - Delete host <host name> in directory <dir name>
+
+GET /ws.v1/host/<dir name>/<host name>/groups
+    - List of groups host <host name> in directory <dir name> is a member of
+    - Implicitly all groups must be in the same directory store.
+
+PUT /ws.v1/host/<dir name>/<host name>/groups
+    - Replace the list of groups in directory <dir name> of which host
+      <host name> is a member.
+    - Membership in some groups may be determined algorithmically,
+      in which case attempts to modify membership in those groups will
+      silently have no effect.
+
+GET /ws.v1/host/<dir name>/<host name>/groups/<group name>
+    - Is host <host name> a member of group <group name> in
+      directory <dir name>
+
+PUT /ws.v1/host/<dir name>/<host name>/groups/<group name>
+    - Add host <host name> to group <group name> in directory <dir name>
+    - Silently returns success if host is already a member of the group
+
+DELETE /ws.v1/host/<dir name>/<host name>/groups/<group name>
+    - Remove host <host name> from group <group name> directory <dir name>
+    - Silently returns success if not already a member or group does not
+      exist.
+
+
+==== Group Management ====
+
+GET /ws.v1/groups?<query params>
+    - Search all groups of all types in all directories
+    - If <query params> not specified, all groups returned.
+
+---- Users Groups ----
+
+GET /ws.v1/groups/users?<query params>
+    - Search all user groups in all directorires
+    - If <query params> not specified, all user groups returned.
+
+GET /ws.v1/groups/users/<dir name>?<query params>
+    - Search user groups in directory <dir name>
+    - If <query params> not specified, all users groups in directory
+      <dir name> are returned.
+
+GET /ws.v1/groups/users/<dir name>?<query params>
+    - List of groups in directory <dir name> matching <query params>
+    - If no query parameters are specified, list all groups in <dir name>
+
+GET /ws.v1/group/user/<dir name>/<group name>
+    - Configuration of user group <group name> in directory <dir name>
+    - Does not include members (see below)
+
+PUT /ws.v1/group/user/<dir name>/<group name>
+    - Modify configuration of user group <group name> in directory <dir name>
+    - Properties of group may depend on underlying directory
+    - By changing name property, renames group
+    - Not intended for changing members
+    - If group does not exists, creates it.
+
+GET /ws.v1/group/user/<dir name>/<group name>/members
+    - Members of group <group name> in directory <dir name>
+    - The "nox" directory allows groups to contain users and groups from
+      other directories.  Others only allow within the same directory.
+      Field indicating directory in the returned data must conform to
+      this.
+
+PUT /ws.v1/group/users/<dir name>/<group name>/members
+    - Replace group membership for group <group name> in directory <dir name>
+
+DELETE /ws.v1/group/users/<dir name>/<group name>/members
+    - Remove all members of user group <group name> in directory <dir name>
+
+GET /ws.v1/group/users/<dir name 0>/<group name>/members/user/<dir name 1>/<user name>
+    - Does group <group name> in directory <dir name 0> have user member
+      <user name> in directory <dir name 1>
+    - For all directory stores except "nox", <dir name 0> should be equal
+      to <dir name 1>
+
+PUT /ws.v1/group/users/<dir name 0>/<group name>/members/group/<dir name 1>/<user name>
+    - Add user member <member name> in directory store <dir name 1> to
+      group <group name> in directory store <dir name 0>.
+    - For all directory stores except "nox", <dir name 0> should be equal
+      to <dir name 1>
+
+DELETE /ws.v1/group/users/<dir name 0>/<group name>/members/user/<dir name 1>/<user name>
+    - Remove user member <user name> in directory <dir name 1> from
+      group <group name> in directory <dir name 0>.
+    - For all directory stores except "nox", <dir name 0> should be
+      equal to <dir name 1>
+
+GET /ws.v1/group/users/<dir name 0>/<group name 0>/members/group/<dir name 1>/<group name 1>
+    - Does group <group name 0> in directory <dir name 0> have group member
+      <group name 1> in directory <dir name 1>
+    - For all directory stores except "nox", <dir name 0> should be equal
+      to <dir name 1>
+
+PUT /ws.v1/group/users/<dir name 0>/<group name 0>/members/group/<dir name 1>/<group name 1>
+    - Add group member <group name 1> in directory store <dir name 1> to
+      group <group name 0> in directory store <dir name 0>.
+    - For all directory stores except "nox", <dir name 0> should be equal
+      to <dir name 1>
+
+DELETE /ws.v1/group/users/<dir name 0>/<group name 0>/members/group/<dir name 1>/<group name 1>
+    - Remove group member <group name 1> in directory <dir name 1> from
+      group <group name 0> in directory <dir name 0>.
+    - For all directory stores except "nox", <dir name 0> should be
+      equal to <dir name 1>
+
+---- Host Groups ----
+
+GET /ws.v1/groups/hosts?<query params>
+    - Search all host groups in all directorires
+    - If <query params> not specified, all host groups returned.
+
+GET /ws.v1/groups/hosts/<dir name>?<query params>
+    - Search host groups in directory <dir name>
+    - If <query params> not specified, all hosts groups in directory
+      <dir name> are returned.
+
+GET /ws.v1/groups/hosts/<dir name>?<query params>
+    - List of groups in directory <dir name> matching <query params>
+    - If no query parameters are specified, list all groups in <dir name>
+
+GET /ws.v1/group/hosts/<dir name>/<group name>
+    - Configuration of host group <group name> in directory <dir name>
+    - Does not include members (see below)
+
+PUT /ws.v1/group/hosts/<dir name>/<group name>
+    - Modify configuration of host group <group name> in directory <dir name>
+    - Properties of group may depend on underlying directory
+    - By changing name property, renames group
+    - Not intended for changing members
+    - If group does not exists, creates it.
+
+GET /ws.v1/group/hosts/<dir name>/<group name>/members
+    - Members of group <group name> in directory <dir name>
+    - The "nox" directory allows groups to contain hosts and groups from
+      other directories.  Others only allow within the same directory.
+      Field indicating directory in the returned data must conform to
+      this.
+
+PUT /ws.v1/group/hosts/<dir name>/<group name>/members
+    - Replace group membership for group <group name> in directory <dir name>
+
+DELETE /ws.v1/group/hosts/<dir name>/<group name>/members
+    - Remove all members of host group <group name> in directory <dir name>
+
+GET /ws.v1/group/hosts/<dir name 0>/<group name>/members/host/<dir name 1>/<host name>
+    - Does group <group name> in directory <dir name 0> have host member
+      <host name> in directory <dir name 1>
+    - For all directory stores except "nox", <dir name 0> should be equal
+      to <dir name 1>
+
+PUT /ws.v1/group/hosts/<dir name 0>/<group name>/members/group/<dir name 1>/<host name>
+    - Add host member <member name> in directory store <dir name 1> to
+      group <group name> in directory store <dir name 0>.
+    - For all directory stores except "nox", <dir name 0> should be equal
+      to <dir name 1>
+
+DELETE /ws.v1/group/hosts/<dir name 0>/<group name>/members/host/<dir name 1>/<host name>
+    - Remove host member <host name> in directory <dir name 1> from
+      group <group name> in directory <dir name 0>.
+    - For all directory stores except "nox", <dir name 0> should be
+      equal to <dir name 1>
+
+GET /ws.v1/group/hosts/<dir name 0>/<group name 0>/members/group/<dir name 1>/<group name 1>
+    - Does group <group name 0> in directory <dir name 0> have group member
+      <group name 1> in directory <dir name 1>
+    - For all directory stores except "nox", <dir name 0> should be equal
+      to <dir name 1>
+
+PUT /ws.v1/group/hosts/<dir name 0>/<group name 0>/members/group/<dir name 1>/<group name 1>
+    - Add group member <group name 1> in directory store <dir name 1> to
+      group <group name 0> in directory store <dir name 0>.
+    - For all directory stores except "nox", <dir name 0> should be equal
+      to <dir name 1>
+
+DELETE /ws.v1/group/hosts/<dir name 0>/<group name 0>/members/group/<dir name 1>/<group name 1>
+    - Remove group member <group name 1> in directory <dir name 1> from
+      group <group name 0> in directory <dir name 0>.
+    - For all directory stores except "nox", <dir name 0> should be
+      equal to <dir name 1>
+
+---- Location Groups ----
+
+GET /ws.v1/groups/locations?<query params>
+    - Search all location groups in all directorires
+    - If <query params> not specified, all location groups returned.
+
+GET /ws.v1/groups/locations/<dir name>?<query params>
+    - Search location groups in directory <dir name>
+    - If <query params> not specified, all locations groups in directory
+      <dir name> are returned.
+
+GET /ws.v1/groups/locations/<dir name>?<query params>
+    - List of groups in directory <dir name> matching <query params>
+    - If no query parameters are specified, list all groups in <dir name>
+
+GET /ws.v1/group/location/<dir name>/<group name>
+    - Configuration of location group <group name> in directory <dir name>
+    - Does not include members (see below)
+
+PUT /ws.v1/group/location/<dir name>/<group name>
+    - Modify configuration of location group <group name> in directory <dir name>
+    - Properties of group may depend on underlying directory
+    - By changing name property, renames group
+    - Not intended for changing members
+    - If group does not exists, creates it.
+
+GET /ws.v1/group/location/<dir name>/<group name>/members
+    - Members of group <group name> in directory <dir name>
+    - The "nox" directory allows groups to contain locations and groups from
+      other directories.  Others only allow within the same directory.
+      Field indicating directory in the returned data must conform to
+      this.
+
+PUT /ws.v1/group/locations/<dir name>/<group name>/members
+    - Replace group membership for group <group name> in directory <dir name>
+
+DELETE /ws.v1/group/locations/<dir name>/<group name>/members
+    - Remove all members of location group <group name> in directory <dir name>
+
+GET /ws.v1/group/locations/<dir name 0>/<group name>/members/location/<dir name 1>/<location name>
+    - Does group <group name> in directory <dir name 0> have location member
+      <location name> in directory <dir name 1>
+    - For all directory stores except "nox", <dir name 0> should be equal
+      to <dir name 1>
+
+PUT /ws.v1/group/locations/<dir name 0>/<group name>/members/group/<dir name 1>/<location name>
+    - Add location member <member name> in directory store <dir name 1> to
+      group <group name> in directory store <dir name 0>.
+    - For all directory stores except "nox", <dir name 0> should be equal
+      to <dir name 1>
+
+DELETE /ws.v1/group/locations/<dir name 0>/<group name>/members/location/<dir name 1>/<location name>
+    - Remove location member <location name> in directory <dir name 1> from
+      group <group name> in directory <dir name 0>.
+    - For all directory stores except "nox", <dir name 0> should be
+      equal to <dir name 1>
+
+GET /ws.v1/group/locations/<dir name 0>/<group name 0>/members/group/<dir name 1>/<group name 1>
+    - Does group <group name 0> in directory <dir name 0> have group member
+      <group name 1> in directory <dir name 1>
+    - For all directory stores except "nox", <dir name 0> should be equal
+      to <dir name 1>
+
+PUT /ws.v1/group/locations/<dir name 0>/<group name 0>/members/group/<dir name 1>/<group name 1>
+    - Add group member <group name 1> in directory store <dir name 1> to
+      group <group name 0> in directory store <dir name 0>.
+    - For all directory stores except "nox", <dir name 0> should be equal
+      to <dir name 1>
+
+DELETE /ws.v1/group/locations/<dir name 0>/<group name 0>/members/group/<dir name 1>/<group name 1>
+    - Remove group member <group name 1> in directory <dir name 1> from
+      group <group name 0> in directory <dir name 0>.
+    - For all directory stores except "nox", <dir name 0> should be
+      equal to <dir name 1>
+
+
+==== Policy Management ====
+
+GET /ws.v1/policy
+    - Get current applied policy id (a unique number that changes
+      every time a new policy is applied).  This can be used to
+      determine the whether a policy update has occured between the
+      time the client received policy information and the time it
+      attempts to send it back to the server.  The GET methods below
+      should include the policy id in the responses to facilitate
+      this.  The policy id should be unique forever so it can be used
+      as a key into the data warehouse, etc.
+    - Returns id in the form of an object with member 'policy id'.
+
+POST /ws.v1/policy
+    - Apply a new policy.
+    - Message body should be an object with two members:
+      - 'policy id': the policy id on which the policy was based.  If
+      the current policy does not match this policy id, the request
+      must be rejected.
+      - 'rules': complete policy to apply in an array of rules
+    - Returns the new policy id in the form of an object with member
+      'policy id'.
+
+GET /ws.v1/policies?<query params>
+    - Get a list policy IDs matching <query parms>
+    - If <query params> are omitted, get list of all known polices.
+    - Unless data warehouse is present, this is the same as
+      "/ws.v1/policy"
+
+GET /ws.v1/policy/<policy id>
+    - Get information about policy <policy id>
+    - Should include information such as previously applied policy id,
+      subsequent applied policy id, start and end timestamp when
+      applied, user who applied, etc.
+    - Much of this only applies if the data warehouse is present.
+
+PUT /ws.v1/policy/<policy id>/analysis/rules
+    policy id.
+    - Get analysis of new set of policy rules in the message body as
+      compared to rules in policy <policy id>.
+    - Body should be an array of rules (currently expects installed
+      rules to have 'rule id' set, so not *really* analyzing that.
+    - Returns an object with two members:
+      - 'added': array of added rules.  each rules has an 'overlaps'
+        member set to an array of installed 'rule id's that at least
+        partially overlap the same flow set as the rule.
+      - 'removed': array of rules that would be removed from the
+        currently installed policy.
+    - Analysis should indicate, rules added, rules deleted, rules
+      reordered, etc - doesn't do this yet.
+
+GET /ws.v1/policy/<policy id>/analysis/flows/<start timestamp>-<end timestamp>
+    - Get analysis of result of policy rules in policy <policy id> if
+      they had been applied to flows during the period <start
+      timestamp> to <end timestamp>.
+
+PUT /ws.v1/policy/<policy id>/analysis/flows/<start timestamp>-<end timestamp>
+    - Get analysis of impact of new set of policy rules in message
+      body compared to previous set of rules in policy <policy id> for
+      a set of past flows.
+    - If <end timestamp> is omitted, flows from <start timestamp>
+      to "now" are considered.
+    - If <start timestamp> and <end timestamp> are both omitted, then
+      "recent" flows are considered, for some to-be-determined
+      definition of "recent".
+
+GET /ws.v1/policy/<policy id>/rules
+    - Get ordered list of policy rules in policy <policy id>.
+    - Returns an array of rules ordered by the 'rule id' member.
+
+GET /ws.v1/policy/<policy id>/rule/<rule id>
+    - Get definition and associated metadata of policy rule with id
+      <rule id>
+    - Returns the rule object.
+
+PUT /ws.v1/policy/<policy id>/rule/<rule id>
+    - Update definition and/or associated metadata of policy rule with
+      id <rule id>
+    - Message body should be an object containing the members to
+      modify.
+    - Currently the rule definition must be modified as a whole.
+      i.e. both 'condition' and 'actions' members must be set when
+      trying to modify the definition, even if one doesn't change.
+    - Only other modifiable attribute is 'priority'.
+    - If either the 'priority' or 'condition' and 'actions' members
+      are not set, their old values are preserved.
+    - Rejects with "CONFLICT" response type if <policy id> is not the
+      policy id of the currently applied policy.
+    - Returns policy id for new set of rules implementing the changes
+      in the form of an object with member 'policy id'.
+
+DELETE /ws.v1/policy/<policy id>/rule/<rule id>
+    - Delete policy rule with id <rule id>
+    - Rejects with "CONFLICT" response type if <policy id> is not the
+      policy id of the currently applied policy.
+    - Returns policy id for new set of rules without the deleted rule
+      in the form of an object with member 'policy id'.
+
+GET /ws.v1/policy/<policy id>/rule/<rule id>/<param>
+    params
+    - Get individual parameter <param> for rule with id <rule id>
+    - Parameters can be things like name, comments, creator,
+      timestamp, expiration time, creation status (deliberate part of
+      policy vs. "exception") etc.
+    - Currently supported parameters: 'priority', 'text', 'condition',
+      'actions'
+
+PUT /ws.v1/policy/<policy id>/rules/<rule id>/<param>
+    - Set individual parameter <param> for rule with id <rule id>
+    - Does not include rule definition itself.  That has to be
+      handled through post or put on policy rules.
+    - Rejects with "CONFLICT" response type if <policy id> is not the
+      policy id of the currently applied policy.
+    - Returns policy id for new set of rules without the deleted rule
+    - ??? Should this be supported?  If a large batch of changes were
+      done one at a time this way it would generate a huge number of
+      interim policies, which is probably not desirable.  It would be
+      better to apply them all at once with one of the above methods
+      that at least work on the level of an entire rule.
+
+
+==== Flow Information ====
+
+GET /ws.v1/flows?<query params>
+    - Search for current flows matching <query params>
+    - Query params limit by addresses, protocols, associated users,
+      associated hosts, etc.  Should support everything the policy is
+      capable of specifying.
+
+GET /ws.v1/flow/<flow guid>
+    - Information about flow with id <flow guid>
+    - The <flow guid> should be unique forever, including in the
+      data warehouse so the same ID can be used to access current and
+      historical data when the data warehouse is available.
+
+GET /ws.v1/flow/<flow guid>/start
+    - Timestamp when flow was initiated
+
+GET /ws.v1/flow/<flow guid>/end
+    - Timestamp when flow was completed
+
+GET /ws.v1/flow/<flow guid>/policy-rule
+    - Policy rule (policy id + rule id) determining the fate of this
+      flow
+
+GET /ws.v1/flow/<flow guid>/client
+    - Information related to the client for the flow (the host
+      initiating the connection) See extended URIs below for list of
+      information included.
+
+GET /ws.v1/flow/<flow guid>/client/user
+
+GET /ws.v1/flow/<flow guid>/client/host
+
+GET /ws.v1/flow/<flow guid>/client/location
+
+GET /ws.v1/flow/<flow guid>/client/bytes-sent
+
+GET /ws.v1/flow/<flow guid>/client/bytes-received
+
+GET /ws.v1/flow/<flow guid>/client/packets-sent
+
+GET /ws.v1/flow/<flow guid>/client/packets-received
+
+GET /ws.v1/flow/<flow guid>/server
+    - Information related to the server for the flow (the host
+      receiving the connection) See extended URIs below for list of
+      information included.
+
+GET /ws.v1/flow/<flow guid>/server/user
+
+GET /ws.v1/flow/<flow guid>/server/bytes-sent
+
+GET /ws.v1/flow/<flow guid>/server/bytes-received
+
+GET /ws.v1/flow/<flow guid>/server/packets-sent
+
+GET /ws.v1/flow/<flow guid>/server/packets-received
+
+GET /ws.v1/flow/<flow guid>/server/host
+
+GET /ws.v1/flow/<flow guid>/server/location
+
+GET /ws.v1/flow/<flow guid>/paths
+    - List of paths the flow took through the network
+    - Probably can't accumulate this for every flow as it would be
+      very intensive.  Maybe should have a way to turn on tracing of
+      path information related to specific users, hosts, or locations,
+      and this will return the empty set if data was not collected?
+
+GET /ws.v1/flow/<flow guid>/path
+    - Current path of the flow through the network if it is still
+      active.
+    - An ordered list of in/out switch:port
+    - Timestamp for when flow started using this path
+
+PUT /ws.v1/flow/<flow guid>/path
+    - New path for flow to take.
+    - Could we really do this???
+
+GET /ws.v1/flow/<flow guid>/path/<path id>
+    - Historical path of flow through network
+    - An ordered list of in/out switch:port
+    - Timestamp for when flow started using this path
+    - Timestamp for when flow stopped using this path
+    - The <path id> of previous path used by this flow
+    - The <path id> of the next path used by this flow
+
+DELETE /ws.v1/flow/<flow guid>
+    - Remove the specified flow from the system.
+
+
+==== Network Event Information ====
+
+GET /ws.v1/networkevents?<query params>
+    - Return network events matching <query params>
+    - If no query parameters are specified, return all current network
+      events.
+    - Would be nice if <query params> can express "events since <some
+      previous event>"
+
+
+==== User Information ====
+
+GET /ws.v1/user/<dir name>/<user name>/flows?<query params>
+    - List of flows associated with user <user name> in directory
+      store <dir name>
+    - If no <query params> are specified, gets all currently active
+      flows.  (same for all below...)
+
+GET /ws.v1/user/<dir name>/<user name>/client/flows?<query params>
+    - List of flows for which the hosts associated with user <user
+      name> in directory store <dir name> are acting as a client.
+
+GET /ws.v1/user/<dir name>/<user name>/server/flows?<query params>
+    - List of flows for which the hosts associated with user <user
+      name> in directory store <dir name> are acting as a server.
+
+GET /ws.v1/user/<dir name>/<user name>/hosts?<query params>
+    - List of all hosts associated with user <user name> in directory
+      store <dir name>
+
+GET /ws.v1/user/<dir name>/<user name>/hosts/servers?<query params>
+    - List of hosts associated with user <user name> in directory
+      store <dir name> acting as servers.
+
+GET /ws.v1/user/<dir name>/<user name>/hosts/clients?<query params>
+    - List of hosts associated with user <user name> in directory
+      store <dir name> acting as clients.
+
+GET /ws.v1/user/<dir name>/<user name>/locations?<query params>
+    - List of all locations containing a host associated with user
+      <user name>
+
+GET /ws.v1/user/<dir name>/<user name>/networkevents?<query params>
+    - List of network events involving user
+
+
+==== Host Information ====
+
+GET /ws.v1/host/<dir name>/<host name>/flows?<query params>
+    - List of flows associated with host <host name> in
+      directory store <dir name>
+    - If no <query params> are specified, gets all currently active
+      flows.  (same for all below...)
+
+GET /ws.v1/host/<dir name>/<host name>/users?<query params>
+    - List of users associated with host <host name> in
+      directory store <dir name>
+
+GET /ws.v1/host/<dir name>/<host name>/locations?<query params>
+    - List of locations containing host <host name> in directory store
+      <dir name>
+
+GET /ws.v1/host/<dir name>/<host name>/services?<query params>
+    - List of services known to be running on host <host name> in
+      directory store <dir name>
+
+GET /ws.v1/host/<dir name>/<host name>/networkevents?<query params>
+    - List of "recent" network events involving host
+
+
+
+==== Location Information ====
+
+GET /ws.v1/location/<dir name>/<location name>/flows?<query params>
+    - List of flows associated with location <location name> in
+      directory store <dir name>
+
+GET /ws.v1/location/<dir name>/<location name>/users?<query params>
+    - List of users associated with location <location name> in
+      directory store <dir name>
+
+GET /ws.v1/location/<dir name>/<location name>/hosts?<query params>
+    - List of hosts associated with location <location name> in
+      directory store <dir name>
+
+GET /ws.v1/location/<dir name>/<location name>/networkevents?<query params>
+    - List of network events involving location
+
+
+==== Topology Information ====
+
+GET /ws.v1/topologies?<query params>
+    - Get a list of IDs for topologies matching <query params>.
+    - If <query params> is omitted, returns all known topology ids.
+    - Idea is topology IDs work similarly to policy IDs, where there
+      is a new one each time there is a change.  Is this really
+      feasible.
+
+GET /ws.v1/topology
+    - Get the current topology id
+
+GET /ws.v1/topology/<topology id>/
+    - Need to figure out how to access this information reasonably
+
+GET /ws.v1/topology/links/
+    - Get all discovery links on topology
+
+GET /ws.v1/topology/switch/<switch name>/links/
+    - Get all links associated with a given switch 
+
+
+==== HTTP Captive Auth Portal Configuration ====
+
+
+??? Need to define this further
+
+
+==== NAT Configuration ====
+
+
+??? Need to define this further
+
+
+==== Notifications Configuration ====
+
+
+??? Information on how to forward "alert" type events for notification
+of real people.  For example forwarding network event log messages to
+syslog, email, etc.  Need to what these are and whether this is really
+needed.  I think it would be highly desirable.
+
+
+==== Ping Manager ====
+
+GET /ws.v1/pings
+    - List of active pings
+
+GET /ws.v1/ping/<src switch>-to-<dest>
+    - Information about this active ping session
+    - The <dest> can be a host name or an "ipv4;" address
+    - Data includes source switch, dest, number sent, number received,
+      % lost, min rtt, avg rtt, max rtt, current status (in progress
+      or complete), etc.
+    - Can this include the flow guid for the flow for the ping data?
+      Is there a flow for this?
+
+PUT /ws.v1/ping/<src switch>;<dest>
+    - Start a ping from src switch to dest
+    - If ping already exists, clear stats and restart.
+    - Message body does not need to contain anything for now.  In
+      future may define options for the ping such as count of packets
+      to send, frequency, etc.  If no body is sent, assume indefinite.
+
+DELETE /ws.v1/ping/<src switch>;<dst host>
+    - Remove a configured ping.
+
+
+==== Application Logging Configuration ====
+
+GET /ws.v1/applog?<query params>
+    - Get application log information matching query parameters
+    - Should we really support this?
+
+GET /ws.v1/applog/destinations
+    - List of current destinations for application logs.  This should
+      be filenames, syslog machine, etc. as supported by the logging
+      API.
+
+POST /ws.v1/applog/destinations
+    - Add a destination for application logging
+
+GET /ws.v1/applog/modules
+    - List of logging modules and current levels
+
+PUT /ws.v1/applog/modules
+    - Get logging module levels
+    - Any missing modules are left at current value
+
+GET /ws.v1/applog/module/<module name>
+    - Current logging level of log module <module name>
+
+PUT /ws.v1/applog/module/<module name>
+    - Set logging level of log module <module name>

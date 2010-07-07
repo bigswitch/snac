@@ -1,0 +1,5 @@
+# This is a POSIX shell fragment                -*- sh -*-
+
+# EXT components to pass to nox 
+NOX_EXT_ARGS="snackui nox_directory captiveportal ldap_dir_factory http_redirector dbexplorerui=hidden webservice_testui=hidden dhcpmanager replicator=43200,/var/log/snacdb/snac.cdb,true notifier hosttrackerws pfws pyreplicator=database=/opt/nox/var/lib/nox.cdb redirproxy"
+

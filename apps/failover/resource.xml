@@ -1,0 +1,16 @@
+<group id="nox_group">
+  <primitive id="ip_resource" class="ocf" type="IPaddr2" provider="heartbeat">
+    <instance_attributes>
+      <attributes>
+        <nvpair name="ip" value="EDIT FAILOVER IP"/>
+      </attributes>
+    </instance_attributes>
+  </primitive>
+  <primitive class="lsb" type="nox" provider="heartbeat" id="nox">
+    <operations>
+      <op id="1" name="stop" timeout="5s"/>
+      <op id="2" name="start" timeout="10s"/>
+      <op id="3" name="monitor" interval="10s" timeout="3s"/>
+    </operations>
+  </primitive>
+</group>

@@ -1,0 +1,86 @@
+/* Copyright 2008 (C) Nicira, Inc. */
+/*
+.dj_ie table#netevents-header-table {
+	position:relative;
+	top:15px;
+
+}
+
+tr#logs-header-table {
+	background: #FFF url("/static/nox/apps/coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
+	border: 1px solid #DADDDE;
+	-moz-border-radius: 10px;	
+}
+
+#logs-table tr:nth-child(odd) {
+	background:#e8ebec;
+}
+
+table.log {
+    width: 99% !important;
+    border-collapse: collapse;
+}
+
+table.log tr {
+    vertical-align: top;
+}
+
+table.log td.timestamp, table.log th.timestamp {
+    width: 15em;
+}
+
+table.log td.file, table.log th.file {
+	border-right: none !important;
+}
+
+table.log td {
+	padding:0.25em 0.25em 0.25em 20px;
+}
+
+.dj_ie6 tr#logs-header-table {
+	behavior: url("/static/nox/apps/coreui/coreui/png/iepngfix.htc");
+}
+*/ 
+
+th#snapshot-date-column {
+    width: 40%
+}
+
+th#restore-column {
+    width: 20%
+}
+
+table {
+	border-collapse: collapse;
+	margin: 0 0 0 0;
+	width: 99%;
+}
+
+th#snapshot-date-column,
+th#restore-column {
+    text-align: left;
+	text-indent: 0px;
+	padding-left:8px;
+	height: 26px !important; 
+	border: none;
+  vertical-align: middle;
+	font-weight: normal;
+	font-size: 1.1em;
+	color: #707070;
+	line-height: 22px;
+	margin: 3px 0 0 15px;
+	border-right: 1px solid #E7EAEB;
+}
+
+.headerRow {
+	width: 98%;
+	height: 26px;
+	margin-bottom: 12px;
+  background: #FFF url("/static/nox/apps/coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
+	 
+  border: 1px solid #DADDDE !important;
+	/*-moz-border-radius:8px;*/
+}
+
+
+ 

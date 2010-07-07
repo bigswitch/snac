@@ -1,0 +1,4 @@
+.. _trouble:
+
+Trouble Shooting
+================

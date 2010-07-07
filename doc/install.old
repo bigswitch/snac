@@ -1,0 +1,284 @@
+Network Architecture
+====================
+
+For NOX to be useful, you will need the following hardware:
+
+    - At least one OpenFlow-capable switch.
+
+      Switches compliant with the OpenFlow specification are not yet
+      available from commercial switch vendors, so you will have to
+      install the OpenFlow specification reference implementation on a
+      computer with multiple Ethernet ports as a stand-in.  A copy of
+      the OpenFlow reference implementation is included in this
+      distribution in the openflow directory.  Refer to README and
+      INSTALL in that directory for more information.
+
+    - At least one machine to use for the NOX controller.
+
+      For testing purposes, the controller can be collocated on the
+      same machine as a OpenFlow switch.  For production use we do not
+      encourage this configuration.
+
+      NOX is designed to support multiple controllers in a
+      master/slave configuration, but all of our testing has so far
+      used a single-controller configuration.
+
+    - Optionally, one machine to use for the NOX data warehouse.
+
+      The data warehouse is an optional NOX component that records
+      network state and activity over time, for use in forensics and
+      other kinds of after-the-fact analysis.
+
+      For testing purposes, the NOX data warehouse can be collocated
+      on the same machine as a OpenFlow switch.  For production use we
+      do not encourage this configuration.
+
+    - A dedicated network between the OpenFlow switches and the
+      controller.
+
+      The OpenFlow specification does not yet support in-band
+      signaling between a switch and the NOX controllers, so each
+      switch must be connected to the controller using an otherwise
+      unused switch port.
+
+      Future versions of OpenFlow will eliminate this requirement.
+
+    - A network for NOX to monitor and control.
+
+Example
+-------
+
+Here is an illustration of one way to set up a network for NOX.  Each
+OpenFlow switch shown has four ports to the network being managed and
+one port for dedicated access to the OpenFlow controller.  The
+...hosts... in the diagram represent arbitrary collections of hosts,
+switches, etc.
+
+         ...hosts...   ...hosts...   ...hosts...   ...hosts...
+           | | | |       | | | |       | | | |       | | | |
+           | | | |       | | | |       | | | |       | | | |
+           | | | |       | | | |       | | | |       | | | |
+          +--------+    +--------+    +--------+    +--------+
+          |OpenFlow|    |OpenFlow|    |OpenFlow|    |OpenFlow|
+          | switch |    | switch |    | switch |    | switch |
+          |   #1   |    |   #2   |    |   #3   |    |   #4   |
+          +--------+    +--------+    +--------+    +--------+
+             ^              ^             ^               ^
+             |              \----     ----/               |
+             |                   \   /                    |
+             +-----------------+  |  |  +-----------------+
+                               V  V  V  V
+                              +----------+       +--------------+
+                              | OpenFlow |       |Data Warehouse|
+                              |controller|<----->|   server     |
+                              +----------+       +--------------+
+
+Testing with Virtual Machines
+-----------------------------
+
+For testing purposes, you can use virtual machines to fulfill one or
+more parts of the above requirements.  The NOX distribution includes
+handy utilities for creating such a virtual machine environment in the
+"utilities" directory and documentation for them in the "man"
+directory.
+
+Prerequisites
+=============
+
+To compile the controller, you will need the following software:
+
+    - Autoconf version 2.59 or later.  (If you are working from a
+      distribution tarball, instead of from a Git tree or snapshot,
+      then you will only need Autoconf if you modify configure.ac.)
+
+    - Automake version 1.10 or later.  (If you are working from a
+      distribution tarball, instead of from a Git tree or snapshot,
+      then you will only need Automake if you modify the NOX build
+      system.)
+
+    - GNU libtool.  We have used version 1.5.24 for testing.  (If you
+      are working from a distribution tarball, instead of from a Git
+      tree or snapshot, then you will only need Automake if you modify
+      the NOX build system.)
+
+    - GNU make (http://www.gnu.org/software/make/).  BSD make is known
+      not to work.
+
+    - GCC and G++ version 4.0 or later; version 4.2 or later is
+      preferred.
+
+    - The following header-only Boost libraries:
+
+        * bind
+        * foreach
+        * function
+        * ptr_container
+        * smart_ptr
+        * utility
+        * static_assert
+        * tokenizer
+
+    - The following Boost libraries that include components that must
+      be compiled and linked against NOX:
+
+        * filesystem
+        * serialization
+        * unit_test_framework
+
+    - libpcap, from tcpdump (http://www.tcpdump.org/).
+
+    - libssl, from OpenSSL (http://www.openssl.org/).
+
+    - SQLite3, both utilities and libraries (http://www.sqlite.org/).
+
+    - Apache Xerces C++ XML parser (version 2.8) 
+      (http://xerces.apache.org/xerces-c/).
+
+To compile the controller with support for applications written in
+Python, which we highly recommend, you will additionally need the
+following software:
+
+    - Python version 2.5 or later, including development libraries
+      (http://www.python.org/).
+
+      If you use Debian, note that it currently has Python 2.4 as its
+      default version of Python; thus, you will need to install the
+      python2.5 package and specify --with-twisted=/usr/bin/python2.5
+      on the "configure" command line below.
+
+    - Twisted Python (http://twistedmatrix.com/trac/).
+
+    - SWIG (http://www.swig.org/).  We have used version 1.3.31 for
+      testing.
+
+The web interface requires the following software in addition to
+the general and Python-specific dependencies above:
+
+    - Mako Templates for Python (http://www.makotemplates.org/).  We
+      have used version 0.1.10 for testing.
+
+The machine that hosts the (optional) data warehousing database must
+have the following software installed:
+
+    - Python version 2.5 or later (http://www.python.org/).
+
+    - The MySQL database engine (http://mysql.com/).  We have used
+      version 5.0.51 for testing.
+
+      NOX expects to access the database through a user named
+      "nox_dwh" with password "nox_dwh".
+
+    - MySQL-Python (http://mysql-python.sourceforge.net/).  We have
+      used version 1.2.2 for testing.
+
+On Debian GNU/Linux "unstable", our primary development and testing
+platform, you can satisfy all of the above dependencies by using
+apt-get to install the following packages:
+
+    autoconf automake1.10 g++-4.2 gcc-4.2 libboost-dev libtool
+    libboost-test-dev libboost-filesystem-dev
+    libboost-serialization-dev libpcap-dev libsqlite3-dev libssl-dev
+    make python-dev python-twisted sqlite3 swig python-mako
+    mysql-server python-mysqldb libxerces27-dev python-simplejson
+
+NOX Controller Installation
+===========================
+
+1. If you are working from a Git tree or snapshot, run Autoconf and
+   Automake using boot.sh:
+
+        ./boot.sh
+
+   If you are starting from a distributed tarball, there is no need to
+   run boot.sh.
+
+2. Build the OpenFlow reference implementation and install it on one
+   or more switches.  Instructions for this are in openflow/INSTALL.
+
+3. NOX should be built from a directory separate from the source
+   directory.  From the top-level NOX distribution directory, create a
+   build directory and "cd" into it, e.g.:
+
+	mkdir _build
+	cd _build
+
+   The name "_build" follows Paul Smith's convention in which a build
+   directory name starts with an underscore, but you can use any name
+   you like.
+
+4. From the build directory, run configure to prepare the NOX tree to
+   be built.  The configure script takes a large number of options,
+   which you can view by typing "../configure --help".  The only
+   important NOX-specific option is:
+
+        --with-twisted=PYTHON: To configure support for Python
+          applications, which we highly recommend, specify this
+          option, providing the full path to your Python binary as the
+          argument, e.g. "--with-twisted=/usr/bin/python".  If you
+          omit the path argument, configure will search for a python
+          binary in your $PATH.
+
+   If "configure" complains that it cannot find your C++ compiler,
+   then you may need to tell it explicitly how to invoke it, e.g. with
+   "../configure CXX=g++-4.2" if the command to invoke the compiler is
+   "g++-4.2".
+
+5. Run "make" from the build directory:
+
+        make
+
+   This will build all of NOX (including the OpenFlow reference
+   implementation).  It may take a minute or so.  You can make it
+   build faster on multi-core or multi-CPU machines by telling "make"
+   to run multiple processes in parallel, e.g.
+
+        make -j3
+
+6. Optionally, install the controller, with "make install".
+
+   If you do not install the controller, then you must run it from the
+   controller directory for it to be able to find its required support
+   files, such as Python source files.
+
+7. To start the controller, run the NOX "controller" program.  Use
+   "controller --help" for a usage message.  You should specify at
+   least one OpenFlow interface for the controller to listen on, using
+   the -i option, plus some applications for the controller to run.
+   For voluminous debugging output, use the -v option.
+
+   For example, the following command line starts the controller
+   listening on TCP port 975 for connections from OpenFlow switches
+   and starts the "switch" application (which causes the controller to
+   act as a learning Ethernet switch):
+
+        controller -i pctp: switch
+
+   The following command line starts the controller and loads several
+   applications that, collectively, cause the controller to passively
+   map the network topology and make it available for inspection on a
+   web server running on the controller on TCP port 8080:
+
+        controller -i ptcp: pitch locator discovery flowtrack vweb stats_web
+
+   (You must install the additional prerequisites mentioned above for
+   the above to work, because these applications are written in
+   Python.)
+
+8. Make sure that the switches are running.  If the switches and the
+   controller are started at roughly the same time, then the switches
+   should connect to the controller within a few seconds of startup.
+   The OpenFlow reference switch employs exponential back-off, capped
+   at 60 seconds, in its attempts to connect to the controller, so
+   otherwise it can take a little while longer for all of the switches
+   to come on-line.
+
+9. When the switches have connected to the controller, the NOX network
+   should now be online.  Depending on the applications that you
+   started on the controller, the network will have more or fewer
+   features.
+
+Data Warehouse Installation
+===========================
+
+Installation instructions for the data warehouse software are in
+doc/dwh.txt.

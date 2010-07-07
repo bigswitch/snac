@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
+  <component>
+    <name>pf</name>
+    <library>pf</library>
+    <dependency><name>authenticator</name></dependency>
+  </component>
+  <component>
+    <name>pypf</name>
+    <dependency>
+      <name>pf</name>
+    </dependency>
+    <python>nox.ext.apps.pf.pypf</python>
+  </component>
+  <component>
+    <name>pfws</name>
+    <dependency><name>pypf</name></dependency>
+    <dependency><name>directorymanager</name></dependency>
+    <dependency><name>bindings_directory</name></dependency>
+    <dependency><name>webservice</name></dependency>
+    <python>nox.ext.apps.pf.pfws</python>
+  </component>
+</components:components>

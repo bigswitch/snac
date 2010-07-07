@@ -1,0 +1,88 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" 
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg" 
+ xmlns:xlink="http://www.w3.org/1999/xlink" 
+ width='500px' height='100px'>
+
+<title>Monkichi SVG!</title>
+
+<defs>
+<linearGradient id="orange_red" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" style="stop-color:rgb(255,255,0); stop-opacity:1"/>
+<stop offset="100%" style="stop-color:rgb(0,200,50); stop-opacity:1"/>
+</linearGradient>
+</defs>
+
+<rect x="1" y="1" width="498" height="198" style="fill:url(#orange_red)"/>
+
+<text x="200" y="50" font-size="50">NOX</text>
+<text x="250" y="75" font-family="monospace" font-size="30">Topology</text>
+
+<g id="monkichi" transform="translate(100,80)">
+ <g id="torso">
+  <g id="tail" transform="translate(20,10) rotate(5)">
+   <path d="M-10,-10 A30,30,0,0,0,20,0 A1,1,0,0,0,20,-20 A1,1,0,0,0,20,-5 A1,1,0,0,0,20,-15 A1,1,0,0,0,20,-10" stroke="black" fill="none" stroke-width="2.5" />
+  </g><!--tail-->
+  <ellipse cx="0" cy="0" rx="28" ry="20" stroke="black" stroke-width="4" />
+  <!-- Head Outline -->
+  <g id="head_outline" transform="translate(0,-50) rotate(-10)">
+  <circle cx="0" cy="10" r="35" stroke="black" stroke-width="4" />
+  </g>
+  <ellipse cx="0" cy="0" rx="28" ry="20" fill="peru" />
+  <g id="feet" transform="translate(0,15) rotate(10)">
+   <ellipse cx="15" cy="0" rx="12" ry="8" stroke="black" stroke-width="4" />
+   <ellipse cx="-15" cy="0" rx="12" ry="8" stroke="black" stroke-width="4" />
+   <ellipse cx="15" cy="0" rx="12" ry="8" fill="sandybrown" />
+   <ellipse cx="-15" cy="0" rx="12" ry="8" fill="sandybrown" />
+  </g><!--feet-->
+  <g id="arms" transform="translate(-20,-15) rotate(-12)">
+   <g id="hands"> 
+    <circle cx="-22" cy="7" r="8" stroke="black" stroke-width="4" />
+    <circle cx="62" cy="7" r="8" stroke="black" stroke-width="4" />
+    <rect x="-22" y="-5" rx="5" ry="5" width="5" height="15" stroke="black" stroke-width="4" />
+    <rect x="58" y="-5" rx="5" ry="5" width="5" height="15" stroke="black" stroke-width="4" />
+    <circle cx="-22" cy="7" r="8" fill="peachpuff" />
+    <circle cx="62" cy="7" r="8" fill="peachpuff" />
+    <rect x="-22" y="-5" rx="5" ry="5" width="5" height="15" fill="peachpuff" />
+    <rect x="58" y="-5" rx="5" ry="5" width="5" height="15" fill="peachpuff" />
+   </g><!--hands-->
+   <rect x="-18" y="0" rx="5" ry="5" width="16" height="15" stroke="black" stroke-width="4" />
+   <rect x="42" y="0" rx="5" ry="5" width="16" height="15" stroke="black" stroke-width="4" />
+   <rect x="-18" y="0" rx="5" ry="5" width="20" height="15" fill="peru" />
+   <rect x="38" y="0" rx="5" ry="5" width="20" height="15" fill="peru" />
+  </g><!--arms-->
+ </g><!--torso-->
+ <g id="head" transform="translate(0,-50) rotate(-10)">
+  <g id="ears">
+   <rect x="-45" y="0" rx="10" ry="10" width="90" height="20" stroke="black" stroke-width="4" />
+   <rect x="-45" y="0" rx="10" ry="10" width="90" height="20" fill="sandybrown" />
+  </g><!--ears-->
+  <circle cx="0" cy="10" r="35" fill="peru" />
+  <g id="face">
+   <ellipse cx="0" cy="0" rx="23" ry="15" stroke="black" stroke-width="4" />
+   <ellipse cx="0" cy="15" rx="27" ry="18" stroke="black" stroke-width="4" />
+   <ellipse cx="0" cy="0" rx="23" ry="15" fill="peachpuff" />
+   <ellipse cx="0" cy="15" rx="27" ry="18" fill="peachpuff" />
+   <g id="eyes" transform="translate(0,5)">
+    <circle cx="-9" cy="0" r="6" fill="white" />
+    <circle cx="9" cy="0" r="6" fill="white" />
+    <g id="pupils">
+     <circle cx="-9" cy="0" r="2" fill="black" />
+     <circle cx="9" cy="0" r="2" fill="black" />
+    </g><!--pupils-->
+   </g><!--eyes-->
+   <g id="nose" transform="translate(0,13)">
+    <ellipse cx="0" cy="0" rx="3" ry="2" fill="black" />
+   </g><!--nose-->
+   <g id="cheeks" transform="translate(0,20)">
+    <circle cx="-15" cy="0" r="5" fill="palevioletred" />
+    <circle cx="15" cy="0" r="5" fill="palevioletred" />
+   </g><!--cheeks-->
+  </g><!--face-->
+ </g><!--head-->
+</g><!--monkichi-->
+
+
+
+</svg>

@@ -1,0 +1,41 @@
+{% extends "!layout.html" %}
+
+{% block rootrellink %}
+        <li><a href="{{ pathto('index') }}">Help Top</a> |&nbsp;</li>
+        <li><a href="/">Return to Policy Manager  </a> &raquo;</li>
+{% endblock %}
+
+{% block relbar1 %}
+<div style='background: #454a4e url("/static/nox/apps/coreui/coreui/images/headerBg.gif") repeat-x bottom left'> 
+<img id=logo src="/static/nox/apps/coreui/coreui/images/logo.png" alt="Policy Controller Banner" />
+<img src="/static/nox/apps/coreui/coreui/images/headerBg.gif" alt="Policy Controller Banner" /> 
+{# <img src="{{ pathto("_static/nicira_poma_banner.png", 1) }}" alt="Policy Controller Banner" /> #}
+</div>
+{{ super() }}
+{% endblock %}
+
+{# put the sidebar before the body #}
+{% block sidebar1 %}{{ sidebar() }}{% endblock %}
+{% block sidebar2 %}{% endblock %}
+{% block sidebarsearch %}{% endblock %}
+
+{%- block footer %}
+    <div class="footer">
+    <table width="100%">
+    <tr><td width="33%"></td>
+    <td width="33%">
+    <center>
+    contact: <a href="mailto:support@nicira.com">support@nicira.com</a>
+    </center>
+    </td>
+    <td>
+    {%- if hasdoc('copyright') %}
+      &copy; <a href="{{ pathto('copyright') }}">Copyright</a> {{ copyright }}.
+    {%- else %}
+      &copy; Copyright {{ copyright }}.
+    {%- endif %}
+    </td>
+    </table>
+    <center>
+    </div>
+{%- endblock %}

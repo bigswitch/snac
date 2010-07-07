@@ -1,0 +1,328 @@
+#module_content {
+	padding:0 1.2em;
+}
+
+#monitor-header-bar {
+	padding-left:1em;
+}
+
+div#module_header {
+    margin-bottom: 1ex;
+}
+
+
+div#no-rules-msg {
+    display: none;
+}
+
+
+#module_content .ruleContainer {
+	padding:1px;
+	border-collapse:collapse;
+	position:relative;
+	border-top: 2px solid transparent;
+	border-bottom: 2px solid transparent;
+}
+
+.rule {
+    padding: 0.5em;
+	margin:5px;
+    background: url("/static/nox/ext/apps/snackui/policyui/images/ruleBackgroundNormal.gif") repeat-x bottom left #fff;
+	border:1px solid #daddde;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	-webkit-box-shadow: 1px 1px 3px #dbdbdb;
+	-moz-box-shadow: 1px 1px 3px #dbdbdb;
+	position:relative;
+}
+
+.rule .ruleArrow {
+    background: url("/static/nox/ext/apps/snackui/policyui/images/ruleCollapsingArrows.png") no-repeat top left;
+	height:9px;
+	width:9px;
+	position:absolute;
+	top:8px;
+	left:8px;
+	cursor:pointer;
+}
+
+.dj_ie .rule .ruleArrow {
+	left:2px;
+	top:10px;
+}
+
+.expanded .ruleArrow {
+    background: url("/static/nox/ext/apps/snackui/policyui/images/ruleCollapsingArrows.png") no-repeat right top;
+}
+
+
+.rule .rule-title {
+	padding-left:15px;
+}
+
+div.rule-editor {
+    margin-top: 2ex;
+    padding:0 0.5em 0.5em 0.5em;
+}
+
+div.rule-editor .dijitComboBox {
+	margin:0.35em 0;
+}
+
+div.rule-buttons {
+    margin-top: 2ex;
+}
+
+#module_content .dojoDndItem:hover .rule {
+	border:1px solid #f7d37e;
+}
+
+#module_content .dojoDndItemBefore {
+	border-top: 2px dashed #c6c6c6;
+	cursor:move;
+}
+#module_content .dojoDndItemAfter {
+	border-bottom: 2px dashed #c6c6c6;
+	cursor:move;
+}
+
+#module_content .dojoDndItemBefore:hover .rule {
+	border:1px solid #daddde;
+}
+
+#module_content .dojoDndItemAfter:hover .rule {
+	border:1px solid #daddde;
+}
+
+/* Exception */
+
+#module_content .dojoDndItem.exception {
+	background:transparent;
+}
+
+#module_content .dojoDndItem.exception .rule {
+	border-color: #0DD0FA;
+	background: url("/static/nox/ext/apps/snackui/policyui/images/ruleBackgroundException.gif") repeat-x bottom left #E7F9FF;
+}
+
+#module_content .dojoDndItem.exception .rule .rule-title {
+	padding-right:64px;
+}
+
+#module_content .dojoDndItem.exception:hover .rule {
+	border-color:#00b2d8;
+}
+
+#module_content .exceptionTitle {
+	display:none;
+}
+
+#module_content .dojoDndItem.exception .exceptionTitle {
+	position:absolute;
+	top:9px;
+	right:110px;
+	background:#abdff3;
+	padding:5px 8px;
+	font-size:10px;
+	display:block;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+}
+
+.dj_ie #module_content .dojoDndItem.exception .exceptionTitle {
+	right:125px;
+}
+
+/* Protected */
+
+#module_content .dojoDndItem.protected {
+	background:transparent;
+}
+ 
+
+#module_content .dojoDndItem.protected .rule {
+	border-color:#e6e7e7;
+	background: #F8F8F8 url("/static/nox/ext/apps/snackui/policyui/images/ruleBackgroundProtectedOpen.gif") repeat-x bottom left !important;
+	color: #7C7482;
+	cursor:default;
+}
+
+#module_content .dojoDndItem.protected .rule .rule-title {
+	padding-right:64px;
+}
+
+#module_content .dojoDndItem.protected:hover .rule {
+	border-color:#dfe1e2;
+}
+
+#module_content .protectedTitle {
+	display:none;
+}
+
+#module_content .dojoDndItem.protected .protectedTitle {
+	position:absolute;
+	top:9px;
+	right:110px;
+	background:#BDB658;
+	color:#111;
+	padding:5px 8px;
+	font-size:10px;
+	display:block;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+}
+
+.dj_ie #module_content .dojoDndItem.protected .protectedTitle {
+	right:125px;
+}
+
+#module_content .hitCount {
+	position:absolute;
+	top:9px;
+	right:9px;
+	background:#dfe1e2;
+	color:#111;
+	padding:5px 8px;
+	font-size:10px;
+	display:block;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+}
+
+.dj_ie #module_content .hitCount {
+	right:25px;
+}
+
+#module_content .rule .protectedRuleNotice {
+	display:none;
+}
+
+#module_content .rule .protectedRuleNotice td {
+	vertical-align:top;
+}
+
+#module_content .rule .protectedRuleNotice img.protectedIcon {
+	margin-right:5px;
+}
+
+#module_content .rule .protectedRuleNotice h3 {
+	color:#e00404;
+	font-size:17px;
+	margin:0;
+	padding:0;
+	text-shadow:0 1px 0 #FEFEFE;
+}
+
+#module_content .rule .protectedRuleNotice p {
+	color:#666666;
+	font-size:13px;
+}
+
+
+/* Show the protected content notice when a rule is set to protected */
+#module_content .dojoDndItem.protected .rule .protectedRuleNotice {
+	display:block;
+}
+
+/* Hide the rule specificaiton if a rule is in the protected state */
+#module_content .dojoDndItem.protected .rule .ruleSpecification {
+	display:none;
+}
+
+
+/* End Protected Rule */
+
+
+
+#module_content .dojoDndItemAnchor .rule,
+#module_content .dojoDndItemSelected .rule {
+	border:1px solid #f7d37e;
+	background: url("/static/nox/ext/apps/snackui/policyui/images/ruleBackgroundSelected.gif") repeat-x bottom left #fffae9;
+	cursor:move;
+
+}
+
+#module_content .expanded .rule {
+	background:#fff !important;
+	cursor:default;
+}
+
+
+
+/* Dnd Avatar */
+
+.dojoDndAvatar {
+	border:0 !important;
+	background:none !important;
+	font-size:85% !important;
+	margin:0;
+	padding:0;
+}
+
+.dojoDndAvatarHeader {
+	display:none;
+}
+
+.dojoDndAvatarItem {
+	background:none !important;
+	border:0 !important;
+}
+
+.dojoDndAvatarItem .rule {
+	opacity:0.65;
+	border:1px solid #de8282;
+}
+
+
+.dojoDndAvatar .exceptionTitle, .dojoDndAvatar .protectedTitle {
+	display:none;
+}
+  
+.dojoDndAvatar .hitCount {
+  display:none; 
+} 
+
+.dojoDndAvatarCanDrop .rule {
+	border:1px solid #6fbc3c;
+	opacity:1;
+}
+
+
+/*Rule Data */
+/*.rule-metadata, .rule-buttons*/ .rule-sep {
+    margin-top: 10px;
+	padding-bottom:10px;
+	border-bottom:1px solid #e9e9e9;
+	margin-bottom:10px;
+}
+
+
+.rule-metadata td {
+	vertical-align:top;
+}
+
+.rule-metadata .metaRight {
+	padding-left:25px;
+}
+
+.rule-metadata .labeledinfo .label span {
+	background:#f2f3f4;
+	-moz-border-radius-topleft:8px;
+	-moz-border-radius-bottomleft:8px;
+	-webkit-border-bottom-left-radius:8px;
+	-webkit-border-top-left-radius:8px;
+	padding:0.4em 1em;
+	display:block;
+	margin-right:4px;
+}
+
+.rule-metadata .labeledinfo td  {
+	padding-bottom:5px;
+}
+
+.dj_ie6 .rule,
+.dj_ie6 .rule .ruleArrow,
+.dj_ie6 .expanded .ruleArrow {
+	behavior: url("/static/nox/apps/coreui/coreui/png/iepngfix.htc");
+}
+

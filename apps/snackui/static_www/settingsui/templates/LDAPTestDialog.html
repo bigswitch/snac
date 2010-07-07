@@ -1,0 +1,29 @@
+<div dojoType="dijit.layout.ContentPane" dojoAttachPoint="content" > 
+  <div dojoType="dijit.Dialog" dojoAttachPoint="main_dialog" title="${title}"> 
+    Select a principal type that the directory supports. 
+    <br/>
+    <select name="type" dojoType="dijit.form.ComboBox" autocomplete="false"
+            value="" dojoAttachPoint="select">
+      <option>Host</option>
+      <option>User</option>
+      <option>Switch</option>
+      <option>Location</option>
+    </select>
+
+    <div style="display: none" id="waiting">
+      <br/>
+      <b> Waiting for the response ... </b>  
+    </div>
+
+    <div style="display: none" id="found"></div>
+
+    <div style="display: none" id="error"></div>
+
+    <br/>
+    <br/>
+
+    <button dojoType="dijit.form.Button" dojoAttachPoint="okBtn">Run Test</button>
+    <button dojoType="dijit.form.Button" dojoAttachPoint="cancelBtn">Close</button>
+
+  </div>
+</div> 

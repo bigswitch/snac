@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
+  <component>
+    <name>local_config</name>
+    <dependency>
+      <name>python</name>
+    </dependency>
+    <dependency>
+      <name>pystorage</name>
+    </dependency>
+    <python>nox.ext.apps.local_config.local_config</python>
+  </component>
+  <component>
+    <name>local_configws</name>
+    <dependency><name>webservice</name></dependency>
+    <dependency><name>local_config</name></dependency>
+    <python>nox.ext.apps.local_config.local_configws</python>
+  </component>
+</components:components>

@@ -1,0 +1,36 @@
+#! /bin/sh
+# Copyright 2008 (C) Nicira, Inc.
+
+NAME="nox"
+RSYNC="rsync"
+FLAGS="--exclude='*tmp' -q -e ssh -a --timeout=60"
+SQLITE="sqlite3"
+
+LOCK="/tmp/$NAME.lock"
+
+# Read the NOX init.d configuration file
+[ ! -r /etc/default/$NAME ] && exit 1
+. /etc/default/$NAME
+
+# Only a single rsync replication process can run at a time
+if ! ( set -o noclobber; echo "$$" > "$LOCK") 2> /dev/null; then
+   echo "Lock held by $(cat $LOCK)"
+   exit 1
+fi
+
+trap "rm -f $LOCK $REPLICATION_LOCAL" 0
+
+$RSYNC $FLAGS $REPLICATION_REMOTE $REPLICATION_LOCAL
+RETVAL="$?"
+[ $RETVAL -ne 0 ] && exit 1
+
+# Check the database consistency before accepting it.  Manually
+# preserve the modification time, just in case SQLite modifies the
+# file.
+MODIFIED=`date -r $REPLICATION_LOCAL`
+INTEGRITY=`$SQLITE $REPLICATION_LOCAL "PRAGMA integrity_check;" 2> /dev/null`
+[ "$INTEGRITY" != "ok" ] && exit 1
+
+touch -m --date="$MODIFIED" $REPLICATION_LOCAL
+mv -f $REPLICATION_LOCAL $REPLICATION_FINAL
+exit 0

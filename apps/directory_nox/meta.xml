@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
+
+  <component>
+    <name>nox_directory</name>
+    <dependency>
+      <name>authui</name>
+    </dependency>
+    <dependency>
+      <name>directorymanager</name>
+    </dependency>
+    <dependency>
+      <name>pytransactional storage</name>
+    </dependency>
+    <python>nox.ext.apps.directory_nox.nox_directory</python>
+  </component>
+
+  <component>
+    <name>testauthui</name>
+    <dependency>
+      <name>coreui</name>
+    </dependency>
+    <dependency>
+      <name>authui</name>
+    </dependency>
+    <dependency>
+      <name>nox_directory</name>
+    </dependency>
+    <dependency>
+      <name>pyldap_directory_proxy</name>
+    </dependency>
+    <python>nox.ext.apps.directory_nox.testauthui</python>
+  </component>
+
+</components:components>
