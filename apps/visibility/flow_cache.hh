@@ -31,7 +31,7 @@ typedef hash_map<uint64_t, uint32_t> HostRefCountMap;
 class Flow_cache
     : public container:: Component {
 public:
-    Flow_cache(const container::Context*, const xercesc::DOMNode*);
+    Flow_cache(const container::Context*, const json_object*);
     void configure(const container::Configuration*);
     void install();
     static void getInstance(const container::Context*, Flow_cache *&);

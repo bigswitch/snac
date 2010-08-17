@@ -14,8 +14,6 @@ class PyObject;
 #include <sstream>
 #include <vector>
 
-#include <xercesc/dom/DOM.hpp>
-
 #include "authenticator/flow_in.hh"
 #include "authenticator/flow_util.hh"
 #include "classifier.hh"
@@ -89,7 +87,7 @@ class Sepl_enforcer
 
 public:
     // Component state management methods
-    Sepl_enforcer(const container::Context*, const xercesc::DOMNode*);
+    Sepl_enforcer(const container::Context*, const json_object*);
 
     static void getInstance(const container::Context*, Sepl_enforcer*&);
 

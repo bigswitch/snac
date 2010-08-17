@@ -78,7 +78,7 @@ static void ensure_default_properties(Properties *props);
 Vlog_module lg("Http_redirector_component");
 
 Http_redirector::Http_redirector(const container::Context* c,
-                                 const xercesc::DOMNode*) 
+                                 const json_object*) 
     : Component(c), ip_id(INITIAL_IPID), 
       resp_buf(raw_buf, sizeof(raw_buf))
 {

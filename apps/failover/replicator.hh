@@ -17,7 +17,7 @@ namespace replicator {
 class Storage_replicator
     : public container::Component {
 public:
-    Storage_replicator(const container::Context*, const xercesc::DOMNode*);
+    Storage_replicator(const container::Context*, const json_object*);
     static void getInstance(const container::Context*, Storage_replicator*&);
 
     /* Make a snapshot of the database. Adds a timestamp to the file

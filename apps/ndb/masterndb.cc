@@ -12,7 +12,7 @@ static Vlog_module lg("ndb");
 namespace vigil {
 
 MasterNDB::MasterNDB(const Context* c,
-                     const xercesc::DOMNode*)
+                     const json_object*)
     : Component(c), n(1), running(true), s(0) {
 
 };

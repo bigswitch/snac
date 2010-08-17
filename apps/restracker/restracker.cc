@@ -22,7 +22,7 @@ namespace applications {
 using namespace std;
 
 restracker::restracker(const container::Context* c,
-                       const xercesc::DOMNode*)
+                       const json_object*)
     : Component(c)
 {
     sw.reset_countdown_timer(COUNTDOWN_DURATION);

@@ -30,11 +30,6 @@ if test "$ax_cv_boost_filesystem" != "yes"; then
    AC_MSG_ERROR([cannot find the Boost::Filesystem library])
 fi
 
-AX_LIB_XERCES([2.7.0])
-if test "x$HAVE_XERCES" != "xyes"; then
-   AC_MSG_ERROR([cannot find the Apache Xerces library])
-fi
-
 CHECK_PCAP
 CHECK_SSL
 CHECK_NDEBUG

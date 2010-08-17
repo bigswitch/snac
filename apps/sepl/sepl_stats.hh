@@ -32,7 +32,7 @@ public:
     };
 
     // Component state management methods
-    Sepl_stats(const container::Context*, const xercesc::DOMNode*);
+    Sepl_stats(const container::Context*, const json_object*);
 
     static void getInstance(const container::Context*, Sepl_stats*&);
 

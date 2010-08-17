@@ -64,7 +64,7 @@ class restracker
         Disposition handle_packet_in(const Event&);
 
     public:    
-        restracker( const container::Context*, const xercesc::DOMNode*);
+        restracker( const container::Context*, const json_object*);
         restracker() : Component(0) {}
 
         static void getInstance(const container::Context*, restracker*&);

@@ -26,7 +26,7 @@ public:
     static const int RESP_BUF_SZ = 1518;
 
     Http_redirector(const container::Context*,
-                    const xercesc::DOMNode*);
+                    const json_object*);
 
     void configure(const container::Configuration*);
     void install();

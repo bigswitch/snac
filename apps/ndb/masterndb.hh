@@ -5,8 +5,6 @@
 #include <algorithm>
 #include <list>
 
-#include <xercesc/dom/DOM.hpp>
-
 #include <boost/function.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>
@@ -74,7 +72,7 @@ class MasterNDB
 {
 public:
     MasterNDB(const container::Context*,
-              const xercesc::DOMNode*);
+              const json_object*);
 
     OpStatus init(const boost::function<void(OpStatus)>& = 0);
 

@@ -11,7 +11,7 @@ namespace applications {
 static Vlog_module lg("sepl_stats");
 
 Sepl_stats::Sepl_stats(const container::Context* c,
-                       const xercesc::DOMNode*)
+                       const json_object*)
     : Component(c), n_allows(0), n_denies(0)
 { }
 

@@ -39,7 +39,7 @@ static const int RULE_FLOW_BUF_SZ = 200;
 
 static Vlog_module lg("flow_cache");
 
-Flow_cache::Flow_cache(const container::Context* c, const xercesc::DOMNode*)
+Flow_cache::Flow_cache(const container::Context* c, const json_object*)
     : Component(c), cur_policy_id(0), next_flow_id(0),
       allowedflows(ALLOWED_FLOW_BUF_SZ), deniedflows(DENIED_FLOW_BUF_SZ),
       allflows(ALL_FLOW_BUF_SZ)

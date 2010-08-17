@@ -1,7 +1,6 @@
 #include "component.hh"
 
 #include <boost/bind.hpp>
-#include <xercesc/dom/DOM.hpp>
 
 #include "vlog.hh"
 #include "ldap_proxy.hh"
@@ -19,7 +18,7 @@ class Testldap_proxy
     : public Component {
 public:
     Testldap_proxy(const Context* c,
-                     const xercesc::DOMNode*) 
+                     const json_object*) 
         : Component(c) {
     }
 

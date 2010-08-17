@@ -5,7 +5,6 @@
 #include <list>
 
 #include <boost/lexical_cast.hpp>
-#include <xercesc/dom/DOM.hpp>
 
 #include "assert.hh"
 #include "component.hh"
@@ -384,7 +383,7 @@ class DWH
     : public NDB, public Component {
 public:
     DWH(const Context* c,
-        const xercesc::DOMNode*) 
+        const json_object*) 
         : Component(c) {
     }
     

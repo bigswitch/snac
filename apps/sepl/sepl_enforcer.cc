@@ -30,7 +30,7 @@ Sepl_enforcer::Action_set::Action_set()
 {}
 
 Sepl_enforcer::Sepl_enforcer(const container::Context* c,
-                             const xercesc::DOMNode*)
+                             const json_object*)
     : Classifier<Flow_expr, Flow_action>(),
       Component(c), tstorage(NULL), properties(NULL), stats(NULL),
       core(NULL), passive(false), most_secure(true), result(&data),

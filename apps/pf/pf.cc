@@ -73,7 +73,7 @@ char pf::P0F_AFILE[] = "nox/ext/apps/pf/p0fa.fp";
 char pf::PF_SFILE [] = "nox/ext/apps/pf/pf.os";
 
 pf::pf(const vigil::container::Context* c,
-       const xercesc::DOMNode*) 
+       const json_object*) 
     : Component(c)
 {
     p0f_synsigs    = new p0f_sigs();

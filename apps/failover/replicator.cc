@@ -31,7 +31,7 @@ static Vlog_module lg("replicator");
 #define DEFAULT_REPLICATION_INTERVAL 600 
 
 Storage_replicator::Storage_replicator(const container::Context* c,
-                                       const xercesc::DOMNode*)
+                                       const json_object*)
     : Component(c) {
         unique = false;
 }

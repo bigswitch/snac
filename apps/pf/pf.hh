@@ -9,8 +9,6 @@
 #ifndef PF_HH__
 #define PF_HH__
 
-#include <xercesc/dom/DOM.hpp>
-
 #include <map>
 #include <vector>
 #include <functional>
@@ -76,7 +74,7 @@ public:
     static char P0F_AFILE[];
     static char PF_SFILE [];
     
-    pf(const container::Context*, const xercesc::DOMNode*);
+    pf(const container::Context*, const json_object*);
     ~pf();
 
     static void getInstance(const container::Context*, pf*&);

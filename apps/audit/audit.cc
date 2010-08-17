@@ -34,7 +34,7 @@ class Audit
 public:
 
     Audit(const Context* c,
-          const xercesc::DOMNode* xml) 
+          const json_object* xml) 
         : Component(c), v_calibrations(NULL), r_calibrations(NULL) {
     }
 

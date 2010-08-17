@@ -2,7 +2,6 @@
 
 #include <boost/bind.hpp>
 #include <boost/shared_array.hpp>
-#include <xercesc/dom/DOM.hpp>
 
 #include "assert.hh"
 #include "component.hh"
@@ -22,7 +21,7 @@ class CtlFlood
 
 public:
     CtlFlood(const Context* c,
-             const xercesc::DOMNode*) 
+             const json_object*) 
         : Component(c) { }
 
     void configure(const Configuration*) {

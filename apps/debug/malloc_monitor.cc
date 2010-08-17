@@ -3,7 +3,6 @@
 #include "component.hh"
 #include "config.h"
 #include "vlog.hh"
-#include <xercesc/dom/DOM.hpp>
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
 #include <malloc.h> 
@@ -19,7 +18,7 @@ static Vlog_module lg("malloc-monitor");
 class MallocMonitor : public Component {
 
 public:
-    MallocMonitor(const Context* c, const xercesc::DOMNode*)
+    MallocMonitor(const Context* c, const json_object*)
         : Component(c), print_interval_secs(60) {
     }
 

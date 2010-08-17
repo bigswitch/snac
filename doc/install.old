@@ -131,9 +131,6 @@ To compile the controller, you will need the following software:
 
     - SQLite3, both utilities and libraries (http://www.sqlite.org/).
 
-    - Apache Xerces C++ XML parser (version 2.8) 
-      (http://xerces.apache.org/xerces-c/).
-
 To compile the controller with support for applications written in
 Python, which we highly recommend, you will additionally need the
 following software:
@@ -179,7 +176,7 @@ apt-get to install the following packages:
     libboost-test-dev libboost-filesystem-dev
     libboost-serialization-dev libpcap-dev libsqlite3-dev libssl-dev
     make python-dev python-twisted sqlite3 swig python-mako
-    mysql-server python-mysqldb libxerces27-dev python-simplejson
+    mysql-server python-mysqldb python-simplejson
 
 NOX Controller Installation
 ===========================
