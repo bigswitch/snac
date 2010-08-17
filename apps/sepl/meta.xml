@@ -21,9 +21,6 @@
       <name>authenticator</name>
     </dependency>
     <dependency>
-      <name>broadcast_resolve</name>
-    </dependency>
-    <dependency>
       <name>sepl_stats</name>
     </dependency>
     <dependency>

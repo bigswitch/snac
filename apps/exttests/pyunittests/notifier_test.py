@@ -18,11 +18,11 @@ from twisted.internet import reactor
 from twisted.internet.defer import Deferred
 from twisted.python.failure import Failure
 
-from nox.apps.tests import unittest
-from nox.apps.storage import Storage
-from nox.apps.storage import TransactionalStorage, TransactionalConnection
-from nox.apps.configuration.properties import Properties
-from nox.apps.tests.pyunittests.properties_test import DeleteSection
+from nox.netapps.tests import unittest
+from nox.netapps.storage import Storage
+from nox.netapps.storage import TransactionalStorage, TransactionalConnection
+from nox.netapps.configuration.properties import Properties
+from nox.netapps.tests.pyunittests.properties_test import DeleteSection
 from nox.ext.apps.notification.notifier import Notifier
 
 import logging
@@ -144,7 +144,7 @@ class NotifierTestCase(unittest.NoxTestCase):
             },
             ]
 
-        from nox.apps.tests.pyunittests.properties_test import DeleteSection
+        from nox.netapps.tests.pyunittests.properties_test import DeleteSection
         deleter = DeleteSection(self.storage, 'NOTIFIER')
         d = deleter()
         self.connection = None

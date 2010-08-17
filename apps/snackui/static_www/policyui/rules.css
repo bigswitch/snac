@@ -323,6 +323,6 @@ div.rule-buttons {
 .dj_ie6 .rule,
 .dj_ie6 .rule .ruleArrow,
 .dj_ie6 .expanded .ruleArrow {
-	behavior: url("/static/nox/apps/coreui/coreui/png/iepngfix.htc");
+	behavior: url("/static/nox/webapps/coreui/coreui/png/iepngfix.htc");
 }
 

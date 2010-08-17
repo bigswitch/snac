@@ -1,21 +1,4 @@
 /* Copyright 2008 (C) Nicira, Inc. */
-/* Copyright 2008 (C) Nicira, Inc.
- *
- * This file is part of NOX.
- *
- * NOX is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * NOX is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with NOX.  If not, see <http://www.gnu.org/licenses/>.
- */
 #ifndef SEPL_ENFORCER_HH
 #define SEPL_ENFORCER_HH 1
 
@@ -33,7 +16,7 @@ class PyObject;
 
 #include <xercesc/dom/DOM.hpp>
 
-#include "authenticator/flow-in.hh"
+#include "authenticator/flow_in.hh"
 #include "authenticator/flow_util.hh"
 #include "classifier.hh"
 #include "component.hh"
@@ -63,8 +46,8 @@ namespace applications {
 struct Sepl_data {
     Flow_in_event *fi;
     Flow_in_event::DestinationList::iterator dst;
-    std::list<user_info>::const_iterator suser;
-    std::list<user_info>::const_iterator duser;
+    //std::list<user_info>::const_iterator suser;
+    //std::list<user_info>::const_iterator duser;
     uint32_t dst_idx;
     uint32_t suser_idx;
     uint32_t duser_idx;
@@ -188,7 +171,6 @@ bool
 get_field<Flow_expr, applications::Sepl_data>(uint32_t,
                                               const applications::Sepl_data&,
                                               uint32_t, uint32_t& val);
-template<>
 bool matches(const Flow_expr&, const applications::Sepl_data&);
 
 } // namespace vigil

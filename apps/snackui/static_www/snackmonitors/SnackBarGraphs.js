@@ -4,15 +4,15 @@
 
 dojo.provide("nox.ext.apps.snackui.snackmonitors.SnackBarGraphs");
 
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.coreui.coreui.UpdateMgr");
-dojo.require("nox.apps.coreui.coreui.UpdateErrorHandler");
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.coreui.coreui._UpdatingBarGraph"); 
-dojo.require("nox.apps.directory.directorymanagerws.Switch"); 
-dojo.require("nox.apps.directory.directorymanagerws.SwitchPort"); 
+dojo.require("nox.webapps.coreui.coreui.base");
+dojo.require("nox.webapps.coreui.coreui.UpdateMgr");
+dojo.require("nox.webapps.coreui.coreui.UpdateErrorHandler");
+dojo.require("nox.webapps.coreui.coreui.base");
+dojo.require("nox.webapps.coreui.coreui._UpdatingBarGraph"); 
+dojo.require("nox.netapps.directory.directorymanagerws.Switch"); 
+dojo.require("nox.netapps.directory.directorymanagerws.SwitchPort"); 
 
-dmws = nox.apps.directory.directorymanagerws; 
+dmws = nox.netapps.directory.directorymanagerws; 
 
 // this is a hack to generate a switch port link from a switch 
 // and port name in a way that should still work if we change
@@ -29,7 +29,7 @@ function make_switchport_link(switch_name, port_name) {
 } 
 
 dojo.declare("nox.ext.apps.snackui.snackmonitors.LocationBandwidthBarGraph", 
-            [nox.apps.coreui.coreui._UpdatingBarGraph], {
+            [nox.webapps.coreui.coreui._UpdatingBarGraph], {
 
   _url : "/ws.v1/nox/heavyhitters/port_bw",  
   x_axis_label : "Tx Bandwidth (KB/second)",
@@ -56,7 +56,7 @@ dojo.declare("nox.ext.apps.snackui.snackmonitors.LocationBandwidthBarGraph",
 }); 
 
 dojo.declare("nox.ext.apps.snackui.snackmonitors.LocationErrorBarGraph", 
-            [nox.apps.coreui.coreui._UpdatingBarGraph], {
+            [nox.webapps.coreui.coreui._UpdatingBarGraph], {
 
   _url : "/ws.v1/nox/heavyhitters/port_err",  
   x_axis_label : "Port Errors (total)",
@@ -83,7 +83,7 @@ dojo.declare("nox.ext.apps.snackui.snackmonitors.LocationErrorBarGraph",
 }); 
 
 dojo.declare("nox.ext.apps.snackui.snackmonitors.SwitchFlowRateBarGraph", 
-            [nox.apps.coreui.coreui._UpdatingBarGraph], {
+            [nox.webapps.coreui.coreui._UpdatingBarGraph], {
 
   _url : "/ws.v1/nox/heavyhitters/switch_p_s",  
   x_axis_label : "Flow Setup Rate (flows/second)",

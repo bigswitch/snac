@@ -4,9 +4,9 @@ import os, logging, shutil, simplejson, time
 from twisted.internet import reactor
 from twisted.internet.defer import Deferred
 
-from nox.apps.coreui.coreui import *
-from nox.apps.coreui.webservice import *
-from nox.apps.storage import TransactionalStorage, TransactionalConnection
+from nox.webapps.coreui.coreui import *
+from nox.webapps.webservice.webservice import *
+from nox.netapps.storage import TransactionalStorage, TransactionalConnection
 from nox.lib.core import Component
 
 from pyreplicator import PyStorage_replicator

@@ -8,7 +8,7 @@
 
 #include "assert.hh"
 #include "authenticator/flow_util.hh"
-#include "authenticator/host-event.hh"
+#include "authenticator/host_event.hh"
 #include "bootstrap-complete.hh"
 #include "flow.hh"
 #include "netinet++/datapathid.hh"
@@ -58,8 +58,8 @@ Flow_cache::configure(const container::Configuration* conf) {
     register_handler<Flow_in_event>(
             boost::bind(&Flow_cache::handle_flow_in, this, _1));
 
-    register_handler<Host_event>(
-            boost::bind(&Flow_cache::handle_host_event, this, _1));
+    register_handler<Host_join_event>(
+            boost::bind(&Flow_cache::handle_host_join_event, this, _1));
 }
 
 void
@@ -128,16 +128,16 @@ Flow_cache::handle_flow_in(const Event& e)
 {
     const Flow_in_event& fie = assert_cast<const Flow_in_event&>(e);
 
-    if (!fie.route_destinations.empty()
-            && fie.destinations[0].connector->location != 0) {
+    if (!fie.route_destinations.empty() &&
+            fie.dst_locations[fie.routed_to].authed_location.location->name != 0) {
         //Don't report on flows destined for known locations behind a router;
         //we'll report on the flow that comes in from the router
         lg.dbg("Not caching flow destined for a router");
         return CONTINUE;
     }
 
-    ConnPtr s_conn = fie.route_source != NULL ? fie.route_source : fie.source;
-    if (datapathid::from_host(s_conn->location & DP_MASK) != fie.datapath_id) {
+    const boost::shared_ptr<vigil::Location> loc = (fie.route_source != NULL) ? fie.route_source : fie.src_location.location;
+    if (loc->sw->dp != fie.datapath_id) {
         //Don't report on flows not from the originating switch or router
         lg.dbg("Not caching flow from intermediate switch");
         return CONTINUE;
@@ -145,10 +145,10 @@ Flow_cache::handle_flow_in(const Event& e)
 
     uint32_t dest_used = 0;
     if (fie.fn_applied) {
-        for (int i = fie.destinations.size()-1; i >= 0; --i) {
-            Flow_in_event::DestinationInfo di = fie.destinations[i];
+        for (int i = fie.dst_locations.size()-1; i >= 0; --i) {
+            Flow_in_event::DestinationInfo di = fie.dst_locations[i];
             //the function is on the first non-active destination
-            if (fie.destinations[i].allowed == false) {
+            if (fie.dst_locations[i].allowed == false) {
                 dest_used = i;
                 break;
             }
@@ -161,13 +161,13 @@ Flow_cache::handle_flow_in(const Event& e)
         dest_used = fie.routed_to;
     }
     else {
-        BOOST_FOREACH(Flow_in_event::DestinationInfo di, fie.destinations) {
+        BOOST_FOREACH(Flow_in_event::DestinationInfo di, fie.dst_locations) {
             if (di.allowed) {
                 break;
             }
             dest_used += 1;
         }
-        if (dest_used == fie.destinations.size()) {
+        if (dest_used == fie.dst_locations.size()) {
             //no allows
             dest_used = 0;
         }
@@ -178,7 +178,7 @@ Flow_cache::handle_flow_in(const Event& e)
 
     //cache in system-wide buffers
     allflows.put(fi);
-    if (fie.fn_applied || fie.destinations[dest_used].allowed) {
+    if (fie.fn_applied || fie.dst_locations[dest_used].allowed) {
         allowedflows.put(fi);
     }
     else {
@@ -186,16 +186,16 @@ Flow_cache::handle_flow_in(const Event& e)
     }
 
     //cache in source host buffer
-    get_host_flow_buf(fie.source->host, true)->put(fi);
+    get_host_flow_buf(fie.src_host_netid->name, true)->put(fi);
 
     //cache in buffers for policy rules
-    BOOST_FOREACH(uint32_t id, fie.destinations[dest_used].rules) {
+    BOOST_FOREACH(uint32_t id, fie.dst_locations[dest_used].rules) {
         get_policy_flow_buf(cur_policy_id, id, true)->put(fi);
     }
 
     //cache in buffer for destination if flow was routed there
     if (fie.routed_to != fie.NOT_ROUTED) {
-        uint32_t host_id = fie.destinations[dest_used].connector->host;
+        uint64_t host_id = fie.dst_locations[dest_used].authed_location.location->name;
         get_host_flow_buf(host_id, true)->put(fi);
     }
 
@@ -203,20 +203,19 @@ Flow_cache::handle_flow_in(const Event& e)
 }
 
 Disposition
-Flow_cache::handle_host_event(const Event& e)
+Flow_cache::handle_host_join_event(const Event& e)
 {
     // For now, we have to maintain a counter of bindings for each host.
     // This should get a lot simplier when the authenticator is  refactored.
     
-    const Host_event& he = assert_cast<const Host_event&>(e);
+    const Host_join_event& he = assert_cast<const Host_join_event&>(e);
 
-    uint32_t host_id = authenticator->get_id(he.name, Directory::HOST_PRINCIPAL,
-            (Directory::Group_Type)0, true, false);
-    if (he.action == Host_event::JOIN) {
+    uint64_t host_id = he.hostname;
+    if (he.action == Host_join_event::JOIN) {
         host_ref_counts[host_id] += 1;
     }
     else {
-        //Host_event::LEAVE
+        //Host_join_event::LEAVE
         host_ref_counts[host_id] -= 1;
         if (host_ref_counts[host_id] <= 0) {
             host_ref_counts.erase(host_id);
@@ -229,13 +228,16 @@ Flow_cache::handle_host_event(const Event& e)
 
 const FlowBuf_ptr
 Flow_cache::get_host_flow_buf(string hostname) {
-    uint32_t host_id = authenticator->get_id(hostname,
+    /*uint64_t host_id = authenticator->get_id(hostname,
             Directory::HOST_PRINCIPAL, (Directory::Group_Type)0, true, false);
     return get_host_flow_buf(host_id, false);
+    */
+    // Copied over from SNAC. Still TODO
+    return FlowBuf_ptr();
 }
 
 const FlowBuf_ptr
-Flow_cache::get_host_flow_buf(uint32_t host_id, bool create) {
+Flow_cache::get_host_flow_buf(uint64_t host_id, bool create) {
     FlowBuf_ptr hbuf;
     FlowBufMap::const_iterator fbentry = hostflows.find(host_id);
     if (fbentry != hostflows.end()) {

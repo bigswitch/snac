@@ -13,7 +13,7 @@
 #include "flow.hh"
 
 #include "authenticator/authenticator.hh"
-#include "authenticator/flow-in.hh"
+#include "authenticator/flow_in.hh"
 #include "netinet++/datapathid.hh"
 
 namespace vigil {
@@ -42,21 +42,13 @@ struct Flow_info {
     datapathid dpid;
 
     /* bindings info */
-    uint32_t src_host;
-    std::list<uint32_t> src_users;
-    uint32_t dst_host;
-    std::list<uint32_t> dst_users;
+    uint64_t                                  src_host;
+    boost::shared_ptr<GroupList>              src_dladdr_groups;
+    boost::shared_ptr<GroupList>              src_nwaddr_groups;
 
-    //user_groups may not be distinct - the reader should union the list
-    //(we avoid performing union every flow since multiple users are uncommon)
-    std::vector<uint32_t> src_user_groups;
-    std::vector<uint32_t> dst_user_groups;
-    //host_groups may contain host, location, and switch groups
-    std::vector<uint32_t> src_host_groups;
-    std::vector<uint32_t> dst_host_groups;
-    //addr_groups may contain dladdr and nwaddr groups
-    boost::shared_ptr<std::vector<uint32_t> > src_addr_groups;
-    boost::shared_ptr<std::vector<uint32_t> > dst_addr_groups;
+    uint64_t                                  dst_host;
+    boost::shared_ptr<GroupList>              dst_dladdr_groups;
+    boost::shared_ptr<GroupList>              dst_nwaddr_groups;
 
     /* routing action */
     RoutingAction routing_action;
@@ -71,21 +63,15 @@ struct Flow_info {
         received(fie.received),
         flow(fie.flow),
         dpid(fie.datapath_id),
-        src_host(fie.source->host),
-        dst_host(Authenticator::UNKNOWN_ID),
-        src_host_groups(fie.source->hostgroups),
-        src_addr_groups(fie.src_addr_groups),
-        dst_addr_groups(fie.dst_addr_groups),
+        src_host(fie.src_host_netid->name),
+        src_dladdr_groups(fie.src_dladdr_groups),
+        src_nwaddr_groups(fie.src_nwaddr_groups),
+        dst_host(fie.dst_host_netid->name),
+        dst_dladdr_groups(fie.dst_dladdr_groups),
+        dst_nwaddr_groups(fie.dst_nwaddr_groups),
         policy_id(cur_policy)
     {
-        BOOST_FOREACH(user_info user, fie.source->users) {
-            src_users.push_back(user.user);
-            BOOST_FOREACH(uint32_t ugroup, user.groups) {
-                src_user_groups.push_back(ugroup);
-            }
-        }
 
-        Flow_in_event::DestinationInfo dest = fie.destinations[dest_used];
         switch (fie.routed_to) {
         case Flow_in_event::NOT_ROUTED:
             routing_action = NOT_ROUTED;
@@ -97,14 +83,8 @@ struct Flow_info {
             routing_action = ROUTED;
         }
 
-        dst_host = dest.connector->host;
-        dst_host_groups = dest.connector->hostgroups;
-        BOOST_FOREACH(user_info user, dest.connector->users) {
-            dst_users.push_back(user.user);
-            BOOST_FOREACH(uint32_t ugroup, user.groups) {
-                dst_user_groups.push_back(ugroup);
-            }
-        }
+        Flow_in_event::DestinationInfo dest = fie.dst_locations[dest_used];
+        dst_host = dest.authed_location.location->name;
 
         policy_rules = dest.rules;
     }

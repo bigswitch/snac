@@ -9,9 +9,9 @@ from twisted.internet import defer
 
 from nox.lib.core import *
 
-from nox.apps.pyrt.pycomponent import pyevent
+from nox.coreapps.pyrt.pycomponent import pyevent
 
-from nox.apps.storage.storage import Storage
+from nox.netapps.storage.storage import Storage
 from nox.lib.netinet.netinet import create_ipaddr 
 
 from nox.ext.apps.local_config.interface_change_event import interface_change_event 

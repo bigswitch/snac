@@ -4,18 +4,18 @@
 
 dojo.provide("nox.ext.apps.snackui.snackmonitors.HostGroupInfo");
 
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.directory.directorymanagerws.HostGroupStore");
-dojo.require("nox.apps.directory.directorymanagerws.GroupModifyDialog"); 
-dojo.require("nox.apps.directory.directorymanagerws.Directories"); 
-dojo.require("nox.apps.coreui.coreui.ItemList");
-dojo.require("nox.apps.coreui.coreui.ItemInspector");
+dojo.require("nox.webapps.coreui.coreui.base");
+dojo.require("nox.netapps.directory.directorymanagerws.HostGroupStore");
+dojo.require("nox.netapps.directory.directorymanagerws.GroupModifyDialog"); 
+dojo.require("nox.netapps.directory.directorymanagerws.Directories"); 
+dojo.require("nox.webapps.coreui.coreui.ItemList");
+dojo.require("nox.webapps.coreui.coreui.ItemInspector");
 dojo.require("dijit.form.FilteringSelect");
 
 dojo.require("dojox.grid.DataGrid");
 
-var dmws = nox.apps.directory.directorymanagerws; 
-var coreui = nox.apps.coreui.coreui;
+var dmws = nox.netapps.directory.directorymanagerws; 
+var coreui = nox.webapps.coreui.coreui;
 var notFoundError = false;
 var default_error_handlers =  {
                 404: function (response, ioArgs) {
@@ -132,7 +132,7 @@ function init_page() {
             return {name: "directory", header: "Directory Name", attr: "directoryName", width: "20%",
                     editor: dijit.form.FilteringSelect,
                     editorProps: {
-                    store: nox.apps.directory.directorymanagerws.Directories.datastore,
+                    store: nox.netapps.directory.directorymanagerws.Directories.datastore,
                     query: { write_host_enabled: true }
                 },
                     editAttr: "directoryName",
@@ -147,7 +147,7 @@ function init_page() {
             };
         } else {
             return {name: "directory", header: "Directory Name", attr: "directoryName", width: "20%",
-                    store: nox.apps.directory.directorymanagerws.Directories.datastore,
+                    store: nox.netapps.directory.directorymanagerws.Directories.datastore,
                     query: { write_user_enabled: true }
             };
         }
@@ -239,7 +239,7 @@ var group = null;
 function init_directory() {
     coreui.base.update_page_title("Host Group Information");
 
-    group = new nox.apps.directory.directorymanagerws.HostGroup({
+    group = new nox.netapps.directory.directorymanagerws.HostGroup({
         initialData: { name: selected_group },
         updateList: ["info" ]
     });
@@ -277,7 +277,7 @@ function init_directory() {
 }
 
 function fetch_directory() {
-    var g = new nox.apps.directory.directorymanagerws.HostGroup({
+    var g = new nox.netapps.directory.directorymanagerws.HostGroup({
         initialData: { name: selected_group },
         updateList: ["info" ]
     });

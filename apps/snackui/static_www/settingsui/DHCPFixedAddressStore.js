@@ -2,13 +2,13 @@
 
 dojo.provide("nox.ext.apps.snackui.settingsui.DHCPFixedAddressStore");
 
-dojo.require("nox.apps.coreui.coreui._UpdatingStore");
+dojo.require("nox.webapps.coreui.coreui._UpdatingStore");
 dojo.require("nox.ext.apps.snackui.settingsui.DHCPFixedAddress");
 
 /* A special storage to access DHCP fixed address configuration
  * information stored into the Properties table. */
 dojo.declare("nox.ext.apps.snackui.settingsui.DHCPFixedAddressStore", 
-             [ nox.apps.coreui.coreui._UpdatingStore ], {
+             [ nox.webapps.coreui.coreui._UpdatingStore ], {
 
     constructor: function (kwarg) {
         this.itemConstructor = 

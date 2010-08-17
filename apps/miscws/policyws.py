@@ -2,7 +2,7 @@ import simplejson
 import protocolsws
 import logging
 
-from nox.apps.coreui import webservice, web_arg_utils
+from nox.webapps.webservice import webservice, web_arg_utils
 from nox.ext.apps import sepl
 from nox.ext.apps.sepl import compile
 from nox.ext.apps.sepl.declare import *

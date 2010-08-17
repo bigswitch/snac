@@ -2,11 +2,11 @@
 
 dojo.provide("nox.ext.apps.snackui.settingsui.log");
 
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.coreui.coreui.UpdateMgr");
-dojo.require("nox.apps.coreui.coreui.UpdateErrorHandler");
+dojo.require("nox.webapps.coreui.coreui.base");
+dojo.require("nox.webapps.coreui.coreui.UpdateMgr");
+dojo.require("nox.webapps.coreui.coreui.UpdateErrorHandler");
 
-var coreui = nox.apps.coreui.coreui;
+var coreui = nox.webapps.coreui.coreui;
 
 var cancel_token = null;
 
@@ -113,7 +113,7 @@ function show_snapshots(response) {
         show_snapshot(response[i]);
     }
     // hide update spinner 
-    nox.apps.coreui.coreui.getUpdateMgr()._recurring_updates = [];  
+    nox.webapps.coreui.coreui.getUpdateMgr()._recurring_updates = [];  
 }
 
 function init_page() {

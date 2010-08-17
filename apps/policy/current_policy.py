@@ -14,7 +14,7 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with NOX.  If not, see <http://www.gnu.org/licenses/>.
-import nox.apps.directory.discovered_directory as discovered
+import nox.netapps.directory.discovered_directory as discovered
 from nox.ext.apps.sepl.declare import *
 
 # POLICY

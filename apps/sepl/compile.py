@@ -1,20 +1,4 @@
 # Copyright 2008 (C) Nicira, Inc.
-# 
-# This file is part of NOX.
-# 
-# NOX is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# NOX is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with NOX.  If not, see <http://www.gnu.org/licenses/>.
-# Trivial example using reactor timer method to countdown from three
 
 import sys
 import copy
@@ -28,8 +12,8 @@ from nox.lib.netinet.netinet import ethernetaddr, ipaddr, cidr_ipaddr, \
     c_htonl, c_ntohl
 from nox.lib.openflow import OFP_VLAN_NONE
 
-from nox.apps.authenticator.pyflowutil import Flow_expr, Flow_action, strlist
-from nox.apps.directory.pydirmanager import Directory
+from nox.netapps.authenticator.pyflowutil import Flow_expr, Flow_action, strlist
+from nox.netapps.directory.pydirmanager import Directory
 from socket import htons, ntohs
 
 lg = logging.getLogger("compile")
@@ -129,10 +113,8 @@ __preds__[Flow_expr.HDST] = (u'hdst', HOST_T, DST_S, GROUPABLE, EXCLUSIVE)
 __preds__[Flow_expr.USRC] = (u'usrc', USER_T, SRC_S, GROUPABLE, NON_EXCLUSIVE)
 __preds__[Flow_expr.UDST] = (u'udst', USER_T, DST_S, GROUPABLE, NON_EXCLUSIVE)
 __preds__[Flow_expr.CONN_ROLE] = (u'conn_role', ROLE_T, NONE_S, NON_GROUPABLE, EXCLUSIVE)
-__preds__[Flow_expr.HGROUPSRC] = (u'in_group', GROUP_T, SRC_S, NON_GROUPABLE, NON_EXCLUSIVE)
-__preds__[Flow_expr.HGROUPDST] = (u'in_group', GROUP_T, DST_S, NON_GROUPABLE, NON_EXCLUSIVE)
-__preds__[Flow_expr.UGROUPSRC] = (u'in_group', GROUP_T, SRC_S, NON_GROUPABLE, NON_EXCLUSIVE)
-__preds__[Flow_expr.UGROUPDST] = (u'in_group', GROUP_T, DST_S, NON_GROUPABLE, NON_EXCLUSIVE)
+__preds__[Flow_expr.GROUPSRC] = (u'in_group', GROUP_T, SRC_S, NON_GROUPABLE, NON_EXCLUSIVE)
+__preds__[Flow_expr.GROUPDST] = (u'in_group', GROUP_T, DST_S, NON_GROUPABLE, NON_EXCLUSIVE)
 __preds__[Flow_expr.DLVLAN] = (u'dlvlan', DLVLAN_T, NONE_S, NON_GROUPABLE, EXCLUSIVE)
 __preds__[Flow_expr.DLSRC] = (u'dlsrc', DLADDR_T, SRC_S, GROUPABLE, EXCLUSIVE)
 __preds__[Flow_expr.DLDST] = (u'dldst', DLADDR_T, DST_S, GROUPABLE, EXCLUSIVE)
@@ -144,8 +126,6 @@ __preds__[Flow_expr.TPSRC] = (u'tpsrc', TPORT_T, SRC_S, NON_GROUPABLE, EXCLUSIVE
 __preds__[Flow_expr.TPDST] = (u'tpdst', TPORT_T, DST_S, NON_GROUPABLE, EXCLUSIVE)
 __preds__[Flow_expr.SUBNETSRC] = (u'subnetsrc', SUBNET_T, SRC_S, NON_GROUPABLE, NON_EXCLUSIVE)
 __preds__[Flow_expr.SUBNETDST] = (u'subnetdst', SUBNET_T, DST_S, NON_GROUPABLE, NON_EXCLUSIVE)
-__preds__[Flow_expr.ADDRGROUPSRC] = (u'in_group', GROUP_T, SRC_S, NON_GROUPABLE, NON_EXCLUSIVE)
-__preds__[Flow_expr.ADDRGROUPDST] = (u'in_group', GROUP_T, DST_S, NON_GROUPABLE, NON_EXCLUSIVE)
 __preds__[Flow_expr.FUNC] = (u'func', FUNC_T, NONE_S, NON_GROUPABLE, NON_EXCLUSIVE)
 __preds__[PROTO] = (u'protocol', PROTO_T, NONE_S, NON_GROUPABLE, NON_EXCLUSIVE)
 __preds__[EXPGROUP] = (u'in_group', None, NONE_S, NON_GROUPABLE, NON_EXCLUSIVE)

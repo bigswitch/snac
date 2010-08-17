@@ -3,7 +3,7 @@ include ../../Make.vars
 pkglib_LTLIBRARIES =		\
 	http_redirector.la
 
-http_redirector_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../../ -I$(top_srcdir)/../apps/
+http_redirector_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../../ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../netapps/ -I$(top_srcdir)/../coreapps/
 http_redirector_la_SOURCES = http_redirector.cc http_redirector.hh \
                              redirected_flow_cache.cc redirected_flow_cache.hh
 http_redirector_la_LDFLAGS = -module -export-dynamic
@@ -24,7 +24,7 @@ pyhttp_redirector_wrap.cc pyhttp_redirector.py: pyhttp_redirector.i
  			pyhttp_redirector $(srcdir)/pyhttp_redirector.i
 
 pkglib_LTLIBRARIES += _pyhttp_redirector.la
-_pyhttp_redirector_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../../ -I$(top_srcdir)/../apps/ -I$(top_builddir)/../
+_pyhttp_redirector_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../../ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../netapps/ -I$(top_srcdir)/../coreapps/ -I$(top_builddir)/../
 _pyhttp_redirector_la_SOURCES = http_redirector_proxy.cc
 nodist__pyhttp_redirector_la_SOURCES = pyhttp_redirector_wrap.cc
 _pyhttp_redirector_la_LDFLAGS = -module

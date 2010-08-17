@@ -1,7 +1,7 @@
 import simplejson
 import logging
 
-from nox.apps.coreui import webservice
+from nox.webapps.webservice import webservice
 from nox.ext.apps.sepl import compile
 from nox.lib.directory import DirectoryException
 

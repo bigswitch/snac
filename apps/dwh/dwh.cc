@@ -11,7 +11,7 @@
 #include "component.hh"
 #include "flow.hh"
 #include "flow-mod-event.hh"
-#include "flow-removed.hh"
+#include "flow-expired.hh"
 #include "hash_map.hh"
 #include "netinet++/ethernetaddr.hh"
 #include "ndb/ndb.hh"
@@ -315,9 +315,9 @@ Op::Row transform(const Flow_mod_event& fme) {
 }
 
 template <>
-Op::Row transform(const Flow_removed_event& fee) {
+Op::Row transform(const Flow_expired_event& fee) {
     const struct ofp_match* om = fee.get_flow();
-    const struct ofp_flow_removed* ofe = fee.get_flow_removed();
+    const struct ofp_flow_expired* ofe = fee.get_flow_expired();
     uint32_t w = ntohl(om->wildcards);
     Op::Row row;
 
@@ -337,7 +337,7 @@ Op::Row transform(const Flow_removed_event& fee) {
     row.push_back(define_column(w, OFPFW_NW_PROTO, "PROTOCOL_ID", om->nw_proto));
     row.push_back(define_column(w, OFPFW_TP_SRC, "SOURCE_PORT", ntohs(om->tp_src)));
     row.push_back(define_column(w, OFPFW_TP_DST, "DESTINATION_PORT", ntohs(om->tp_dst)));
-    row.push_back(define_column(0, 0, "DURATION", ofe->duration_sec));
+    row.push_back(define_column(0, 0, "DURATION", ofe->duration));
     row.push_back(define_column(0, 0, "PACKET_COUNT", ofe->packet_count));
     row.push_back(define_column(0, 0, "BYTE_COUNT", ofe->byte_count));
     
@@ -419,8 +419,8 @@ public:
         TableExtractor* te = new TableExtractor("FLOW", fc);
         EventExtractor<Flow_mod_event>* fme = 
             new EventExtractor<Flow_mod_event>(ndb, te, p);
-        EventExtractor<Flow_removed_event>* fee = 
-            new EventExtractor<Flow_removed_event>(ndb, te, p);    
+        EventExtractor<Flow_expired_event>* fee = 
+            new EventExtractor<Flow_expired_event>(ndb, te, p);    
         fme->enable_sync();
         
         NDB::ColumnDef_List fsc;
@@ -438,8 +438,8 @@ public:
 
         register_handler<Flow_mod_event>
             (boost::bind(&EventExtractor<Flow_mod_event>::handle_event, fme, _1));
-        register_handler<Flow_removed_event>
-            (boost::bind(&EventExtractor<Flow_removed_event>::handle_event,  fee, _1));
+        register_handler<Flow_expired_event>
+            (boost::bind(&EventExtractor<Flow_expired_event>::handle_event,  fee, _1));
         register_handler<Packet_in_event>
             (boost::bind(&EventExtractor<Packet_in_event>::handle_event, fse, _1));
     }

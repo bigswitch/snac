@@ -2,17 +2,17 @@
 
 dojo.provide("nox.ext.apps.snackui.settingsui.DirectoryInfo");
 
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.coreui.coreui.UpdateMgr");
-dojo.require("nox.apps.coreui.coreui.UpdateErrorHandler");
-dojo.require("nox.apps.coreui.coreui.simple_config");
-dojo.require("nox.apps.directory.directorymanagerws.Directory");
-dojo.require("nox.apps.directory.directorymanagerws.DirectoryStore");
+dojo.require("nox.webapps.coreui.coreui.base");
+dojo.require("nox.webapps.coreui.coreui.UpdateMgr");
+dojo.require("nox.webapps.coreui.coreui.UpdateErrorHandler");
+dojo.require("nox.webapps.coreui.coreui.simple_config");
+dojo.require("nox.netapps.directory.directorymanagerws.Directory");
+dojo.require("nox.netapps.directory.directorymanagerws.DirectoryStore");
 
 dojo.require("dojo.data.ItemFileWriteStore");
 
-var coreui = nox.apps.coreui.coreui;
-var dmws = nox.apps.directory.directorymanagerws;
+var coreui = nox.webapps.coreui.coreui;
+var dmws = nox.netapps.directory.directorymanagerws;
 
 var directory = null;
 var notFoundError = false;

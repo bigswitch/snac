@@ -2,18 +2,18 @@
 
 dojo.provide("nox.ext.apps.snackui.settingsui.directories");
 
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.coreui.coreui.UpdateMgr");
-dojo.require("nox.apps.coreui.coreui.UpdateErrorHandler");
-dojo.require("nox.apps.coreui.coreui.simple_config");
-dojo.require("nox.apps.directory.directorymanagerws.Directories");
-dojo.require("nox.apps.directory.directorymanagerws.Directory");
+dojo.require("nox.webapps.coreui.coreui.base");
+dojo.require("nox.webapps.coreui.coreui.UpdateMgr");
+dojo.require("nox.webapps.coreui.coreui.UpdateErrorHandler");
+dojo.require("nox.webapps.coreui.coreui.simple_config");
+dojo.require("nox.netapps.directory.directorymanagerws.Directories");
+dojo.require("nox.netapps.directory.directorymanagerws.Directory");
 dojo.require("nox.ext.apps.snackui.settingsui.LDAPTestDialog");
 
 dojo.require("dojox.grid.DataGrid");
 
-var coreui = nox.apps.coreui.coreui
-var dmws = nox.apps.directory.directorymanagerws;
+var coreui = nox.webapps.coreui.coreui
+var dmws = nox.netapps.directory.directorymanagerws;
 var sui = nox.ext.apps.snackui.settingsui;
 
 var updatemgr = null;

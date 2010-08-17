@@ -1,14 +1,14 @@
 dojo.provide("nox.ext.apps.snackui.snackmonitors.LocationGroups");
 
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.directory.directorymanagerws.Directories");
-dojo.require("nox.apps.directory.directorymanagerws.LocationGroupStore");
+dojo.require("nox.webapps.coreui.coreui.base");
+dojo.require("nox.netapps.directory.directorymanagerws.Directories");
+dojo.require("nox.netapps.directory.directorymanagerws.LocationGroupStore");
 
 dojo.require("dojox.grid.DataGrid");
 dojo.require("dijit.form.Button");
 
-var coreui = nox.apps.coreui.coreui;
-var dmws = nox.apps.directory.directorymanagerws;
+var coreui = nox.webapps.coreui.coreui;
+var dmws = nox.netapps.directory.directorymanagerws;
 
 var groupsStore = null;
 var groupsTable = null;

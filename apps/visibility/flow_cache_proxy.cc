@@ -19,67 +19,39 @@ using namespace vigil::applications;
 namespace vigil {
 namespace applications {
 
-typedef boost::function<bool(uint32_t, Directory::Group_Type&)>
-        Group_type_resolver; 
-
-static inline PyObject* to_set(std::vector<uint32_t> intvec) {
+static inline PyObject* to_set(std::vector<int64_t> intvec) {
     PyObject* ret = PySet_New(NULL);
-    BOOST_FOREACH(uint32_t id, intvec) {
+    BOOST_FOREACH(int64_t id, intvec) {
         PySet_Add(ret, ::to_python(id));
     }
     return ret;
 }
 
-static inline PyObject* to_set(std::list<uint32_t> intlist) {
+static inline PyObject* to_set(std::list<int64_t> intlist) {
     PyObject* ret = PySet_New(NULL);
-    BOOST_FOREACH(uint32_t id, intlist) {
+    BOOST_FOREACH(int64_t id, intlist) {
+        PySet_Add(ret, ::to_python(id));
+    }
+    return ret;
+}
+static inline PyObject* to_set(std::vector<uint64_t> intvec) {
+    PyObject* ret = PySet_New(NULL);
+    BOOST_FOREACH(uint64_t id, intvec) {
         PySet_Add(ret, ::to_python(id));
     }
     return ret;
 }
 
-static inline void set_host_groups(std::vector<uint32_t> group_ids,
-        PyObject* hgroup_set, PyObject* lgroup_set, PyObject* sgroup_set,
-        Group_type_resolver gtr) {
-    BOOST_FOREACH(uint32_t id, group_ids) {
-        Directory::Group_Type gtype;
-        if(gtr(id, gtype)) {
-            switch (gtype) {
-            case Directory::HOST_PRINCIPAL_GROUP:
-                PySet_Add(hgroup_set, ::to_python(id));
-                break;
-            case Directory::LOCATION_PRINCIPAL_GROUP:
-                PySet_Add(lgroup_set, ::to_python(id));
-                break;
-            case Directory::SWITCH_PRINCIPAL_GROUP:
-                PySet_Add(sgroup_set, ::to_python(id));
-                break;
-            default:
-                break; //avoid compiler warning
-            }
-        }
+static inline PyObject* to_set(std::list<uint64_t> intlist) {
+    PyObject* ret = PySet_New(NULL);
+    BOOST_FOREACH(uint64_t id, intlist) {
+        PySet_Add(ret, ::to_python(id));
     }
+    return ret;
 }
 
-static inline void set_addr_groups(std::vector<uint32_t> group_ids,
-        PyObject* dl_group_set, PyObject* nw_group_set,
-        Group_type_resolver gtr) {
-    BOOST_FOREACH(uint32_t id, group_ids) {
-        Directory::Group_Type gtype;
-        if(gtr(id, gtype)) {
-            switch (gtype) {
-            case Directory::DLADDR_GROUP:
-                PySet_Add(dl_group_set, ::to_python(id));
-                break;
-            case Directory::NWADDR_GROUP:
-                PySet_Add(nw_group_set, ::to_python(id));
-                break;
-            default:
-                break; //avoid compiler warning
-            }
-        }
-    }
-}
+typedef boost::function<bool(uint64_t, Directory::Group_Type&)>
+        Group_type_resolver;
 
 static PyObject*
 to_python(const Flow_info& fi, Group_type_resolver gtr) {
@@ -96,46 +68,18 @@ to_python(const Flow_info& fi, Group_type_resolver gtr) {
     pyglue_setdict_string(ret, "dpid", ::to_python(fi.dpid));
 
     /* bindings info */
-    pyglue_setdict_string(ret, "src_users", to_set(fi.src_users));
-    pyglue_setdict_string(ret, "src_user_groups", to_set(fi.src_user_groups));
-    pyglue_setdict_string(ret, "dst_users", to_set(fi.dst_users));
-    pyglue_setdict_string(ret, "dst_user_groups", to_set(fi.dst_user_groups));
+    //SNAC0.4: pyglue_setdict_string(ret, "src_users", to_set(fi.src_users));
+    //SNAC0.4: pyglue_setdict_string(ret, "src_user_groups", to_set(fi.src_user_groups));
+    //SNAC0.4: pyglue_setdict_string(ret, "dst_users", to_set(fi.dst_users));
+    //SNAC0.4: pyglue_setdict_string(ret, "dst_user_groups", to_set(fi.dst_user_groups));
+
     pyglue_setdict_string(ret, "src_host", ::to_python(fi.src_host));
     pyglue_setdict_string(ret, "dst_host", ::to_python(fi.dst_host));
 
-    //fi.src_host_groups may contain host, location, and switch group ids
-    PyObject* shgroups = PySet_New(NULL);
-    PyObject* slgroups = PySet_New(NULL);
-    PyObject* ssgroups = PySet_New(NULL);
-    set_host_groups(fi.src_host_groups, shgroups, slgroups, ssgroups, gtr);
-    pyglue_setdict_string(ret, "src_host_groups", shgroups);
-    pyglue_setdict_string(ret, "src_location_groups", slgroups);
-    pyglue_setdict_string(ret, "src_switch_groups", ssgroups);
-
-    //fi.dst_host_groups may contain host, location, and switch group ids
-    PyObject* dhgroups = PySet_New(NULL);
-    PyObject* dlgroups = PySet_New(NULL);
-    PyObject* dsgroups = PySet_New(NULL);
-    set_host_groups(fi.dst_host_groups, dhgroups, dlgroups, dsgroups, gtr);
-    pyglue_setdict_string(ret, "dst_host_groups", dhgroups);
-    pyglue_setdict_string(ret, "dst_location_groups", dlgroups);
-    pyglue_setdict_string(ret, "dst_switch_groups", dsgroups);
-
-    //fi.src_addr_groups may contain dladdr and nwaddr group ids
-    PyObject* s_dladdr_groups = PySet_New(NULL);
-    PyObject* s_nwaddr_groups = PySet_New(NULL);
-    set_addr_groups(*(fi.src_addr_groups), s_dladdr_groups, s_nwaddr_groups,
-            gtr);
-    pyglue_setdict_string(ret, "src_dladdr_groups", s_dladdr_groups);
-    pyglue_setdict_string(ret, "src_nwaddr_groups", s_nwaddr_groups);
-
-    //fi.dst_addr_groups may contain dladdr and nwaddr group ids
-    PyObject* d_dladdr_groups = PySet_New(NULL);
-    PyObject* d_nwaddr_groups = PySet_New(NULL);
-    set_addr_groups(*(fi.dst_addr_groups), d_dladdr_groups, d_nwaddr_groups,
-            gtr);
-    pyglue_setdict_string(ret, "dst_dladdr_groups", d_dladdr_groups);
-    pyglue_setdict_string(ret, "dst_nwaddr_groups", d_nwaddr_groups);
+    pyglue_setdict_string(ret, "src_dladdr_groups", to_set(*fi.src_dladdr_groups));
+    pyglue_setdict_string(ret, "src_nwaddr_groups", to_set(*fi.src_nwaddr_groups));
+    pyglue_setdict_string(ret, "dst_dladdr_groups", to_set(*fi.dst_dladdr_groups));
+    pyglue_setdict_string(ret, "dst_nwaddr_groups", to_set(*fi.dst_nwaddr_groups));
 
     /* policy info */
     pyglue_setdict_string(ret, "policy_id", ::to_python(fi.policy_id));

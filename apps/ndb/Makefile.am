@@ -26,7 +26,7 @@ EXTRA_DIST = $(pyndb_wrap_includes)
 pyndb_wrap.cc pyndb.py: ndb.i
 	swig -I$(srcdir)/../ -outdir $(builddir)/. -o pyndb_wrap.cc -c++ -python -module pyndb $(srcdir)/ndb.i
 pkglib_LTLIBRARIES += _pyndb.la
-_pyndb_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../../
+_pyndb_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../netapps/ -I$(top_srcdir)/../coreapps/ -I$(top_srcdir)/../../
 nodist__pyndb_la_SOURCES = pyndb_wrap.cc
 _pyndb_la_LDFLAGS = -module
 

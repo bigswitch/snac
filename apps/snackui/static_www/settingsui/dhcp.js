@@ -2,22 +2,22 @@
 
 dojo.provide("nox.ext.apps.snackui.settingsui.dhcp");
 
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.coreui.coreui.UpdateMgr");
-dojo.require("nox.apps.coreui.coreui.UpdateErrorHandler");
-dojo.require("nox.apps.coreui.coreui.simple_config");
-dojo.require("nox.apps.directory.directorymanagerws.HostStore");
+dojo.require("nox.webapps.coreui.coreui.base");
+dojo.require("nox.webapps.coreui.coreui.UpdateMgr");
+dojo.require("nox.webapps.coreui.coreui.UpdateErrorHandler");
+dojo.require("nox.webapps.coreui.coreui.simple_config");
+dojo.require("nox.netapps.directory.directorymanagerws.HostStore");
 dojo.require("nox.ext.apps.snackui.settingsui.DHCPFixedAddressStore");
 dojo.require("nox.ext.apps.snackui.settingsui.DHCPSubnetStore");
 dojo.require("nox.ext.apps.snackui.settingsui.DHCPAddFixed");
 dojo.require("nox.ext.apps.snackui.settingsui.DHCPError");
-dojo.require("nox.apps.coreui.coreui.EditableGridUtil"); 
+dojo.require("nox.webapps.coreui.coreui.EditableGridUtil"); 
 
 dojo.require("dijit.form.Button");
 dojo.require("dojox.grid.DataGrid");
 dojo.require("dojox.grid.cells.dijit");
 
-var coreui = nox.apps.coreui.coreui;
+var coreui = nox.webapps.coreui.coreui;
 var sui = nox.ext.apps.snackui.settingsui;
 
 var edit_fmt = coreui.getEditableGridUtil().editable_item_formatter; 
@@ -469,7 +469,7 @@ function init_page() {
 
     dojo.byId("general_settings").appendChild(settingsInspector.domNode);
 
-    updatemgr = nox.apps.coreui.coreui.getUpdateMgr();
+    updatemgr = nox.webapps.coreui.coreui.getUpdateMgr();
     //updatemgr.recurrence_period = 2;
 
     updatemgr.xhrGet({
@@ -478,7 +478,7 @@ function init_page() {
                 generalSettings.status = response;
                 settingsInspector.update();
         },
-        error: nox.apps.coreui.coreui.UpdateErrorHandler.create(),
+        error: nox.webapps.coreui.coreui.UpdateErrorHandler.create(),
         timeout: 30000,
         handleAs: "json",
         recur: true
@@ -624,7 +624,7 @@ function init_page() {
             });
     fixedAddressesStore.update({
             onComplete: function() {
-    hostStore = new nox.apps.directory.directorymanagerws.HostStore({
+    hostStore = new nox.netapps.directory.directorymanagerws.HostStore({
         url: "/ws.v1/host",
         itemParameters: {
             updateList: [ ]

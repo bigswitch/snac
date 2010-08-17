@@ -30,7 +30,7 @@ dojo.declare("nox.ext.apps.snackui.policyui.EditablePolicyRuleList", [ nox.ext.a
           this.dnd_source.insertNodes(false, this.policy);
           return; 
         }
-        //FIXME: we are just going to split things into 
+        //FIXME: for now we are just going to split things into 
         // to pages, based on whether they 'auth' rules or 'comm' rules
         // This will put all rules pertaining to host and user auth into one page
         // and all communcation rules that pertain to authenticated

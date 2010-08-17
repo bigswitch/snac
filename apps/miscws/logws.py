@@ -16,8 +16,8 @@ from twisted.web import server, static
 
 from nox.lib.core import *
 
-from nox.apps.coreui.authui import UIResource
-from nox.apps.coreui import webservice
+from nox.webapps.coreui.authui import UIResource
+from nox.webapps.webservice import webservice
 
 lg = logging.getLogger('logws')
 

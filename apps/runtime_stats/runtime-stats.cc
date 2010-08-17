@@ -1,19 +1,5 @@
-/* Copyright 2008 (C) Nicira, Inc.
+/*
  *
- * This file is part of NOX.
- *
- * NOX is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * NOX is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "runtime-stats.hh"
@@ -26,7 +12,7 @@
 #include "datapath-join.hh"
 #include "datapath-leave.hh"
 #include "packet-in.hh"
-#include "flow-removed.hh"
+#include "flow-expired.hh"
 #include "flow-mod-event.hh"
 
 #include "vlog.hh"
@@ -49,7 +35,7 @@ runtime_stats::register_callbacks()
             Flow_mod_event::static_get_type(),
             boost::bind(&runtime_stats::flow_mod, this, _1));
     controller::register_handler(
-            Flow_removed_event::static_get_type(),
+            Flow_expired_event::static_get_type(),
             boost::bind(&runtime_stats::flow_exp, this, _1));
 
     // Datapath join/leave events
@@ -135,7 +121,7 @@ runtime_stats::flow_mod(const Event& e)
 Disposition
 runtime_stats::flow_exp(const Event& e)
 {
-    const Flow_removed_event& fe = assert_cast<const Flow_removed_event&>(e);
+    const Flow_expired_event& fe = assert_cast<const Flow_expired_event&>(e);
     uint64_t dpid = fe.datapath_id.as_host();
 
     timeval tv;

@@ -5,7 +5,7 @@
 
 <%def name="dojo_imports()">
   ${parent.dojo_imports()}
-  @import "/static/nox/apps/coreui/coreui/ItemInspector.css";
+  @import "/static/nox/webapps/coreui/coreui/ItemInspector.css";
   @import "/static/nox/ext/apps/snackui/settingsui/DirectoryInfo.css";
 </%def>
 

@@ -1,4 +1,4 @@
-# Copyright 2008 (C) Nicira, Inc.
+    # Copyright 2008 (C) Nicira, Inc.
 include ../../Make.vars 
 
 EXTRA_DIST =								\
@@ -15,8 +15,10 @@ replicator_la_CPPFLAGS =						\
 	$(AM_CPPFLAGS)							\
 	-I$(srcdir)/../							\
 	-I$(top_srcdir)/../						\
-	-I$(top_srcdir)/../../						\
-	-I$(top_srcdir)/../apps/					\
+	-I$(top_srcdir)/../../					\
+	-I$(top_srcdir)/../apps/				\
+	-I$(top_srcdir)/../netapps/				\
+	-I$(top_srcdir)/../coreapps/					\
 	-D__COMPONENT_FACTORY_FUNCTION__=replicator_get_factory
 replicator_la_SOURCES =							\
 	replicator.cc							\
@@ -33,10 +35,10 @@ pyreplicator_wrap_includes =						\
 	replicator.i pyreplicator.hh pyreplicator.cc
 
 pyreplicator_wrap.cc pyreplicator.py: $(pyreplicator_wrap_includes)
-	swig -I$(top_srcdir)/../lib/ -I$(top_srcdir)/../apps/ -outdir $(builddir)/. -o pyreplicator_wrap.cc -c++ -python -module pyreplicator $(srcdir)/replicator.i
+	swig -I$(top_srcdir)/../lib/ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../netapps/ -I$(top_srcdir)/../coreapps/ -outdir $(builddir)/. -o pyreplicator_wrap.cc -c++ -python -module pyreplicator $(srcdir)/replicator.i
 
 pkglib_LTLIBRARIES += _pyreplicator.la
-_pyreplicator_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../../
+_pyreplicator_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../netapps/ -I$(top_srcdir)/../coreapps/ -I$(top_srcdir)/../../
 nodist__pyreplicator_la_SOURCES = pyreplicator_wrap.cc
 _pyreplicator_la_LDFLAGS = -module
 

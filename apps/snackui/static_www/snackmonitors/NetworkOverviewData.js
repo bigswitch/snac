@@ -1,9 +1,9 @@
 dojo.provide("nox.ext.apps.snackui.snackmonitors.NetworkOverviewData");
 
-dojo.require("nox.apps.coreui.coreui._UpdatingItem");
+dojo.require("nox.webapps.coreui.coreui._UpdatingItem");
 dojo.require("dojo.number"); 
 
-dojo.declare("nox.ext.apps.snackui.snackmonitors.NetworkOverviewData", [ nox.apps.coreui.coreui._UpdatingItem ], {
+dojo.declare("nox.ext.apps.snackui.snackmonitors.NetworkOverviewData", [ nox.webapps.coreui.coreui._UpdatingItem ], {
 
     constructor: function (data) {
         dojo.mixin(this.derivedAttributes, {

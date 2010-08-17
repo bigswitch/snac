@@ -5,7 +5,7 @@
 
 <%def name="dojo_imports()">
    ${parent.dojo_imports()}
-  @import "/static/nox/apps/user_event_log/networkevents/NetEvents.css";
+  @import "/static/nox/netapps/user_event_log/networkevents/NetEvents.css";
 </%def>
 
 <%def name="dojo_requires()">

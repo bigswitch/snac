@@ -1,5 +1,5 @@
 from nox.lib.core import *
-from nox.apps.tests.pyunittests.storage_test_base import StorageTestBase
+from nox.netapps.tests.pyunittests.storage_test_base import StorageTestBase
 
 from twisted.python import log
 from twisted.internet import reactor
@@ -60,7 +60,7 @@ class StaticRegistration(Component):
 
 
     def install(self):
-        from nox.apps.storage.persistent_storage import PersistentStorage
+        from nox.netapps.storage.persistent_storage import PersistentStorage
         self.storage = self.ctxt.resolve(str(PersistentStorage))
         self.create_tables()
 

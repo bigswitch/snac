@@ -1,7 +1,7 @@
 
 from nox.lib.core     import Component
-from nox.apps.ndb     import API, GetOp, PutOp 
-from nox.apps.ndb.ndb_utils import *
+from nox.ext.apps.ndb     import API, GetOp, PutOp 
+from nox.ext.apps.ndb.ndb_utils import *
 from twisted.python import log
 import time
 

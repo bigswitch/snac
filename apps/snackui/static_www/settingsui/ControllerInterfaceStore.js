@@ -2,10 +2,10 @@
 
 dojo.provide("nox.ext.apps.snackui.settingsui.ControllerInterfaceStore");
 
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalStore");
+dojo.require("nox.netapps.directory.directorymanagerws._PrincipalStore");
 dojo.require("nox.ext.apps.snackui.settingsui.ControllerInterface");
 
-dojo.declare("nox.ext.apps.snackui.settingsui.ControllerInterfaceStore", [ nox.apps.directory.directorymanagerws._PrincipalStore ], {
+dojo.declare("nox.ext.apps.snackui.settingsui.ControllerInterfaceStore", [ nox.netapps.directory.directorymanagerws._PrincipalStore ], {
 
     constructor: function (kwarg) {
         this.itemConstructor = 

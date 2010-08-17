@@ -143,15 +143,16 @@ from nox.lib.directory import *
 from nox.lib.netinet.netinet import *
 from twisted.web.util import redirectTo
 
-from nox.apps.authenticator.pyauth import Auth_event, Authenticator, PyAuth
-from nox.apps.bindings_storage.pybindings_storage import Name
-from nox.apps.bindings_storage.pybindings_storage import pybindings_storage
-from nox.apps.configuration.properties import *
-from nox.apps.coreui import coreui
-from nox.apps.coreui.authui import UIResource
-from nox.apps.directory import directorymanager
-from nox.apps.storage import TransactionalStorage
-from nox.apps.user_event_log.pyuser_event_log import pyuser_event_log, LogEntry
+from nox.netapps.data.pydatacache import PyData_cache
+from nox.netapps.authenticator.pyauth import Host_auth_event, PyAuth
+from nox.netapps.bindings_storage.pybindings_storage import Name
+from nox.netapps.bindings_storage.pybindings_storage import pybindings_storage
+from nox.netapps.configuration.properties import *
+from nox.webapps.coreui import coreui
+from nox.webapps.coreui.authui import UIResource
+from nox.netapps.directory import directorymanager
+from nox.netapps.storage import TransactionalStorage
+from nox.netapps.user_event_log.pyuser_event_log import pyuser_event_log, LogEntry
 from nox.ext.apps.http_redirector.pyhttp_redirector import *
 from nox.ext.apps.redirproxy import redirproxy
 
@@ -161,7 +162,6 @@ DEV_VERBOSE   = False # XXX this should never be True in production
 DEV_FAKE_FLOW = False # XXX this should never be True in production
 
 PROPERTIES_SECTION = "captive_portal_settings"
-UNKNOWN_HNAME = Authenticator.get_unknown_name()
 
 def _file_to_base64(path):
     f = open(path, 'rb')
@@ -414,10 +414,10 @@ class AuthRes(UIResource):
         """
         rurl = (request.args.get("rurl") or ('',))[0] or ''
         proxy_cookie = (request.args.get("proxy_cookie") or ('',))[0] or ''
-	if proxy_cookie == "": 
-	        proxy_param = ""
-	else:
-	        proxy_param = "&proxy_cookie=" + proxy_cookie
+        if proxy_cookie == "": 
+            proxy_param = ""
+        else:
+            proxy_param = "&proxy_cookie=" + proxy_cookie
 
         return UIResource.render_tmpl(self, request, name, 
                 p=self.component.get_property, r=self.res_paths, rurl=rurl,
@@ -465,12 +465,12 @@ class AuthRes(UIResource):
             d2 = self._check_user_bound_to_loc(flowinfo)
             d2.addCallback(self._handle_user_auth_request, request, flowinfo)
 
-	         
+             
         d = self._get_flowinfo_for_ip(request)
         if d is not None: 
-          d.addCallback(after_flow_retrieval)
-	else: 
-          request.finish()
+            d.addCallback(after_flow_retrieval)
+        else: 
+            request.finish()
 
         return server.NOT_DONE_YET
 
@@ -516,7 +516,7 @@ class AuthRes(UIResource):
             for ni in netinfos:
                 flowinfo  = _FlowInfo.from_netinfo_tuple(ni,rurl)
                 return flowinfo
-            #FIXME: in the future, we should throw an Auth_event for each
+            #FIXME: in the future, we should throw an Host_auth_event for each
             # netinfo this IP is bound to.   
             defer.fail("No netinfos found matching %s" % request.getClientIP())
 
@@ -681,8 +681,9 @@ class AuthRes(UIResource):
 
             sto = self.component.get_property('soft_timeout_minutes') or 0
             hto = self.component.get_property('hard_timeout_minutes') or 0
-            ae = Auth_event(Auth_event.AUTHENTICATE, fi.dpid, fi.in_port,
-                            fi.dl_src, fi.nw_src, False, UNKNOWN_HNAME, user,
+            ae = Host_auth_event(Host_auth_event.AUTHENTICATE, fi.dpid, fi.in_port,
+                            fi.dl_src, fi.nw_src, False,
+                            self.auth.get_unknown_name(), user,
                             int(sto)*60, int(hto)*60)
             self.component.post(ae)
 

@@ -3,7 +3,7 @@ import simplejson
 
 from nox.lib.core import *
 
-from nox.apps.coreui  import webservice
+from nox.webapps.webservice  import webservice
 
 from nox.ext.apps.restracker.pyrestracker import pyrestracker
 

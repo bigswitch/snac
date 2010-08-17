@@ -1,19 +1,3 @@
-# 
-# This file is part of NOX.
-# 
-# NOX is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# NOX is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with NOX.  If not, see <http://www.gnu.org/licenses/>.
-# Trivial example using reactor timer method to countdown from three
 import random
 import time
 import compile
@@ -25,18 +9,18 @@ from twisted.internet import defer
 
 from nox.ext.apps.sepl.pyseplstats import PySeplStats
 from nox.ext.apps.sepl.policystore import PolicyStore
-from nox.apps.authenticator.pyauth import PyAuth
-from nox.apps.authenticator.pyflowutil import PyFlowUtil
+from nox.netapps.authenticator.pyauth import PyAuth
+from nox.netapps.authenticator.pyflowutil import PyFlowUtil
 
-from nox.apps.directory.directorymanager import directorymanager
+from nox.netapps.directory.directorymanager import directorymanager
 
 from nox.lib.core import Component
 from nox.lib.netinet import netinet
 from nox.lib.netinet.netinet import create_cidr_ipaddr
-from nox.apps.pyrt.pycomponent import CONTINUE
-from nox.apps.directory.pydirmanager import Directory, Principal_name_event, Group_name_event
-from nox.apps.configuration.simple_config import simple_config
-from nox.apps.user_event_log.pyuser_event_log import pyuser_event_log, LogEntry
+from nox.coreapps.pyrt.pycomponent import CONTINUE
+from nox.netapps.directory.pydirmanager import Directory, Principal_name_event, Group_name_event
+from nox.netapps.configuration.simple_config import simple_config
+from nox.netapps.user_event_log.pyuser_event_log import pyuser_event_log, LogEntry
 
 lg = logging.getLogger("policy")
 
@@ -103,7 +87,7 @@ class PyPolicyComponent(Component):
 
     def bootstrapped(self, event):
         if self.is_component_loaded("nat"):
-            from nox.apps.routing.pynatenforcer import PyNatEnforcer
+            from nox.netapps.routing.pynatenforcer import PyNatEnforcer
             self.nat_enforcer = self.resolve(PyNatEnforcer)
 
         if self.is_component_loaded("sepl"):

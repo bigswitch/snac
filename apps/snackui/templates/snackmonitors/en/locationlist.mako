@@ -7,7 +7,7 @@
   
   var pFilter = null;
   dojo.addOnLoad(function () {
-      var filters = nox.apps.directory.directorymanagerws.PrincipalListFilter; 
+      var filters = nox.netapps.directory.directorymanagerws.PrincipalListFilter; 
       pFilter = filters.init_principal_list_page("location");
   }); 
 </%def>
@@ -25,10 +25,10 @@
 ## ---------------------------------------------------------------------------
 
 <%!
-from nox.apps.directory.directorymanager import demangle_name,mangle_name
+from nox.netapps.directory.directorymanager import demangle_name,mangle_name
 from nox.ext.apps.snackui.principal_list_pages import get_status_markup
-from nox.apps.coreui.template_utils import utf8quote
-from nox.apps.coreui.web_arg_utils import get_html_for_select_box
+from nox.webapps.coreui.template_utils import utf8quote
+from nox.webapps.webservice.web_arg_utils import get_html_for_select_box
 %> 
 <%
 def geta(attr): 

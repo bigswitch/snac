@@ -1,12 +1,12 @@
 dojo.provide("nox.ext.apps.snackui.snackmonitors.Hosts");
 
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.directory.directorymanagerws.HostStore");
+dojo.require("nox.webapps.coreui.coreui.base");
+dojo.require("nox.netapps.directory.directorymanagerws.HostStore");
 
 dojo.require("dojox.grid.DataGrid");
 
-var coreui = nox.apps.coreui.coreui;
-var dmws = nox.apps.directory.directorymanagerws;
+var coreui = nox.webapps.coreui.coreui;
+var dmws = nox.netapps.directory.directorymanagerws;
 
 var hostStore = null;
 var hostTable = null;

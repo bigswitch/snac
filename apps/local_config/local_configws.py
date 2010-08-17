@@ -5,13 +5,13 @@ import StringIO
 from twisted.internet import defer, protocol, reactor
 
 from nox.lib.core    import *
-from nox.apps.coreui import webservice
+from nox.webapps.webservice import webservice
 
 from nox.ext.apps.local_config.local_config import *
 
-from nox.apps.coreui.webservice import json_parse_message_body
-from nox.apps.coreui.webservice import NOT_DONE_YET,WSPathArbitraryString
-from nox.apps.coreui.web_arg_utils import *
+from nox.webapps.webservice.webservice import json_parse_message_body
+from nox.webapps.webservice.webservice import NOT_DONE_YET,WSPathArbitraryString
+from nox.webapps.webservice.web_arg_utils import *
 
 from twisted.python.failure import Failure
 

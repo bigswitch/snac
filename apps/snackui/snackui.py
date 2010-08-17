@@ -1,6 +1,6 @@
 """Dummy component to bring up SNACK UI through dependencies."""
 
-from nox.apps.pyrt.pycomponent import *
+from nox.coreapps.pyrt.pycomponent import *
 from nox.lib.core import *
 
 class snackui(Component):

@@ -4,7 +4,7 @@
     <name>replicator</name>
     <library>replicator</library>
     <dependency>
-      <name>storage common</name>
+      <name>storage-common</name>
     </dependency>
     <dependency>
       <name>transactional_storage_backend</name>

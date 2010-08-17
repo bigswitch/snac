@@ -1,7 +1,7 @@
 #  Thrown each time the user changes local interface configuration
 #  information
 
-from nox.apps.pyrt.pycomponent import pyevent
+from nox.coreapps.pyrt.pycomponent import pyevent
 
 
 # Create a functor class so that we can treat a class attribute

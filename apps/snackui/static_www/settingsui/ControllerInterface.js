@@ -2,10 +2,10 @@
 
 dojo.provide("nox.ext.apps.snackui.settingsui.ControllerInterface");
 
-dojo.require("nox.apps.coreui.coreui._NamedEntity");
+dojo.require("nox.webapps.coreui.coreui._NamedEntity");
 
 dojo.declare("nox.ext.apps.snackui.settingsui.ControllerInterface", 
-             [ nox.apps.coreui.coreui._NamedEntity ], {
+             [ nox.webapps.coreui.coreui._NamedEntity ], {
    constructor: function (kwarg) {
        dojo.mixin(this.updateTypes, {
                "info": {
@@ -20,13 +20,13 @@ dojo.declare("nox.ext.apps.snackui.settingsui.ControllerInterface",
    },
 
    storeInfo: function (kwarg) {
-        nox.apps.coreui.coreui.getUpdateMgr().xhr("PUT", {
+        nox.webapps.coreui.coreui.getUpdateMgr().xhr("PUT", {
             url: this.wsv1Path(),
             headers: { "content-type": "application/json" },
             putData: dojo.toJson(this._data),
             load: function (response, ioArgs) {
                     if (response != true) {
-                        nox.apps.coreui.coreui.getUpdateMgr().updateNow();
+                        nox.webapps.coreui.coreui.getUpdateMgr().updateNow();
                     }
             },
             timeout: 30000,

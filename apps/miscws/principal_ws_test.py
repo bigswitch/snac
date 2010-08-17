@@ -5,7 +5,7 @@ import urllib
 
 # without this, python can't find the NOX includes
 sys.path.append(os.getcwd())
-from nox.apps.coreui.webserviceclient import PersistentLogin, NOXWSClient 
+from nox.webapps.webserviceclient import PersistentLogin, NOXWSClient 
 
 # tests if two lists of dictionaries are the
 # same.  the order of dictionaries in the list

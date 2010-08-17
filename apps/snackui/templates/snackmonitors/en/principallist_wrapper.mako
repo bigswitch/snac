@@ -11,7 +11,7 @@
       // background.  This is ok, as these pages use no auto-updating
       // via the UpdateManager (but the nox version update causes the 
       // spinner to still be visible). 
-      nox.apps.coreui.coreui.getUpdateMgr()._recurring_updates = [];  
+      nox.webapps.coreui.coreui.getUpdateMgr()._recurring_updates = [];  
   }); 
 </%def> 
 

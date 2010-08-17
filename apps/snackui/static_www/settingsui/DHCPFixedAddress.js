@@ -2,10 +2,10 @@
 
 dojo.provide("nox.ext.apps.snackui.settingsui.DHCPFixedAddress");
 
-dojo.require("nox.apps.coreui.coreui._NamedEntity");
+dojo.require("nox.webapps.coreui.coreui._NamedEntity");
 
 dojo.declare("nox.ext.apps.snackui.settingsui.DHCPFixedAddress", 
-             [ nox.apps.coreui.coreui._NamedEntity ], {
+             [ nox.webapps.coreui.coreui._NamedEntity ], {
    constructor: function (kwarg) {
        dojo.mixin(this.updateTypes, {
                "info": {

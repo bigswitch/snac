@@ -8,11 +8,11 @@ dojo.require("dijit._Templated");
 dojo.require("dijit.form.FilteringSelect");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.TextBox");
-dojo.require("nox.apps.directory.directorymanagerws.Directories");
-dojo.require("nox.apps.directory.directorymanagerws.HostStore");
+dojo.require("nox.netapps.directory.directorymanagerws.Directories");
+dojo.require("nox.netapps.directory.directorymanagerws.HostStore");
 
-var coreui = nox.apps.coreui.coreui;
-var dmws = nox.apps.directory.directorymanagerws;
+var coreui = nox.webapps.coreui.coreui;
+var dmws = nox.netapps.directory.directorymanagerws;
 var type = 'host';
 
 dojo.declare("nox.ext.apps.snackui.settingsui.LDAPTestDialog", 

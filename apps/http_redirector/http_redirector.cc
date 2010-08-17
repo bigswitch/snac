@@ -196,9 +196,9 @@ Http_redirector::handle_dp_join(const Event& e) {
     ofm.header.length = htons(size);
     ofm.header.xid = 0;
 
-    ofm.match.wildcards = htonl(OFPFW_IN_PORT | OFPFW_DL_VLAN |
-            OFPFW_DL_VLAN_PCP | OFPFW_DL_SRC | OFPFW_DL_DST |
-            OFPFW_NW_TOS | OFPFW_NW_SRC_MASK | OFPFW_NW_DST_MASK | OFPFW_TP_SRC);
+    ofm.match.wildcards = htonl(OFPFW_IN_PORT | OFPFW_DL_VLAN | OFPFW_DL_SRC | 
+                                OFPFW_DL_DST | OFPFW_NW_SRC_MASK |
+                                OFPFW_NW_DST_MASK | OFPFW_TP_SRC);
     ofm.match.dl_type = ethernet::IP;
     ofm.match.nw_proto = ip_::proto::TCP;
     ofm.match.tp_dst = htons(HTTP_PORT);
@@ -208,12 +208,12 @@ Http_redirector::handle_dp_join(const Event& e) {
     ofm.hard_timeout = htons(OFP_FLOW_PERMANENT);
     ofm.buffer_id = htonl(-1);
     ofm.priority = htons(10);
-    ofm.flags = 0;
+    ofm.reserved = 0;
     ofp_action_output& action = *((ofp_action_output*)ofm.actions);
     memset(&action, 0, sizeof(ofp_action_output));
     action.type = htons(OFPAT_OUTPUT);
     action.len = htons(sizeof(ofp_action_output));
-    action.max_len = htons(-1);
+    action.max_len = htons(0);
     action.port = htons(OFPP_CONTROLLER);
 
     int ret = send_openflow_command(dj.datapath_id, &ofm.header, true);

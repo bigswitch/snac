@@ -2,16 +2,16 @@
 
 dojo.provide("nox.ext.apps.snackui.settingsui.controller");
 
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.coreui.coreui.UpdateMgr");
-dojo.require("nox.apps.coreui.coreui.UpdateErrorHandler");
-dojo.require("nox.apps.coreui.coreui.simple_config");
+dojo.require("nox.webapps.coreui.coreui.base");
+dojo.require("nox.webapps.coreui.coreui.UpdateMgr");
+dojo.require("nox.webapps.coreui.coreui.UpdateErrorHandler");
+dojo.require("nox.webapps.coreui.coreui.simple_config");
 dojo.require("nox.ext.apps.snackui.settingsui.ControllerInterfaceStore");
-dojo.require("nox.apps.coreui.coreui.EditableGridUtil"); 
+dojo.require("nox.webapps.coreui.coreui.EditableGridUtil"); 
 dojo.require("dojox.grid.DataGrid");
 dojo.require("dojox.grid.cells.dijit");
 
-var coreui = nox.apps.coreui.coreui;
+var coreui = nox.webapps.coreui.coreui;
 
 var default_error_handlers =  {
                 404: function (response, ioArgs) {
@@ -67,7 +67,7 @@ function shutdown(name) {
         timeout: 30000,
         handleAs: "json",
         recur: false,
-        error: nox.apps.coreui.coreui.UpdateErrorHandler.create()
+        error: nox.webapps.coreui.coreui.UpdateErrorHandler.create()
     });
 }
 

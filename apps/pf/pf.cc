@@ -11,7 +11,7 @@
 #include "netinet++/vlan.hh"
 #include "packet-in.hh"
 #include "vlog.hh"
-#include "authenticator/host-event.hh"
+#include "authenticator/host_event.hh"
 #include <sstream> 
 
 #include "pf-sigs.hh"
@@ -127,7 +127,7 @@ void pf::configure(const Configuration*)
     resolve(authenticator);
 
     //used to time out fingerprint data
-    register_handler<Host_event>(boost::bind(&pf::host_event, this, _1)); 
+    register_handler<Host_auth_event>(boost::bind(&pf::host_auth_event, this, _1)); 
 }
 
 bool pf::fp(const uint8_t* data, int size, pf_results& matchme)
@@ -250,9 +250,9 @@ pf::pf_packet_handler(const Event& e)
 }
 
 Disposition 
-pf::host_event(const Event& e) { 
-    const Host_event& hi = assert_cast<const Host_event&>(e);
-    if(hi.action != Host_event::LEAVE) return CONTINUE; 
+pf::host_auth_event(const Event& e) { 
+    const Host_auth_event& hi = assert_cast<const Host_auth_event&>(e);
+    if(hi.action != Host_auth_event::DEAUTHENTICATE) return CONTINUE; 
 
     // tasha says that if IP is non-zero, remove only that mac-ip pair.
     // otherwise, remove all entries for that mac.  

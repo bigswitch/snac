@@ -6,7 +6,7 @@
 
 <%def name="head_js()">
   dojo.addOnLoad(function () {
-        nox.apps.coreui.coreui.UpdateErrorHandler.showError("${msg}", {
+        nox.webapps.coreui.coreui.UpdateErrorHandler.showError("${msg}", {
           header_msg : "${header_msg}", 
           hide_retry : true 
         });  

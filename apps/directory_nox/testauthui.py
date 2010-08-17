@@ -12,13 +12,13 @@ from twisted.web.resource import Resource
 from twisted.web.util import redirectTo
 
 from nox.lib.core import *
-from nox.apps.pyrt.pycomponent import *
+from nox.coreapps.pyrt.pycomponent import *
 from nox.lib import config
 from nox.lib.netinet.netinet import *
 
-from nox.apps.coreui import coreui
-from nox.apps.coreui.authui import User
-from nox.apps.coreui.authui import UIResource
+from nox.webapps.coreui import coreui
+from nox.webapps.coreui.authui import User
+from nox.webapps.coreui.authui import UIResource
 from nox.lib.directory import *
 from nox.ext.apps.directory_nox import nox_directory
 from nox.ext.apps.directory_ldap import pyldap_proxy

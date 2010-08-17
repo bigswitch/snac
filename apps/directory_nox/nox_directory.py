@@ -9,18 +9,18 @@ from random import SystemRandom
 from twisted.internet import defer, reactor, threads
 from twisted.python.failure import Failure
 
-from nox.apps.pyrt.pycomponent import *
+from nox.coreapps.pyrt.pycomponent import *
 from nox.lib.core import *
 from nox.lib.util import __dladdr_check__, __nwaddr_check__
 
-from nox.apps.directory.cidr_group_cache import cidr_group_cache
-from nox.apps.directory.directorymanager import *
-from nox.apps.directory.dir_utils import glob_to_regex
-from nox.apps.directory.pydirmanager import Principal_name_event
-from nox.apps.directory.pydirmanager import Group_name_event
-from nox.apps.storage import TransactionalStorage
-from nox.apps.storage.storage import Storage, StorageException
-from nox.apps.storage.StorageTableUtil import *
+from nox.netapps.directory.cidr_group_cache import cidr_group_cache
+from nox.netapps.directory.directorymanager import *
+from nox.netapps.directory.dir_utils import glob_to_regex
+from nox.netapps.directory.pydirmanager import Principal_name_event
+from nox.netapps.directory.pydirmanager import Group_name_event
+from nox.netapps.storage import TransactionalStorage
+from nox.netapps.storage.storage import Storage, StorageException
+from nox.netapps.storage.StorageTableUtil import *
 
 from nox.lib.directory import *
 from nox.lib.netinet.netinet import ethernetaddr, ipaddr, create_eaddr,\

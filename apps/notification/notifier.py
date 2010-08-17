@@ -13,14 +13,14 @@ from twisted.internet.defer import Deferred, DeferredList, succeed
 
 from twisted.mail.smtp import SMTPSenderFactory
 
-from nox.apps.bindings_storage.pybindings_storage \
+from nox.netapps.bindings_storage.pybindings_storage \
     import pybindings_storage, Name
-from nox.apps.configuration import Properties
-from nox.apps.coreui import coreui
-from nox.apps.pyrt.pycomponent import *
-from nox.apps.storage import TransactionalStorage, TransactionalConnection
-from nox.apps.user_event_log.pyuser_event_log import pyuser_event_log
-from nox.apps.user_event_log.networkeventsws import make_entry
+from nox.netapps.configuration import Properties
+from nox.webapps.coreui import coreui
+from nox.coreapps.pyrt.pycomponent import *
+from nox.netapps.storage import TransactionalStorage, TransactionalConnection
+from nox.netapps.user_event_log.pyuser_event_log import pyuser_event_log
+from nox.netapps.user_event_log.networkeventsws import make_entry
 from nox.lib.core import *
 
 log = logging.getLogger("notifier")

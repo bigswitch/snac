@@ -1,5 +1,5 @@
 # Copyright 2008 (C) Nicira, Inc.
-from nox.apps.pyrt.pycomponent import *
+from nox.coreapps.pyrt.pycomponent import *
 from nox.lib.core import *
 from nox.lib import config
 from twisted.internet import defer
@@ -13,18 +13,18 @@ from mako.template import Template
 from mako.lookup import TemplateLookup
 import os
 import types
-from nox.apps.configuration.simple_config import simple_config
+from nox.netapps.configuration.simple_config import simple_config
 import logging
 import simplejson
 import hashlib
 from OpenSSL.crypto import *
-from nox.apps.coreui import webservice
+from nox.webapps.webservice import webservice
 from twisted.internet import defer
 
 lg = logging.getLogger('pki')
 
-from nox.apps.coreui.authui import UIResource
-from nox.apps.coreui import coreui
+from nox.webapps.coreui.authui import UIResource
+from nox.webapps.coreui import coreui
 
 # this class uses the PROPERTIES table in CDB to hold on to cert data
 # with in that table, it maintains two 'sections', one for pending certificate 

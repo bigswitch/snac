@@ -4,11 +4,11 @@
 
 <%def name="head_js()">
   ${parent.head_js()} 
-  dojo.require("nox.apps.directory.directorymanagerws.Switch"); 
+  dojo.require("nox.netapps.directory.directorymanagerws.Switch"); 
   
   var pFilter = null;
   dojo.addOnLoad(function () {
-      var filters = nox.apps.directory.directorymanagerws.PrincipalListFilter; 
+      var filters = nox.netapps.directory.directorymanagerws.PrincipalListFilter; 
       pFilter = filters.init_principal_list_page("switch");
       filters.setup_switch_registration_hooks(); 
   }); 
@@ -21,9 +21,9 @@
 ## ---------------------------------------------------------------------------
 
 <%!
-from nox.apps.directory.directorymanager import demangle_name
+from nox.netapps.directory.directorymanager import demangle_name
 from nox.ext.apps.snackui.principal_list_pages import get_status_markup, get_not_none
-from nox.apps.coreui.template_utils import utf8quote
+from nox.webapps.coreui.template_utils import utf8quote
 
 %> 
 

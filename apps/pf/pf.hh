@@ -94,7 +94,7 @@ public:
 private:
     Authenticator *authenticator; // needs host_exists() function 
     Disposition pf_packet_handler(const Event& e);    
-    Disposition host_event(const Event& e); 
+    Disposition host_auth_event(const Event& e); 
 
     p0f_sigs* p0f_synsigs;
     p0f_sigs* p0f_synacksigs;

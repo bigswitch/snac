@@ -11,7 +11,7 @@
 import logging
 
 from nox.lib.core import *
-from nox.apps.storage import Storage
+from nox.netapps.storage import Storage
 
 from nox.ext.apps.local_config.debian.deb_net_config import deb_net_config
 

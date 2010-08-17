@@ -4,14 +4,14 @@ import traceback
 
 from nox.lib.core import *
 from nox.lib.directory import *
-from nox.apps.coreui      import webservice
-from nox.apps.coreui.webservice import json_parse_message_body
-from nox.apps.coreui.webservice import NOT_DONE_YET,WSPathArbitraryString 
+from nox.webapps.webservice      import webservice
+from nox.webapps.webservice.webservice import json_parse_message_body
+from nox.webapps.webservice.webservice import NOT_DONE_YET,WSPathArbitraryString 
 from nox.lib.netinet.netinet import *
-from nox.apps.authenticator.pyauth import Auth_event, Authenticator
-from nox.apps.bindings_storage.pybindings_storage import pybindings_storage
-from nox.apps.directory.directorymanager import *
-from nox.apps.directory.directorymanagerws import *
+from nox.netapps.authenticator.pyauth import Host_auth_event, PyAuth
+from nox.netapps.bindings_storage.pybindings_storage import pybindings_storage
+from nox.netapps.directory.directorymanager import *
+from nox.netapps.directory.directorymanagerws import *
 
 lg = logging.getLogger('eventws')
 
@@ -34,14 +34,14 @@ class eventws(Component):
         content = json_parse_message_body(request)
        
         try : 
-          type = Auth_event.AUTHENTICATE
+          type = Host_auth_event.AUTHENTICATE
           if "type" in content and content["type"] == "deauthenticate": 
-            type = Auth_event.DEAUTHENTICATE
+            type = Host_auth_event.DEAUTHENTICATE
           ni = NetInfo.from_str_dict(content)
-          hostname =str(content.get("hostname",Authenticator.get_unknown_name()))  
-          username =str(content.get("username", Authenticator.get_unknown_name())) 
+          hostname =str(content.get("hostname", self._auth.get_unknown_name()))  
+          username =str(content.get("username", self._auth.get_unknown_name())) 
 
-          ae = Auth_event(type, ni.dpid, ni.port, ni.dladdr,ni.nwaddr,False, 
+          ae = Host_auth_event(type, ni.dpid, ni.port, ni.dladdr,ni.nwaddr,False, 
                           hostname, username, 0, 0)
           self.post(ae) 
           return "[]" 
@@ -74,7 +74,7 @@ class eventws(Component):
                 nwaddr = e[3] 
                 hostname = Authenticator.get_unknown_name()
                 username = mangled_name 
-                ae = Auth_event(Auth_event.DEAUTHENTICATE, dpid,
+                ae = Host_auth_event(Host_auth_event.DEAUTHENTICATE, dpid,
                         port, dladdr,nwaddr, False, hostname,
                         username, 0, 0)
                 self.post(ae) 
@@ -93,6 +93,7 @@ class eventws(Component):
     
 
     def install(self):
+        self._auth = self.resolve(PyAuth)
         dm = self.resolve(directorymanager)
 
         ws  = self.resolve(str(webservice.webservice))

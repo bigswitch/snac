@@ -77,7 +77,8 @@
     <dependency>
       <name>policyui</name>
     </dependency>
-    <!-- Removing reportsui as a dependency for now 
+    <!-- Removing reportsui as a dependency for now because it's not
+         supported for now.
     <dependency>
       <name>reportsui</name>
     </dependency> -->

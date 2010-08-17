@@ -6,17 +6,17 @@ import simplejson
 from time import strftime
 from nox.lib.core import *
 from nox.lib.directory import *
-from nox.apps.coreui      import webservice
-from nox.apps.coreui.webservice import json_parse_message_body
-from nox.apps.coreui.webservice import NOT_DONE_YET,WSPathArbitraryString 
+from nox.webapps.webservice  import webservice
+from nox.webapps.webservice.webservice import json_parse_message_body
+from nox.webapps.webservice.webservice import NOT_DONE_YET,WSPathArbitraryString 
 from nox.lib.netinet.netinet import *
-from nox.apps.authenticator.pyauth import Host_event
-from nox.apps.directory.directorymanager import *
-from nox.apps.directory.directorymanagerws import *
-from nox.apps.pyrt.pycomponent import CONTINUE 
-from nox.apps.directory.pydirmanager import Principal_name_event
+from nox.netapps.authenticator.pyauth import Host_join_event
+from nox.netapps.directory.directorymanager import *
+from nox.netapps.directory.directorymanagerws import *
+from nox.coreapps.pyrt.pycomponent import CONTINUE 
+from nox.netapps.directory.pydirmanager import Principal_name_event
 from nox.lib.directory import Directory
-from nox.apps.configuration.simple_config import simple_config
+from nox.netapps.configuration.simple_config import simple_config
 
 PERIODIC_SAVE_INTERVAL = 60 # save every minute, if changes exist
 
@@ -54,14 +54,14 @@ class hosttrackerws(Component):
     def host_event(self, event):
       dir,pname = demangle_name(event.name)
 
-      if(event.action == Host_event.JOIN):
+      if(event.action == Host_join_event.JOIN):
           
         self.data[event.name] = "Active since " + self._get_time_str()
         if event.name not in self.refcounts:
           self.refcounts[event.name] = 0
         self.refcounts[event.name] += 1
 
-      else: # Host_event.LEAVE
+      else: # Host_join_event.LEAVE
         
         if event.name in self.refcounts:
           self.refcounts[event.name] -= 1
@@ -92,7 +92,7 @@ class hosttrackerws(Component):
     def install(self):
         dm = self.resolve(directorymanager)
 
-        self.register_handler(Host_event.static_get_name(), self.host_event)
+        self.register_handler(Host_join_event.static_get_name(), self.host_event)
         self.register_handler(Principal_name_event.static_get_name(), 
                               self.principal_name_event)
         ws  = self.resolve(str(webservice.webservice))

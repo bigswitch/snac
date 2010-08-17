@@ -21,7 +21,7 @@ body {
 
 /* ---------- header ----------*/
 #headerDiv {
-    background: #454a4e url("/static/nox/apps/coreui/coreui/images/headerBg.gif") repeat-x bottom left;
+    background: #454a4e url("/static/nox/webapps/coreui/coreui/images/headerBg.gif") repeat-x bottom left;
     height: 82px;
     border-top: 1px solid #666;
 }
@@ -43,7 +43,7 @@ body {
 #headerDiv #logoDiv {
     height: 50px;
     float: right;
-    background: url("/static/nox/apps/coreui/coreui/images/logo.png") no-repeat 100% 50%;
+    background: url("/static/nox/webapps/coreui/coreui/images/logo.png") no-repeat 100% 50%;
     margin: 2px 10px 0 0;
     padding-right: 65px;
 }

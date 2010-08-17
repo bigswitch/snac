@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "authenticator/flow-in.hh"
+#include "authenticator/flow_in.hh"
 #include "authenticator/flow_util.hh"
 #include "boost/format.hpp"
 #include "config.h"

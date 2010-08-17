@@ -9,7 +9,7 @@ div#no-users-msg {
 
 div#invalid-name-error {
 	width: 45%;
-	background: #FFF url("/static/nox/apps/coreui/coreui/images/dotRed.png") no-repeat 3px 50%;
+	background: #FFF url("/static/nox/webapps/coreui/coreui/images/dotRed.png") no-repeat 3px 50%;
 	margin: 0 0 1.3em 0;
 	padding: 6px 12px 6px 36px;
 	border: 1px solid #FC5816;

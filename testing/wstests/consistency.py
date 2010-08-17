@@ -14,7 +14,7 @@ path = "/opt/nox/bin"
 # Without this line, python can't find the NOX includes
 sys.path.append(path)
 
-from nox.apps.coreui.webserviceclient import PersistentLogin, NOXWSClient
+from nox.webapps.webserviceclient import PersistentLogin, NOXWSClient
 
 class ConsistencyTester:
     "Grab/set ui information"

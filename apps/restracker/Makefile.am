@@ -6,7 +6,7 @@ STATIC_SUBDIRS=templates
 pkglib_LTLIBRARIES = \
 	restracker.la
 
-restracker_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../../ -I$(top_srcdir)/../apps/
+restracker_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../../ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../netapps/ -I$(top_srcdir)/../coreapps/
 restracker_la_SOURCES = restracker.cc restracker.hh 
 restracker_la_LDFLAGS = -module -export-dynamic
 
@@ -29,7 +29,7 @@ pyrestracker_wrap.cc pyrestracker.py: pyrestracker.i
  			pyrestracker $(srcdir)/pyrestracker.i
 
 pkglib_LTLIBRARIES += _pyrestracker.la
-_pyrestracker_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../../ -I$(top_srcdir)/../apps/ -I$(top_builddir)/../
+_pyrestracker_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../../ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../netapps/ -I$(top_srcdir)/../coreapps/ -I$(top_builddir)/../
 _pyrestracker_la_SOURCES = restracker_proxy.cc
 nodist__pyrestracker_la_SOURCES = pyrestracker_wrap.cc
 _pyrestracker_la_LDFLAGS = -module

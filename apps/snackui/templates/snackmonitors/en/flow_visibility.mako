@@ -28,12 +28,12 @@ function toggle_all() {
 } 
 
 dojo.require("dijit.Tooltip");  
-dojo.require("nox.apps.coreui.coreui.ListTableHelper"); 
+dojo.require("nox.webapps.coreui.coreui.ListTableHelper"); 
 
 var listHelper = null; 
  
 dojo.addOnLoad(function () {
-  listHelper = new nox.apps.coreui.coreui.ListTableHelper({ 
+  listHelper = new nox.webapps.coreui.coreui.ListTableHelper({ 
       filters : [
           { id : "filter_time", urlParam : "received_ts"} ,
           { id : "filter_action", urlParam : "action"} ,
@@ -53,12 +53,12 @@ dojo.addOnLoad(function () {
       append_params : ${append_params}
     });
     // hide update spinner 
-    nox.apps.coreui.coreui.getUpdateMgr()._recurring_updates = [];  
+    nox.webapps.coreui.coreui.getUpdateMgr()._recurring_updates = [];  
 
 %if hostname is not None:
-    host = new nox.apps.directory.directorymanagerws.Host({ 
+    host = new nox.netapps.directory.directorymanagerws.Host({ 
               initialData : { name : '${hostname}' } });  
-    nox.apps.coreui.coreui.base.set_nav_title([
+    nox.webapps.coreui.coreui.base.set_nav_title([
         {
             title_text: "Host:",
             nav_text: "Hosts",
@@ -90,8 +90,8 @@ dojo.addOnLoad(function () {
 <%!
 
 import time
-from nox.apps.coreui.web_arg_utils import get_html_for_select_box
-from nox.apps.coreui.template_utils import utf8quote,get_principal_path,get_group_path
+from nox.webapps.webservice.web_arg_utils import get_html_for_select_box
+from nox.webapps.coreui.template_utils import utf8quote,get_principal_path,get_group_path
 
 attr_map = { 'users' : "Users", 
              'host_groups' : "Host Groups", 
@@ -166,7 +166,7 @@ def get_group_link(type,name):
 <tr class="noxPrincipalGridFilter filterTable" >
 <td> 
 <button id="clear_btn" dojoType="dijit.form.Button" style="float: left;">
-<img src="/static/nox/apps/coreui/coreui/images/clearFilterButton.png" alt="Clear Filters" />
+<img src="/static/nox/webapps/coreui/coreui/images/clearFilterButton.png" alt="Clear Filters" />
 <span dojoType="dijit.Tooltip" connectId="clear_btn" label="Clear Filters"></span> 
 </button>
 </td> 

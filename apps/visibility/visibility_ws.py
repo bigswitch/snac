@@ -25,10 +25,10 @@ from nox.lib.core import Component
 
 from twisted.internet import defer
 from twisted.python.failure import Failure
-from nox.apps.authenticator.pyauth import PyAuth, Authenticator
-from nox.apps.coreui.webservice import *
-from nox.apps.directory.directorymanager import directorymanager, mangle_name
-from nox.apps.directory.directorymanagerws import WSPathExistingDirName
+from nox.netapps.authenticator.pyauth import PyAuth
+from nox.webapps.webservice.webservice import *
+from nox.netapps.directory.directorymanager import directorymanager, mangle_name
+from nox.netapps.directory.directorymanagerws import WSPathExistingDirName
 from nox.ext.apps import sepl
 from nox.ext.apps.miscws.policyws import WSPathExistingPolicyId, \
         WSPathExistingRuleId
@@ -83,7 +83,7 @@ class visibility_ws(Component):
         #not having a name if authenticator has timed it out
         #TODO: persist names?
         name = unicode(self._auth.get_name(principal_id), 'utf-8')
-        if name == Authenticator.get_unknown_name():
+        if name == self._auth.get_unknown_name():
             name = "discovered;unknown name (%d)"%principal_id
         return name
 

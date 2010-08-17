@@ -32,6 +32,8 @@ seplenforcer_la_CPPFLAGS =	\
 	-I$(top_srcdir)/../	\
 	-I$(top_srcdir)/../../ \
 	-I$(top_srcdir)/../apps/ \
+	-I$(top_srcdir)/../netapps/ \
+	-I$(top_srcdir)/../coreapps/ \
 	-D__COMPONENT_FACTORY_FUNCTION__=seplenforcer_get_factory
 
 seplenforcer_la_SOURCES = sepl_enforcer.hh sepl_enforcer.cc sepl_enforcer_python.cc
@@ -54,10 +56,10 @@ pyseplenforcer_wrap_includes =	\
 	sepl_enforcer.i
 
 pyseplenforcer_wrap.cc pyseplenforcer.py: $(pyseplenforcer_wrap_includes)
-	swig -I$(top_srcdir)/../lib/ -I$(top_srcdir)/../apps/ -outdir $(builddir)/. -o pyseplenforcer_wrap.cc -c++ -python -module pyseplenforcer $(srcdir)/sepl_enforcer.i
+	swig -I$(top_srcdir)/../lib/ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../netapps/ -I$(top_srcdir)/../coreapps/ -outdir $(builddir)/. -o pyseplenforcer_wrap.cc -c++ -python -module pyseplenforcer $(srcdir)/sepl_enforcer.i
 
 pkglib_LTLIBRARIES += _pyseplenforcer.la
-_pyseplenforcer_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../../
+_pyseplenforcer_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../netapps/ -I$(top_srcdir)/../coreapps/ -I$(top_srcdir)/../../
 _pyseplenforcer_la_SOURCES = pysepl_enforcer.hh pysepl_enforcer.cc
 nodist__pyseplenforcer_la_SOURCES = pyseplenforcer_wrap.cc
 _pyseplenforcer_la_LDFLAGS = -module
@@ -69,7 +71,7 @@ pyseplstats_wrap.cc pyseplstats.py: $(pyseplstats_wrap_includes)
 	swig -I$(top_srcdir)/../lib/ -outdir $(builddir)/. -o pyseplstats_wrap.cc -c++ -python -module pyseplstats $(srcdir)/sepl_stats.i
 
 pkglib_LTLIBRARIES += _pyseplstats.la
-_pyseplstats_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../../
+_pyseplstats_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_srcdir)/../apps/ -I$(top_srcdir)/../netapps/ -I$(top_srcdir)/../coreapps/ -I$(top_srcdir)/../../
 _pyseplstats_la_SOURCES = pysepl_stats.cc pysepl_stats.hh
 nodist__pyseplstats_la_SOURCES = pyseplstats_wrap.cc
 _pyseplstats_la_LDFLAGS = -module

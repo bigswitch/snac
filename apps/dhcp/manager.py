@@ -15,10 +15,10 @@ from signal import SIGKILL
 from twisted.internet import defer, protocol, reactor
 from twisted.python.failure import Failure
 
-from nox.apps.configuration.properties import Properties
-from nox.apps.coreui  import webservice
+from nox.netapps.configuration.properties import Properties
+from nox.webapps.webservice  import webservice
 from twisted.python.failure import Failure
-from nox.apps.storage.transactional_storage import TransactionalStorage
+from nox.netapps.storage.transactional_storage import TransactionalStorage
 from nox.ext.apps.dhcp.config import DHCPConfig
 from nox.ext.apps.local_config.local_config import local_config
 from nox.ext.apps.local_config.interface_change_event import interface_change_event

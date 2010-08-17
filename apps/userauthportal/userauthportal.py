@@ -194,15 +194,14 @@ from nox.lib.core import *
 from nox.lib.directory import *
 from nox.lib.netinet.netinet import *
 
-from nox.apps.authenticator.pyauth import Auth_event, Authenticator
-from nox.apps.authenticator.pyauth import PyAuth
-from nox.apps.bindings_storage import pybindings_storage
-from nox.apps.bindings_storage.pybindings_storage import Name
-from nox.apps.coreui import coreui
-from nox.apps.coreui.authui import UIResource
-from nox.apps.directory import directorymanager
-from nox.apps.pyrt.pycomponent import *
-from nox.apps.user_event_log.pyuser_event_log import pyuser_event_log, LogEntry
+from nox.netapps.authenticator.pyauth import Host_auth_event, PyAuth
+from nox.netapps.bindings_storage import pybindings_storage
+from nox.netapps.bindings_storage.pybindings_storage import Name
+from nox.webapps.coreui import coreui
+from nox.webapps.coreui.authui import UIResource
+from nox.netapps.directory import directorymanager
+from nox.coreapps.pyrt.pycomponent import *
+from nox.netapps.user_event_log.pyuser_event_log import pyuser_event_log, LogEntry
 from nox.ext.apps.http_redirector.pyhttp_redirector import *
 
 lg = logging.getLogger('userauthportal')
@@ -211,7 +210,6 @@ DEV_VERBOSE   = True # XXX this should never be True in production
 DEV_FAKE_FLOW = True # XXX dev - remove for production
 
 COMPONENT_ID  = "userauthportal"
-UNKNOWN_HNAME = Authenticator.get_unknown_name()
 IMAGE_BUG_GIF = array.array('B', [0x47,0x49, 0x46,0x38, 0x39,0x61, 0x01,0x00,
                                   0x01,0x00, 0x80,0x00, 0x00,0xFF, 0xFF,0xFF,
                                   0x00,0x00, 0x00,0x21, 0xf9,0x04, 0x01,0x00,
@@ -578,9 +576,10 @@ class AuthRes(UIResource):
                     du=fi.username.encode('utf-8'), set_src_loc=(fi.dpid,
                     fi.in_port))
 
-            ae = Auth_event(Auth_event.AUTHENTICATE, fi.dpid,
+            ae = Host_auth_event(Host_auth_event.AUTHENTICATE, fi.dpid,
                             fi.in_port, fi.dl_src,
-                            fi.nw_src, False, UNKNOWN_HNAME,
+                            fi.nw_src, False,
+                            self.auth.get_unknown_name(),
                             fi.username.encode('utf-8'), 0, 0)
             self.component.post(ae)
 
@@ -635,7 +634,7 @@ class AuthRes(UIResource):
         if fi is None:
             return self._render_error(request, close_if_pu=False,
                     msg="Invalid flow information in logout post")
-        ae = Auth_event(Auth_event.DEAUTHENTICATE, fi.dpid,
+        ae = Host_auth_event(Host_auth_event.DEAUTHENTICATE, fi.dpid,
                         fi.in_port, fi.dl_src,
                         fi.nw_src, False, UNKNOWN_HNAME,
                         fi.username.encode('utf-8'), 0, 0)

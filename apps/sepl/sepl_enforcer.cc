@@ -1,21 +1,5 @@
 /* Copyright 2008 (C) Nicira, Inc. */
-/* Copyright 2008 (C) Nicira, Inc.
- *
- * This file is part of NOX.
- *
- * NOX is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * NOX is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with NOX.  If not, see <http://www.gnu.org/licenses/>.
- */
+
 #include "sepl_enforcer.hh"
 
 #include <boost/bind.hpp>
@@ -189,6 +173,11 @@ Sepl_enforcer::handle_flow(const Event& e)
     return CONTINUE;
 }
 
+void
+Sepl_enforcer::check_destinations() {
+    return;
+}
+/*
 void
 Sepl_enforcer::check_destinations()
 {
@@ -406,7 +395,7 @@ Sepl_enforcer::process_actions()
     }
     return false;
 }
-
+*/
 
 void
 Sepl_enforcer::record_request(const Flow& request,
@@ -429,10 +418,10 @@ Sepl_enforcer::record_request(const Flow& request,
 
 static
 bool
-in_groups(const std::vector<uint32_t>& groups, uint32_t val)
+in_groups(const GroupList& groups, uint32_t val)
 {
-    for (std::vector<uint32_t>::const_iterator iter = groups.begin();
-         iter != groups.end(); ++iter)
+    for (GroupList::const_iterator iter = groups.begin();
+            iter != groups.end(); ++iter)
     {
         if (val == *iter)
             return true;
@@ -446,85 +435,27 @@ in_groups(const std::vector<uint32_t>& groups, uint32_t val)
 template<>
 bool
 get_field<Flow_expr, Sepl_data>(uint32_t field, const Sepl_data& data,
-                                uint32_t idx, uint32_t& value)
+                               uint32_t idx, uint32_t& value)
 {
     uint64_t v;
-
-    // if not a group predicate, no value for idx greater than 0
-    if (idx > 0 && ((field < Flow_expr::HGROUPSRC)
-                    || (field > Flow_expr::UGROUPDST && field < Flow_expr::ADDRGROUPSRC)
-                    || (field > Flow_expr::ADDRGROUPDST)))
+    uint32_t total, dlsize;
+    // No other supported fields have > 1 value
+    if (idx > 0 && field != Flow_expr::GROUPSRC
+        && field > Flow_expr::GROUPDST)
     {
         return false;
     }
 
     switch (field) {
-    case Flow_expr::LOCSRC:
-        value = data.fi->source->ap;
-        return true;
-    case Flow_expr::LOCDST:
-        value = data.dst->connector->ap;
-        return true;
-    case Flow_expr::HSRC:
-        value = data.fi->source->host;
-        return true;
-    case Flow_expr::HDST:
-        value = data.dst->connector->host;
-        return true;
-    case Flow_expr::USRC:
-        value = data.suser->user;
-        return true;
-    case Flow_expr::UDST:
-        value = data.duser->user;
-        return true;
-    case Flow_expr::CONN_ROLE:
-        value = data.role;
-        return true;
-    case Flow_expr::HGROUPSRC:
-        if (idx >= data.fi->source->hostgroups.size()) {
-            if (idx > 0)
-                return false;
-            value = 0;
-        } else {
-            value = data.fi->source->hostgroups[idx];
-        }
-        return true;
-    case Flow_expr::HGROUPDST:
-        if (idx >= data.dst->connector->hostgroups.size()) {
-            if (idx > 0)
-                return false;
-            value = 0;
-        } else {
-            value = data.dst->connector->hostgroups[idx];
-        }
-        return true;
-    case Flow_expr::UGROUPSRC:
-        if (idx >= data.suser->groups.size()) {
-            if (idx > 0)
-                return false;
-            value = 0;
-        } else {
-            value = data.suser->groups[idx];
-        }
-        return true;
-    case Flow_expr::UGROUPDST:
-        if (idx >= data.duser->groups.size()) {
-            if (idx > 0)
-                return false;
-            value = 0;
-        } else {
-            value = data.duser->groups[idx];
-        }
-        return true;
     case Flow_expr::DLVLAN:
         value = data.fi->flow.dl_vlan;
         return true;
     case Flow_expr::DLSRC:
-        v = data.fi->flow.dl_src.nb_long();
+        v = data.fi->flow.dl_src.hb_long();
         value = ((uint32_t) v) ^ (v >> 32);
         return true;
     case Flow_expr::DLDST:
-        v = data.fi->flow.dl_dst.nb_long();
+        v = data.fi->flow.dl_dst.hb_long();
         value = ((uint32_t) v) ^ (v >> 32);
         return true;
     case Flow_expr::DLTYPE:
@@ -545,40 +476,60 @@ get_field<Flow_expr, Sepl_data>(uint32_t field, const Sepl_data& data,
     case Flow_expr::TPDST:
         value = data.fi->flow.tp_dst;
         return true;
-    case Flow_expr::ADDRGROUPSRC:
-        if (idx >= data.fi->src_addr_groups->size()) {
+    case Flow_expr::GROUPSRC:
+        // if groups are null treat as none, not any
+        dlsize = (data.fi->src_dladdr_groups == NULL ?
+                  0 : data.fi->src_dladdr_groups->size());
+        total = dlsize + (data.fi->src_nwaddr_groups == NULL ?
+                          0 : data.fi->src_nwaddr_groups->size());
+        if (idx >= total) {
             if (idx > 0)
                 return false;
             value = 0;
         } else {
-            value = data.fi->src_addr_groups->at(idx);
+            if (data.fi->src_dladdr_groups != NULL
+                && idx < data.fi->src_dladdr_groups->size())
+            {
+                value = data.fi->src_dladdr_groups->at(idx);
+            } else {
+                value = data.fi->src_nwaddr_groups->at(idx - dlsize);
+            }
         }
         return true;
-    case Flow_expr::ADDRGROUPDST:
-        if (idx >= data.fi->dst_addr_groups->size()) {
+    case Flow_expr::GROUPDST:
+        dlsize = (data.fi->src_dladdr_groups == NULL ?
+                  0 : data.fi->src_dladdr_groups->size());
+        total = dlsize + (data.fi->src_nwaddr_groups == NULL ?
+                          0 : data.fi->src_nwaddr_groups->size());
+        if (idx >= total) {
             if (idx > 0)
                 return false;
             value = 0;
         } else {
-            value = data.fi->dst_addr_groups->at(idx);
+            if (data.fi->src_dladdr_groups != NULL
+                && idx < data.fi->src_dladdr_groups->size())
+            {
+                value = data.fi->src_dladdr_groups->at(idx);
+            } else {
+                value = data.fi->src_nwaddr_groups->at(idx - dlsize);
+            }
         }
         return true;
     }
 
-    VLOG_ERR(lg, "Classifier was split on field not retrievable from a Sepl_data.");
+    VLOG_ERR(lg, "Classifier was split on field not retrievable from a NAT_data.");
 
+    if (idx > 0) {
+        return false;
+    }
     // return true so that doesn't try to do ANY and look at all children
     value = 0;
     return true;
 }
 
-
-template<>
 bool
 matches(const Flow_expr& expr, const Sepl_data& data)
 {
-    const Connector& src = *data.fi->source;
-    const Connector& dst = *(data.dst->connector);
     const Flow& flow = data.fi->flow;
 
     bool bad_result = false; // equality result signaling failed match
@@ -597,73 +548,18 @@ matches(const Flow_expr& expr, const Sepl_data& data)
         }
 
         switch (t) {
-        case Flow_expr::LOCSRC:
-            if (((uint32_t)(iter->val) == src.ap) == bad_result) {
-                return false;
-            }
-            break;
-        case Flow_expr::LOCDST:
-            if (((uint32_t)(iter->val) == dst.ap) == bad_result) {
-                return false;
-            }
-            break;
-        case Flow_expr::HSRC:
-            if (((uint32_t)(iter->val) == src.host) == bad_result) {
-                return false;
-            }
-            break;
-        case Flow_expr::HDST:
-            if (((uint32_t)(iter->val) == dst.host) == bad_result) {
-                return false;
-            }
-            break;
-        case Flow_expr::USRC:
-            if (((uint32_t)(iter->val) == data.suser->user) == bad_result) {
-                return false;
-            }
-            break;
-        case Flow_expr::UDST:
-            if (((uint32_t)(iter->val) == data.duser->user) == bad_result) {
-                return false;
-            }
-            break;
-        case Flow_expr::CONN_ROLE:
-            if (((Flow_expr::Conn_role_t) iter->val == data.role) == bad_result) {
-                return false;
-            }
-            break;
-        case Flow_expr::HGROUPSRC:
-            if (in_groups(src.hostgroups, iter->val) == bad_result) {
-                return false;
-            }
-            break;
-        case Flow_expr::HGROUPDST:
-            if (in_groups(dst.hostgroups, iter->val) == bad_result) {
-                return false;
-            }
-            break;
-        case Flow_expr::UGROUPSRC:
-            if (in_groups(data.suser->groups, iter->val) == bad_result) {
-                return false;
-            }
-            break;
-        case Flow_expr::UGROUPDST:
-            if (in_groups(data.duser->groups, iter->val) == bad_result) {
-                return false;
-            }
-            break;
         case Flow_expr::DLVLAN:
             if (((uint32_t)(iter->val) == flow.dl_vlan) == bad_result) {
                 return false;
             }
             break;
         case Flow_expr::DLSRC:
-            if ((iter->val == flow.dl_src.nb_long()) == bad_result) {
+            if ((iter->val == flow.dl_src.hb_long()) == bad_result) {
                 return false;
             }
             break;
         case Flow_expr::DLDST:
-            if ((iter->val == flow.dl_dst.nb_long()) == bad_result) {
+            if ((iter->val == flow.dl_dst.hb_long()) == bad_result) {
                 return false;
             }
             break;
@@ -697,13 +593,23 @@ matches(const Flow_expr& expr, const Sepl_data& data)
                 return false;
             }
             break;
-        case Flow_expr::ADDRGROUPSRC:
-            if (in_groups(*(data.fi->src_addr_groups), iter->val) == bad_result) {
+        case Flow_expr::GROUPSRC:
+            if (((data.fi->src_dladdr_groups != NULL
+                  && in_groups(*(data.fi->src_dladdr_groups), iter->val))
+                 || (data.fi->src_nwaddr_groups != NULL
+                     && in_groups(*(data.fi->src_nwaddr_groups), iter->val)))
+                == bad_result)
+            {
                 return false;
             }
             break;
-        case Flow_expr::ADDRGROUPDST:
-            if (in_groups(*(data.fi->dst_addr_groups), iter->val) == bad_result) {
+        case Flow_expr::GROUPDST:
+            if (((data.fi->dst_dladdr_groups != NULL
+                  && in_groups(*(data.fi->dst_dladdr_groups), iter->val))
+                 || (data.fi->dst_nwaddr_groups != NULL
+                     && in_groups(*(data.fi->dst_nwaddr_groups), iter->val)))
+                == bad_result)
+            {
                 return false;
             }
             break;
@@ -726,7 +632,6 @@ matches(const Flow_expr& expr, const Sepl_data& data)
             return false;
         }
     }
-
     if (expr.m_fn == NULL) {
         return true;
     }

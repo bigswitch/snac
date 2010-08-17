@@ -1,5 +1,5 @@
 
-from nox.apps.ndb     import API, GetOp, PutOp 
+from nox.ext.apps.ndb     import API, GetOp, PutOp 
 from twisted.python import log
 
 # functions to simplify access to the NDB from python

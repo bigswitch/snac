@@ -1,6 +1,6 @@
 dojo.provide("nox.ext.apps.snackui.policyui.rules");
 
-dojo.require("nox.apps.coreui.coreui.UpdateMgr");
+dojo.require("nox.webapps.coreui.coreui.UpdateMgr");
 
 var updatemgr = null;
 
@@ -11,7 +11,7 @@ var rules = null;
 var latest_policy = null; 
 
 function get_rules() {
-    nox.apps.coreui.coreui.getUpdateMgr().xhrGet({
+    nox.webapps.coreui.coreui.getUpdateMgr().xhrGet({
         url: "/ws.v1/policy/" + policyid + "/rules",
         load: function (response, ioArgs) {
             // remove the following line once policy webservice
@@ -31,7 +31,7 @@ function init_policy() {
     revertBtn.setAttribute("disabled", true);
     //analyzeBtn.setAttribute("disabled", true);
     applyBtn.setAttribute("disabled", true);
-    nox.apps.coreui.coreui.getUpdateMgr().xhrGet({
+    nox.webapps.coreui.coreui.getUpdateMgr().xhrGet({
         url: "/ws.v1/policy",
         load: function (response, ioArgs) {
             policyid = response.policy_id;
@@ -53,7 +53,7 @@ function revert_changes() {
 }
 
 function apply_changes() {
-    nox.apps.coreui.coreui.getUpdateMgr().rawXhrPost({
+    nox.webapps.coreui.coreui.getUpdateMgr().rawXhrPost({
         url: "/ws.v1/policy",
         postData: dojo.toJson({
             "policy_id" : policyid,
@@ -69,7 +69,7 @@ function apply_changes() {
 }
 
 function reset_counters() {
-    nox.apps.coreui.coreui.getUpdateMgr().xhrDelete({
+    nox.webapps.coreui.coreui.getUpdateMgr().xhrDelete({
         url: "/ws.v1/policy/stats",
         load: function (response, ioArgs) {
             init_policy();
@@ -86,7 +86,7 @@ function update_hit_counts() {
         if(rule.rule_id == null) 
           return; // don't query for non-existent rules
 
-        nox.apps.coreui.coreui.getUpdateMgr().xhrGet({
+        nox.webapps.coreui.coreui.getUpdateMgr().xhrGet({
           url: "/ws.v1/policy/" + policyid + "/rule/" + rule.rule_id + "/stats",
           load: function (response, ioArgs) {
             var elem = dojo.byId("hit-count-" + rule.rule_id);

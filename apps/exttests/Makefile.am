@@ -14,6 +14,8 @@ tests_la_CPPFLAGS = $(AM_CPPFLAGS) \
 	-I$(top_srcdir)/../  \
 	-I$(top_builddir)/../  \
     -I$(top_srcdir)/../apps/ \
+    -I$(top_srcdir)/../netapps/ \
+    -I$(top_srcdir)/../coreapps/ \
 	-D__COMPONENT_FACTORY_FUNCTION__=tests_get_factory
 tests_la_CFLAGS = $(AM_CFLAGS)
 tests_la_LDFLAGS = -module -export-dynamic

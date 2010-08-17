@@ -1,21 +1,5 @@
 /* Copyright 2008 (C) Nicira, Inc. */
-/* Copyright 2008 (C) Nicira, Inc.
- *
- * This file is part of NOX.
- *
- * NOX is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * NOX is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with NOX.  If not, see <http://www.gnu.org/licenses/>.
- */
+
 #include "sepl_enforcer.hh"
 
 #include "pyrt/pyglue.hh"
@@ -51,13 +35,13 @@ reset_connector(Sepl_data& data, bool reset_dst_infos)
                 VLOG_ERR(lg, "Destinations entry not present in flow dict.");
                 return false;
             }
-            for (uint32_t i = 0; i < data.fi->destinations.size(); ++i) {
+            for (uint32_t i = 0; i < data.fi->dst_locations.size(); ++i) {
                 PyObject *entry = PyList_GetItem(dsts, i);
                 if (entry == NULL) {
                     VLOG_ERR(lg, "DstInfo not present in destinations list.");
                     return false;
                 }
-                Flow_in_event::DestinationInfo& dstInfo = data.fi->destinations[i];
+                Flow_in_event::DestinationInfo& dstInfo = data.fi->dst_locations[i];
                 pyglue_setdict_string(entry, "allowed", to_python(dstInfo.allowed));
                 pyglue_setdict_string(entry, "waypoints", to_python_list(dstInfo.waypoints));
                 pyglue_setdict_string(entry, "rules", to_python_list(dstInfo.rules));
@@ -91,16 +75,15 @@ set_py_flow(Sepl_data& data)
         pyglue_setdict_string(data.py_flow, "active", to_python(fi.active));
         pyglue_setdict_string(data.py_flow, "received_sec", to_python(fi.received.tv_sec));
         pyglue_setdict_string(data.py_flow, "received_usec", to_python(fi.received.tv_usec));
-        pyglue_setdict_string(data.py_flow, "source", to_python(*fi.source));
+        pyglue_setdict_string(data.py_flow, "src_location", to_python(fi.src_location));
         pyglue_setdict_string(data.py_flow, "route_source", route_source_to_python(fi.route_source));
-        pyglue_setdict_string(data.py_flow, "destinations", to_python(fi.destinations));
+        pyglue_setdict_string(data.py_flow, "dst_locations", to_python(fi.dst_locations));
         pyglue_setdict_string(data.py_flow, "route_destinations", route_destinations_to_python(fi.route_destinations));
-        pyglue_setdict_string(data.py_flow, "src_addr_groups", to_python_list(*fi.src_addr_groups));
-        pyglue_setdict_string(data.py_flow, "dst_addr_groups", to_python_list(*fi.dst_addr_groups));
-        pyglue_setdict_string(data.py_flow, "src_dl_authed", to_python(fi.src_dl_authed));
-        pyglue_setdict_string(data.py_flow, "src_nw_authed", to_python(fi.src_nw_authed));
-        pyglue_setdict_string(data.py_flow, "dst_dl_authed", to_python(fi.dst_dl_authed));
-        pyglue_setdict_string(data.py_flow, "dst_nw_authed", to_python(fi.dst_nw_authed));
+        pyglue_setdict_string(data.py_flow, "src_dladdr_groups", to_python_list(*fi.src_dladdr_groups));
+        pyglue_setdict_string(data.py_flow, "src_nwaddr_groups", to_python_list(*fi.src_nwaddr_groups));
+        pyglue_setdict_string(data.py_flow, "dst_dladdr_groups", to_python_list(*fi.dst_dladdr_groups));
+        pyglue_setdict_string(data.py_flow, "dst_nwaddr_groups", to_python_list(*fi.dst_nwaddr_groups));
+        pyglue_setdict_string(data.py_flow, "dst_authed", to_python(fi.dst_authed));
         pyglue_setdict_string(data.py_flow, "datapath_id", to_python(fi.datapath_id));
         pyglue_setdict_string(data.py_flow, "buf", to_python(fi.buf));
         pyglue_setdict_string(data.py_flow, "total_len", to_python(fi.total_len));

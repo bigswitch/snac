@@ -4,20 +4,20 @@
 
 dojo.provide("nox.ext.apps.snackui.snackmonitors.UserInfo");
 
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.directory.directorymanagerws.UserStore");
-dojo.require("nox.apps.coreui.coreui.ItemList");
-dojo.require("nox.apps.coreui.coreui.ItemListEditor");
-dojo.require("nox.apps.coreui.coreui.ItemInspector");
+dojo.require("nox.webapps.coreui.coreui.base");
+dojo.require("nox.netapps.directory.directorymanagerws.UserStore");
+dojo.require("nox.webapps.coreui.coreui.ItemList");
+dojo.require("nox.webapps.coreui.coreui.ItemListEditor");
+dojo.require("nox.webapps.coreui.coreui.ItemInspector");
 dojo.require("dijit.form.FilteringSelect");
-dojo.require("nox.apps.user_event_log.networkevents.NetEvents");
-dojo.require("nox.apps.directory.directorymanagerws.Directories"); 
-dojo.require("nox.apps.directory.directorymanagerws.PrincipalInfoEditUtils"); 
-dojo.require("nox.apps.directory.directorymanagerws.PrincipalModifyDialog"); 
+dojo.require("nox.netapps.user_event_log.networkevents.NetEvents");
+dojo.require("nox.netapps.directory.directorymanagerws.Directories"); 
+dojo.require("nox.netapps.directory.directorymanagerws.PrincipalInfoEditUtils"); 
+dojo.require("nox.netapps.directory.directorymanagerws.PrincipalModifyDialog"); 
 
-var coreui = nox.apps.coreui.coreui;
-var dmws = nox.apps.directory.directorymanagerws; 
-var pinfo_util = nox.apps.directory.directorymanagerws.PrincipalInfoEditUtils;
+var coreui = nox.webapps.coreui.coreui;
+var dmws = nox.netapps.directory.directorymanagerws; 
+var pinfo_util = nox.netapps.directory.directorymanagerws.PrincipalInfoEditUtils;
 
 var user = null; 
 var userInspector = null;
@@ -127,7 +127,7 @@ function cancel_cred() {
 function init_page() {
     coreui.base.update_page_title("User Information");
 
-    user = new nox.apps.directory.directorymanagerws.User({
+    user = new nox.netapps.directory.directorymanagerws.User({
         initialData: { name: selected_user },
         updateList: [ "status", "info", "cred" ]
     });
@@ -301,7 +301,7 @@ function build_page() {
         recur: true
     });
     
-    netevent_log = new nox.apps.user_event_log.networkevents.NetEventsTable(
+    netevent_log = new nox.netapps.user_event_log.networkevents.NetEventsTable(
                     dojo.byId("netevents-table"), 10,
                     "user=" + encodeURIComponent(user.getValue("name")));
 }

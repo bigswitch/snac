@@ -297,7 +297,7 @@ private:
     vector<test_case*> gather_python_tests(list<string> args) {
         // Construct the PyContext object and wrap the C++ context object
         // with it.
-        PyObject* m = PyImport_ImportModule("nox.apps.pyrt.pycomponent");
+        PyObject* m = PyImport_ImportModule("nox.coreapps.pyrt.pycomponent");
         if (!m) {
             PyErr_Print();
             PyErr_Clear();

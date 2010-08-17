@@ -1,9 +1,9 @@
 dojo.provide("nox.ext.apps.snackui.policyui.PolicyStore");
 
-dojo.require("nox.apps.coreui.coreui._UpdatingStore");
+dojo.require("nox.webapps.coreui.coreui._UpdatingStore");
 dojo.require("nox.ext.apps.snackui.policyui.PolicyStoreRule");
 
-dojo.declare("nox.ext.apps.snackui.policyui.PolicyStore", [ nox.apps.coreui.coreui._UpdatingStore ], {
+dojo.declare("nox.ext.apps.snackui.policyui.PolicyStore", [ nox.webapps.coreui.coreui._UpdatingStore ], {
 
     // TBD: - This store *really* needs to have user-visible conflict
     // TBD:   notification implemented.
@@ -50,7 +50,7 @@ dojo.declare("nox.ext.apps.snackui.policyui.PolicyStore", [ nox.apps.coreui.core
         if (this.policyId != this._pendingPolicyId) {
             this.updatemgr.xhrGet({
                 url: this.url + "/" + this._pendingPolicyId.toString() + "/rules",
-                load: dojo.hitch(this, nox.apps.coreui.coreui._UpdatingStore.prototype._handleServerResponse),
+                load: dojo.hitch(this, nox.webapps.coreui.coreui._UpdatingStore.prototype._handleServerResponse),
                 error: this._inProgressUpdates.slice(-1)[0].errhandler,
                 timeout: this.timeout,
                 handleAs: "json"
