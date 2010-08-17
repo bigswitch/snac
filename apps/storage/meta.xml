@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
+ <component>
+    <name>storage common</name>
+    <library>storage-common</library>
+  </component>
+  <component>
+    <name>storage backend</name>
+    <library>storage-backend</library>
+    <dependency>
+      <name>storage common</name>
+    </dependency>
+    <dependency>
+      <name>transactional_storage_backend</name>
+    </dependency>
+  </component>
+  <component>
+    <name>transactional_storage_backend</name>
+    <library>transactional-storage-backend</library>
+    <dependency>
+      <name>storage common</name>
+    </dependency>
+  </component>
+  <component>
+    <name>pystorage</name>
+    <dependency>
+      <name>storage backend</name>
+    </dependency>
+    <python>nox.apps.storage.storage</python>
+  </component>
+  <component>
+    <name>pytransactional storage</name>
+    <dependency>
+      <name>transactional_storage_backend</name>
+    </dependency>
+    <python>nox.apps.storage.transactional_storage</python>
+  </component>
+
+  <component>
+    <name>storage-memleak-test</name>
+    <library>storage-memleak-test</library>
+    <dependency>
+      <name>storage backend</name>
+    </dependency>
+  </component>
+
+</components:components>

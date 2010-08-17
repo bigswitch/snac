@@ -1,4 +1,4 @@
-        \include ../../Make.vars
+include ../../Make.vars
 
 EXTRA_DIST = ldap_dir_factory.py pytestldap_proxy.py
 
@@ -8,11 +8,11 @@ ldap_proxy_la_CPPFLAGS = $(AM_CPPFLAGS) \
                          -I$(srcdir)/../\
                          -I/usr/include/python2.5/\
                          -I$(top_srcdir)/../ \
-						 -I$(top_srcdir)/../../\
-						 -I$(top_srcdir)/../apps/\
-						 -I$(top_srcdir)/../netapps/\
-						 -I$(top_srcdir)/../coreapps/\
-						 -I$(top_srcdir)/../thirdparty
+			 -I$(top_srcdir)/../../\
+			 -I$(top_srcdir)/apps/\
+			 -I$(top_srcdir)/../netapps/\
+			 -I$(top_srcdir)/../coreapps/\
+			 -I$(top_srcdir)/../thirdparty
 ldap_proxy_la_SOURCES = ldap_proxy.cc ldap_proxy.hh
 
 ldap_proxy_la_LDFLAGS = -module -export-dynamic $(LDAP_LDFLAGS)
@@ -21,7 +21,7 @@ ldap_proxy_la_LDFLAGS = -module -export-dynamic $(LDAP_LDFLAGS)
 #							 -I$(srcdir)/../\
 #							 -I$(top_srcdir)/../ \
 #							 -I$(top_srcdir)/../../\
-#							 -I$(top_srcdir)/../apps/\
+#							 -I$(top_srcdir)/apps/\
 #                            -I$(top_srcdir)/../netapps/\
 #                            -I$(top_srcdir)/../coreapps/\
 #							 -I$(top_srcdir)/../thirdparty
@@ -53,7 +53,7 @@ _pyldap_proxy_la_CPPFLAGS = $(AM_CPPFLAGS)\
 							 -I$(top_srcdir)/../ \
 							 -I$(top_srcdir)/../../\
 							 -I$(top_builddir)/../\
-							 -I$(top_srcdir)/../apps/\
+							 -I$(top_srcdir)/apps/\
 							 -I$(top_srcdir)/../netapps/\
 							 -I$(top_srcdir)/../coreapps/\
 							 -I$(top_srcdir)/../thirdparty

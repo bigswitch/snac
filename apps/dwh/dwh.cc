@@ -10,7 +10,7 @@
 #include "component.hh"
 #include "flow.hh"
 #include "flow-mod-event.hh"
-#include "flow-expired.hh"
+#include "flow-removed.hh"
 #include "hash_map.hh"
 #include "netinet++/ethernetaddr.hh"
 #include "ndb/ndb.hh"
@@ -314,14 +314,14 @@ Op::Row transform(const Flow_mod_event& fme) {
 }
 
 template <>
-Op::Row transform(const Flow_expired_event& fee) {
-    const struct ofp_match* om = fee.get_flow();
-    const struct ofp_flow_expired* ofe = fee.get_flow_expired();
+Op::Row transform(const Flow_removed_event& fre) {
+    const struct ofp_match* om = fre.get_flow();
+    const struct ofp_flow_removed* ofr = fre.get_flow_removed();
     uint32_t w = ntohl(om->wildcards);
     Op::Row row;
 
     row.push_back(Op::KeyValue_ptr(new Op::KeyValue("TYPE", "C")));
-    row.push_back(define_column(0, 0, "DP_ID", fee.datapath_id.as_host()));
+    row.push_back(define_column(0, 0, "DP_ID", fre.datapath_id.as_host()));
     row.push_back(define_column(w, OFPFW_IN_PORT, "PORT_ID", ntohs(om->in_port)));
     row.push_back(define_column(0, 0, "ETH_VLAN", ntohs(om->dl_vlan)));
     row.push_back(define_column(0, 0, "ETH_TYPE", ntohs(om->dl_type)));
@@ -336,9 +336,9 @@ Op::Row transform(const Flow_expired_event& fee) {
     row.push_back(define_column(w, OFPFW_NW_PROTO, "PROTOCOL_ID", om->nw_proto));
     row.push_back(define_column(w, OFPFW_TP_SRC, "SOURCE_PORT", ntohs(om->tp_src)));
     row.push_back(define_column(w, OFPFW_TP_DST, "DESTINATION_PORT", ntohs(om->tp_dst)));
-    row.push_back(define_column(0, 0, "DURATION", ofe->duration));
-    row.push_back(define_column(0, 0, "PACKET_COUNT", ofe->packet_count));
-    row.push_back(define_column(0, 0, "BYTE_COUNT", ofe->byte_count));
+    row.push_back(define_column(0, 0, "DURATION", ofr->duration_sec));
+    row.push_back(define_column(0, 0, "PACKET_COUNT", ofr->packet_count));
+    row.push_back(define_column(0, 0, "BYTE_COUNT", ofr->byte_count));
     
     return row;
 }
@@ -418,9 +418,9 @@ public:
         TableExtractor* te = new TableExtractor("FLOW", fc);
         EventExtractor<Flow_mod_event>* fme = 
             new EventExtractor<Flow_mod_event>(ndb, te, p);
-        EventExtractor<Flow_expired_event>* fee = 
-            new EventExtractor<Flow_expired_event>(ndb, te, p);    
-        fme->enable_sync();
+        EventExtractor<Flow_removed_event>* fre = 
+            new EventExtractor<Flow_removed_event>(ndb, te, p);    
+        fre->enable_sync();
         
         NDB::ColumnDef_List fsc;
         fsc.push_back(make_pair("TYPE", Op::TEXT));
@@ -437,8 +437,8 @@ public:
 
         register_handler<Flow_mod_event>
             (boost::bind(&EventExtractor<Flow_mod_event>::handle_event, fme, _1));
-        register_handler<Flow_expired_event>
-            (boost::bind(&EventExtractor<Flow_expired_event>::handle_event,  fee, _1));
+        register_handler<Flow_removed_event>
+            (boost::bind(&EventExtractor<Flow_removed_event>::handle_event,  fre, _1));
         register_handler<Packet_in_event>
             (boost::bind(&EventExtractor<Packet_in_event>::handle_event, fse, _1));
     }

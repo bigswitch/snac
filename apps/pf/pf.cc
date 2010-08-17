@@ -223,7 +223,7 @@ pf::pf_packet_handler(const Event& e)
         return CONTINUE;
     }
 
-    if(!authenticator->host_exists(ethh->saddr, ntohl(iph->saddr.addr))) { 
+    if(!authenticator->get_dlnw_entry(ethh->saddr, ntohl(iph->saddr.addr))) { 
       return CONTINUE; 
     }
     

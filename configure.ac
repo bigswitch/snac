@@ -69,6 +69,7 @@ Makefile
 apps/Makefile
 apps/audit/Makefile
 apps/captiveportal/Makefile
+apps/configuration/Makefile
 apps/ctlflood/Makefile
 apps/dhcp/Makefile
 apps/directory_ldap/Makefile
@@ -85,6 +86,7 @@ apps/userauthportal/Makefile
 apps/sepl/Makefile
 apps/snackui/Makefile
 apps/snackui/help_src/Makefile
+apps/storage/Makefile
 apps/dbexplorer/Makefile
 apps/webservice_testui/Makefile
 apps/miscws/Makefile
