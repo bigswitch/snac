@@ -34,12 +34,11 @@ static Vlog_module lg("pytransactional-storage");
 
 PyTransactional_storage::PyTransactional_storage(PyObject* ctxt)
     : storage(0) {
-    SwigPyObject* swigo = SWIG_Python_GetSwigThis(ctxt);
-    if (!swigo || !swigo->ptr) {
+    if (!SWIG_Python_GetSwigThis(ctxt) || !SWIG_Python_GetSwigThis(ctxt)->ptr) {
         throw runtime_error("Unable to access Python context.");
     }
 
-    c = ((PyContext*)swigo->ptr)->c;
+    c = ((PyContext*)SWIG_Python_GetSwigThis(ctxt)->ptr)->c;
 }
 
 void
@@ -143,15 +142,14 @@ PyTransactional_storage::get_connection_callback(const Result& result,
                                     pretty_print_python_exception());
             }
 
-            SwigPyObject* swigo = SWIG_Python_GetSwigThis(py_conn);
-            if (!swigo || swigo->ptr == 0) {
+            if (!SWIG_Python_GetSwigThis(py_conn) || SWIG_Python_GetSwigThis(py_conn)->ptr == 0) {
                 Py_DECREF(py_conn);
                 throw runtime_error("get_connection_callback unable "
                                     "to recover C++ object from Python "
                                     "transactional connection.");
             }
 
-            ((PyTransactional_connection*)swigo->ptr)->conn = conn;
+            ((PyTransactional_connection*)SWIG_Python_GetSwigThis(py_conn)->ptr)->conn = conn;
 
             PyTuple_SET_ITEM(t, 1, py_conn);
         } else {
@@ -359,8 +357,7 @@ PyTransactional_connection::get_callback(const Result& result, const
                                 pretty_print_python_exception());
         }
 
-        SwigPyObject* swigo = SWIG_Python_GetSwigThis(py_cursor);
-        if (!swigo || swigo->ptr == 0) {
+        if (!SWIG_Python_GetSwigThis(py_cursor) || SWIG_Python_GetSwigThis(py_cursor)->ptr == 0) {
             Py_DECREF(py_result);
             Py_DECREF(py_cursor);
             throw runtime_error("get_cursor_callback unable "
@@ -368,7 +365,7 @@ PyTransactional_connection::get_callback(const Result& result, const
                                 "transactional connection.");
         }
 
-        ((PyTransactional_cursor*)swigo->ptr)->cursor = cursor;
+        ((PyTransactional_cursor*)SWIG_Python_GetSwigThis(py_cursor)->ptr)->cursor = cursor;
 
         PyTuple_SET_ITEM(t, 0, py_result);
         PyTuple_SET_ITEM(t, 1, py_cursor);

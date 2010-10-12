@@ -85,18 +85,16 @@ struct Principal_name_event
         pyglue_setattr_string(proxy, "oldname", to_python(pe.oldname));
         pyglue_setattr_string(proxy, "newname", to_python(pe.newname));
 
-        SwigPyObject* swigo = SWIG_Python_GetSwigThis(proxy);
-        ((Event*)swigo->ptr)->operator=(e);
+        ((Event*)SWIG_Python_GetSwigThis(proxy)->ptr)->operator=(e);
     }
 
     static void register_event_converter(PyObject *ctxt) {
-        SwigPyObject* swigo = SWIG_Python_GetSwigThis(ctxt);
-        if (!swigo || !swigo->ptr) {
+        if (!SWIG_Python_GetSwigThis(ctxt) || !SWIG_Python_GetSwigThis(ctxt)->ptr) {
             throw std::runtime_error("Unable to access Python context.");
         }
         
         vigil::applications::PyContext* pyctxt = 
-            (vigil::applications::PyContext*)swigo->ptr;
+            (vigil::applications::PyContext*)SWIG_Python_GetSwigThis(ctxt)->ptr;
         pyctxt->register_event_converter<Principal_name_event>
             (&Principal_name_event_fill_python_event);
     }
@@ -136,18 +134,16 @@ struct Group_name_event
         pyglue_setattr_string(proxy, "oldname", to_python(pe.oldname));
         pyglue_setattr_string(proxy, "newname", to_python(pe.newname));
 
-        SwigPyObject* swigo = SWIG_Python_GetSwigThis(proxy);
-        ((Event*)swigo->ptr)->operator=(e);
+        ((Event*)SWIG_Python_GetSwigThis(proxy)->ptr)->operator=(e);
     }
 
     static void register_event_converter(PyObject *ctxt) {
-        SwigPyObject* swigo = SWIG_Python_GetSwigThis(ctxt);
-        if (!swigo || !swigo->ptr) {
+        if (!SWIG_Python_GetSwigThis(ctxt) || !SWIG_Python_GetSwigThis(ctxt)->ptr) {
             throw std::runtime_error("Unable to access Python context.");
         }
         
         vigil::applications::PyContext* pyctxt = 
-            (vigil::applications::PyContext*)swigo->ptr;
+            (vigil::applications::PyContext*)SWIG_Python_GetSwigThis(ctxt)->ptr;
         pyctxt->register_event_converter<Group_name_event>
             (&Group_name_event_fill_python_event);
     }
@@ -197,18 +193,16 @@ struct Group_change_event
         pyglue_setattr_string(proxy, "change_type", to_python((uint32_t)(gce.change_type)));
         pyglue_setattr_string(proxy, "change_name", to_python(gce.change_name));
 
-        SwigPyObject* swigo = SWIG_Python_GetSwigThis(proxy);
-        ((Event*)swigo->ptr)->operator=(e);
+        ((Event*)SWIG_Python_GetSwigThis(proxy)->ptr)->operator=(e);
     }
 
     static void register_event_converter(PyObject *ctxt) {
-        SwigPyObject* swigo = SWIG_Python_GetSwigThis(ctxt);
-        if (!swigo || !swigo->ptr) {
+        if (!SWIG_Python_GetSwigThis(ctxt) || !SWIG_Python_GetSwigThis(ctxt)->ptr) {
             throw std::runtime_error("Unable to access Python context.");
         }
         
         vigil::applications::PyContext* pyctxt = 
-            (vigil::applications::PyContext*)swigo->ptr;
+            (vigil::applications::PyContext*)SWIG_Python_GetSwigThis(ctxt)->ptr;
         pyctxt->register_event_converter<Group_change_event>
             (&Group_change_event_fill_python_event);
     }
@@ -251,18 +245,16 @@ struct Location_delete_event
         pyglue_setattr_string(proxy, "dpid", to_python(le.dpid));
         pyglue_setattr_string(proxy, "port", to_python(le.port));
 
-        SwigPyObject* swigo = SWIG_Python_GetSwigThis(proxy);
-        ((Event*)swigo->ptr)->operator=(e);
+        ((Event*)SWIG_Python_GetSwigThis(proxy)->ptr)->operator=(e);
     }
 
     static void register_event_converter(PyObject *ctxt) {
-        SwigPyObject* swigo = SWIG_Python_GetSwigThis(ctxt);
-        if (!swigo || !swigo->ptr) {
+        if (!SWIG_Python_GetSwigThis(ctxt) || !SWIG_Python_GetSwigThis(ctxt)->ptr) {
             throw std::runtime_error("Unable to access Python context.");
         }
         
         vigil::applications::PyContext* pyctxt = 
-            (vigil::applications::PyContext*)swigo->ptr;
+            (vigil::applications::PyContext*)SWIG_Python_GetSwigThis(ctxt)->ptr;
         pyctxt->register_event_converter<Location_delete_event>
             (&Location_delete_event_fill_python_event);
     }
