@@ -21,7 +21,7 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "storage.hh"
+#include "storage/storage.hh"
 
 namespace vigil {
 namespace applications {

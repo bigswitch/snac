@@ -15,12 +15,11 @@ namespace applications {
 http_redirector_proxy::http_redirector_proxy(PyObject* ctxt)
         : hr(0)
 {
-    PySwigObject* swigo = SWIG_Python_GetSwigThis(ctxt);
-    if (!swigo || !swigo->ptr) {
-        throw runtime_error("Unable to access Python context.");
+    if (!SWIG_Python_GetSwigThis(ctxt) || !SWIG_Python_GetSwigThis(ctxt)->ptr) {
+        throw std::runtime_error("Unable to access Python context.");
     }
 
-    c = ((PyContext*)swigo->ptr)->c;
+    c = ((PyContext*)SWIG_Python_GetSwigThis(ctxt)->ptr)->c;
 }
 
 

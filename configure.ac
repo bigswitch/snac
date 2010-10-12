@@ -3,6 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
 AC_INIT(ext, v0.0.1, nox-dev@nicira.com)
 AC_CONFIG_AUX_DIR(config)
+AC_CONFIG_MACRO_DIR(config)
 
 AM_INIT_AUTOMAKE
 
@@ -72,6 +73,7 @@ apps/captiveportal/Makefile
 apps/configuration/Makefile
 apps/ctlflood/Makefile
 apps/dhcp/Makefile
+apps/directory/Makefile
 apps/directory_ldap/Makefile
 apps/directory_nox/Makefile
 apps/dwh/Makefile

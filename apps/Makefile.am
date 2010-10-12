@@ -1,15 +1,10 @@
 include ../Make.vars
 
-# These apps depend on storage/configuration functionality that
-# existed in NOX 0.4 but has since been removed, so I'm
-# temporarily disabling them.
-# http_redirector sepl failover visibility
-
 SUBDIRS=audit ctlflood dwh ndb pf static_registration exttests \
-	directory_nox userauthportal \
-	snackui dbexplorer webservice_testui miscws \
+	directory directory_nox http_redirector userauthportal \
+	snackui sepl dbexplorer webservice_testui miscws failover \
 	notification captiveportal debug local_config dhcp \
-	redirproxy restracker configuration
+	redirproxy restracker storage configuration visibility
 
 SUBDIRS += $(MODULES_apps)
 

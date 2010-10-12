@@ -13,7 +13,7 @@ namespace vigil {
 
 MasterNDB::MasterNDB(const Context* c,
                      const json_object*)
-    : Component(c), n(1), running(true), s(0) {
+    : Component(c), lockmgr(), n(1), running(true), s(0) {
 
 };
 

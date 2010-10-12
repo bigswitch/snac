@@ -370,12 +370,13 @@ config_cb(PyDeferred deferred, configuration::Properties* props) {
 PyDeferred
 pyldap_proxy::initialize(PyObject* ctxt)
 {
-    PySwigObject* swigo = SWIG_Python_GetSwigThis(ctxt);
-    if (!swigo || !swigo->ptr) {
+    if (!SWIG_Python_GetSwigThis(ctxt) || !SWIG_Python_GetSwigThis(ctxt)->ptr) {
         lg.warn("Unable to access Python context.");
         Py_RETURN_NONE;
     }
-    component = ((PyContext*)swigo->ptr)->c;
+
+    component = ((PyContext*)SWIG_Python_GetSwigThis(ctxt)->ptr)->c;
+
     PyObject* pydeferred_mod = PyImport_ImportModule("twisted.internet.defer");
     if (!pydeferred_mod) {
         const string msg = pretty_print_python_exception();

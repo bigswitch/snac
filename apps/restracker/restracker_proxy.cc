@@ -18,12 +18,11 @@ namespace applications {
 restracker_proxy::restracker_proxy(PyObject* ctxt)
         : rt(0)
 {
-    PySwigObject* swigo = SWIG_Python_GetSwigThis(ctxt);
-    if (!swigo || !swigo->ptr) {
-        throw runtime_error("Unable to access Python context.");
+    if (!SWIG_Python_GetSwigThis(ctxt) || !SWIG_Python_GetSwigThis(ctxt)->ptr) {
+        throw std::runtime_error("Unable to access Python context.");
     }
 
-    c = ((PyContext*)swigo->ptr)->c;
+    c = ((PyContext*)SWIG_Python_GetSwigThis(ctxt)->ptr)->c;
 }
 
 

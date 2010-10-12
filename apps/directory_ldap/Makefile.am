@@ -1,12 +1,15 @@
 include ../../Make.vars
 
+if PY_ENABLED
+AM_CPPFLAGS += $(PYTHON_CPPFLAGS)
+endif # PY_ENABLED
+
 EXTRA_DIST = ldap_dir_factory.py pytestldap_proxy.py
 
 pkglib_LTLIBRARIES =	ldap_proxy.la #testldap_proxy.la
 
 ldap_proxy_la_CPPFLAGS = $(AM_CPPFLAGS) \
                          -I$(srcdir)/../\
-                         -I/usr/include/python2.5/\
                          -I$(top_srcdir)/../ \
 			 -I$(top_srcdir)/../../\
 			 -I$(top_srcdir)/apps/\
@@ -17,26 +20,13 @@ ldap_proxy_la_SOURCES = ldap_proxy.cc ldap_proxy.hh
 
 ldap_proxy_la_LDFLAGS = -module -export-dynamic $(LDAP_LDFLAGS)
 
-#testldap_proxy_la_CPPFLAGS = $(AM_CPPFLAGS) \
-#							 -I$(srcdir)/../\
-#							 -I$(top_srcdir)/../ \
-#							 -I$(top_srcdir)/../../\
-#							 -I$(top_srcdir)/apps/\
-#                            -I$(top_srcdir)/../netapps/\
-#                            -I$(top_srcdir)/../coreapps/\
-#							 -I$(top_srcdir)/../thirdparty
-#testldap_proxy_la_SOURCES = testldap_proxy.cc
-#testldap_proxy_la_LDFLAGS = -module -export-dynamic
-
-
 NOX_RUNTIMEFILES = meta.xml
 
 if PY_ENABLED
 
-AM_CPPFLAGS += $(PYTHON_CPPFLAGS)
 NOX_RUNTIMEFILES += __init__.py \
                     ldap_dir_factory.py \
-					pytestldap_proxy.py
+                    pytestldap_proxy.py
 
 NOX_PYBUILDFILES = \
 	pyldap_proxy.py

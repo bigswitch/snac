@@ -21,7 +21,7 @@
 #include <boost/bind.hpp>
 
 #include "pyrt/pycontext.hh"
-#include "pystorage-common.hh"
+#include "storage/pystorage-common.hh"
 #include "threads/cooperative.hh"
 #include "vlog.hh"
 
@@ -34,7 +34,7 @@ static Vlog_module lg("pytransactional-storage");
 
 PyTransactional_storage::PyTransactional_storage(PyObject* ctxt)
     : storage(0) {
-    PySwigObject* swigo = SWIG_Python_GetSwigThis(ctxt);
+    SwigPyObject* swigo = SWIG_Python_GetSwigThis(ctxt);
     if (!swigo || !swigo->ptr) {
         throw runtime_error("Unable to access Python context.");
     }
@@ -143,7 +143,7 @@ PyTransactional_storage::get_connection_callback(const Result& result,
                                     pretty_print_python_exception());
             }
 
-            PySwigObject* swigo = SWIG_Python_GetSwigThis(py_conn);
+            SwigPyObject* swigo = SWIG_Python_GetSwigThis(py_conn);
             if (!swigo || swigo->ptr == 0) {
                 Py_DECREF(py_conn);
                 throw runtime_error("get_connection_callback unable "
@@ -359,7 +359,7 @@ PyTransactional_connection::get_callback(const Result& result, const
                                 pretty_print_python_exception());
         }
 
-        PySwigObject* swigo = SWIG_Python_GetSwigThis(py_cursor);
+        SwigPyObject* swigo = SWIG_Python_GetSwigThis(py_cursor);
         if (!swigo || swigo->ptr == 0) {
             Py_DECREF(py_result);
             Py_DECREF(py_cursor);

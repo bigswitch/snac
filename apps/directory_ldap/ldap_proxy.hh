@@ -4,7 +4,11 @@
 #ifndef LDAP_PROXY_HH
 #define LDAP_PROXY_HH
 
+#ifdef TWISTED_ENABLED
 #include <Python.h>
+#else
+class PyObject;
+#endif
 
 #include <list>
 #include <map>

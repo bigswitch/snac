@@ -208,7 +208,6 @@ Http_redirector::handle_dp_join(const Event& e) {
     ofm.hard_timeout = htons(OFP_FLOW_PERMANENT);
     ofm.buffer_id = htonl(-1);
     ofm.priority = htons(10);
-    ofm.reserved = 0;
     ofp_action_output& action = *((ofp_action_output*)ofm.actions);
     memset(&action, 0, sizeof(ofp_action_output));
     action.type = htons(OFPAT_OUTPUT);

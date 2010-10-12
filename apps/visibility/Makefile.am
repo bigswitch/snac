@@ -1,5 +1,9 @@
 include ../../Make.vars 
 
+if PY_ENABLED
+AM_CPPFLAGS += $(PYTHON_CPPFLAGS)
+endif # PY_ENABLED
+
 pkglib_LTLIBRARIES =		\
 	flow_cache.la
 
@@ -11,7 +15,6 @@ NOX_RUNTIMEFILES = meta.xml
 
 if PY_ENABLED
 
-AM_CPPFLAGS += $(PYTHON_CPPFLAGS)
 NOX_RUNTIMEFILES += __init__.py visibility_ws.py
 
 NOX_PYBUILDFILES = \
@@ -25,11 +28,11 @@ pyflow_cache_wrap.cc pyflow_cache.py: pyflow_cache.i
 pkglib_LTLIBRARIES += _pyflow_cache.la
 _pyflow_cache_la_CPPFLAGS = $(AM_CPPFLAGS) \
                             -I$(srcdir)/../ -I$(top_srcdir)/../ \
-							-I$(top_srcdir)/../../ \
-							-I$(top_srcdir)/../apps/ \
-							-I$(top_srcdir)/../netapps/ \
-							-I$(top_srcdir)/../coreapps/ \
-							-I$(top_builddir)/../
+                            -I$(top_srcdir)/../../ \
+                            -I$(top_srcdir)/../apps/ \
+                            -I$(top_srcdir)/../netapps/ \
+                            -I$(top_srcdir)/../coreapps/ \
+                            -I$(top_builddir)/../
 _pyflow_cache_la_SOURCES = flow_cache_proxy.cc flow_cache_proxy.hh
 nodist__pyflow_cache_la_SOURCES = pyflow_cache_wrap.cc
 _pyflow_cache_la_LDFLAGS = -module

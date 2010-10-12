@@ -22,7 +22,7 @@
 
 #include "component.hh"
 #include "transactional-storage.hh"
-#include "pystorage-common.hh"
+#include "storage/pystorage-common.hh"
 
 namespace vigil {
 namespace applications {
