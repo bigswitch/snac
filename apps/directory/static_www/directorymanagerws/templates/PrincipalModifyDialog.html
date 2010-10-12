@@ -1,0 +1,18 @@
+<div dojoAttachPoint="content" > 
+  <div dojoType="dijit.Dialog" dojoAttachPoint="main_dialog" 
+      title="${title}" > 
+        <table> 
+        <tr> <td> Directory: 
+           <span dojoType="dijit.layout.ContentPane" dojoAttachPoint="dir_div"> 
+           </span> 
+        </td></tr> 
+        <tr> <td> Name:
+        <input dojoType="dijit.form.TextBox" type="text" trim="true" dojoAttachPoint="name"/>
+        </td> </tr> 
+        <tr><td> 
+    <button dojoType="dijit.form.Button" dojoAttachPoint="addBtn">Add</button>
+    <button dojoType="dijit.form.Button" dojoAttachPoint="cancelBtn">Cancel</button>
+        </td></tr>
+        </table> 
+      </div>
+</div> 
