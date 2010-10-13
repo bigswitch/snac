@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
+
+  <component>
+    <name>ldap_dir_factory</name>
+    <dependency>
+      <name>authenticator</name>
+    </dependency>
+    <dependency>
+      <name>configuration</name>
+    </dependency>
+    <dependency>
+      <name>cdirectorymanager</name>
+    </dependency>
+    <dependency>
+      <name>directorymanager</name>
+    </dependency>
+    <dependency>
+      <name>user_event_log</name>
+    </dependency>
+    <python>nox.ext.apps.directory_ldap.ldap_dir_factory</python>
+  </component>
+
+  <component>
+    <name>pytestldap_proxy</name>
+    <dependency>
+      <name>ldap_dir_factory</name>
+    </dependency>
+    <python>nox.ext.apps.directory_ldap.pytestldap_proxy</python>
+  </component>
+
+</components:components>

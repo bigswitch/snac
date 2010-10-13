@@ -1,0 +1,9 @@
+{
+    "components": [
+        {
+            "name": "audit",
+            "library": "audit"
+        }
+    ]
+}
+

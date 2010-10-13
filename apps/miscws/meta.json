@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
+
+  <component>
+    <name>eventws</name>
+    <dependency><name>pyauthenticator</name></dependency>
+    <dependency><name>directorymanager</name></dependency>
+    <python>nox.ext.apps.miscws.eventws</python>
+  </component>
+  
+  <component>
+    <name>hosttrackerws</name>
+    <dependency><name>webservice</name></dependency>
+    <dependency><name>pyauthenticator</name></dependency>
+    <dependency><name>simple_config</name></dependency>
+    <python>nox.ext.apps.miscws.hosttrackerws</python>
+  </component>
+  
+  <component>
+    <name>policyws</name>
+    <dependency>
+      <name>webservice</name>
+    </dependency>
+    <dependency>
+      <name>sepl</name>
+    </dependency>
+    <python>nox.ext.apps.miscws.policyws</python>
+  </component>
+
+  <component>
+    <name>logws</name>
+    <dependency>
+      <name>webservice</name>
+    </dependency>
+    <python>nox.ext.apps.miscws.logws</python>
+  </component>
+
+</components:components>
