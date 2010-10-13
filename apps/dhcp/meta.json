@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-
-  <component>
-    <name>dhcpmanager</name>
-    <dependency><name>local_config</name></dependency>
-    <python>nox.ext.apps.dhcp.manager</python>
-  </component>
-
-</components:components>
+{
+    "components": [
+        {
+            "name": "dhcpmanager",
+            "dependencies": [
+                "local_config"
+            ],
+            "python": "nox.ext.apps.dhcp.manager"
+        }
+    ]
+}

@@ -1,28 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-  <component>
-    <name>restracker</name>
-    <library>restracker</library>
-  </component>
-  <component>
-    <name>pyrestracker</name>
-    <dependency>
-      <name>restracker</name>
-    </dependency>
-    <python>nox.ext.apps.restracker.pyrestracker</python>
-  </component>
-  <component>
-    <name>restrackerui</name>
-    <dependency>
-      <name>pyrestracker</name>
-    </dependency>
-    <python>nox.ext.apps.restracker.restrackerui</python>
-  </component>
-  <component>
-    <name>pyrestrackerws</name>
-    <dependency>
-      <name>pyrestracker</name>
-    </dependency>
-    <python>nox.ext.apps.restracker.pyrestrackerws</python>
-  </component>
-</components:components>
+{
+    "components": [
+        {
+            "name": "restracker",
+            "library": "restracker"
+        },
+        {
+            "name": "pyrestracker",
+            "dependencies": [
+                "restracker"
+            ],
+            "python": "nox.ext.apps.restracker.pyrestracker"
+        },
+        {
+            "name": "restrackerui",
+            "dependencies": [
+                "pyrestracker"
+            ],
+            "python": "nox.ext.apps.restracker.restrackerui"
+        },
+        {
+            "name": "pyrestrackerws",
+            "dependencies": [
+                "pyrestracker"
+            ],
+            "python": "nox.ext.apps.restracker.pyrestrackerws"
+        }
+    ]
+}

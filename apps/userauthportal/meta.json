@@ -1,33 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-
-  <component>
-    <name>userauthportal</name>
-    <dependency>
-      <name>authui</name>
-    </dependency>
-    <dependency>
-      <name>coreui</name>
-    </dependency>
-    <dependency>
-      <name>directorymanager</name>
-    </dependency>
-    <dependency>
-      <name>pybindings_storage</name>
-    </dependency>
-    <dependency>
-      <name>pyhttp_redirector</name>
-    </dependency>
-    <dependency>
-      <name>pyauthenticator</name>
-    </dependency>
-    <dependency>
-      <name>pyuser_event_log</name>
-    </dependency>
-    <dependency>
-      <name>pytransactional storage</name>
-    </dependency>
-    <python>nox.ext.apps.userauthportal.userauthportal</python>
-  </component>
-
-</components:components>
+{
+    "components": [
+        {
+            "name": "userauthportal",
+            "dependencies": [
+                "authui",
+                "coreui",
+                "directorymanager",
+                "pybindings_storage",
+                "pyhttp_redirector",
+                "pyauthenticator",
+                "pyuser_event_log",
+                "pytransactional storage"
+            ],
+            "python": "nox.ext.apps.userauthportal.userauthportal"
+        }
+    ]
+}

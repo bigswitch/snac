@@ -1,50 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-
-  <component>
-    <name>directorymanager</name>
-    <dependency>
-      <name>pyauthenticator</name>
-    </dependency>
-    <dependency>
-      <name>netinfo_mod_event</name>
-    </dependency>
-    <dependency>
-      <name>pytransactional storage</name>
-    </dependency>
-    <dependency>
-      <name>pydirmanager</name>
-    </dependency>
-    <dependency>
-      <name>pyauthenticator</name>
-    </dependency>
-    <python>nox.apps.directory.directorymanager</python>
-  </component>
-  <component>
-    <name>directorymanagerws</name>
-    <dependency><name>webservice</name></dependency>
-    <dependency><name>directorymanager</name></dependency>
-    <dependency><name>switchstats</name></dependency>
-    <dependency><name>bindings_directory</name></dependency>
-    <python>nox.apps.directory.directorymanagerws</python>
-  </component>
-  <component>
-    <name>cdirectorymanager</name>
-    <library>cdirectorymanager</library>
-    <dependency>
-      <name>netinfo_mod_event</name>
-    </dependency>
-  </component>
-  <component>
-    <name>pydirmanager</name>
-    <dependency>
-      <name>cdirectorymanager</name>
-    </dependency>
-    <python>nox.apps.directory.pydirmanager</python>
-  </component>
-  <component>
-    <name>netinfo_mod_event</name>
-    <library>netinfo_mod_event</library>
-  </component>
-
-</components:components>
+{
+    "components": [
+        {
+            "name": "directorymanager",
+            "dependencies": [
+                "pyauthenticator",
+                "netinfo_mod_event",
+                "pytransactional storage",
+                "pydirmanager",
+                "pyauthenticator"
+            ],
+            "python": "nox.apps.directory.directorymanager"
+        },
+        {
+            "name": "directorymanagerws",
+            "dependencies": [
+                "webservice",
+                "directorymanager",
+                "switchstats",
+                "bindings_directory"
+            ],
+            "python": "nox.apps.directory.directorymanagerws"
+        },
+        {
+            "name": "cdirectorymanager",
+            "library": "cdirectorymanager",
+            "dependencies": [
+                "netinfo_mod_event"
+            ]
+        },
+        {
+            "name": "pydirmanager",
+            "dependencies": [
+                "cdirectorymanager"
+            ],
+            "python": "nox.apps.directory.pydirmanager"
+        },
+        {
+            "name": "netinfo_mod_event",
+            "library": "netinfo_mod_event"
+        }
+    ]
+}

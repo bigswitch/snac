@@ -1,18 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-
-  <component>
-    <name>dbexplorerui</name>
-    <dependency>
-      <name>authui</name>
-    </dependency>
-    <dependency>
-      <name>storagews</name>
-    </dependency>
-    <dependency>
-      <name>transactional_storagews</name>
-    </dependency>
-    <python>nox.ext.apps.dbexplorer.dbexplorerui</python>
-  </component>
-
-</components:components>
+{
+    "components": [
+        {
+            "name": "dbexplorerui",
+            "dependencies": [
+                "authui",
+                "storagews",
+                "transactional_storagews"
+            ],
+            "python": "nox.ext.apps.dbexplorer.dbexplorerui"
+        }
+    ]
+}

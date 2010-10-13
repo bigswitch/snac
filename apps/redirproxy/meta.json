@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-
-  <component>
-    <name>redirproxy</name>
-    <dependency>
-      <name>pytransactional storage</name>
-    </dependency>
-    <python>nox.ext.apps.redirproxy.redirproxy</python>
-  </component>
-
-</components:components>
+{
+    "components": [
+        {
+            "name": "redirproxy",
+            "dependencies": [
+                "pytransactional storage"
+            ],
+            "python": "nox.ext.apps.redirproxy.redirproxy"
+        }
+    ]
+}

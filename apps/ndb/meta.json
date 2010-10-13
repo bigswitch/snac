@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-  <component>
-    <name>network database</name>
-    <library>ndb</library>
-  </component>
-  <component>
-    <name>pynetwork database</name>
-    <dependency>
-      <name>network database</name>
-    </dependency>
-    <python>nox.ext.apps.ndb.pyndb</python>
-  </component>  
-</components:components>
+{
+    "components": [
+        {
+            "name": "network database",
+            "library": "ndb"
+        },
+        {
+            "name": "pynetwork database",
+            "dependencies": [
+                "network database"
+            ],
+            "python": "nox.ext.apps.ndb.pyndb"
+        }
+    ]
+}

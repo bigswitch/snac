@@ -1,39 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-  <component>
-    <name>flow_cache</name>
-    <library>flow_cache</library>
-    <dependency>
-      <name>authenticator</name>
-    </dependency>
-    <dependency>
-      <name>transactional_storage_backend</name>
-    </dependency>
-    <dependency>
-      <name>configuration</name>
-    </dependency>
-  </component>
-  <component>
-    <name>pyflow_cache</name>
-    <dependency>
-      <name>flow_cache</name>
-    </dependency>
-    <python>nox.ext.apps.visibility.pyflow_cache</python>
-  </component>
-  <component>
-    <name>visibility_ws</name>
-    <dependency>
-      <name>pyflow_cache</name>
-    </dependency>
-    <dependency>
-      <name>directorymanagerws</name>
-    </dependency>
-    <dependency>
-      <name>sepl</name>
-    </dependency>
-    <dependency>
-      <name>pyauthenticator</name>
-    </dependency>
-    <python>nox.ext.apps.visibility.visibility_ws</python>
-  </component>
-</components:components>
+{
+    "components": [
+        {
+            "name": "flow_cache",
+            "library": "flow_cache",
+            "dependencies": [
+                "authenticator",
+                "transactional_storage_backend",
+                "configuration"
+            ]
+        },
+        {
+            "name": "pyflow_cache",
+            "dependencies": [
+                "flow_cache"
+            ],
+            "python": "nox.ext.apps.visibility.pyflow_cache"
+        },
+        {
+            "name": "visibility_ws",
+            "dependencies": [
+                "pyflow_cache",
+                "directorymanagerws",
+                "sepl",
+                "pyauthenticator"
+            ],
+            "python": "nox.ext.apps.visibility.visibility_ws"
+        }
+    ]
+}

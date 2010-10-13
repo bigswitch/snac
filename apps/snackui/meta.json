@@ -1,94 +1,60 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-
-  <component>
-    <name>policyui</name>
-    <dependency>
-      <name>authui</name>
-    </dependency>
-    <dependency>
-      <name>policyws</name>
-    </dependency>
-    <python>nox.ext.apps.snackui.policyui</python>
-  </component>
-
-  <component>
-    <name>reportsui</name>
-    <dependency>
-      <name>authui</name>
-    </dependency>
-    <python>nox.ext.apps.snackui.reportsui</python>
-  </component>
-
-  <component>
-    <name>settingsui</name>
-    <dependency>
-      <name>authui</name>
-    </dependency>
-    <dependency>
-      <name>simple_configws</name>
-    </dependency>
-    <dependency>
-      <name>logws</name>
-    </dependency>
-    <dependency>
-      <name>local_configws</name>
-    </dependency>
-    <dependency>
-      <name>directorymanager</name>
-    </dependency>
-    <python>nox.ext.apps.snackui.settingsui</python>
-  </component>
-
-  <component>
-    <name>helpui</name>
-    <dependency>
-      <name>authui</name>
-    </dependency>
-    <python>nox.ext.apps.snackui.helpui</python>
-  </component>
-
-  <component>
-    <name>snackmonitors</name>
-    <dependency>
-      <name>monitorsui</name>
-    </dependency>
-    <dependency>
-      <name>networkeventsws</name>
-    </dependency>
-    <dependency>
-      <name>noxinfows</name>
-    </dependency>
-    <dependency> <name>pfws</name> </dependency>
-    <dependency> <name>hosttrackerws</name> </dependency>
-    <dependency> <name>visibility_ws</name> </dependency>
-    <dependency> <name>policy</name> </dependency>
-    <python>nox.ext.apps.snackui.snackmonitors</python>
-  </component>
-
-  <component>
-    <name>snackui</name>
-    <dependency>
-      <name>monitorsui</name>
-    </dependency>
-    <dependency>
-      <name>snackmonitors</name>
-    </dependency>
-    <dependency>
-      <name>policyui</name>
-    </dependency>
-    <!-- Removing reportsui as a dependency for now because it's not
-         supported for now.
-    <dependency>
-      <name>reportsui</name>
-    </dependency> -->
-    <dependency>
-      <name>settingsui</name>
-    </dependency>
-    <dependency>
-      <name>helpui</name>
-    </dependency>
-    <python>nox.ext.apps.snackui.snackui</python>
-  </component>
-
-</components:components>
+{
+    "components": [
+        {
+            "name": "policyui",
+            "dependencies": [
+                "authui",
+                "policyws"
+            ],
+            "python": "nox.ext.apps.snackui.policyui"
+        },
+        {
+            "name": "reportsui",
+            "dependencies": [
+                "authui"
+            ],
+            "python": "nox.ext.apps.snackui.reportsui"
+        },
+        {
+            "name": "settingsui",
+            "dependencies": [
+                "authui",
+                "simple_configws",
+                "logws",
+                "local_configws",
+                "directorymanager"
+            ],
+            "python": "nox.ext.apps.snackui.settingsui"
+        },
+        {
+            "name": "helpui",
+            "dependencies": [
+                "authui"
+            ],
+            "python": "nox.ext.apps.snackui.helpui"
+        },
+        {
+            "name": "snackmonitors",
+            "dependencies": [
+                "monitorsui",
+                "networkeventsws",
+                "noxinfows",
+                "pfws",
+                "hosttrackerws",
+                "visibility_ws",
+                "policy"
+            ],
+            "python": "nox.ext.apps.snackui.snackmonitors"
+        },
+        {
+            "name": "snackui",
+            "dependencies": [
+                "monitorsui",
+                "snackmonitors",
+                "policyui",
+                "settingsui"
+            ],
+            "python": "nox.ext.apps.snackui.snackui"
+        }
+    ]
+}

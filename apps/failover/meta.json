@@ -1,28 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-  <component>
-    <name>replicator</name>
-    <library>replicator</library>
-    <dependency>
-      <name>storage-common</name>
-    </dependency>
-    <dependency>
-      <name>transactional_storage_backend</name>
-    </dependency>
-  </component>
-
-  <component>
-    <name>pyreplicator</name>
-    <dependency>
-      <name>replicator</name>
-    </dependency>
-    <dependency>
-      <name>python</name>
-    </dependency>
-    <dependency>
-      <name>webservice</name>
-    </dependency>
-    <python>nox.ext.apps.failover.replicatorws</python>
-  </component>
-
-</components:components>
+{
+    "components": [
+        {
+            "name": "replicator",
+            "library": "replicator",
+            "dependencies": [
+                "storage-common",
+                "transactional_storage_backend"
+            ]
+        },
+        {
+            "name": "pyreplicator",
+            "dependencies": [
+                "replicator",
+                "python",
+                "webservice"
+            ],
+            "python": "nox.ext.apps.failover.replicatorws"
+        }
+    ]
+}

@@ -1,81 +1,58 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-
-  <component>
-    <name>sepl_stats</name>
-    <library>seplstats</library>
-  </component>
-
-  <component>
-    <name>pysepl_stats</name>
-    <dependency>
-      <name>sepl_stats</name>
-    </dependency>
-    <python>nox.ext.apps.sepl.pyseplstats</python>
-  </component>
-
-  <component>
-    <name>sepl_enforcer</name>
-    <library>seplenforcer</library>
-    <dependency>
-      <name>authenticator</name>
-    </dependency>
-    <dependency>
-      <name>sepl_stats</name>
-    </dependency>
-    <dependency>
-      <name>configuration</name>
-    </dependency>
-  </component>
-
-  <component>
-    <name>sepl</name>
-    <dependency>
-      <name>sepl_enforcer</name>
-    </dependency>
-    <dependency>
-      <name>policy</name>
-    </dependency>
-    <python>nox.ext.apps.sepl.pyseplenforcer</python>
-  </component>
-
-  <component>
-    <name>sepl_directory</name>
-    <dependency>
-      <name>directorymanager</name>
-    </dependency>
-    <python>nox.ext.apps.sepl.sepl_directory</python>
-  </component>
-
-  <component>
-    <name>policystore</name>
-    <dependency>
-      <name>pytransactional storage</name>
-    </dependency>
-    <python>nox.ext.apps.sepl.policystore</python>
-  </component>
-
-  <component>
-    <name>policy</name>
-    <dependency>
-      <name>pyauthenticator</name>
-    </dependency>
-    <dependency>
-      <name>simple_config</name>
-    </dependency>
-    <dependency>
-      <name>pysepl_stats</name>
-    </dependency>
-    <dependency>
-      <name>policystore</name>
-    </dependency>
-    <dependency>
-      <name>directorymanager</name>
-    </dependency>
-    <dependency>
-      <name>pyuser_event_log</name>
-    </dependency>
-    <python>nox.ext.apps.sepl.policy</python>
-  </component>
-
-</components:components>
+{
+    "components": [
+        {
+            "name": "sepl_stats",
+            "library": "sepl_stats"
+        },
+        {
+            "name": "pysepl_stats",
+            "dependencies": [
+                "sepl_stats"
+            ],
+            "python": "nox.ext.apps.sepl.pyseplstats"
+        },
+        {
+            "name": "sepl_enforcer",
+            "library": "seplenforcer",
+            "dependencies": [
+                "authenticator",
+                "sepl_stats",
+                "configuration"
+            ]
+        },
+        {
+            "name": "sepl",
+            "dependencies": [
+                "sepl_enforcer",
+                "policy"
+            ],
+            "python": "nox.ext.apps.sepl.pyseplenforcer"
+        }
+        {
+            "name": "sepl_directory",
+            "dependencies": [
+                "directorymanager"
+            ],
+            "python": "nox.ext.apps.sepl.sepl_directory"
+        },
+        {
+            "name": "policystore",
+            "dependencies": [
+                "pytransactional storage"
+            ],
+            "python": "nox.ext.apps.sepl.policystore"
+        },
+        {
+            "name": "policy",
+            "dependencies": [
+                "pyauthenticator",
+                "simple_config",
+                "pysepl_stats",
+                "policystore",
+                "directorymanager",
+                "pyuser_event_log"
+            ],
+            "python": "nox.ext.apps.sepl.policy"
+        }
+    ]
+}

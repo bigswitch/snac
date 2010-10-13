@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-
-  <component>
-    <name>webservice_testui</name>
-    <dependency>
-      <name>authui</name>
-    </dependency>
-    <python>nox.ext.apps.webservice_testui.webservice_testui</python>
-  </component>
-
-</components:components>
+{
+    "components": [
+        {
+            "name": "webservice_testui",
+            "dependencies": [
+                "authui"
+            ],
+            "python": "nox.ext.apps.webservice_testui.webservice_testui"
+        }
+    ]
+}

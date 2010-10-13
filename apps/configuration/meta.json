@@ -1,28 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-  <component>
-    <name>configuration</name>
-    <library>configuration</library>
-    <dependency>
-      <name>transactional_storage_backend</name>
-    </dependency>
-  </component>
-  <component>
-    <name>csimple_config</name>
-    <library>csimple_config</library> 
-    <dependency><name>configuration</name></dependency> 
-  </component>
-  <component>
-    <name>simple_config</name>
-    <dependency><name>pytransactional storage</name></dependency> 
-    <dependency><name>configuration</name></dependency> 
-    <python>nox.apps.configuration.simple_config</python>
-  </component>
-  <component>
-    <name>simple_configws</name>
-    <dependency><name>webservice</name></dependency>
-    <dependency><name>simple_config</name></dependency> 
-    <python>nox.apps.configuration.simple_configws</python>
-  </component>
-  
-</components:components>
+{
+    "components": [
+        {
+            "name": "configuration",
+            "library": "configuration",
+            "dependencies": [
+                "transactional_storage_backend"
+            ]
+        },
+        {
+            "name": "csimple_config",
+            "library": "csimple_config",
+            "dependencies": [
+                "configuration"
+            ]
+        },
+        {
+            "name": "simple_config",
+            "dependencies": [
+                "pytransactional storage",
+                "configuration"
+            ],
+            "python": "nox.apps.configuration.simple_config"
+        },
+        {
+            "name": "simple_configws",
+            "dependencies": [
+                "webservice",
+                "simple_config"
+            ],
+            "python": "nox.apps.configuration.simple_configws"
+        }
+    ]
+}

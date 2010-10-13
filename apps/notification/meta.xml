@@ -1,18 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
-
-  <component>
-    <name>notifier</name>
-    <dependency>
-      <name>pyuser_event_log</name>
-    </dependency>
-    <dependency>
-      <name>pytransactional storage</name>
-    </dependency>
-    <dependency>
-      <name>configuration</name>
-    </dependency>
-    <python>nox.ext.apps.notification.notifier</python>
-  </component>
-
-</components:components>
+{
+    "components": [
+        {
+            "name": "notifier",
+            "dependencies": [
+                "pyuser_event_log",
+                "pytransactional",
+                "configuration"
+            ],
+            "python": "nox.ext.apps.notification.notifier"
+        }
+    ]
+}
