@@ -27,7 +27,7 @@
                 "policy"
             ],
             "python": "nox.ext.apps.sepl.pyseplenforcer"
-        }
+        },
         {
             "name": "sepl_directory",
             "dependencies": [

@@ -7,7 +7,7 @@
                 "flow_util",
                 "transactional_storage_backend",
                 "configuration"
-            ],
+            ]
         },
         {
             "name": "pyhttp_redirector",
