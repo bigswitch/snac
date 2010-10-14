@@ -4,11 +4,11 @@
             "name": "transactional_storage_backend",
             "library": "transactional-storage-backend",
             "dependencies": [
-                "storage common"
+                "storage-common"
             ]
         },
         {
-            "name": "pytransactional storage",
+            "name": "pytransactional_storage",
             "dependencies": [
                 "transactional_storage_backend"
             ],

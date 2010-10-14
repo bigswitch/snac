@@ -21,15 +21,15 @@ from nox.ext.apps.directory.simple_directory import simple_directory
 from nox.lib.directory import Directory, GroupInfo
 
 # principal is unauthenticated
-UNAUTHENTICATED = pyauth.Authenticator.get_unauthenticated_name()
+#UNAUTHENTICATED = pyauth.Authenticator.get_unauthenticated_name()
 # principal is authenticated but more specific name is unknown
-AUTHENTICATED   = pyauth.Authenticator.get_authenticated_name()
+#AUTHENTICATED   = pyauth.Authenticator.get_authenticated_name()
 # don't know principal's name (for throwing auth events)
-UNKNOWN         = pyauth.Authenticator.get_unknown_name()
+#UNKNOWN         = pyauth.Authenticator.get_unknown_name()
 
-UNMODIFIABLE = [ demangle_name(UNAUTHENTICATED)[1],
-                 demangle_name(AUTHENTICATED)[1],
-                 demangle_name(UNKNOWN)[1] ]
+#UNMODIFIABLE = [ demangle_name(UNAUTHENTICATED)[1],
+#                 demangle_name(AUTHENTICATED)[1],
+#                 demangle_name(UNKNOWN)[1] ]
 
 DISCOVERED_DIR_NAME = "discovered"
 
@@ -40,8 +40,8 @@ class discovered_directory(simple_directory):
     def __init__(self):
         simple_directory.__init__(self)        
         
-        for name in UNMODIFIABLE:
-            self.restricted_names.add(name)
+        #for name in UNMODIFIABLE:
+        #    self.restricted_names.add(name)
         self.restricted_names.add(None)
         self.name = DISCOVERED_DIR_NAME
         def fail(result, group_name):

@@ -1,6 +1,6 @@
 include Make.vars
 
-SUBDIRS=apps
+SUBDIRS=apps thirdparty
 AUTOMAKE_OPTIONS = foreign
 ACLOCAL_AMFLAGS = -I config
 

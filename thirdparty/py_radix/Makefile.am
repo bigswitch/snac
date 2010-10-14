@@ -1,4 +1,4 @@
-include ../../../Make.vars
+include ../../Make.vars
 
 if PY_ENABLED
 

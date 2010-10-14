@@ -18,7 +18,7 @@
 from twisted.python import log
 
 from nox.lib.netinet.netinet import create_ipaddr, ipaddr, cidr_ipaddr
-from nox.thirdparty.py_radix import radix
+from nox.ext.thirdparty.py_radix import radix
 
 class cidr_group_cache:
     """Allow quick lookup of groups for an IP based on CIDR membership

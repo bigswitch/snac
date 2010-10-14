@@ -5,7 +5,7 @@
             "dependencies": [
                 "pyauthenticator",
                 "netinfo_mod_event",
-                "pytransactional storage",
+                "pytransactional_storage",
                 "pydirmanager",
                 "pyauthenticator"
             ],

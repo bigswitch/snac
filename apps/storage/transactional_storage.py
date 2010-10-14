@@ -216,9 +216,9 @@ class TransactionalCursor:
 def getFactory():
     class Factory():
         def instance(self, context):
-            from storage import Storage
+            from nox.netapps.storage.storage import Storage
             from pytransactional_storage import PyTransactional_storage
-            from util import create_method
+            from nox.netapps.storage.util import create_method
 
             class PyTransactionalCursorProxy:
                 def __init__(self, impl):

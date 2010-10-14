@@ -67,6 +67,8 @@ AC_SUBST(MODULES_apps)
 
 AC_CONFIG_FILES([
 Makefile 
+thirdparty/Makefile
+thirdparty/py_radix/Makefile
 apps/Makefile
 apps/audit/Makefile
 apps/captiveportal/Makefile

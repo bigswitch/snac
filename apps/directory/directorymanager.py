@@ -34,7 +34,7 @@ from twisted.python.failure import Failure
 from nox.lib.netinet.netinet import datapathid
 from nox.netapps.user_event_log.pyuser_event_log import pyuser_event_log,LogEntry
 from nox.coreapps.pyrt.pycomponent import CONTINUE
-from nox.netapps.authenticator.pyauth import Host_event
+from nox.netapps.authenticator.pyauth import Host_auth_event
 
 lg = logging.getLogger('directorymanager')
 
@@ -287,7 +287,7 @@ class directorymanager(Component):
         self.add_directory_instance(self.discovered_dir, 
                 self.discovered_dir.name, config_id=0, order=sys.maxint)
         self.register_for_datapath_leave(self.dp_leave) 
-        self.register_handler(Host_event.static_get_name(),self.host_event)
+        self.register_handler(Host_auth_event.static_get_name(),self.host_auth_event)
         # We don't technically need to listen for the following two
         # events since we're the component throwing them, but we do so to
         # ease extracting discovered directory in the future
@@ -1121,7 +1121,7 @@ class directorymanager(Component):
             desc = None
         return GroupInfo(name, desc, member_names, subgroup_names)
 
-    def _post_host_event(self, hostinfo):
+    def _post_host_auth_event(self, hostinfo):
         for ni in hostinfo.netinfos:
             dladdr = create_eaddr(ni.dladdr or 0)
             nwaddr = create_ipaddr(ni.nwaddr or 0)
@@ -1162,7 +1162,7 @@ class directorymanager(Component):
                 'add_principal', principal_type, principal_info)
         d.addCallback(self._mangle_info_from_delegate)
         if principal_type == Directory.HOST_PRINCIPAL:
-            d.addCallback(self._post_host_event)
+            d.addCallback(self._post_host_auth_event)
             d.addCallback(self._update_discovered_gws)
         return d
 
@@ -1175,7 +1175,7 @@ class directorymanager(Component):
                 'modify_principal', principal_type, principal_info)
         d.addCallback(self._mangle_info_from_delegate)
         if principal_type == Directory.HOST_PRINCIPAL:
-            d.addCallback(self._post_host_event)
+            d.addCallback(self._post_host_auth_event)
             d.addCallback(self._update_discovered_gws)
         return d
 
@@ -1397,7 +1397,7 @@ class directorymanager(Component):
                     self.ctxt.close_openflow_connection(pi.dpid.as_host())
                 elif principal_type == Directory.HOST_PRINCIPAL:
                     # For now, authenticator listens for the principal name
-                    # event and posts the host_event for us.  It may be
+                    # event and posts the host_auth_event for us.  It may be
                     # cleaner for us to post this event in the future.
                     pass
                 elif principal_type == Directory.USER_PRINCIPAL:
@@ -1868,9 +1868,9 @@ class directorymanager(Component):
     def is_discovered_ip_name(self,name):
       return name.find(".") != -1
 
-    # registered handler for Host_events, which occur
+    # registered handler for Host_auth_events, which occur
     # on both host join and host leave.  
-    def host_event(self, event):
+    def host_auth_event(self, event):
       dir,pname = demangle_name(event.name) 
       if dir != self.discovered_dir.name: 
         return CONTINUE 
@@ -1878,7 +1878,7 @@ class directorymanager(Component):
       if pname in self.discovered_dir.restricted_names: 
         return CONTINUE 
 
-      if(event.action == Host_event.JOIN):
+      if(event.action == Host_auth_event.JOIN):
         fn = self.host_join
       else: 
         fn = self.host_leave
