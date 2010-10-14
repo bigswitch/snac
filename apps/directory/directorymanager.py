@@ -32,7 +32,7 @@ from nox.ext.apps.directory.pydirmanager import Location_delete_event
 from twisted.internet import defer
 from twisted.python.failure import Failure
 from nox.lib.netinet.netinet import datapathid
-from nox.ext.apps.user_event_log.pyuser_event_log import pyuser_event_log,LogEntry
+from nox.netapps.user_event_log.pyuser_event_log import pyuser_event_log,LogEntry
 from nox.coreapps.pyrt.pycomponent import CONTINUE
 from nox.netapps.authenticator.pyauth import Host_event
 

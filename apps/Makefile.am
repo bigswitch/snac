@@ -1,10 +1,11 @@
 include ../Make.vars
 
-SUBDIRS=audit ctlflood dwh ndb pf static_registration exttests \
+SUBDIRS=audit coreui ctlflood dwh ndb pf static_registration exttests \
 	directory directory_nox http_redirector userauthportal \
 	snackui sepl dbexplorer webservice_testui miscws failover \
 	notification captiveportal debug local_config dhcp \
-	redirproxy restracker storage configuration visibility
+	redirproxy restracker storage configuration visibility \
+	default_switch_approval
 
 SUBDIRS += $(MODULES_apps)
 

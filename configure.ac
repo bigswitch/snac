@@ -71,7 +71,9 @@ apps/Makefile
 apps/audit/Makefile
 apps/captiveportal/Makefile
 apps/configuration/Makefile
+apps/coreui/Makefile
 apps/ctlflood/Makefile
+apps/default_switch_approval/Makefile
 apps/dhcp/Makefile
 apps/directory/Makefile
 apps/directory_ldap/Makefile

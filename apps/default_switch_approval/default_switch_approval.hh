@@ -3,7 +3,6 @@
 
 #include "component.hh"
 #include "config.h"
-#include <xercesc/dom/DOM.hpp>
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
 #include <boost/shared_ptr.hpp>
@@ -23,7 +22,7 @@ class DefaultSwitchApproval : public container::Component, public Switch_Auth {
 
   public:
 
-    DefaultSwitchApproval(const container::Context* c, const xercesc::DOMNode*)
+    DefaultSwitchApproval(const container::Context* c, const json_object*)
         : container::Component(c), auto_approve(false) {
     }
 
