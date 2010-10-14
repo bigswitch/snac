@@ -1,9 +1,9 @@
 
 
-from nox.apps.directory.dir_utils import glob_to_regex, filter_list
-from nox.apps.coreui.web_arg_utils import *
-from nox.apps.directory.dir_utils import *
-from nox.apps.directory.directorymanager import *
+from nox.ext.apps.directory.dir_utils import glob_to_regex, filter_list
+from nox.ext.apps.coreui.web_arg_utils import *
+from nox.ext.apps.directory.dir_utils import *
+from nox.ext.apps.directory.directorymanager import *
     
     
 # depending on the value of 'is_active', the arguments

@@ -1,11 +1,11 @@
 
-dojo.provide("nox.apps.directory.directorymanagerws.PrincipalInfoEditUtils");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.PrincipalInfoEditUtils");
 
-dojo.require("nox.apps.directory.directorymanagerws.Directories"); 
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directories"); 
 
 (function () {
 
-var u = nox.apps.directory.directorymanagerws.PrincipalInfoEditUtils;
+var u = nox.ext.apps.directory.directorymanagerws.PrincipalInfoEditUtils;
 
 u.get_attr_row = function(att, hdr, is_editable) {
     if (is_editable) {
@@ -59,7 +59,7 @@ u.get_directory_row = function(ptype, dirname,is_editable) {
   // validation function, so we peak at a 'private' member.
   var validate_dir_fn = function() { 
     var v = this.getDisplayedValue();
-    var store = nox.apps.directory.directorymanagerws.Directories.datastore;  
+    var store = nox.ext.apps.directory.directorymanagerws.Directories.datastore;  
     if(v == dirname) 
       return true; 
     if(store._items == null) 
@@ -85,7 +85,7 @@ u.get_directory_row = function(ptype, dirname,is_editable) {
       attr: attr,
       editor: dijit.form.FilteringSelect,
       editorProps: {
-          store: nox.apps.directory.directorymanagerws.Directories.datastore,
+          store: nox.ext.apps.directory.directorymanagerws.Directories.datastore,
           query: query, 
           isValid : validate_dir_fn 
       }, 

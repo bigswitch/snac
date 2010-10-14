@@ -17,19 +17,19 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.Location");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.Location");
 
-dojo.require("nox.apps.directory.directorymanagerws.SwitchPort");
-dojo.require("nox.apps.directory.directorymanagerws.Switch");
-dojo.require("nox.apps.directory.directorymanagerws.Directories");
-dojo.require("nox.apps.directory.directorymanagerws._Principal");
-dojo.require("nox.apps.directory.directorymanagerws.HostStore");
-dojo.require("nox.apps.directory.directorymanagerws.UserStore");
-dojo.require("nox.apps.directory.directorymanagerws.LocationGroupStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchPort");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Switch");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directories");
+dojo.require("nox.ext.apps.directory.directorymanagerws._Principal");
+dojo.require("nox.ext.apps.directory.directorymanagerws.HostStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.UserStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.LocationGroupStore");
 
-dojo.declare("nox.apps.directory.directorymanagerws.Location", [ nox.apps.directory.directorymanagerws._Principal ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.Location", [ nox.ext.apps.directory.directorymanagerws._Principal ], {
 
-    dmws: nox.apps.directory.directorymanagerws,
+    dmws: nox.ext.apps.directory.directorymanagerws,
 
     constructor: function (kwarg) {
         // summary: constructor

@@ -17,12 +17,12 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.SwitchStore");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.SwitchStore");
 
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalStore");
-dojo.require("nox.apps.directory.directorymanagerws.Switch");
+dojo.require("nox.ext.apps.directory.directorymanagerws._PrincipalStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Switch");
 
-dojo.declare("nox.apps.directory.directorymanagerws.SwitchStore", [ nox.apps.directory.directorymanagerws._PrincipalStore ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.SwitchStore", [ nox.ext.apps.directory.directorymanagerws._PrincipalStore ], {
     url: "",
     data: null,
 

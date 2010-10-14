@@ -17,12 +17,12 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.Directory");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.Directory");
 
-dojo.require("nox.apps.coreui.coreui._NamedEntity");
+dojo.require("nox.ext.apps.coreui.coreui._NamedEntity");
 
-dojo.declare("nox.apps.directory.directorymanagerws.Directory",
-             [ nox.apps.coreui.coreui._NamedEntity ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.Directory",
+             [ nox.ext.apps.coreui.coreui._NamedEntity ], {
     principal_types : ["user", "host", "switch", "location"],
     group_types : ["user", "host", "switch", "location","dladdr","nwaddr"],
 

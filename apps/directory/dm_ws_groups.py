@@ -21,10 +21,10 @@ import simplejson
 
 from twisted.internet import defer
 from twisted.python.failure import Failure
-from nox.apps.coreui import webservice
-from nox.apps.coreui.webservice import *
-from nox.apps.directory.directorymanagerws import *
-from nox.apps.directory.directorymanager import mangle_name
+from nox.ext.apps.coreui import webservice
+from nox.ext.apps.coreui.webservice import *
+from nox.ext.apps.directory.directorymanagerws import *
+from nox.ext.apps.directory.directorymanager import mangle_name
 from nox.lib.directory import DirectoryException
 
 from nox.lib.netinet.netinet import create_eaddr, create_ipaddr

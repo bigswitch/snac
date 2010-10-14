@@ -9,7 +9,7 @@
                 "pydirmanager",
                 "pyauthenticator"
             ],
-            "python": "nox.apps.directory.directorymanager"
+            "python": "nox.ext.apps.directory.directorymanager"
         },
         {
             "name": "directorymanagerws",
@@ -19,7 +19,7 @@
                 "switchstats",
                 "bindings_directory"
             ],
-            "python": "nox.apps.directory.directorymanagerws"
+            "python": "nox.ext.apps.directory.directorymanagerws"
         },
         {
             "name": "cdirectorymanager",
@@ -33,7 +33,7 @@
             "dependencies": [
                 "cdirectorymanager"
             ],
-            "python": "nox.apps.directory.pydirmanager"
+            "python": "nox.ext.apps.directory.pydirmanager"
         },
         {
             "name": "netinfo_mod_event",

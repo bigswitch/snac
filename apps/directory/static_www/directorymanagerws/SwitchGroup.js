@@ -17,13 +17,13 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.SwitchGroup");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.SwitchGroup");
 
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalGroup");
-dojo.require("nox.apps.directory.directorymanagerws.SwitchStore");
-dojo.require("nox.apps.directory.directorymanagerws.SwitchGroupStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws._PrincipalGroup");
+dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchGroupStore");
 
-dojo.declare("nox.apps.directory.directorymanagerws.SwitchGroup", [ nox.apps.directory.directorymanagerws._PrincipalGroup ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.SwitchGroup", [ nox.ext.apps.directory.directorymanagerws._PrincipalGroup ], {
 
     wsv1Path: function () {
         if (this.isNull()) {

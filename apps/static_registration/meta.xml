@@ -5,6 +5,6 @@
     <dependency>
       <name>pypersistent storage</name>
     </dependency>
-    <python>nox.apps.static_registration.static_registration</python>
+    <python>nox.ext.apps.static_registration.static_registration</python>
   </component>
 </components:components>

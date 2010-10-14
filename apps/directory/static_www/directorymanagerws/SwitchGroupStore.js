@@ -17,12 +17,12 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.SwitchGroupStore");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.SwitchGroupStore");
 
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalGroupStore");
-dojo.require("nox.apps.directory.directorymanagerws.SwitchGroup");
+dojo.require("nox.ext.apps.directory.directorymanagerws._PrincipalGroupStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchGroup");
 
-dojo.declare("nox.apps.directory.directorymanagerws.SwitchGroupStore", [ nox.apps.directory.directorymanagerws._PrincipalGroupStore ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.SwitchGroupStore", [ nox.ext.apps.directory.directorymanagerws._PrincipalGroupStore ], {
 
     constructor: function (kwarg) {
         this.itemConstructor = this.dmws.SwitchGroup;

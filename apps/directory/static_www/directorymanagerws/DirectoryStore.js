@@ -20,16 +20,16 @@
 
 /* Mixin to provide retrieval for information about Directories  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.DirectoryStore");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.DirectoryStore");
 
-dojo.require("nox.apps.directory.directorymanagerws.Directory");
-dojo.require("nox.apps.coreui.coreui._UpdatingStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directory");
+dojo.require("nox.ext.apps.coreui.coreui._UpdatingStore");
 dojo.require("dojo.data.util.simpleFetch");
 
-dojo.declare("nox.apps.directory.directorymanagerws.DirectoryStore", 
-             [ nox.apps.coreui.coreui._UpdatingStore ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.DirectoryStore", 
+             [ nox.ext.apps.coreui.coreui._UpdatingStore ], {
 
-    dmws: nox.apps.directory.directorymanagerws,
+    dmws: nox.ext.apps.directory.directorymanagerws,
 
     constructor: function (kwarg) {
         this.itemConstructor = this.dmws.Directory;
@@ -48,5 +48,5 @@ dojo.declare("nox.apps.directory.directorymanagerws.DirectoryStore",
 
 //Mix in the simple fetch implementation to this class.
 // TBD: Why can't this just be inherited?
-dojo.extend(nox.apps.directory.directorymanagerws.DirectoryStore,
+dojo.extend(nox.ext.apps.directory.directorymanagerws.DirectoryStore,
             dojo.data.util.simpleFetch);

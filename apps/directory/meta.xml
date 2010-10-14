@@ -18,7 +18,7 @@
     <dependency>
       <name>pyauthenticator</name>
     </dependency>
-    <python>nox.apps.directory.directorymanager</python>
+    <python>nox.ext.apps.directory.directorymanager</python>
   </component>
   <component>
     <name>directorymanagerws</name>
@@ -26,7 +26,7 @@
     <dependency><name>directorymanager</name></dependency>
     <dependency><name>switchstats</name></dependency>
     <dependency><name>bindings_directory</name></dependency>
-    <python>nox.apps.directory.directorymanagerws</python>
+    <python>nox.ext.apps.directory.directorymanagerws</python>
   </component>
   <component>
     <name>cdirectorymanager</name>
@@ -40,7 +40,7 @@
     <dependency>
       <name>cdirectorymanager</name>
     </dependency>
-    <python>nox.apps.directory.pydirmanager</python>
+    <python>nox.ext.apps.directory.pydirmanager</python>
   </component>
   <component>
     <name>netinfo_mod_event</name>

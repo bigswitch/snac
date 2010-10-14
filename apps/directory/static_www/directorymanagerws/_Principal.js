@@ -24,7 +24,7 @@ dojo.require("nox.ext.apps.coreui.coreui._NamedEntity");
 dojo.require("nox.ext.apps.directory.directorymanagerws.PrincipalModifyDialog");
 
     
-dojo.declare("nox.apps.directory.directorymanagerws._Principal",
+dojo.declare("nox.ext.apps.directory.directorymanagerws._Principal",
              [ nox.ext.apps.coreui.coreui._NamedEntity ], {
 
     coreui: nox.ext.apps.coreui.coreui,

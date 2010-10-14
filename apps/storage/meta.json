@@ -12,7 +12,7 @@
             "dependencies": [
                 "transactional_storage_backend"
             ],
-            "python": "nox.apps.storage.transactional_storage"
+            "python": "nox.ext.apps.storage.transactional_storage"
         }
     ]
 }

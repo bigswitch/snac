@@ -17,12 +17,12 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.LocationStore");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.LocationStore");
 
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalStore");
-dojo.require("nox.apps.directory.directorymanagerws.Location");
+dojo.require("nox.ext.apps.directory.directorymanagerws._PrincipalStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Location");
 
-dojo.declare("nox.apps.directory.directorymanagerws.LocationStore", [ nox.apps.directory.directorymanagerws._PrincipalStore ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.LocationStore", [ nox.ext.apps.directory.directorymanagerws._PrincipalStore ], {
 
     constructor: function (kwarg) {
         this.itemConstructor = this.dmws.Location;

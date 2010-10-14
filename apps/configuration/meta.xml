@@ -16,13 +16,13 @@
     <name>simple_config</name>
     <dependency><name>pytransactional storage</name></dependency> 
     <dependency><name>configuration</name></dependency> 
-    <python>nox.apps.configuration.simple_config</python>
+    <python>nox.ext.apps.configuration.simple_config</python>
   </component>
   <component>
     <name>simple_configws</name>
     <dependency><name>webservice</name></dependency>
     <dependency><name>simple_config</name></dependency> 
-    <python>nox.apps.configuration.simple_configws</python>
+    <python>nox.ext.apps.configuration.simple_configws</python>
   </component>
   
 </components:components>

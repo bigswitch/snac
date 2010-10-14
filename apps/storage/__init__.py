@@ -14,6 +14,6 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with NOX.  If not, see <http://www.gnu.org/licenses/>.
-from nox.apps.storage.storage import *
-from nox.apps.storage.transactional_storage import *
+from nox.netapps.storage.storage import *
+from nox.ext.apps.storage.transactional_storage import *
 

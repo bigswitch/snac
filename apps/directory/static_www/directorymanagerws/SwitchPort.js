@@ -17,15 +17,15 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.SwitchPort");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.SwitchPort");
 
-dojo.require("nox.apps.coreui.coreui._NamedEntity");
-dojo.require("nox.apps.directory.directorymanagerws.HostStore");
-dojo.require("nox.apps.directory.directorymanagerws.UserStore");
+dojo.require("nox.ext.apps.coreui.coreui._NamedEntity");
+dojo.require("nox.ext.apps.directory.directorymanagerws.HostStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.UserStore");
 
-dojo.declare("nox.apps.directory.directorymanagerws.SwitchPort", [ nox.apps.coreui.coreui._NamedEntity ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.SwitchPort", [ nox.ext.apps.coreui.coreui._NamedEntity ], {
 
-    dmws: nox.apps.directory.directorymanagerws,
+    dmws: nox.ext.apps.directory.directorymanagerws,
 
     constructor: function (kwarg) {
         // summary: constructor

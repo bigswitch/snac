@@ -26,14 +26,14 @@
     <dependency>
       <name>storage backend</name>
     </dependency>
-    <python>nox.apps.storage.storage</python>
+    <python>nox.netapps.storage.storage</python>
   </component>
   <component>
     <name>pytransactional storage</name>
     <dependency>
       <name>transactional_storage_backend</name>
     </dependency>
-    <python>nox.apps.storage.transactional_storage</python>
+    <python>nox.ext.apps.storage.transactional_storage</python>
   </component>
 
   <component>

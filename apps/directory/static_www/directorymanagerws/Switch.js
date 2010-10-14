@@ -17,19 +17,19 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.Switch");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.Switch");
 
-dojo.require("nox.apps.directory.directorymanagerws.Directories");
-dojo.require("nox.apps.directory.directorymanagerws._Principal");
-dojo.require("nox.apps.directory.directorymanagerws.SwitchPortStore");
-dojo.require("nox.apps.directory.directorymanagerws.SwitchGroupStore");
-dojo.require("nox.apps.coreui.coreui.UpdateMgr");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directories");
+dojo.require("nox.ext.apps.directory.directorymanagerws._Principal");
+dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchPortStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchGroupStore");
+dojo.require("nox.ext.apps.coreui.coreui.UpdateMgr");
 dojo.require("dijit.form.FilteringSelect");
 dojo.require("dojo.data.ItemFileReadStore");
 dojo.require("dijit.Dialog"); 
 dojo.require("nox.ext.apps.default_switch_approval.switch_approval.SwitchApprover");
 
-dojo.declare("nox.apps.directory.directorymanagerws.Switch", [ nox.apps.directory.directorymanagerws._Principal ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.Switch", [ nox.ext.apps.directory.directorymanagerws._Principal ], {
 
     constructor: function (kwarg) {
         dojo.mixin(this.updateTypes, {
@@ -113,7 +113,7 @@ dojo.declare("nox.apps.directory.directorymanagerws.Switch", [ nox.apps.director
     },
 
     set_approval: function(is_approved, onComplete) {
-        var updatemgr =  nox.apps.coreui.coreui.getUpdateMgr();  
+        var updatemgr =  nox.ext.apps.coreui.coreui.getUpdateMgr();  
         var path = this.wsv1Path() + "/approval?approved=" + is_approved; 
         updatemgr.rawXhrPut({
             handleAs: 'json',
@@ -122,7 +122,7 @@ dojo.declare("nox.apps.directory.directorymanagerws.Switch", [ nox.apps.director
             putData: {},
             timeout: 5000,
             load: dojo.hitch(this, function (response, ioArgs) {
-                      nox.apps.coreui.coreui.getUpdateMgr().updateNow();
+                      nox.ext.apps.coreui.coreui.getUpdateMgr().updateNow();
                       if(onComplete != null) 
                           onComplete(this); 
                       return null; 
@@ -152,7 +152,7 @@ dojo.declare("nox.apps.directory.directorymanagerws.Switch", [ nox.apps.director
 // both the SwitchesMon and SwitchInfoMon pages in order to prevent code
 // duplication. 
 
-dojo.declare("nox.apps.directory.directorymanagerws.SwitchUtil", [], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.SwitchUtil", [], {
 
 register_switch : function(selected_list, onComplete) {
   if (selected_list.length == 0) { 
@@ -237,9 +237,9 @@ get_status_cell : function() {
 
 (function () {
     var switch_util = null;
-    nox.apps.directory.directorymanagerws.getSwitchUtil = function () {
+    nox.ext.apps.directory.directorymanagerws.getSwitchUtil = function () {
         if (switch_util == null) {
-            switch_util = new nox.apps.directory.directorymanagerws.SwitchUtil();
+            switch_util = new nox.ext.apps.directory.directorymanagerws.SwitchUtil();
         }
         return switch_util;
     }

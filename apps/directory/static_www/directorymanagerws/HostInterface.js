@@ -17,16 +17,16 @@ n MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.HostInterface");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.HostInterface");
 
-dojo.require("nox.apps.coreui.coreui._NamedEntity");
-dojo.require("nox.apps.directory.directorymanagerws.Switch");
-dojo.require("nox.apps.directory.directorymanagerws.SwitchPort");
-dojo.require("nox.apps.directory.directorymanagerws.Location");
+dojo.require("nox.ext.apps.coreui.coreui._NamedEntity");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Switch");
+dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchPort");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Location");
 
-dojo.declare("nox.apps.directory.directorymanagerws.HostInterface", [ nox.apps.coreui.coreui._NamedEntity ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.HostInterface", [ nox.ext.apps.coreui.coreui._NamedEntity ], {
 
-    dmws: nox.apps.directory.directorymanagerws,
+    dmws: nox.ext.apps.directory.directorymanagerws,
 
     constructor: function (kwarg) {
         // summary: constructor
@@ -106,14 +106,14 @@ dojo.declare("nox.apps.directory.directorymanagerws.HostInterface", [ nox.apps.c
     updateInfo: function (kwarg) {
         return this._xhrGetMixin("info", this.wsv1Path(), function (response) {
             if (response["switch_name"]) {
-                this.switchObj = new nox.apps.directory.directorymanagerws.Switch({ initialData: { name: response["switch_name"] }});
+                this.switchObj = new nox.ext.apps.directory.directorymanagerws.Switch({ initialData: { name: response["switch_name"] }});
                 if (response["port_name"]) {
-                    this.switchPortObj = new nox.apps.directory.directorymanagerws.SwitchPort({ 
+                    this.switchPortObj = new nox.ext.apps.directory.directorymanagerws.SwitchPort({ 
                         switchObj:  this.switchObj,
                         initialData: { name: response["port_name"] }
                     });
                     if (response["location_name"]) {
-                        this.location = new nox.apps.directory.directorymanagerws.Location({ 
+                        this.location = new nox.ext.apps.directory.directorymanagerws.Location({ 
                             initialData: { name: response["location_name"] },
                             updateList: ["config"],   // In what situations do we need?
                             switchObj: this.switchObj,

@@ -17,12 +17,12 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.UserStore");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.UserStore");
 
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalStore");
-dojo.require("nox.apps.directory.directorymanagerws.User");
+dojo.require("nox.ext.apps.directory.directorymanagerws._PrincipalStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.User");
 
-dojo.declare("nox.apps.directory.directorymanagerws.UserStore", [ nox.apps.directory.directorymanagerws._PrincipalStore ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.UserStore", [ nox.ext.apps.directory.directorymanagerws._PrincipalStore ], {
 
     constructor: function (kwarg) {
         this.itemConstructor = this.dmws.User;

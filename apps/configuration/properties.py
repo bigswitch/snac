@@ -23,8 +23,8 @@ from twisted.internet import reactor
 from twisted.internet.defer import Deferred, succeed
 from twisted.python.failure import Failure
 
-from nox.apps.storage import Storage
-from nox.apps.storage import TransactionalConnection
+from nox.netapps.storage import Storage
+from nox.ext.apps.storage import TransactionalConnection
 
 log = logging.getLogger('properties')
 

@@ -17,16 +17,16 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws._PrincipalGroup");
+dojo.provide("nox.ext.apps.directory.directorymanagerws._PrincipalGroup");
 
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.coreui.coreui._NamedEntity");
-dojo.require("nox.apps.directory.directorymanagerws.GroupModifyDialog");
+dojo.require("nox.ext.apps.coreui.coreui.base");
+dojo.require("nox.ext.apps.coreui.coreui._NamedEntity");
+dojo.require("nox.ext.apps.directory.directorymanagerws.GroupModifyDialog");
 
-dojo.declare("nox.apps.directory.directorymanagerws._PrincipalGroup", [ nox.apps.coreui.coreui._NamedEntity ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws._PrincipalGroup", [ nox.ext.apps.coreui.coreui._NamedEntity ], {
 
-    coreui: nox.apps.coreui.coreui,
-    dmws: nox.apps.directory.directorymanagerws,
+    coreui: nox.ext.apps.coreui.coreui,
+    dmws: nox.ext.apps.directory.directorymanagerws,
     
     count_subgroups: null, 
     count_members: null, 
@@ -89,7 +89,7 @@ dojo.declare("nox.apps.directory.directorymanagerws._PrincipalGroup", [ nox.apps
 
     uiMonitorLink: function ( /*optional*/use_mangled) {
         var name = (use_mangled == true || this.force_use_mangled) ? this._data.name : this.groupName();
-        return nox.apps.coreui.coreui.base.createLink(this.uiMonitorPath(),name);
+        return nox.ext.apps.coreui.coreui.base.createLink(this.uiMonitorPath(),name);
     },
 
     uiMonitorLinkText: function(/*optional*/use_mangled) { 
@@ -142,7 +142,7 @@ dojo.declare("nox.apps.directory.directorymanagerws._PrincipalGroup", [ nox.apps
                                   validation_error: true 
                                 });
         onNonexisting = function () {
-            nox.apps.coreui.coreui.getUpdateMgr().rawXhrPut({
+            nox.ext.apps.coreui.coreui.getUpdateMgr().rawXhrPut({
                   url: this.wsv1Path(),
                   headers: { "content-type": "application/json" },
                   putData: dojo.toJson({ name: newName }),
@@ -195,7 +195,7 @@ dojo.declare("nox.apps.directory.directorymanagerws._PrincipalGroup", [ nox.apps
 
 
     exists : function(onComplete) { 
-        nox.apps.coreui.coreui.getUpdateMgr().xhrGet( {
+        nox.ext.apps.coreui.coreui.getUpdateMgr().xhrGet( {
             url: this.wsv1Path(),
             headers: { "content-type": "application/json" },
             load: function (response, ioArgs) {
@@ -229,7 +229,7 @@ dojo.declare("nox.apps.directory.directorymanagerws._PrincipalGroup", [ nox.apps
 
     _patch_callback : function(args) { 
         return  function() { 
-            nox.apps.coreui.coreui.getUpdateMgr().updateNow();
+            nox.ext.apps.coreui.coreui.getUpdateMgr().updateNow();
             if (args.onComplete != null)
               args.onComplete(arguments); 
         }; 
@@ -335,7 +335,7 @@ dojo.declare("nox.apps.directory.directorymanagerws._PrincipalGroup", [ nox.apps
     }, 
 
     _do_modify_request : function(path, method, onComplete) {
-        nox.apps.coreui.coreui.getUpdateMgr().xhr(method, {
+        nox.ext.apps.coreui.coreui.getUpdateMgr().xhr(method, {
             url: path,
             headers: { "content-type": "application/json" },
             putData: dojo.toJson({}),
@@ -373,14 +373,14 @@ dojo.declare("nox.apps.directory.directorymanagerws._PrincipalGroup", [ nox.apps
         } else {
             errHandlers = {
                 400: function(response, ioArgs, item, itemType) {
-                    nox.apps.coreui.coreui.UpdateErrorHandler.showError(
+                    nox.ext.apps.coreui.coreui.UpdateErrorHandler.showError(
                                                 response.responseText,
                      { auto_show : true, header_msg : "Save failed" });
                 }
             };
         }
         
-        nox.apps.coreui.coreui.getUpdateMgr().rawXhrPut({
+        nox.ext.apps.coreui.coreui.getUpdateMgr().rawXhrPut({
             url: this.wsv1Path(),
             headers: { "content-type": "application/json" },
             putData: dojo.toJson(ginfo),
@@ -395,9 +395,9 @@ dojo.declare("nox.apps.directory.directorymanagerws._PrincipalGroup", [ nox.apps
 // is needed by all of the XXXGroupInfo XXXGroups pages, but does not
 // operate on single XXXGroup objects
 
-dojo.declare("nox.apps.directory.directorymanagerws.PrincipalGroupUtil", [], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.PrincipalGroupUtil", [], {
 
-    dmws: nox.apps.directory.directorymanagerws,
+    dmws: nox.ext.apps.directory.directorymanagerws,
 
     show_modify_dialog : function(ptype, group, type, title, ctor) {
         var appr = dijit.byId("modify_group_id"); 
@@ -407,7 +407,7 @@ dojo.declare("nox.apps.directory.directorymanagerws.PrincipalGroupUtil", [], {
         }
         var props = { id : "modify_group_id", group : group,
                       type: type, title: title, ctor : ctor, principal_type : ptype};
-        appr = new nox.apps.directory.directorymanagerws.GroupModifyDialog(props);
+        appr = new nox.ext.apps.directory.directorymanagerws.GroupModifyDialog(props);
         dojo.body().appendChild(appr.domNode);
         appr.startup();
         appr.show();
@@ -526,7 +526,7 @@ dojo.declare("nox.apps.directory.directorymanagerws.PrincipalGroupUtil", [], {
 
 
 (function () {
-    var dmws = nox.apps.directory.directorymanagerws;
+    var dmws = nox.ext.apps.directory.directorymanagerws;
     var group_util = null;
     dmws.getPrincipalGroupUtil = function () {
         if (group_util == null) {

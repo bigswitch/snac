@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with NOX.  If not, see <http://www.gnu.org/licenses/>.
 
-from nox.apps.authenticator import pyauth
-from nox.apps.directory.directorymanager import demangle_name
-from nox.apps.directory.simple_directory import simple_directory 
+from nox.netapps.authenticator import pyauth
+from nox.ext.apps.directory.directorymanager import demangle_name
+from nox.ext.apps.directory.simple_directory import simple_directory 
 from nox.lib.directory import Directory, GroupInfo
 
 # principal is unauthenticated

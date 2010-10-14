@@ -14,22 +14,22 @@
 import logging
 import re
 from nox.lib.core    import *
-from nox.apps.coreui import webservice
+from nox.ext.apps.coreui import webservice
 
 from twisted.python.failure import Failure
-from nox.apps.authenticator.pyauth import Auth_event, Authenticator
-from nox.apps.directory.directorymanager import *
+from nox.netapps.authenticator.pyauth import Auth_event, Authenticator
+from nox.ext.apps.directory.directorymanager import *
 from nox.lib.directory_factory import Directory_Factory
-from nox.apps.switchstats.switchstats    import switchstats
-from nox.apps.coreui.webservice import json_parse_message_body
-from nox.apps.coreui.webservice import NOT_DONE_YET, WSPathArbitraryString 
-from nox.apps.coreui.web_arg_utils import *
-from nox.apps.directory.query import query
+from nox.netapps.switchstats.switchstats    import switchstats
+from nox.ext.apps.coreui.webservice import json_parse_message_body
+from nox.ext.apps.coreui.webservice import NOT_DONE_YET, WSPathArbitraryString 
+from nox.ext.apps.coreui.web_arg_utils import *
+from nox.ext.apps.directory.query import query
 from nox.lib.netinet.netinet import *
 from nox.lib.directory import *
-from nox.apps.bindings_storage.bindings_directory import *
-from nox.apps.directory.dir_utils import *
-from nox.apps.directory.principal_search import do_principal_search 
+from nox.netapps.bindings_storage.bindings_directory import *
+from nox.ext.apps.directory.dir_utils import *
+from nox.ext.apps.directory.principal_search import do_principal_search 
 
 import simplejson
 

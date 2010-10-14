@@ -17,7 +17,7 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.GroupModifyDialog");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.GroupModifyDialog");
 
 dojo.require("dijit._Widget");
 dojo.require("dijit.Dialog");
@@ -25,13 +25,13 @@ dojo.require("dijit._Templated");
 dojo.require("dijit.form.FilteringSelect");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.TextBox");
-dojo.require("nox.apps.directory.directorymanagerws.Directories");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directories");
 
-var coreui = nox.apps.coreui.coreui; 
-var dmws = nox.apps.directory.directorymanagerws; 
+var coreui = nox.ext.apps.coreui.coreui; 
+var dmws = nox.ext.apps.directory.directorymanagerws; 
 
-dojo.declare("nox.apps.directory.directorymanagerws.GroupModifyDialog", [ dijit._Widget, dijit._Templated ], {
-    templatePath: dojo.moduleUrl("nox.apps.directory.directorymanagerws", "templates/GroupModifyDialog.html"),
+dojo.declare("nox.ext.apps.directory.directorymanagerws.GroupModifyDialog", [ dijit._Widget, dijit._Templated ], {
+    templatePath: dojo.moduleUrl("nox.ext.apps.directory.directorymanagerws", "templates/GroupModifyDialog.html"),
     widgetsInTemplate: true,
 
     group : null,

@@ -21,13 +21,13 @@ import simplejson
 import sets
 
 from twisted.internet import defer
-from nox.apps.coreui      import webservice
-from nox.apps.coreui.webservice import *
-from nox.apps.coreui.web_arg_utils import get_principal_type_from_args
-from nox.apps.directory.directorymanagerws import *
-from nox.apps.bindings_storage.bindings_directory import *
-from nox.apps.directory.directorymanager import mangle_name
-from nox.apps.bindings_storage.pybindings_storage import Name
+from nox.ext.apps.coreui      import webservice
+from nox.ext.apps.coreui.webservice import *
+from nox.ext.apps.coreui.web_arg_utils import get_principal_type_from_args
+from nox.ext.apps.directory.directorymanagerws import *
+from nox.netapps.bindings_storage.bindings_directory import *
+from nox.ext.apps.directory.directorymanager import mangle_name
+from nox.netapps.bindings_storage.pybindings_storage import Name
 from twisted.python.failure import Failure
 from nox.lib.directory import Directory, DirectoryException
 import time

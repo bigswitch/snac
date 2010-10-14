@@ -21,20 +21,20 @@ import sys
 from nox.lib.core import *
 from nox.lib.netinet import netinet
 from nox.lib.directory import *
-from nox.apps.storage import TransactionalStorage
-from nox.apps.storage.StorageTableUtil import *
-from nox.apps.directory import pydirmanager
-from nox.apps.directory.pynetinfo_mod_event import NetInfo_mod_event
-from nox.apps.directory.pydirmanager import Principal_name_event
-from nox.apps.directory.pydirmanager import Group_name_event
-from nox.apps.directory.pydirmanager import Group_change_event
-from nox.apps.directory.pydirmanager import Location_delete_event
+from nox.ext.apps.storage import TransactionalStorage
+from nox.ext.apps.storage.StorageTableUtil import *
+from nox.ext.apps.directory import pydirmanager
+from nox.ext.apps.directory.pynetinfo_mod_event import NetInfo_mod_event
+from nox.ext.apps.directory.pydirmanager import Principal_name_event
+from nox.ext.apps.directory.pydirmanager import Group_name_event
+from nox.ext.apps.directory.pydirmanager import Group_change_event
+from nox.ext.apps.directory.pydirmanager import Location_delete_event
 from twisted.internet import defer
 from twisted.python.failure import Failure
 from nox.lib.netinet.netinet import datapathid
-from nox.apps.user_event_log.pyuser_event_log import pyuser_event_log,LogEntry
-from nox.apps.pyrt.pycomponent import CONTINUE
-from nox.apps.authenticator.pyauth import Host_event
+from nox.ext.apps.user_event_log.pyuser_event_log import pyuser_event_log,LogEntry
+from nox.coreapps.pyrt.pycomponent import CONTINUE
+from nox.netapps.authenticator.pyauth import Host_event
 
 lg = logging.getLogger('directorymanager')
 
@@ -282,7 +282,7 @@ class directorymanager(Component):
         # network but are not named
         # may want to make this into a separate
         # component, but this works for now
-        from nox.apps.directory.discovered_directory import discovered_directory
+        from nox.ext.apps.directory.discovered_directory import discovered_directory
         self.discovered_dir = discovered_directory() 
         self.add_directory_instance(self.discovered_dir, 
                 self.discovered_dir.name, config_id=0, order=sys.maxint)

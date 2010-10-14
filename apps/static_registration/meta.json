@@ -5,7 +5,7 @@
             "dependencies": [
                 "pypersistent storage"
             ],
-            "python": "nox.apps.static_registration.static_registration"
+            "python": "nox.ext.apps.static_registration.static_registration"
         }
     ]
 }

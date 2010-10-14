@@ -17,9 +17,9 @@
 
 from twisted.python import log
 from twisted.internet import defer
-from nox.apps.directory.cidr_group_cache import cidr_group_cache
-from nox.apps.directory.dir_utils import glob_to_regex,filter_list
-from nox.apps.directory.directorymanager import is_mangled_name, mangle_name,\
+from nox.ext.apps.directory.cidr_group_cache import cidr_group_cache
+from nox.ext.apps.directory.dir_utils import glob_to_regex,filter_list
+from nox.ext.apps.directory.directorymanager import is_mangled_name, mangle_name,\
          demangle_name, get_default_switch_name, get_default_loc_name
 from nox.lib.core import Component
 from nox.lib.netinet import netinet

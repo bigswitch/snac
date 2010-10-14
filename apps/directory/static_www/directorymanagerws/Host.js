@@ -17,16 +17,16 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.Host");
-dojo.require("nox.apps.directory.directorymanagerws.UserStore");
-dojo.require("nox.apps.directory.directorymanagerws.HostGroupStore");
-dojo.require("nox.apps.directory.directorymanagerws.HostBindingStore");
-dojo.require("nox.apps.directory.directorymanagerws.HostInterfaceStore");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.Host");
+dojo.require("nox.ext.apps.directory.directorymanagerws.UserStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.HostGroupStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.HostBindingStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.HostInterfaceStore");
 
-dojo.require("nox.apps.directory.directorymanagerws.Directories");
-dojo.require("nox.apps.directory.directorymanagerws._Principal");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directories");
+dojo.require("nox.ext.apps.directory.directorymanagerws._Principal");
 
-dojo.declare("nox.apps.directory.directorymanagerws.Host", [ nox.apps.directory.directorymanagerws._Principal ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.Host", [ nox.ext.apps.directory.directorymanagerws._Principal ], {
 
     constructor: function (kwarg) {
         dojo.mixin(this.updateTypes, {

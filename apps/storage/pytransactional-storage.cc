@@ -75,7 +75,7 @@ static
 PyObject*
 get_connection_ctor()
 {
-    PyObject* pname = PyString_FromString("nox.apps.storage.pytransactional_storage");
+    PyObject* pname = PyString_FromString("nox.ext.apps.storage.pytransactional_storage");
     if (!pname) {
         throw runtime_error("unable to create a module string");
     }
@@ -84,7 +84,7 @@ get_connection_ctor()
     if (!pmod || !PyModule_Check(pmod)){
         Py_DECREF(pname);
         Py_XDECREF(pmod);
-        throw runtime_error("unable to import nox.apps.storage module");
+        throw runtime_error("unable to import nox.ext.apps.storage module");
     }
     Py_DECREF(pname);
 
@@ -308,7 +308,7 @@ static
 PyObject*
 get_cursor_ctor()
 {
-    PyObject* pname = PyString_FromString("nox.apps.storage.pytransactional_storage");
+    PyObject* pname = PyString_FromString("nox.ext.apps.storage.pytransactional_storage");
     if (!pname) {
         throw runtime_error("unable to create a module string");
     }
@@ -317,7 +317,7 @@ get_cursor_ctor()
     if (!pmod || !PyModule_Check(pmod)){
         Py_DECREF(pname);
         Py_XDECREF(pmod);
-        throw runtime_error("unable to import nox.apps.storage module");
+        throw runtime_error("unable to import nox.ext.apps.storage module");
     }
     Py_DECREF(pname);
 

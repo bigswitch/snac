@@ -17,16 +17,16 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.HostBindingStore");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.HostBindingStore");
 
-dojo.require("nox.apps.coreui.coreui._UpdatingStore");
-dojo.require("nox.apps.coreui.coreui.UpdateMgr");
-dojo.require("nox.apps.directory.directorymanagerws.HostBinding");
+dojo.require("nox.ext.apps.coreui.coreui._UpdatingStore");
+dojo.require("nox.ext.apps.coreui.coreui.UpdateMgr");
+dojo.require("nox.ext.apps.directory.directorymanagerws.HostBinding");
 dojo.require("dojo.data.util.simpleFetch");
 
-dojo.declare("nox.apps.directory.directorymanagerws.HostBindingStore", [ nox.apps.coreui.coreui._UpdatingStore ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.HostBindingStore", [ nox.ext.apps.coreui.coreui._UpdatingStore ], {
 
-    dmws: nox.apps.directory.directorymanagerws,
+    dmws: nox.ext.apps.directory.directorymanagerws,
 
     constructor: function (kwarg) {
         // summary: constructor
@@ -71,4 +71,4 @@ dojo.declare("nox.apps.directory.directorymanagerws.HostBindingStore", [ nox.app
 });
 //Mix in the simple fetch implementation to this class.
 // TBD: Why can't this just be inherited?
-dojo.extend(nox.apps.directory.directorymanagerws.HostBindingStore,dojo.data.util.simpleFetch);
+dojo.extend(nox.ext.apps.directory.directorymanagerws.HostBindingStore,dojo.data.util.simpleFetch);

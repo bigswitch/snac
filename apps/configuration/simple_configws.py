@@ -16,8 +16,8 @@
 # along with NOX.  If not, see <http://www.gnu.org/licenses/>.
 
 from nox.lib.core import *
-from nox.apps.coreui import webservice
-from nox.apps.configuration.simple_config import simple_config
+from nox.ext.apps.coreui import webservice
+from nox.ext.apps.configuration.simple_config import simple_config
 import logging
 import simplejson
 import base64

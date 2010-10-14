@@ -17,15 +17,15 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.Directories");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.Directories");
 
-dojo.require("nox.apps.coreui.coreui.UpdateMgr");
-dojo.require("nox.apps.directory.directorymanagerws.DirectoryStore"); 
+dojo.require("nox.ext.apps.coreui.coreui.UpdateMgr");
+dojo.require("nox.ext.apps.directory.directorymanagerws.DirectoryStore"); 
 
 
 (function () {
 
-    var dmws = nox.apps.directory.directorymanagerws;
+    var dmws = nox.ext.apps.directory.directorymanagerws;
     var d = dmws.Directories; 
 
     principal_types = [ "user", "host", "switch", "location" ];
@@ -85,7 +85,7 @@ dojo.require("nox.apps.directory.directorymanagerws.DirectoryStore");
                         d.primary[ptype] = name;
                 },
                 onError: function (error) {
-                    console_log("Error occured in nox.apps.directory.directorymanagerws.Directories._determine_primaries_and_defaults() while attempting read fetch.");
+                    console_log("Error occured in nox.ext.apps.directory.directorymanagerws.Directories._determine_primaries_and_defaults() while attempting read fetch.");
                 }
             };
             a.query["read_" + ptype + "_enabled"] = true;
@@ -102,12 +102,12 @@ dojo.require("nox.apps.directory.directorymanagerws.DirectoryStore");
                     d.write_default[ptype] = name;
                 },
                 onError: function (error) {
-                    console_log("Error occured in nox.apps.directory.directorymanagerws.Directories._determine_primaries_and_defaults() while attempting write fetch.");
+                    console_log("Error occured in nox.ext.apps.directory.directorymanagerws.Directories._determine_primaries_and_defaults() while attempting write fetch.");
                 }
             };
             a.query["write_" + ptype + "_enabled"] = true;
             d.datastore.fetch(a);
-            dojo.publish("update_completions", ["nox.apps.directory.directorymanagerws.Directories"]);
+            dojo.publish("update_completions", ["nox.ext.apps.directory.directorymanagerws.Directories"]);
         });
     };
 
@@ -127,4 +127,4 @@ dojo.require("nox.apps.directory.directorymanagerws.DirectoryStore");
 
 })();
 
-dojo.addOnLoad(nox.apps.directory.directorymanagerws.Directories.page_init);
+dojo.addOnLoad(nox.ext.apps.directory.directorymanagerws.Directories.page_init);

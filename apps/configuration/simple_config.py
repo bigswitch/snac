@@ -16,8 +16,8 @@
 # along with NOX.  If not, see <http://www.gnu.org/licenses/>.
 
 from nox.lib.core import *
-from nox.apps.storage import TransactionalStorage
-from nox.apps.configuration.properties import Properties
+from nox.ext.apps.storage import TransactionalStorage
+from nox.ext.apps.configuration.properties import Properties
 import logging
 
 lg = logging.getLogger('simple_config')

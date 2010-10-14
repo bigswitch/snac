@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
-%module "nox.apps.storage"
+%module "nox.ext.apps.storage"
 
 %{
 #include "pytransactional-storage.cc"

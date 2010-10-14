@@ -17,16 +17,16 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.User");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.User");
 
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.directory.directorymanagerws.Directories");
-dojo.require("nox.apps.directory.directorymanagerws._Principal");
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalStore");
+dojo.require("nox.ext.apps.coreui.coreui.base");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directories");
+dojo.require("nox.ext.apps.directory.directorymanagerws._Principal");
+dojo.require("nox.ext.apps.directory.directorymanagerws._PrincipalStore");
 
 var AUTH_SIMPLE = "simple_auth";
 
-dojo.declare("nox.apps.directory.directorymanagerws.User", [ nox.apps.directory.directorymanagerws._Principal ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.User", [ nox.ext.apps.directory.directorymanagerws._Principal ], {
 
     constructor: function (kwarg) {
         dojo.mixin(this.updateTypes, {
@@ -117,13 +117,13 @@ dojo.declare("nox.apps.directory.directorymanagerws.User", [ nox.apps.directory.
         } else {
             errHandlers = {
                 400: function(response, ioArgs, item, itemType) {
-                    nox.apps.coreui.coreui.UpdateErrorHandler.showError(
+                    nox.ext.apps.coreui.coreui.UpdateErrorHandler.showError(
                         response.responseText, { header_msg : "Save failed" });
                 }
             };
         }
         
-        nox.apps.coreui.coreui.getUpdateMgr().rawXhrPut({
+        nox.ext.apps.coreui.coreui.getUpdateMgr().rawXhrPut({
             url: this.wsv1Path(),
             headers: { "content-type": "application/json" },
             putData: dojo.toJson(uinfo),
@@ -139,7 +139,7 @@ dojo.declare("nox.apps.directory.directorymanagerws.User", [ nox.apps.directory.
         } else {
             errHandlers = {
                 400: function(response, ioArgs, item, itemType) {
-                    nox.apps.coreui.coreui.UpdateErrorHandler.showError(response.responseText,
+                    nox.ext.apps.coreui.coreui.UpdateErrorHandler.showError(response.responseText,
                      { auto_show : true, header_msg : "Save credentials failed." });
                 }
             };
@@ -150,7 +150,7 @@ dojo.declare("nox.apps.directory.directorymanagerws.User", [ nox.apps.directory.
             cred[AUTH_SIMPLE] = [{ password: pwd }];
         }
                 
-        nox.apps.coreui.coreui.getUpdateMgr().rawXhrPut({
+        nox.ext.apps.coreui.coreui.getUpdateMgr().rawXhrPut({
             url: this.wsv1Path() + "/cred",
             headers: { "content-type": "application/json" },
             putData: dojo.toJson(cred),

@@ -16,8 +16,8 @@
 # along with NOX.  If not, see <http://www.gnu.org/licenses/>.
 import logging
 
-from nox.apps.directory.directorymanager import demangle_name
-from nox.apps.directory.directorymanager import mangle_name
+from nox.ext.apps.directory.directorymanager import demangle_name
+from nox.ext.apps.directory.directorymanager import mangle_name
 
 lg = logging.getLogger('query')
 

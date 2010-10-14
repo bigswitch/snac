@@ -17,13 +17,13 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.UserGroup");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.UserGroup");
 
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalGroup");
-dojo.require("nox.apps.directory.directorymanagerws.UserStore");
-dojo.require("nox.apps.directory.directorymanagerws.UserGroupStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws._PrincipalGroup");
+dojo.require("nox.ext.apps.directory.directorymanagerws.UserStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.UserGroupStore");
 
-dojo.declare("nox.apps.directory.directorymanagerws.UserGroup", [ nox.apps.directory.directorymanagerws._PrincipalGroup ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.UserGroup", [ nox.ext.apps.directory.directorymanagerws._PrincipalGroup ], {
 
     wsv1Path: function () {
         if (this.isNull()) {
@@ -42,19 +42,19 @@ dojo.declare("nox.apps.directory.directorymanagerws.UserGroup", [ nox.apps.direc
     },
 
     parentGroupStore: function (kwarg) {
-        return new nox.apps.directory.directorymanagerws.UserGroupStore(dojo.mixin(kwarg, {
+        return new nox.ext.apps.directory.directorymanagerws.UserGroupStore(dojo.mixin(kwarg, {
             url: this.wsv1Path() + "/parent"
         }));
     },
 
     principalMemberStore: function (kwarg) {
-        return new nox.apps.directory.directorymanagerws.UserStore(dojo.mixin(kwarg, {
+        return new nox.ext.apps.directory.directorymanagerws.UserStore(dojo.mixin(kwarg, {
             url: this.wsv1Path() + "/principal"
         }));
     },
 
     subgroupMemberStore: function (kwarg) {
-        return new nox.apps.directory.directorymanagerws.UserGroupStore(dojo.mixin(kwarg, {
+        return new nox.ext.apps.directory.directorymanagerws.UserGroupStore(dojo.mixin(kwarg, {
             url: this.wsv1Path() + "/subgroup"
         }));
     }

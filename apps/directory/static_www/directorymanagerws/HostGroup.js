@@ -17,13 +17,13 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.HostGroup");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.HostGroup");
 
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalGroup");
-dojo.require("nox.apps.directory.directorymanagerws.HostStore");
-dojo.require("nox.apps.directory.directorymanagerws.HostGroupStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws._PrincipalGroup");
+dojo.require("nox.ext.apps.directory.directorymanagerws.HostStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.HostGroupStore");
 
-dojo.declare("nox.apps.directory.directorymanagerws.HostGroup", [ nox.apps.directory.directorymanagerws._PrincipalGroup ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.HostGroup", [ nox.ext.apps.directory.directorymanagerws._PrincipalGroup ], {
 
     wsv1Path: function () {
         if (this.isNull()) {

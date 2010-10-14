@@ -17,20 +17,20 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.PrincipalListFilter");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.PrincipalListFilter");
 
-dojo.require("nox.apps.coreui.coreui.ListTableHelper"); 
-dojo.require("nox.apps.directory.directorymanagerws.Host");
-dojo.require("nox.apps.directory.directorymanagerws.Switch");
-dojo.require("nox.apps.directory.directorymanagerws.User");
-dojo.require("nox.apps.directory.directorymanagerws.Location");
+dojo.require("nox.ext.apps.coreui.coreui.ListTableHelper"); 
+dojo.require("nox.ext.apps.directory.directorymanagerws.Host");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Switch");
+dojo.require("nox.ext.apps.directory.directorymanagerws.User");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Location");
 
 (function () {
 
-var dmws = nox.apps.directory.directorymanagerws; 
-var coreui = nox.apps.coreui.coreui; 
+var dmws = nox.ext.apps.directory.directorymanagerws; 
+var coreui = nox.ext.apps.coreui.coreui; 
 
-var u = nox.apps.directory.directorymanagerws.PrincipalListFilter;
+var u = nox.ext.apps.directory.directorymanagerws.PrincipalListFilter;
 
 var ctor_map = { "host" : dmws.Host, 
                  "user" : dmws.User, 
@@ -42,7 +42,7 @@ u.init_principal_list_page = function(ptype) {
   u.setup_simple_listpage_edit_hooks(ptype,ctor); 
 
   //to simplify, any filter that can be on any list page page is included.
-  return new nox.apps.coreui.coreui.ListTableHelper({ 
+  return new nox.ext.apps.coreui.coreui.ListTableHelper({ 
       filters : [
           { id : "filter_name", urlParam : "name_glob"} ,
           { id : "filter_directory", urlParam : "directory"} ,

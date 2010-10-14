@@ -17,11 +17,11 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.HostBinding");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.HostBinding");
 
-dojo.require("nox.apps.coreui.coreui._UpdatingItem");
+dojo.require("nox.ext.apps.coreui.coreui._UpdatingItem");
 
-dojo.declare("nox.apps.directory.directorymanagerws.HostBinding", [ nox.apps.coreui.coreui._UpdatingItem ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.HostBinding", [ nox.ext.apps.coreui.coreui._UpdatingItem ], {
 
     identityAttributes: [ "dladdr", "nwaddr", "dpid", "port" ],
     labelAttributes: [ "dladdr", "nwaddr", "dpid", "port" ],

@@ -24,8 +24,8 @@ import re
 from twisted.internet import defer, reactor
 from twisted.python.failure import Failure
 
-from nox.apps.storage import TransactionalConnection
-from nox.apps.storage.storage import Storage, StorageException
+from nox.ext.apps.storage import TransactionalConnection
+from nox.netapps.storage.storage import Storage, StorageException
 
 lg = logging.getLogger('StorageTableUtil')
 

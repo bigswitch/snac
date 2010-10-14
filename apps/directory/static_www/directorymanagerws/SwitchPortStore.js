@@ -17,13 +17,13 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.SwitchPortStore");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.SwitchPortStore");
 
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalStore");
-dojo.require("nox.apps.directory.directorymanagerws.SwitchPort");
+dojo.require("nox.ext.apps.directory.directorymanagerws._PrincipalStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchPort");
 dojo.require("dojo.data.util.simpleFetch");
 
-dojo.declare("nox.apps.directory.directorymanagerws.SwitchPortStore", [ nox.apps.directory.directorymanagerws._PrincipalStore ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.SwitchPortStore", [ nox.ext.apps.directory.directorymanagerws._PrincipalStore ], {
 
     constructor: function (kwarg) {
         // summary: constructor
@@ -45,4 +45,4 @@ dojo.declare("nox.apps.directory.directorymanagerws.SwitchPortStore", [ nox.apps
 
 //Mix in the simple fetch implementation to this class.
 // TBD: Why can't this just be inherited?
-dojo.extend(nox.apps.directory.directorymanagerws.SwitchPortStore,dojo.data.util.simpleFetch);
+dojo.extend(nox.ext.apps.directory.directorymanagerws.SwitchPortStore,dojo.data.util.simpleFetch);

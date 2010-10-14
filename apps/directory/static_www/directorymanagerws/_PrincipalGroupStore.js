@@ -21,14 +21,14 @@
 /* Mixin to provide base retrieval functionality for NOX principal stores */
 
 
-dojo.provide("nox.apps.directory.directorymanagerws._PrincipalGroupStore");
+dojo.provide("nox.ext.apps.directory.directorymanagerws._PrincipalGroupStore");
 
-dojo.require("nox.apps.coreui.coreui._UpdatingStore");
+dojo.require("nox.ext.apps.coreui.coreui._UpdatingStore");
 dojo.require("dojo.data.util.simpleFetch");
 
-dojo.declare("nox.apps.directory.directorymanagerws._PrincipalGroupStore", [ nox.apps.coreui.coreui._UpdatingStore ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws._PrincipalGroupStore", [ nox.ext.apps.coreui.coreui._UpdatingStore ], {
 
-    dmws: nox.apps.directory.directorymanagerws,
+    dmws: nox.ext.apps.directory.directorymanagerws,
 
     _unpackData: function (r) {
         return dojo.map(r, "return { name: item };");
@@ -39,4 +39,4 @@ dojo.declare("nox.apps.directory.directorymanagerws._PrincipalGroupStore", [ nox
 
 //Mix in the simple fetch implementation to this class.
 // TBD: Why can't this just be inherited?
-dojo.extend(nox.apps.directory.directorymanagerws._PrincipalGroupStore,dojo.data.util.simpleFetch);
+dojo.extend(nox.ext.apps.directory.directorymanagerws._PrincipalGroupStore,dojo.data.util.simpleFetch);

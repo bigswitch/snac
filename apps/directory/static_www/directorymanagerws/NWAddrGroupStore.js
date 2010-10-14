@@ -17,16 +17,16 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.NWAddrGroupStore");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.NWAddrGroupStore");
 
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalStore");
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalGroupStore"); 
-dojo.require("nox.apps.directory.directorymanagerws.NWAddrGroup");
+dojo.require("nox.ext.apps.directory.directorymanagerws._PrincipalStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws._PrincipalGroupStore"); 
+dojo.require("nox.ext.apps.directory.directorymanagerws.NWAddrGroup");
 
-dojo.declare("nox.apps.directory.directorymanagerws.NWAddrGroupStore", [ nox.apps.directory.directorymanagerws._PrincipalGroupStore ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.NWAddrGroupStore", [ nox.ext.apps.directory.directorymanagerws._PrincipalGroupStore ], {
 
     constructor: function (kwarg) {
-        this.itemConstructor = nox.apps.directory.directorymanagerws.NWAddrGroup;
+        this.itemConstructor = nox.ext.apps.directory.directorymanagerws.NWAddrGroup;
         if (this.url == null)
             this.url = "/ws.v1/group/nwaddr";
     }

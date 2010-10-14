@@ -14,5 +14,5 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with NOX.  If not, see <http://www.gnu.org/licenses/>.
-from nox.apps.configuration.properties import *
+from nox.ext.apps.configuration.properties import *
 

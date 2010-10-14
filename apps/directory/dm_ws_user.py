@@ -22,11 +22,11 @@ from time import time
 
 from twisted.internet import defer
 from twisted.python.failure import Failure
-from nox.apps.coreui      import webservice
-from nox.apps.coreui.webservice import *
-from nox.apps.directory.query import query
-from nox.apps.directory.directorymanagerws import *
-from nox.apps.directory.directorymanager import mangle_name
+from nox.ext.apps.coreui      import webservice
+from nox.ext.apps.coreui.webservice import *
+from nox.ext.apps.directory.query import query
+from nox.ext.apps.directory.directorymanagerws import *
+from nox.ext.apps.directory.directorymanager import mangle_name
 from nox.lib.directory import Directory, DirectoryException
 
 lg = logging.getLogger('dm_ws_user')

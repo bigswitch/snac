@@ -17,15 +17,15 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.HostInterfaceStore");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.HostInterfaceStore");
 
-dojo.require("nox.apps.coreui.coreui._UpdatingStore");
-dojo.require("nox.apps.directory.directorymanagerws.HostInterface");
+dojo.require("nox.ext.apps.coreui.coreui._UpdatingStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.HostInterface");
 dojo.require("dojo.data.util.simpleFetch");
 
-dojo.declare("nox.apps.directory.directorymanagerws.HostInterfaceStore", [ nox.apps.coreui.coreui._UpdatingStore ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.HostInterfaceStore", [ nox.ext.apps.coreui.coreui._UpdatingStore ], {
 
-    dmws: nox.apps.directory.directorymanagerws,
+    dmws: nox.ext.apps.directory.directorymanagerws,
 
     constructor: function (kwarg) {
         // summary: constructor
@@ -49,5 +49,5 @@ dojo.declare("nox.apps.directory.directorymanagerws.HostInterfaceStore", [ nox.a
 
 //Mix in the simple fetch implementation to this class.
 // TBD: Why can't this just be inherited?
-dojo.extend(nox.apps.directory.directorymanagerws.HostInterfaceStore,
+dojo.extend(nox.ext.apps.directory.directorymanagerws.HostInterfaceStore,
             dojo.data.util.simpleFetch);

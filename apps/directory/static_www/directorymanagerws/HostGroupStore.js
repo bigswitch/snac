@@ -17,12 +17,12 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.HostGroupStore");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.HostGroupStore");
 
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalStore");
-dojo.require("nox.apps.directory.directorymanagerws.HostGroup");
+dojo.require("nox.ext.apps.directory.directorymanagerws._PrincipalStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.HostGroup");
 
-dojo.declare("nox.apps.directory.directorymanagerws.HostGroupStore", [ nox.apps.directory.directorymanagerws._PrincipalGroupStore ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.HostGroupStore", [ nox.ext.apps.directory.directorymanagerws._PrincipalGroupStore ], {
 
     constructor: function (kwarg) {
         this.itemConstructor = this.dmws.HostGroup;

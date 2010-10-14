@@ -20,7 +20,7 @@
                 "pytransactional storage",
                 "configuration"
             ],
-            "python": "nox.apps.configuration.simple_config"
+            "python": "nox.ext.apps.configuration.simple_config"
         },
         {
             "name": "simple_configws",
@@ -28,7 +28,7 @@
                 "webservice",
                 "simple_config"
             ],
-            "python": "nox.apps.configuration.simple_configws"
+            "python": "nox.ext.apps.configuration.simple_configws"
         }
     ]
 }

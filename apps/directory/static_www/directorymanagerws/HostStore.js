@@ -17,12 +17,12 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.HostStore");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.HostStore");
 
-dojo.require("nox.apps.directory.directorymanagerws._PrincipalStore");
-dojo.require("nox.apps.directory.directorymanagerws.Host");
+dojo.require("nox.ext.apps.directory.directorymanagerws._PrincipalStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Host");
 
-dojo.declare("nox.apps.directory.directorymanagerws.HostStore", [ nox.apps.directory.directorymanagerws._PrincipalStore ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.HostStore", [ nox.ext.apps.directory.directorymanagerws._PrincipalStore ], {
 
     constructor: function (kwarg) {
         this.itemConstructor = this.dmws.Host
@@ -33,4 +33,4 @@ dojo.declare("nox.apps.directory.directorymanagerws.HostStore", [ nox.apps.direc
 });
 // Mix in the simple fetch implementation to this class.
 // TBD: Why can't this just be inherited?
-dojo.extend(nox.apps.directory.directorymanagerws.HostStore,dojo.data.util.simpleFetch);
+dojo.extend(nox.ext.apps.directory.directorymanagerws.HostStore,dojo.data.util.simpleFetch);

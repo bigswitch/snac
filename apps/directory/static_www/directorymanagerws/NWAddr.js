@@ -17,11 +17,11 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws.NWAddr");
+dojo.provide("nox.ext.apps.directory.directorymanagerws.NWAddr");
 
-dojo.require("nox.apps.coreui.coreui._UpdatingItem");
+dojo.require("nox.ext.apps.coreui.coreui._UpdatingItem");
 
-dojo.declare("nox.apps.directory.directorymanagerws.NWAddr", [ nox.apps.coreui.coreui._UpdatingItem ], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.NWAddr", [ nox.ext.apps.coreui.coreui._UpdatingItem ], {
 
     identityAttributes: [ "ip_str" ],
     labelAttributes: [ "ip_str" ],
