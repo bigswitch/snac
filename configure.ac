@@ -88,6 +88,7 @@ apps/exttests/pyunittests/Makefile
 apps/ndb/Makefile
 apps/pf/Makefile
 apps/static_registration/Makefile
+apps/switchconfig/Makefile
 apps/userauthportal/Makefile
 apps/sepl/Makefile
 apps/snackui/Makefile

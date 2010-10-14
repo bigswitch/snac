@@ -5,7 +5,7 @@
             "dependencies": [
                 "authui",
                 "directorymanager",
-                "pytransactional storage"
+                "pytransactional_storage"
             ],
             "python": "nox.ext.apps.directory_nox.nox_directory"
         },

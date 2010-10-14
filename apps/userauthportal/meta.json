@@ -10,7 +10,7 @@
                 "pyhttp_redirector",
                 "pyauthenticator",
                 "pyuser_event_log",
-                "pytransactional storage"
+                "pytransactional_storage"
             ],
             "python": "nox.ext.apps.userauthportal.userauthportal"
         }

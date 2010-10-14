@@ -2,7 +2,7 @@
     "components": [
         {
             "name": "sepl_stats",
-            "library": "sepl_stats"
+            "library": "seplstats"
         },
         {
             "name": "pysepl_stats",
@@ -38,7 +38,7 @@
         {
             "name": "policystore",
             "dependencies": [
-                "pytransactional storage"
+                "pytransactional_storage"
             ],
             "python": "nox.ext.apps.sepl.policystore"
         },

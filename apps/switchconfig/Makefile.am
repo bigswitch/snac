@@ -1,4 +1,4 @@
-include ../../../Make.vars 
+include ../../Make.vars 
 
 EXTRA_DIST = \
 	meta.xml \

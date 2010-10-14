@@ -16,7 +16,7 @@
 # along with NOX.  If not, see <http://www.gnu.org/licenses/>.
 
 from nox.lib.core     import Component
-from nox.apps.storage import Storage
+from nox.netapps.storage import Storage
 import time
 import sys
 from twisted.python import log

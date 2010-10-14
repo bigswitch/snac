@@ -4,7 +4,7 @@
             "name": "captiveportal",
             "dependencies": [
                 "authui",
-                "pytransactional storage",
+                "pytransactional_storage",
                 "redirproxy",
                 "coreui",
                 "directorymanager",

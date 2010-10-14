@@ -21,16 +21,16 @@ import simplejson
 
 from nox.lib.core import *
 
-from nox.apps.coreui  import webservice
+from nox.webapps.webservice import webservice
 
 from nox.lib.config   import version
 from nox.lib.directory import Directory, DirectoryException
 from nox.lib.netinet.netinet import datapathid
 
-from nox.apps.switchstats.switchstats    import switchstats
-from nox.apps.switchstats.pycswitchstats import pycswitchstats
-from nox.apps.directory.directorymanager import directorymanager
-from nox.apps.miscws.cpustats            import cpustats
+from nox.netapps.switchstats.switchstats    import switchstats
+from nox.netapps.switchstats.pycswitchstats import pycswitchstats
+from nox.ext.apps.directory.directorymanager import directorymanager
+from nox.webapps.miscws.cpustats            import cpustats
 
 from twisted.internet import defer
 from twisted.python.failure import Failure

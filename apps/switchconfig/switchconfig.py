@@ -22,12 +22,12 @@ import nox.lib.openflow as openflow
 from nox.lib.packet.packet_utils  import mac_to_str
 
 from nox.lib.netinet.netinet import datapathid, c_ntohl, c_htonl
-from nox.netapps.directory.directorymanager import directorymanager
+from nox.ext.apps.directory.directorymanager import directorymanager
 from nox.lib.directory import Directory
-from nox.netapps.configuration.simple_config import simple_config
+from nox.ext.apps.configuration.simple_config import simple_config
 from twisted.python import log
 from nox.netapps.switchstats.switchstats    import switchstats
-from nox.netapps.directory.pydirmanager import Principal_name_event
+from nox.ext.apps.directory.pydirmanager import Principal_name_event
 
 lg = logging.getLogger('switchconfig')
 

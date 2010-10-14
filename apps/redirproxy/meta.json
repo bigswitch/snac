@@ -3,7 +3,7 @@
         {
             "name": "redirproxy",
             "dependencies": [
-                "pytransactional storage"
+                "pytransactional_storage"
             ],
             "python": "nox.ext.apps.redirproxy.redirproxy"
         }
