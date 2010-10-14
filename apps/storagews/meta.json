@@ -1,0 +1,29 @@
+{
+    "components": [
+        {
+            "name": "storage_schema",
+            "dependencies": [
+                "pytransactional_storage"
+            ],
+            "python": "nox.ext.apps.storagews.storage_schema"
+        },
+        {
+            "name": "storagews",
+            "dependencies": [
+                "webservice",
+                "storage_schema",
+                "pystorage"
+            ],
+            "python": "nox.ext.apps.storagews.storagews"
+        },
+        {
+            "name": "transactional_storagews",
+            "dependencies": [
+                "webservice",
+                "storage_schema",
+                "pytransactional_storage"
+            ],
+            "python": "nox.ext.apps.storagews.transactional_storagews"
+        }
+    ]
+}
