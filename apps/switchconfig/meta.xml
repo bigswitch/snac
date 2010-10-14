@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
+
+  <component>
+    <name>switchconfig</name>
+    <dependency> <name>simple_config</name></dependency>
+    <dependency> <name>directorymanager</name></dependency>
+    <dependency> <name>switchstats</name></dependency>
+    <python>nox.netapps.switchconfig.switchconfig</python>
+  </component>
+  
+</components:components>

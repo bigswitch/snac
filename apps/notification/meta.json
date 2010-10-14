@@ -4,7 +4,7 @@
             "name": "notifier",
             "dependencies": [
                 "pyuser_event_log",
-                "pytransactional storage",
+                "pytransactional_storage",
                 "configuration"
             ],
             "python": "nox.ext.apps.notification.notifier"

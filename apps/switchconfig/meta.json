@@ -1,0 +1,13 @@
+{
+    "components": [
+        {
+            "name": "switchconfig",
+            "dependencies": [
+                "simple_config",
+                "directorymanager",
+                "switchstats"
+            ],
+            "python": "nox.ext.apps.switchconfig.switchconfig"
+        }
+    ]
+}
