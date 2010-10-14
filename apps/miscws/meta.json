@@ -18,6 +18,17 @@
             "python": "nox.ext.apps.miscws.hosttrackerws"
         },
         {
+            "name": "noxinfows",
+            "dependencies": [
+                "cpustats",
+                "coreui",
+                "webservice",
+                "configuration",
+                "pycswitchstats"
+            ],
+            "python": "nox.ext.apps.miscws.noxinfows"
+        },
+        {
             "name": "policyws",
             "dependencies": [
                 "webservice",
