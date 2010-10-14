@@ -12,7 +12,7 @@ dojo.require("dijit.form.FilteringSelect");
 dojo.require("dijit.Dialog");
 dojo.require("dijit.form.ComboBox");
 dojo.require("dijit.form.ValidationTextBox");
-dojo.require("nox.netapps.user_event_log.networkevents.NetEvents");
+dojo.require("nox.ext.apps.user_event_log.networkevents.NetEvents");
 dojo.require("dojo.data.ItemFileReadStore");
 dojo.require("nox.ext.apps.coreui.coreui.EditableGridUtil"); 
 dojo.require("nox.ext.apps.directory.directorymanagerws.Directories"); 
@@ -555,7 +555,7 @@ function build_page() {
         recur: true
     });
     
-    netevent_log = new nox.netapps.user_event_log.networkevents.NetEventsTable( 
+    netevent_log = new nox.ext.apps.user_event_log.networkevents.NetEventsTable( 
                    dojo.byId("netevents-table"), 10, 
                    "host=" + encodeURIComponent(host.getValue("name")));
 }

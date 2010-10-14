@@ -9,7 +9,7 @@ dojo.require("nox.ext.apps.coreui.coreui.UpdateMgr");
 dojo.require("nox.ext.apps.coreui.coreui.UpdateErrorHandler");
 dojo.require("nox.ext.apps.coreui.coreui.ItemInspector");
 dojo.require("nox.ext.apps.coreui.coreui.base");
-dojo.require("nox.netapps.user_event_log.networkevents.NetEvents");
+dojo.require("nox.ext.apps.user_event_log.networkevents.NetEvents");
 dojo.require("nox.ext.apps.snackui.snackmonitors.NetworkOverviewData");
 dojo.require("dijit.form.TextBox"); 
 dojo.require("nox.ext.apps.coreui.coreui.simple_config");
@@ -130,7 +130,7 @@ function init_page() {
     // hide all but currently selected
     chart_select_changed();
   
-    netevent_log = new nox.netapps.user_event_log.networkevents.NetEventsTable(dojo.byId("netevents-table"), 30, "max_level=2");
+    netevent_log = new nox.ext.apps.user_event_log.networkevents.NetEventsTable(dojo.byId("netevents-table"), 30, "max_level=2");
 
 }
 

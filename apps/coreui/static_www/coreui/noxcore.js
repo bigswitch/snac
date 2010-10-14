@@ -37,6 +37,6 @@ dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchStore");
 dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchGroupStore");
 dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchPortStore");
 dojo.require("nox.ext.apps.directory.directorymanagerws.NWAddrStore");
-dojo.require("nox.netapps.user_event_log.networkevents.NetEventsFormatter");
-dojo.require("nox.netapps.user_event_log.networkevents.NetEvents");
+dojo.require("nox.ext.apps.user_event_log.networkevents.NetEventsFormatter");
+dojo.require("nox.ext.apps.user_event_log.networkevents.NetEvents");
 dojo.require("nox.ext.apps.directory.directorymanagerws.Directories");

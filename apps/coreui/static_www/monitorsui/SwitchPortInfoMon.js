@@ -24,12 +24,12 @@ dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchStore");
 dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchPortStore");
 dojo.require("nox.ext.apps.coreui.coreui.ItemList");
 dojo.require("nox.ext.apps.coreui.coreui.ItemInspector");
-dojo.require("nox.netapps.user_event_log.networkevents.NetEvents");
+dojo.require("nox.ext.apps.user_event_log.networkevents.NetEvents");
 dojo.require("nox.ext.apps.directory.directorymanagerws.Location");
 dojo.require("dijit.form.FilteringSelect");
 dojo.require("nox.ext.apps.coreui.monitorsui.SwitchPortNatConfig"); 
 
-var netevents = nox.netapps.user_event_log.networkevents;
+var netevents = nox.ext.apps.user_event_log.networkevents;
 var dmws = nox.ext.apps.directory.directorymanagerws;
 var coreui = nox.ext.apps.coreui.coreui;
 var monitorsui = nox.ext.apps.coreui.monitorsui;
