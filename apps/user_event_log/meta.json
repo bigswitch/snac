@@ -1,0 +1,11 @@
+{
+    "components": [
+        {
+            "name": "UI_user_event_log",
+            "dependencies": [
+                "pystorage"
+            ],
+            "python": "nox.ext.apps.user_event_log.UI_user_event_log"
+        }
+    ]
+}

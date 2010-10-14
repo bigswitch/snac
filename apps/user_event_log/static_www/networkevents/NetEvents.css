@@ -1,0 +1,102 @@
+/*
+ Copyright 2008 (C) Nicira,
+
+ This file is part of NOX.
+
+ NOX is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ NOX is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with NOX.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+.dj_ie table#netevents-header-table {
+	position:relative;
+	top:15px;
+
+}
+
+#netevents-header-table {
+	background: #F1F4F5 url("/static/nox/ext/apps/coreui/coreui/images/statusHeaderBg.png") repeat-x top left;
+	width: 99%;
+	/*-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;	*/
+}
+
+#netevents-table tr:nth-child(odd) {
+	background:#e8ebec;
+}
+
+table.log {
+    width: 100%;
+	border-spacing: 0;
+ /*   border-collapse: collapse; */
+}
+
+.dj_ie table.log {
+	border-collapse: expression('separate', cellSpacing = '0'); /* Fixes IE's lack of support for the border-spacing rule */
+}
+
+table.log th {
+	height: 26px;
+	line-height: 26px;
+	padding-left: 8px;
+	border-top: 1px solid #D4D4D4;
+	border-right: 1px solid #CBCBCB;
+	border-bottom: 1px solid #CAD2D6;
+	border-left: 1px solid #FDFFFF;
+}
+
+table.log tr {
+    vertical-align: top;
+}
+
+table.log td.priority, table.log th.priority {
+    width: 6em;
+    /* width: 8%; */
+}
+
+table.log th.priority {
+    border-left-color: #CAD2D6;
+}
+
+table.log td.timestamp, table.log th.timestamp {
+    width: 20em;
+    /* width: 37%; */
+}
+
+table.log td.message {
+	border-right: none !important;
+    /* width: 55%; */
+}
+
+table.log td {
+	padding:0.25em 0.25em 0.25em 20px;
+}
+
+table.log td.priority {
+    text-align: left;
+}
+
+table.log td.msg-level-1 {
+    color: #df2c27;
+}
+
+table.log td.msg-level-2 {   
+	color:#ed7b00 !important;
+}
+
+table.log td.msg-level-4 {
+    color: #111 !important;
+}
+
+.dj_ie6 tr#netevents-header-table {
+	behavior: url("/static/nox/ext/apps/coreui/coreui/png/iepngfix.htc");
+}
