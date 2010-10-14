@@ -2,13 +2,13 @@
 
 dojo.provide("nox.ext.apps.snackui.settingsui.DHCPSubnetStore");
 
-dojo.require("nox.webapps.coreui.coreui._UpdatingStore");
+dojo.require("nox.ext.apps.coreui.coreui._UpdatingStore");
 dojo.require("nox.ext.apps.snackui.settingsui.DHCPSubnet");
 
 /* A special storage to access DHCP subnet configuration information
  * stored into the Properties table. */
 dojo.declare("nox.ext.apps.snackui.settingsui.DHCPSubnetStore", 
-             [ nox.webapps.coreui.coreui._UpdatingStore ], {
+             [ nox.ext.apps.coreui.coreui._UpdatingStore ], {
 
     constructor: function (kwarg) {
         this.itemConstructor = 

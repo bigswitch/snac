@@ -1,0 +1,1232 @@
+/*
+ Copyright 2008 (C) Nicira, Inc.
+ 
+ This file is part of NOX.
+ 
+ NOX is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ NOX is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with NOX.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*                           <----- Updated with resets below --->
+html, body, #fullPageDiv {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    color: #000000;
+    background-color: #ffffff;
+}
+*/
+
+@import url("nox.css");
+
+/* ---------- anchors ----------*/
+a {
+	text-decoration: none;
+	cursor: pointer;
+}
+a:visited {
+    color: #27378a;
+	  text-decoration: none;
+}
+a:hover {
+    color: #3DA8F8;
+}
+
+/* ---------- reset ----------*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, #fullPageDiv {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	list-style: none;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+html, body, #fullPageDiv {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: "Trebuchet MS", Verdana, Helvetica, sans-serif;
+	color: #464646;
+	font-size:12px;
+}
+
+/* To hide ugly page restructuring...  Body will be made visible in onLoad */
+body {
+    visibility: hidden;
+}
+
+/* ---------- #page_content ----------*/
+
+
+
+/* ---------- header ----------*/
+#headerDiv {
+    background: #454a4e url("/static/nox.ext.apps.coreui/coreui/images/headerBg.gif") repeat-x bottom left;
+	width: 100%;
+	height: 82px;
+	border-top: 1px solid #666;
+	overflow: hidden;
+}
+
+#pagetoolbar a {
+    text-decoration: none;
+	float: left;
+	margin-right: -8px;
+	color: #CCC;
+}
+
+#headerDiv #logoDiv {
+	height: 50px;
+	float: right;	
+	background: url("/static/nox.ext.apps.coreui/coreui/images/logo.png") no-repeat 100% 50%;
+	margin: 2px 10px 0 0;
+	padding-right: 65px;
+}
+
+#headerDiv #logoDiv span {
+	font-size:16px;
+	color:#c8c8c8;
+	position:relative;
+	top:20px;
+	margin-right:12px;
+}
+
+/* ---------- main toolbar ----------*/
+#headerDiv #pagetoolbar {
+	background: none;
+	border: none;
+	padding: 6px 0 0 20px;
+}
+
+.nox .dijitToolbar .dijitButtonChecked,
+.nox .dijitToolbar .dijitToggleButtonChecked,
+.nox .dijitToolbar .dijitToggleButtonHover,
+.nox .dijitToolbar .dijitButtonHover {
+	background-color: transparent;
+	border: 1px solid transparent !important;
+	color: #CCC;
+}
+
+.nox .dijitToolbar .dijitToggleButtonHover .dijitButtonText,
+.nox .dijitToolbar .dijitButtonHover .dijitButtonText {
+	color: #CCC;
+}
+
+.nox .dijitToolbar .dijitButtonChecked,
+.nox .dijitToolbar .dijitToggleButtonChecked,
+.nox .dijitToolbar .dijitToggleButtonCheckedHover .dijitButtonText {
+	color: #FFF;
+}
+
+.nox #headerDiv #pagetoolbar .dijitButtonNode {
+	width: 66px;
+	background: url("/static/nox.ext.apps.coreui/coreui/images/toolbarButtonsBg.png") no-repeat 6px 0;
+	text-align:center;
+	display: block;
+}
+
+.nox #headerDiv #pagetoolbar .dijitToggleButtonHover .dijitButtonNode {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/toolbarButtonsBg.png") no-repeat -64px 0;
+}
+
+.nox #headerDiv #pagetoolbar a .dijitButtonChecked,
+.nox #headerDiv #pagetoolbar a .dijitToggleButtonChecked {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/toolbarButtonActiveBg.png") no-repeat;
+	border: 1px solid transparent !important;
+}
+
+.nox #headerDiv #pagetoolbar .dijitButtonChecked .dijitButtonNode,
+.nox #headerDiv #pagetoolbar .dijitToggleButtonChecked .dijitButtonNode {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/toolbarButtonsBg.png") no-repeat -133px 0px;
+}
+
+.nox #headerDiv #pagetoolbar .dijitButtonNode .dijitButtonText {
+	margin-top: 20px;
+	padding: 0;
+}
+
+.nox #headerDiv .appMeta a .dijitButtonNode {
+	background: none;
+	border: transparent;
+	color: #999;
+	margin:0 0 0 3px;
+	padding:0;
+}
+
+.nox #headerDiv .appMeta {
+	position: absolute;
+	top: 54px;
+	right: 0px;
+  background-color: transparent; 
+  /*background: url("/static/nox.ext.apps.coreui/coreui/images/headerAppMetaBg.gif") no-repeat bottom left;
+	*/ 
+  color: #999;
+	padding:2px 0 0 10px;
+	font-size: 11px;
+}
+
+.dj_safari .nox #headerDiv .appMeta {
+	top: 58px;
+}
+
+.nox #headerDiv .appMeta .dijitButton {
+	margin: 0;
+	overflow: hidden;
+}
+
+#headerDiv .appMeta a {
+	margin-left: 6px;
+	text-decoration:none !important;
+}
+
+.dj_safari #headerDiv .appMeta a {
+	padding:0;
+	position:relative;
+	top:-4px;
+}
+
+.dj_ie #headerDiv .appMeta a {
+	padding:0;
+	top: 2px;
+	position: relative;
+}
+
+.nox #headerDiv .appMeta a:link {
+	text-decoration:none !important;
+}
+
+.nox #headerDiv .appMeta a .dijitButtonNode {
+	vertical-align:middle;
+	margin-top:0 !important;
+}
+
+.nox #headerDiv #logoutButton .dijitButtonText {
+	margin-top: -5px !important;
+	margin-right: 2em;
+	padding: 0;
+	color: #999;
+	font-size:11px !important;
+}
+
+.nox #headerDiv .appMeta a .dijitButtonNode:hover {
+	color: #CCC;
+}
+
+.logoutButtonIcon {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/logout.png") no-repeat top left;
+	width: 11px;
+	height: 11px;
+	position: absolute;
+	top: 4px;
+	right: 8px;
+}
+
+.dj_safari .logoutButtonIcon {
+	top:6px;
+}
+
+.monitorsButtonIcon,
+.policyButtonIcon,
+.reportsButtonIcon,
+.settingsButtonIcon,
+.helpButtonIcon,
+.fixmeButtonIcon {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/toolbarIcons.png") no-repeat top left;
+	width: 24px;
+	height: 28px;
+	position: relative;
+	top: 12px;
+	left: 14px;
+	background-position: 0 0;
+	display: block;
+}
+
+.monitorsButtonIcon {
+	background-position: 0px 0;
+	top: 9px;
+	left:9px;
+}
+
+.policyButtonIcon {
+	left: 3px;
+	top: 11px;
+	background-position: -25px 0px;
+}
+
+.reportsButtonIcon {
+	left: 17px;
+	background-position: -48px 0;
+}
+
+.settingsButtonIcon {
+	left: 8px;
+	background-position: -72px 0;
+}
+
+.helpButtonIcon {
+	left: -1px;
+	top: 11px;
+	background-position: -96px 0;
+}
+
+.dj_safari .monitorsButtonIcon {
+	left: 8px;
+	top: 8px;
+}
+.dj_safari .policyButtonIcon {
+	left: 1px;
+	top:9px;
+}
+.dj_safari .settingsButtonIcon {
+	left: 7px;
+	top: 9px;
+}
+.dj_safari .helpButtonIcon {
+	left: -2px;
+	top: 9px;
+}
+
+.dj_ff2 .monitorsButtonIcon {
+	left: 13px;
+	top: 10px;
+}
+.dj_ff2 .policyButtonIcon {
+	left: 6px;
+}
+.dj_ff2 .settingsButtonIcon {
+	left: 11px;
+	top: 11px;
+}
+.dj_ff2 .helpButtonIcon {
+	left: 1px;
+}
+
+.nox .dijitToolbar .dijitToggleButtonChecked .monitorsButtonIcon {
+	left: 11px;
+}
+
+.nox .dijitToolbar .dijitToggleButtonChecked .policyButtonIcon {
+	left: 4px;
+	top: 9px;
+}
+
+.nox .dijitToolbar .dijitToggleButtonChecked .settingsButtonIcon {
+	left: 8px;
+	top: 9px;
+}
+
+.nox .dijitToolbar .dijitToggleButtonChecked .helpButtonIcon {
+	left: 0px;
+	top: 8px;
+}
+
+.dj_safari .nox .dijitToolbar .dijitToggleButtonChecked .monitorsButtonIcon {
+	left: 9px;
+}
+
+.dj_safari .nox .dijitToolbar .dijitToggleButtonChecked .policyButtonIcon {
+	left: 2px;
+	top: 7px;
+}
+
+.dj_safari .nox .dijitToolbar .dijitToggleButtonChecked .settingsButtonIcon {
+	top: 7px;
+}
+
+.dj_safari .nox .dijitToolbar .dijitToggleButtonChecked .helpButtonIcon {
+	left: -1px;
+	top: 7px;
+}
+
+.dj_ff2 .nox .dijitToolbar .dijitToggleButtonChecked .monitorsButtonIcon {
+	left: 15px;
+	top: 9px;
+}
+
+.dj_ff2 .nox .dijitToolbar .dijitToggleButtonChecked .policyButtonIcon {
+	left: 7px;
+	top: 10px;
+}
+
+.dj_ff2 .nox .dijitToolbar .dijitToggleButtonChecked .settingsButtonIcon {
+	left: 12px;
+	top: 9px;
+}
+
+.dj_ff2 .nox .dijitToolbar .dijitToggleButtonChecked .helpButtonIcon {
+	left: 3px;
+	top: 9px;
+}
+
+.fixmeButtonIcon {
+    left: 17px;
+    background-position: -120px 0;
+}
+
+/* ---------- Sidebar ----------*/
+
+#lsidebar {
+    width: 18em;
+    border-top: 1px solid #FFF;
+    border-right: 1px solid #CCD0D5;
+	background: #E4E8EA;
+	text-shadow:0 1px 0 #FEFEFE;
+    float:left;
+}
+
+#lsidebar .dijitSplitterH {
+	border-top:1px solid #dce0e3;
+	background:#FFFFFF url("/static/nox.ext.apps.coreui/coreui/images/footerBarBg.gif") repeat-x 50% 50%;
+}
+
+ul.lsidebar {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+ul.lsidebar li {
+	clear: left;
+    margin: 0;
+    border-bottom: 1px solid #FFF;
+    padding: 9px 0;
+    list-style: none;
+	background: url("/static/nox.ext.apps.coreui/coreui/images/moduleMenuBg.png") repeat-x bottom left;
+}
+
+ul.lsidebar li a {
+    margin: 0;
+    border: 0;
+    padding: 0 0 0 28px;
+	color: #333;
+    text-decoration: none;
+}
+
+ul.lsidebar li.active {
+	float: left;
+	width: 100%;
+	background: url("/static/nox.ext.apps.coreui/coreui/images/moduleMenuActiveBg.png") repeat-x bottom left #f2f6f7;
+}
+
+ul.lsidebar li.active a {
+	float: left;
+	width: 83%;
+	background: url("/static/nox.ext.apps.coreui/coreui/images/activePointer.png") no-repeat center right;
+}
+
+ul.lsidebar li a:hover {
+	color: #006EC1
+}
+
+
+#lsidebar #searchBox {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/titleBarBg.gif") repeat-x bottom left #f2f5f6;
+	line-height: 36px;
+	padding-left: 17px;
+	font-size: 1.3em;
+	height:36px;
+}
+
+#searchBox .searchInput {
+	background:#fff;
+	border:1px solid #bdbdbd;
+	height:22px;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	position:relative;
+	top:6px;
+	margin-right:5px;
+}
+
+#searchBox.noxSearch .searchInput input {
+	border:0;
+	margin:0;
+	position:absolute;
+	left:23px;
+	top:5px;
+	width:140px;
+	height:15px;
+}
+
+.dj_ie #searchBox.noxSearch .searchInput input {
+	top: 2px;
+}
+
+#searchBox.noxSearch.empty .searchInput input {
+	color: #A2A2A2;
+	font-style: italic;
+}
+
+#searchBox .searchInput .searchIcon {
+	position:absolute;
+	left:2px;
+	top:5px;
+}
+
+#searchBox.empty .searchInput .searchClear {
+	display:none;
+}
+
+#searchBox .searchInput .searchClear {
+	position:absolute;
+	right:5px;
+	top:5px;
+}
+
+.dj_ie #searchBox .searchInput .searchIcon, .dj_ie #searchBox .searchInput .searchClear {
+	top:3px;
+}
+
+/* ---------- global footer ----------*/
+#footerBar {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/footerBarBg.gif") repeat-x bottom left #fff;
+	border-top:1px solid #c2c6cc;
+	height:28px;
+	color:#70777d;
+	left:18em;
+}
+#footerBar #footerContent {
+	border-left:1px solid #fff;
+	height:25px;
+	padding-left:15px;
+}
+
+#footerBar #footerContent .networkName {
+	padding-right:10px;
+	border-right:1px solid #cecfd1;
+}
+
+#footerBar #footerContent .activeAdmins {
+	padding-left:10px;
+}
+
+#footerBar #footerContent .noxVersion {
+	color:#c8cacb;
+	padding-right:15px;
+}
+
+#footerBar .footerLayoutContainer {
+	width:100%;
+	position:relative;
+	top:3px;
+}
+
+
+/* ---------- network indicator ----------*/
+/*
+	Open/Close are appended to #networkStatusContainer
+	
+	.open - The message list is open
+	.closed - The message list is closed
+	
+	Status classes are appended to the #networkStatusType node.
+	
+	.networkStatusNormal - Default
+	.networkStatusMinor - There is a minor network issue
+	.networkStatusMajor - There is a major network issue
+	
+*/
+
+#networkStatusContainer {
+	border-top:1px solid #c2c6cc;
+	color:#70777d;
+}
+
+#networkStatusType {
+	z-index: 400;
+}
+
+#networkStatusContainer .dojoxGridMasterHeader {
+	border-top: none;
+}
+
+#networkStatusContainer .dojoxGridHeader {
+	display: none;
+}
+
+#networkStatusContainer .dojoxGridScrollbox {
+	overflow: auto !important;
+}
+
+.dj_ie #networkStatusContainer .dojoxGridRow td {
+	height: auto;
+}
+
+#networkStatusContainer .message span {
+	font-size:11px;
+}
+
+#networkStatusContainer .message.alert span {
+	color: inherit;
+}
+
+#networkStatusContainer .message span.dateTime {
+	float: left;
+	margin-top: 5px;
+	color:#656565 !important;
+	font-size:9px;
+}
+
+.networkStatusTitleBar tbody {
+	padding:0;
+	margin:0;
+}
+
+.networkStatusTitleBar td {
+	height:28px;
+	vertical-align:middle;
+}
+
+.networkStatusTitleBar .collapseToggleContainer {
+	border-right:1px solid #d1d5d7;
+	width:25px;
+}
+
+.networkStatusTitleBar .statusContainer {
+	padding-left:10px;
+	border-left:1px solid #fff;
+}
+
+.networkStatusTitleBar .statusContainer .networkStatusTitle {
+	color:#3a9906;
+}
+
+/* Toggle Arrows */
+#networkStatusContainer .networkStatusTitleBar .collapseToggle {
+	width:8px;
+	height:9px;
+	background-image: url("/static/nox.ext.apps.coreui/coreui/images/networkStatusSprites.png");
+	background-repeat:no-repeat;
+	background-position:top left;
+	overflow: hidden;
+}
+
+/* ---------- normal status ---------------*/
+
+#networkStatusContainer .networkStatusNormal {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/footerBarBg.gif") repeat-x bottom left #fff;
+	height:28px;
+}
+
+
+/* normal status: open */
+
+#networkStatusContainer.open .networkStatusNormal .networkStatusTitleBar .collapseToggle {
+	background-position:bottom left;
+}
+
+/* normal status: closed */
+
+#networkStatusContainer.closed .networkStatusNormal .networkStatusTitleBar .collapseToggle {
+	background-position:top left;
+}
+
+#networkStatusContainer.closed .messageContainer {
+	display:none;
+}
+
+.nihilo.nox #networkStatusContainer .dojoxGridCellOver .message.normal {
+	color: inherit;
+}
+
+/* ---------- minor status ---------------*/
+#networkStatusContainer .networkStatusMinor {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/networkStatusMinorBg.gif") repeat-x bottom left #f2e772;
+}
+
+#networkStatusContainer .networkStatusMinor .statusContainer {
+	color:#5f5f5f;
+}
+
+#networkStatusContainer .networkStatusMinor .collapseToggleContainer {
+	border-right:1px solid #f9c13e;
+}
+
+#networkStatusContainer .networkStatusMinor .statusContainer {
+	border-left:1px solid #f2da50;
+}
+
+#networkStatusContainer .networkStatusMinor .statusContainer .networkStatusTitle {
+	color:#7d5c07;
+}
+
+/* minor status: open */
+#networkStatusContainer.open .networkStatusMinor .collapseToggle {
+	background-position:-10px -9px;
+}
+
+/* minor issue: closed */
+#networkStatusContainer.closed .networkStatusMinor .collapseToggle {
+	background-position:-10px 0px;
+}
+
+.nihilo.nox #networkStatusContainer .dojoxGridCellOver .message.minor {
+	color: #DF7417;
+}
+
+.networkStatusMinor .networkStatusTitleBar .statusContainer {
+	text-shadow:0 1px 0 #777;
+}
+
+/* ---------- major issue ---------------*/
+#networkStatusContainer .networkStatusMajor {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/networkStatusMajorBg.gif") repeat-x bottom left #fd6555;
+}
+
+#networkStatusContainer .networkStatusMajor .statusContainer {
+	color:#fff;
+}
+
+#networkStatusContainer .networkStatusMajor .collapseToggleContainer {
+	border-right:1px solid #d50400;
+}
+
+#networkStatusContainer .networkStatusMajor .statusContainer {
+	border-left:1px solid #fa8175;
+}
+
+#networkStatusContainer .networkStatusMajor .statusContainer .networkStatusTitle {
+	color:#fff;
+}
+
+/* major status: open */
+#networkStatusContainer.open .networkStatusMajor .collapseToggle {
+	background-position:-20px -9px;
+}
+
+/* major issue: closed */
+#networkStatusContainer.closed .networkStatusMajor .collapseToggle {
+	background-position:-20px 0px;
+}
+
+#networkStatusContainer #statusMessageToggle {
+	font-size:10px;
+	padding:0.5em;
+	border-top:1px solid #fff;
+	background:#e7ebec;
+}
+
+.nihilo.nox #networkStatusContainer .dojoxGridCellOver .message.major {
+	color: #e2231a;
+}
+
+.networkStatusMajor .networkStatusTitleBar .statusContainer {
+	text-shadow:0 1px 0 #777;
+}
+
+/* ---------- network status message tooltip ----------*/
+.nihilo.nox .networkStatusGridTooltip .dijitTooltipContainer {
+	padding: 13px;
+}
+
+
+/* ---------- module interface ----------*/
+#page_content {
+    border-top: 1px solid #FFF;
+    border-left: 1px solid #FFF;
+	background: #EFF2F3;
+	overflow: hidden;
+}
+
+#page_content h2 {
+	margin:1.5em 0 0.75em 0;
+	font-size:15px;
+}
+
+#module_header .dijitDropDownButton {
+	margin:1em 0.5em 1em 1.4em;
+}
+
+#module-titlebar {
+	float: left;
+	width: 100%;
+
+	padding-top: 1px;
+	background: url("/static/nox.ext.apps.coreui/coreui/images/titleBarBg.gif") repeat-x bottom left #f2f5f6;
+}
+
+
+#module_header .buttonContainer {
+	clear:left;
+	padding:0.5em 1.2em;
+}
+
+.dj_ie6 #module_header {
+	height:80px;
+	overflow:hidden !important;
+}
+
+
+#module_header .buttonContainer .buttonDivider {
+	width:1px;
+	display:inline-block;
+	border-right:1px solid #fff;
+	height:20px;
+	background:#D4D8D8;
+	vertical-align:middle;
+}
+
+.dj_ie #module_header .buttonContainer .buttonDivider {
+	margin-right:3px;
+	width:2px;
+}
+
+/*#module_content table {
+	border-collapse: collapse;
+	margin: 0 0 0 0;
+	width: 99%;
+}
+
+table.item-table thead td,
+#module_content table th,
+#module_content table .headerRow td {
+    text-align: left;
+	text-indent: 0px;
+	padding-left:8px;
+	height: 26px !important; 
+	border: none;
+	vertical-align: middle;
+	font-weight: normal;
+	font-size: 1.1em;
+	color: #707070;
+	line-height: 22px;
+	margin: 3px 0 0 15px;
+	border-right: 1px solid #E7EAEB;
+}
+
+#module_content .headerRow {
+	width: 98%;
+	height: 26px;
+	margin-bottom: 12px;
+	background: #FFF url("/static/nox.ext.apps.coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
+	border: 1px solid #DADDDE !important;
+	/*-moz-border-radius:8px;*/
+/*}*/
+
+table .itemRows tr {
+    vertical-align: top;
+	height: 32px;
+	margin: 6px 0;
+}
+
+table .itemRows tr td {
+	padding:0.45em 10px;
+	border-bottom:3px solid #EFF2F3;
+}
+
+/* Our fake grid rows in tables */
+tr.rowclass0,tr.rowclass1 {
+    border: none;
+}
+tr.rowclass0 {
+    background-color: transparent !important;
+}
+
+tr.rowclass1 {
+    background-color: #E0E6E7 !important;
+}
+
+tr.rowclass0 td,tr.rowclass1 td {
+	height: 28px !important;
+	text-align: left !important;
+	padding-left: 8px;
+	vertical-align: middle;
+}
+
+/*#module_content table tr td {
+	vertical-align: middle;
+}
+
+#module_content table tr td.current_state {
+	padding-left:15px;
+}*/
+
+.statusHeaderContainer,
+.componentHeaderContainer {
+	height: 26px;
+	width: 100%;
+	background: #FFF url("/static/nox.ext.apps.coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
+	border: 1px solid #DADDDE;
+	/*-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;	
+	-webkit-box-shadow: 0px 1px 3px #DADDDE;
+	-moz-box-shadow: 0px 1px 3px #DADDDE;	*/
+}
+
+/* For titles/buttons that live between the module title and module content */
+.sectionSubHeading {
+	padding:1.3em;
+	clear:left;
+}
+
+
+/* Rules for NOX Status/Components page */
+.dj_ie6 .statusHeaderContainer {
+	background:white;
+	width:94%;
+}
+
+.componentHeaderContainerWrap {
+	overflow: hidden;
+}
+
+.componentHeaderContainer {
+	margin: 0;
+	height: 26px;
+	overflow: hidden;
+	width: 99% !important;
+}
+
+.statusHeaderContainer h3,
+.componentHeaderContainer h3 {
+	height: 24px;
+	font-weight: normal;
+	font-size: 1.1em;
+	color: #707070;
+	line-height: 24px;
+	padding: 0 0 0 15px;
+	border-right: 1px solid #E7EAEB;
+}
+
+
+.headerLeft {
+	margin-left: 0px;
+}
+
+.statusHeaderContainer .headerMid {
+	width: 40%;
+}
+
+.toggleHeaderContainer #uptime_field {
+	margin-left: 23px;
+	width: 38%;
+}
+
+
+.headerRight h3 {
+	border-right: none;	
+}
+
+.toggleHeaderContainer {
+	clear:left;
+	width: 100%;
+	margin: 0;
+	padding:0;
+}
+
+.toggleHeaderContainer div {
+	padding-top:5px;
+}
+
+.dj_ie6 #monitor_header {
+	overflow:hidden;
+}
+
+.statusHeaderContainer div,
+.toggleHeaderContainer div,
+.componentHeaderContainer div {
+	float: left;
+	width: 29%;
+	padding-bottom:0.5em;
+}
+
+.componentHeaderContainer .name {
+	width: 39.9%;
+}
+
+.componentHeaderContainer .version,
+.componentHeaderContainer .required_state {
+	width: 14.3%;
+}
+
+.toggleHeaderContainer div {
+	font-weight: normal;
+	font-size: 1.1em;
+}
+
+.toggleHeaderContainer #overall_status_field {
+	margin-left: 27px;
+	width: 27%;
+}
+
+
+.toggleHeaderContainer #version_field {
+	width: 10%;
+	margin-left: 23px;
+}
+
+#component-data {
+	margin-top: 15px;
+	height: 92%;
+	overflow: auto;
+}
+
+
+/* FIXME: Add classes to each odd row during markup creation as this only works in Safari and Firefox 3.1 */
+#component-data tr:nth-child(odd) {
+	background:#e8ebec;
+}
+
+
+/* FIXME: Table should be updated to add a class to first and last columns and these styles applied to them */
+#component-data td.current_state {
+	-webkit-border-top-left-radius:8px;
+	-webkit-border-bottom-left-radius:8px;
+	-moz-border-radius-bottomleft:8px;
+	-moz-border-radius-topleft:8px;
+}
+
+#component-data td.required_state {
+	-webkit-border-top-right-radius:8px;
+	-webkit-border-bottom-right-radius:8px;
+	-moz-border-radius-bottomright:8px;
+	-moz-border-radius-topright:8px;
+}
+
+/* ---------- status ----------*/
+span.errormsg {
+    color: #E43D37;
+    font-weight: bold;
+}
+
+span.successmsg {
+    color: #3A9906;
+    font-weight: normal;
+}
+
+table span.errormsg,
+table span.successmsg {
+	margin-left: 0px;
+    padding: 9px 0 9px 35px;
+}
+
+table span.successmsg {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/dotGreen.png") no-repeat center left;
+}
+
+table span.errormsg {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/dotRed.png") no-repeat center left;
+}
+
+#module-titlebar h1 {
+	float: left;
+	line-height: 35px;
+	padding-left: 17px;
+	font-size: 1.3em;
+	font-weight: bold;
+	text-shadow:0 1px 0 #FEFEFE;
+}
+#module_header table {
+	clear: both;
+	width: 100%;
+    border-top: 1px solid #FFF;
+}
+
+#module_content {
+	padding:1.3em 1.3em 1em 1.3em !important;
+}
+
+.dj_safari #module_content {
+	padding-bottom:1.3em;
+}
+
+.dj_ie #module_content {
+	padding-top:0;
+}
+
+
+/* iteminfo tables are for listing details about multiple items */
+
+#component-header-table .current_state {
+	margin-left: 14px;
+}
+
+#component-header-table th.required_state {
+	border-right: none;	
+}
+
+#components-table td {
+	padding-left:25px;
+}
+
+table.iteminfo {
+    width: 99%;     /* 100% sometimes causes dojo layout issues? */
+    border-collapse: separate;
+    border-spacing: 0.5em 0em;
+}
+
+table.iteminfo tr {
+    vertical-align: top;
+}
+
+table.iteminfo th {
+    border: none;
+    text-align: center;
+    font-weight: normal;
+}
+
+/* labeledinfo tables are for lists of simple information */
+
+table.labeledinfo tr {
+    vertical-align: top;
+}
+table.labeledinfo td.label {
+    font-weight: bold;
+    text-align: right;
+}
+
+span.smallertext {
+    font-size: 60%;
+}
+
+
+/* ---------- Login form --------*/
+#loginPageDiv {
+	padding:3em;
+	text-align:center;
+	background:#eff2f3;
+}
+
+#loginPageDiv h1 {
+	font-size:16px;
+	margin:0 0 0.7em 0;
+}
+
+#loginPageDiv form {
+	text-align:center;
+	width:300px;
+	margin:1em auto 0 auto;	
+	background:#f4f7f8;
+	padding:2em;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border:2px solid #aaaeb3;
+	-webkit-box-shadow: 0px 1px 3px #DADDDE;
+}
+
+/* ---------- IE Fixes ----------*/
+
+ul.lsidebar li {
+	zoom: 1;
+}
+
+.dj_ie6 .nox #headerDiv #pagetoolbar a .dijitToggleButtonChecked {
+	border:0 !important;
+}
+
+.dj_ie6 .nox #headerDiv #pagetoolbar a .dijitToggleButtonHover {
+	margin: 2px !important;
+	padding: 0px 2px !important;
+}
+
+.dj_ie6 .nox #headerDiv #pagetoolbar a .dijitToggleButtonCheckedHover {
+	margin:1px !important;
+}
+
+.dj_ie .nox #headerDiv #pagetoolbar .dijitButtonNode .dijitButtonText {
+	zoom: 1;
+	color: #CCC;
+}
+
+.dj_ie .nox .dijitToolbar .dijitToggleButtonHover .dijitButtonText,
+.dj_ie .nox .dijitToolbar .dijitButtonHover .dijitButtonText {
+	color: #CCC;
+}
+
+.dj_ie .nox .dijitToolbar .dijitButtonChecked .dijitButtonText,
+.dj_ie .nox .dijitToolbar .dijitToggleButtonChecked .dijitButtonText,
+.dj_ie .nox .dijitToolbar .dijitToggleButtonCheckedHover .dijitButtonText .dijitButtonText {
+	color: #FFF !important;
+	zoom: 1;
+	border: none;
+}
+
+.dj_ie .nox .dijitToolbar .dijitToggleButtonHover {
+	background:none;
+}
+
+.dj_ie6 .nox .dijitToolbar .dijitToggleButtonHover {
+	border: none !important;
+}
+
+.dj_ie .monitorsButtonIcon {
+	left: -2px;
+	top: 9px;
+}
+.dj_ie .policyButtonIcon {
+	left: 1px;
+	top: 9px;
+}
+.dj_ie .settingsButtonIcon {
+	left: -2px;
+	top: 9px;
+}
+.dj_ie .helpButtonIcon {
+	left: -2px;
+	top: 9px;
+}
+
+.dj_ie .nox .dijitToolbar .dijitToggleButtonChecked .monitorsButtonIcon,
+.dj_ie .nox .dijitToolbar .dijitToggleButtonChecked .policyButtonIcon,
+.dj_ie .nox .dijitToolbar .dijitToggleButtonChecked .settingsButtonIcon,
+.dj_ie .nox .dijitToolbar .dijitToggleButtonChecked .helpButtonIcon {
+	left: 0px;
+	top: 7px;
+}
+
+.dj_ie .headerLeft,
+.dj_ie .toggleHeaderContainer #overall_status_field {
+	display: inline;
+}
+
+.dj_ie .toggleHeaderContainer #overall_status_field {
+	margin-left: 47px;
+}
+
+.dj_ie6 #page_content .dijitButtonNode,
+.dj_ie6 #headerDiv,
+.dj_ie6 #headerDiv #logoDiv,
+.dj_ie6 .nox #headerDiv .appMeta,
+.dj_ie6 .nox #headerDiv #pagetoolbar .dijitButtonNode,
+.dj_ie6 .nox #headerDiv #pagetoolbar .dijitToggleButtonHover button,
+.dj_ie6 .nox #headerDiv #pagetoolbar a .dijitButtonChecked,
+.dj_ie6 .nox #headerDiv #pagetoolbar a .dijitToggleButtonChecked,
+.dj_ie6 .logoutButtonIcon,
+.dj_ie6 .monitorsButtonIcon,
+.dj_ie6 .policyButtonIcon,
+.dj_ie6 .reportsButtonIcon,
+.dj_ie6 .settingsButtonIcon,
+.dj_ie6 .helpButtonIcon,
+.dj_ie6 ul.lsidebar li,
+.dj_ie6 ul.lsidebar li.active,
+.dj_ie6 ul.lsidebar li.active a,
+.dj_ie6 #module-titlebar,
+.dj_ie6 #module_content .headerRow,
+.dj_ie6 .statusHeaderContainer,
+.dj_ie6 .componentHeaderContainer,
+.dj_ie6 table span.successmsg,
+.dj_ie6 table span.errormsg,
+.dj_ie6 .statusHeaderContainer
+{
+	behavior: url("/static/nox.ext.apps.coreui/coreui/png/iepngfix.htc");
+}

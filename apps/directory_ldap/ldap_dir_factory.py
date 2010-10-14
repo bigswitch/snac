@@ -10,7 +10,7 @@ from nox.lib.core import Component
 from nox.lib.directory import *
 from nox.lib.directory_factory import Directory_Factory
 
-from nox.netapps.directory.directorymanager import directorymanager
+from nox.ext.apps.directory.directorymanager import directorymanager
 from nox.ext.apps.directory_ldap.pyldap_proxy import pyldap_proxy
 
 lg = logging.getLogger('ldap_dir_factory')

@@ -1,0 +1,117 @@
+table.item-inspector {
+    border-collapse: collapse !important;
+	border-spacing:0;
+	width: 99%;
+}
+
+table.item-inspector tr {
+    vertical-align: top;
+}
+
+table.item-inspector td {
+    padding: 2px;
+    text-align: left;
+	border-bottom:5px solid #EFF2F3;
+}
+
+table.item-inspector td.item-inspector-label {
+    text-align: right !important;
+    font-weight: bold;
+	padding:0.4em 1em 0.5em 0;
+	background:#E8EBEC;
+	-moz-border-radius-topleft:8px;
+	-moz-border-radius-bottomleft:8px;
+	-webkit-border-bottom-left-radius:8px;
+	-webkit-border-top-left-radius:8px;
+	width:200px;
+	vertical-align:middle;
+}
+
+table.item-inspector td.item-inspector-label.item-inspector-separator {
+    text-align: left !important;
+    background: none !important;
+	border:0 !important;
+    padding: 0.8em 0.25em 0.25em 0.25em !important; 
+	font-size:14px !important;
+	color:#4F5359 !important;
+}
+
+.itemInspectorDualColumn {
+	width:99%;
+}
+
+.itemInspectorDualColumn td.leftColumn {
+	width:48%;
+	padding-right:8px;
+}
+
+.itemInspectorDualColumn td.rightColumn {
+	padding-left:8px;
+}
+
+.itemInspectorDualColumn table.item-inspector {
+	min-width:350px;
+}
+
+#monitor_content table.item-inspector td.item-inspector-value {
+	-moz-border-radius-topright:8px;
+	-moz-border-radius-bottomright:8px;
+	-webkit-border-bottom-right-radius:8px;
+	-webkit-border-top-right-radius:8px;
+	padding:0.5em 1em;
+	margin-left:4px;
+	text-align:left;
+	margin-bottom:4px;
+	background:#fff;
+	width:50%;
+}
+
+#monitor_content table.item-inspector td.item-inspector-value .dijitTextBox, #monitor_content table.item-inspector td.item-inspector-value .dijitComboBox {
+	width:80%;
+	position:relative;
+	top:-1px;
+}
+
+table.item-inspector td.item-inspector-label.item-inspector-separator {
+    text-align: center;
+    background: inherit;
+    border-right: 0;
+    border-left: 0;
+    padding: 3px;
+}
+
+table.item-inspector tr:first-child td.item-inspector-label.item-inspector-separator {
+    border-top: 0;
+}
+
+table.item-inspector tr:last-child td.item-inspector-label.item-inspector-separator {
+    border-bottom: 0;
+}
+
+table.item-inspector td.item-inspector-value span.item-inspector-value-wrapper {
+    padding: 1px;
+    margin: 0;
+    border: 0;
+}
+
+table.item-inspector td.item-inspector-value.item-inspector-editable span.item-inspector-value-wrapper {
+	margin-right: 3px;
+	vertical-align: middle;
+	border-bottom: 1px dotted #3DA8F8;
+}
+
+table.item-inspector td.item-inspector-value.item-inspector-editable span.item-inspector-value-wrapper:hover,
+.item-inspector-edit-icon {
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+table.item-inspector td.item-inspector-value.item-inspector-editable:hover img.item-inspector-edit-icon {
+	visibility: visible !important;
+	display:inline;
+	vertical-align: middle;
+}
+
+.dj_ie6 table.item-inspector img.item-inspector-edit-icon {
+	behavior: url("/static/nox.ext.apps.coreui/coreui/png/iepngfix.htc");
+}

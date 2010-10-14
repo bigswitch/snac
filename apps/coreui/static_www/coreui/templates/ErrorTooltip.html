@@ -1,0 +1,22 @@
+<div class="dijitTooltip dijitTooltipLeft" id="noxErrorTooltip">
+  <div class="dijitTooltipContainer dijitTooltipContents" 
+       style="max-width: 300px" dojoAttachPoint="containerNode" waiRole='alert'>
+		<div class="error">
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+          <td><h3><span class="errorHeader" dojoAttachPoint="errorHeaderNode"></span></h3></td>
+				</tr>
+				<tr>
+					<td><span class="errorMessage" dojoAttachPoint="errorNode">${errorMessage}</span></td>
+				</tr>
+				<tr>
+          <td align="right">
+          <button dojoType="dijit.form.Button" dojoAttachPoint="retryButton">${retryButtonText}</button>
+          <button dojoType="dijit.form.Button" dojoAttachPoint="dismissButton">${dismissButtonText}</button>
+        </td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="dijitTooltipConnector"></div>
+</div>

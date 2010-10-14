@@ -1,20 +1,20 @@
 dojo.provide("nox.ext.apps.snackui.snackmonitors.Locations");
 
-dojo.require("nox.webapps.coreui.coreui.base");
-dojo.require("nox.netapps.directory.directorymanagerws.Directories");
-dojo.require("nox.netapps.directory.directorymanagerws.LocationStore");
+dojo.require("nox.ext.apps.coreui.coreui.base");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directories");
+dojo.require("nox.ext.apps.directory.directorymanagerws.LocationStore");
 
 dojo.require("dojox.grid.DataGrid");
 
-var coreui = nox.webapps.coreui.coreui;
+var coreui = nox.ext.apps.coreui.coreui;
 
 var locationStore = null;
 var locationTable = null;
 
 dojo.addOnLoad(function () {
-    locationStore = new nox.netapps.directory.directorymanagerws.LocationStore({
+    locationStore = new nox.ext.apps.directory.directorymanagerws.LocationStore({
         url: "/ws.v1/location",
-        itemConstructor: nox.netapps.directory.directorymanagerws.Location,
+        itemConstructor: nox.ext.apps.directory.directorymanagerws.Location,
         itemParameters: {
             updateList: [ "status", "config" ]
         },

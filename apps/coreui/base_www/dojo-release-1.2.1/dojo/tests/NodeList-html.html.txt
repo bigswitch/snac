@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<title>Testing dojo.NodeList.html()</title>
+		<style type="text/css">
+			@import "../resources/dojo.css";
+		</style>
+		<script type="text/javascript" 
+			src="../dojo.js" djConfig="isDebug: true, popup: true"></script>
+		<script type="text/javascript">
+			dojo.require("dojo.NodeList-html");
+			test = function(){
+				dojo.query("p.test").html("<span>new content</span>");
+			};
+		</script>
+	</head>
+	<body>
+		<p><button onclick="test()">Test</button></p>
+		<p class="test">old content</p>
+		<p class="test">old content</p>
+	</body>
+</html>

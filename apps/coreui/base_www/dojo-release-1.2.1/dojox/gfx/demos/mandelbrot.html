@@ -1,0 +1,109 @@
+﻿<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" >
+<head>
+<title>Mandelbrot set</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+	@import "../../../dojo/resources/dojo.css";
+	@import "../../../dijit/tests/css/dijitTests.css";
+</style>
+<script type="text/javascript" src="../../../dojo/dojo.js" djConfig="isDebug: true"></script>
+<script type="text/javascript">
+dojo.require("dojox.gfx");
+
+
+
+var x = 0, y = 0, centerX = 200, centerY = 100, areaWidth = 250,
+	numPoints = 50000, /* 200*250 */
+	pcounter = 0,
+	colorRatio = 0, rRatio = 0, gRatio = 0, bRatio = 0,
+	iterations = 0, inCounter = 0, totalCounter = 0,
+	interval, surface;
+
+var Complex = function(x, y){
+	this.x = x;
+	this.y = y;
+};
+Complex.sum = function(z1, z2){
+	return new Complex(z1.x + z2.x, z1.y + z2.y);
+};
+
+Complex.prototype = {
+	sqr: function(){
+		return new Complex(Math.pow(this.x, 2) - Math.pow(this.y, 2), 2 * this.x * this.y);
+	},
+	abs: function(){
+		return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+	}
+};
+var pointColor = [];
+var limit = numPoints;
+var compute = function(){
+	// z = z^2 + c
+
+	x = parseInt(pcounter % areaWidth);
+	y = parseInt(pcounter / areaWidth);
+	var cx = (x - centerX) / 100;
+	var cy = (y - centerY) / 100;
+	var complex = new Complex(cx, cy);
+	var c = new Complex(cx, cy);
+	var absVal = 0;
+	for(var i = 0; i < iterations; i++){
+		complex = Complex.sum(complex.sqr(), c);
+		absVal = complex.abs();
+		if(absVal >= 2){
+			break;
+		}
+	}
+	complex = null;
+	var r = (i*rRatio*2) % 255;
+	var g = (i*gRatio)  % 255;
+	var b = (i*bRatio)  % 255;
+	pointColor = [r, g, b, 1];
+
+	surface.createRect({x: x, y: y, width: 2, height: 2}).
+		setFill(pointColor);
+
+	// symmetrical: use limit = numPoints / 2 and uncomment the following instruction :)
+	//surface.createRect({x: x, y: 200 - y, width: 2, height: 2}).
+	//	setFill(pointColor);
+
+	// sampling...
+	pcounter += 9;
+	if(pcounter >= limit){
+		clearInterval(interval);
+	}
+};
+
+var go = function(){
+	dojo.byId("startButton").disabled = true;
+	iterations = parseInt(0 + parseInt(dojo.byId("iterations").value), 10);
+	if(iterations){
+		colorRatio = parseInt(255 / iterations);
+		rRatio = colorRatio*2;
+		gRatio = colorRatio;
+		bRatio = colorRatio;
+		interval = setInterval(compute, 10);
+	}
+};
+
+var init = function(){
+	dojo.byId("startButton").disabled = false;
+	surface = dojox.gfx.createSurface("test", 250, 200);
+	dojo.connect(dojo.byId("startButton"), "onclick", this, go);
+};
+
+dojo.addOnLoad(init);
+
+</script>
+</head>
+<body>
+<h1>Mandelbrot set demo</h1>
+<p>
+<label>Iterations:</label> <input type="text" name="iterations" value="10" id="iterations"/>
+<input type="button" name="start" value="start" id="startButton" />
+</p>
+<p>z = z^2 + c</p>
+<div id="test" style="background:#000;width:250px;height:200px;border:1px solid black"></div>
+<p>That's all Folks!</p>
+</body>
+</html>

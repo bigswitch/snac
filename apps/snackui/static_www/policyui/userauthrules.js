@@ -1,6 +1,6 @@
 dojo.provide("nox.ext.apps.snackui.policyui.userauthrules");
 
-dojo.require("nox.webapps.coreui.coreui.UpdateMgr");
+dojo.require("nox.ext.apps.coreui.coreui.UpdateMgr");
 
 var updatemgr = null
 
@@ -8,7 +8,7 @@ var policyid = null;
 var rules = null;
 
 function get_rules() {
-    nox.webapps.coreui.coreui.getUpdateMgr().xhrGet({
+    nox.ext.apps.coreui.coreui.getUpdateMgr().xhrGet({
         url: "/ws.v1/policy/" + policyid + "/rules",
         load: function (response, ioArgs) {
             rulelistWidget.setPolicy(response);
@@ -22,7 +22,7 @@ function init_policy() {
     revertBtn.setAttribute("disabled", true);
     //analyzeBtn.setAttribute("disabled", true);
     applyBtn.setAttribute("disabled", true);
-    nox.webapps.coreui.coreui.getUpdateMgr().xhrGet({
+    nox.ext.apps.coreui.coreui.getUpdateMgr().xhrGet({
         url: "/ws.v1/policy",
         load: function (response, ioArgs) {
             policyid = response.policy_id;
@@ -44,7 +44,7 @@ function revert_changes() {
 }
 
 function apply_changes() {
-    nox.webapps.coreui.coreui.getUpdateMgr().rawXhrPost({
+    nox.ext.apps.coreui.coreui.getUpdateMgr().rawXhrPost({
         url: "/ws.v1/policy",
         postData: dojo.toJson({
             "policy_id" : policyid,

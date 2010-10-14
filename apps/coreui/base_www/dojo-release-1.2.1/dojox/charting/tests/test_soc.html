@@ -1,0 +1,85 @@
+﻿<html>
+<head>
+<title>Chart 2D</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+	@import "../../../dojo/resources/dojo.css";
+	@import "../../../dijit/tests/css/dijitTests.css";
+</style>
+<!--
+The next line should include Microsoft's Silverligth.js, if you plan to use the silverlight backend
+<script type="text/javascript" src="Silverlight.js"></script>
+-->
+<script type="text/javascript" src="../../../dojo/dojo.js" djConfig="isDebug: true"></script>
+<script type="text/javascript" src="../../lang/functional.js"></script>
+<script type="text/javascript" src="../../lang/utils.js"></script>
+<script type="text/javascript" src="../Theme.js"></script>
+<script type="text/javascript" src="../scaler/linear.js"></script>
+<script type="text/javascript" src="../Element.js"></script>
+<script type="text/javascript" src="../axis2d/common.js"></script>
+<script type="text/javascript" src="../axis2d/Base.js"></script>
+<script type="text/javascript" src="../axis2d/Default.js"></script>
+<script type="text/javascript" src="../plot2d/common.js"></script>
+<script type="text/javascript" src="../plot2d/Base.js"></script>
+<script type="text/javascript" src="../plot2d/Default.js"></script>
+<script type="text/javascript" src="../plot2d/Lines.js"></script>
+<script type="text/javascript" src="../plot2d/Areas.js"></script>
+<script type="text/javascript" src="../plot2d/Markers.js"></script>
+<script type="text/javascript" src="../plot2d/MarkersOnly.js"></script>
+<script type="text/javascript" src="../plot2d/Scatter.js"></script>
+<script type="text/javascript" src="../plot2d/Stacked.js"></script>
+<script type="text/javascript" src="../plot2d/StackedLines.js"></script>
+<script type="text/javascript" src="../plot2d/StackedAreas.js"></script>
+<script type="text/javascript" src="../plot2d/Columns.js"></script>
+<script type="text/javascript" src="../plot2d/StackedColumns.js"></script>
+<script type="text/javascript" src="../plot2d/ClusteredColumns.js"></script>
+<script type="text/javascript" src="../plot2d/Bars.js"></script>
+<script type="text/javascript" src="../plot2d/StackedBars.js"></script>
+<script type="text/javascript" src="../plot2d/ClusteredBars.js"></script>
+<script type="text/javascript" src="../plot2d/Bubble.js"></script>
+<script type="text/javascript" src="../plot2d/Grid.js"></script>
+<script type="text/javascript" src="../plot2d/Pie.js"></script>
+<script type="text/javascript" src="../plot2d/Candle.js"></script>
+<script type="text/javascript" src="../Chart2D.js"></script>
+<script type="text/javascript">
+
+dojo.require("dojox.charting.Chart2D");
+dojo.require("dojox.charting.themes.PlotKit.blue");
+dojo.require("dojox.charting.themes.PlotKit.cyan");
+dojo.require("dojox.charting.themes.PlotKit.green");
+dojo.require("dojox.charting.themes.PlotKit.orange");
+dojo.require("dojox.charting.themes.PlotKit.purple");
+dojo.require("dojox.charting.themes.PlotKit.red");
+dojo.require("dojox.charting.themes.ET.greys");
+
+makeObjects = function(){
+
+	var chart31 = new dojox.charting.Chart2D("test31");
+	chart31.addPlot("default",{type:"Candle"});
+	chart31.addAxis("x");
+	chart31.addAxis("y",{vertical:true});
+	chart31.addSeries("Series A", [{lx:1,lq:2,md:3,uq:9,ux:10},{lx:2,lq:3,md:5,uq:7,ux:8},{lx:2,lq:6,md:9,uq:10,ux:13},{lx:2,lq:7,md:10,uq:19,ux:19},{lx:1,lq:2,md:3,uq:7,ux:8}],{
+		stroke: {
+			color: "red"
+		}
+	});
+	chart31.addSeries("Series B", [{lx:2,lq:3,md:5,uq:7,ux:8},{lx:1,lq:2,md:3,uq:9,ux:10},{lx:4,lq:7,md:10,uq:15,ux:19},{lx:3,lq:6,md:9,uq:10,ux:14},{lx:0,lq:2,md:3,uq:4,ux:5}],{
+		stroke: {
+			color: "blue"
+		}
+	});
+	chart31.render();
+};
+
+dojo.addOnLoad(makeObjects);
+
+</script>
+</head>
+<body>
+<h1>Chart 2D</h1>
+<!--<p><button onclick="makeObjects();">Go</button></p>-->
+<p>31: Box plot.</p>
+<div id="test31" style="width: 500px; height: 300px;"></div>
+<p>That's all Folks!</p>
+</body>
+</html>

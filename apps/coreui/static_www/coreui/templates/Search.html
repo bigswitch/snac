@@ -1,0 +1,11 @@
+<form class="noxSearch" dojoAttachPoint="containerNode" dojoAttachEvent="onreset: onReset, onsubmit: onSubmit"
+        action="${action}" method="${method}">
+    <div class="searchInput">
+        <img src="/static/nox.ext.apps.coreui/coreui/images/searchIcon.gif" alt="Filter your Search" class="searchIcon"
+            dojoAttachPoint="changeFilterNode" dojoAttachEvent="onclick: onChangeFilter" />
+        <input type="text" name="${search}" dojoAttachPoint="searchString" />
+        <img src="/static/nox.ext.apps.coreui/coreui/images/searchClearIcon.gif" alt="Clear your Search" class="searchClear"
+            dojoAttachEvent="onclick: onReset" />
+        <input type="hidden" name="${subset}" dojoAttachPoint="subsetString" />
+    </div>
+</form>

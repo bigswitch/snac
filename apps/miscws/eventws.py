@@ -10,8 +10,8 @@ from nox.webapps.webservice.webservice import NOT_DONE_YET,WSPathArbitraryString
 from nox.lib.netinet.netinet import *
 from nox.netapps.authenticator.pyauth import Host_auth_event, PyAuth
 from nox.netapps.bindings_storage.pybindings_storage import pybindings_storage
-from nox.netapps.directory.directorymanager import *
-from nox.netapps.directory.directorymanagerws import *
+from nox.ext.apps.directory.directorymanager import *
+from nox.ext.apps.directory.directorymanagerws import *
 
 lg = logging.getLogger('eventws')
 

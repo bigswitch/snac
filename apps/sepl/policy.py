@@ -12,14 +12,14 @@ from nox.ext.apps.sepl.policystore import PolicyStore
 from nox.netapps.authenticator.pyauth import PyAuth
 from nox.netapps.authenticator.pyflowutil import PyFlowUtil
 
-from nox.netapps.directory.directorymanager import directorymanager
+from nox.ext.apps.directory.directorymanager import directorymanager
 
 from nox.lib.core import Component
 from nox.lib.netinet import netinet
 from nox.lib.netinet.netinet import create_cidr_ipaddr
 from nox.coreapps.pyrt.pycomponent import CONTINUE
-from nox.netapps.directory.pydirmanager import Directory, Principal_name_event, Group_name_event
-from nox.netapps.configuration.simple_config import simple_config
+from nox.ext.apps.directory.pydirmanager import Directory, Principal_name_event, Group_name_event
+from nox.ext.apps.configuration.simple_config import simple_config
 from nox.netapps.user_event_log.pyuser_event_log import pyuser_event_log, LogEntry
 
 lg = logging.getLogger("policy")

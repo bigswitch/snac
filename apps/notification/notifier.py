@@ -15,10 +15,10 @@ from twisted.mail.smtp import SMTPSenderFactory
 
 from nox.netapps.bindings_storage.pybindings_storage \
     import pybindings_storage, Name
-from nox.netapps.configuration import Properties
-from nox.webapps.coreui import coreui
+from nox.ext.apps.configuration import Properties
+from nox.ext.apps.coreui import coreui
 from nox.coreapps.pyrt.pycomponent import *
-from nox.netapps.storage import TransactionalStorage, TransactionalConnection
+from nox.ext.apps.storage.transactional_storage import TransactionalStorage, TransactionalConnection
 from nox.netapps.user_event_log.pyuser_event_log import pyuser_event_log
 from nox.netapps.user_event_log.networkeventsws import make_entry
 from nox.lib.core import *

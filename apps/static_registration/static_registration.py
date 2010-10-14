@@ -60,6 +60,9 @@ class StaticRegistration(Component):
 
 
     def install(self):
+        # FIXME: There doesn't seem to be a persistent_storage file anymore
+        # so I'm not sure what this is supposed to use instead. Probably
+        # transactional_storage? Is this code even supported anymore?
         from nox.netapps.storage.persistent_storage import PersistentStorage
         self.storage = self.ctxt.resolve(str(PersistentStorage))
         self.create_tables()

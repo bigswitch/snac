@@ -1,19 +1,19 @@
 dojo.provide("nox.ext.apps.snackui.snackmonitors.Users");
 
-dojo.require("nox.webapps.coreui.coreui.base");
-dojo.require("nox.netapps.directory.directorymanagerws.Directories");
-dojo.require("nox.netapps.directory.directorymanagerws.UserStore");
+dojo.require("nox.ext.apps.coreui.coreui.base");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directories");
+dojo.require("nox.ext.apps.directory.directorymanagerws.UserStore");
 
 dojo.require("dojox.grid.DataGrid");
 
-var coreui = nox.webapps.coreui.coreui
-var dmws = nox.netapps.directory.directorymanagerws;
+var coreui = nox.ext.apps.coreui.coreui
+var dmws = nox.ext.apps.directory.directorymanagerws;
 
 var userStore = null;
 var userTable = null;
 
 dojo.addOnLoad(function () {
-    userStore = new nox.netapps.directory.directorymanagerws.UserStore({
+    userStore = new nox.ext.apps.directory.directorymanagerws.UserStore({
         url: "/ws.v1/user?active_ext=true",
         itemParameters: {
             updateList: [ "status" ]

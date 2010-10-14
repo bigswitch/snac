@@ -1,0 +1,14 @@
+<div dojoAttachPoint="containerNode">
+	<div dojoType="dijit.layout.ContentPane" dojoAttachPoint="statusContainer" region="top" id="networkStatusType">
+		<table cellspacing="0" class="networkStatusTitleBar">
+			<tr>
+				<td class="collapseToggleContainer" dojoAttachPoint="toggleContainer" align="center" dojoAttachEvent="onclick: onToggle"><div class="collapseToggle"></div></td>
+				<td class="statusContainer">Network Status: <span class="networkStatusTitle" dojoAttachPoint="statusTextNode">Good</span></td>
+			</tr>
+		</table>
+	</div>
+	<div dojoType="dijit.layout.ContentPane" region="bottom" id="statusMessageToggle">
+		<input dojoType="dijit.form.CheckBox" dojoAttachPoint="notificationCheck" dojoAttachEvent="onChange: onNotificationsToggle" value="showAleft" checked="true" />
+		<span>Show notification on status change</span>
+	</div>
+</div>

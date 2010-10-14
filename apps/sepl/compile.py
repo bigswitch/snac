@@ -13,7 +13,7 @@ from nox.lib.netinet.netinet import ethernetaddr, ipaddr, cidr_ipaddr, \
 from nox.lib.openflow import OFP_VLAN_NONE
 
 from nox.netapps.authenticator.pyflowutil import Flow_expr, Flow_action, strlist
-from nox.netapps.directory.pydirmanager import Directory
+from nox.ext.apps.directory.pydirmanager import Directory
 from socket import htons, ntohs
 
 lg = logging.getLogger("compile")

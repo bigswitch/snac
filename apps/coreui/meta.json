@@ -1,0 +1,30 @@
+{
+    "components": [
+        {
+            "name": "coreui",
+            "dependencies": [
+                "simple_config"
+            ],
+            "python": "nox.ext.apps.coreui.coreui"
+        },
+        {
+            "name": "authui",
+            "dependencies": [
+                "coreui",
+                "directorymanager"
+            ],
+            "python": "nox.ext.apps.coreui.authui"
+        },
+        {
+            "name": "monitorsui",
+            "dependencies": [
+                "authui",
+                "componentws",
+                "directorymanagerws",
+                "switchstats",
+                "switchconfig"
+            ],
+            "python": "nox.ext.apps.coreui.monitorsui"
+        }
+    ]
+}

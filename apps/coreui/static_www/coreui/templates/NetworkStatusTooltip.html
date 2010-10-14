@@ -1,0 +1,12 @@
+<div waiRole="presentation">
+	<div class="dijitTooltipContainer" waiRole="presentation">
+		<div dojoAttachPoint="titleBar" class="dijitDialogTitleBar">
+			<span dojoAttachPoint="titleNode" class="dijitDialogTitle" id="${id}_title">${title}</span>
+			<span dojoAttachPoint="closeButtonNode" class="dijitDialogCloseIcon" dojoAttachEvent="onclick: _closeMe" title="${buttonCancel}">
+				<span dojoAttachPoint="closeText" class="closeText" title="${buttonCancel}">x</span>
+			</span>
+		</div>
+		<div class ="dijitTooltipContents dijitTooltipFocusNode" dojoAttachPoint="containerNode" tabindex="-1" waiRole="dialog"></div>
+	</div>
+	<div class="dijitTooltipConnector" waiRole="presentation"></div>
+</div>

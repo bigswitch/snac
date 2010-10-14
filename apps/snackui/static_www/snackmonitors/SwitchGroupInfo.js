@@ -4,18 +4,18 @@
 
 dojo.provide("nox.ext.apps.snackui.snackmonitors.SwitchGroupInfo");
 
-dojo.require("nox.webapps.coreui.coreui.base");
-dojo.require("nox.netapps.directory.directorymanagerws.SwitchGroupStore");
-dojo.require("nox.netapps.directory.directorymanagerws.GroupModifyDialog"); 
-dojo.require("nox.netapps.directory.directorymanagerws.Directories"); 
-dojo.require("nox.webapps.coreui.coreui.ItemList");
-dojo.require("nox.webapps.coreui.coreui.ItemInspector");
+dojo.require("nox.ext.apps.coreui.coreui.base");
+dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchGroupStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.GroupModifyDialog"); 
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directories"); 
+dojo.require("nox.ext.apps.coreui.coreui.ItemList");
+dojo.require("nox.ext.apps.coreui.coreui.ItemInspector");
 dojo.require("dijit.form.FilteringSelect");
 
 dojo.require("dojox.grid.DataGrid");
 
-var dmws = nox.netapps.directory.directorymanagerws; 
-var coreui = nox.webapps.coreui.coreui;
+var dmws = nox.ext.apps.directory.directorymanagerws; 
+var coreui = nox.ext.apps.coreui.coreui;
 
 var groupStore = null;
 var notFoundError = false;
@@ -133,7 +133,7 @@ function init_page() {
             return {name: "directory", header: "Directory Name", attr: "directoryName", width: "20%",
                     editor: dijit.form.FilteringSelect,
                     editorProps: {
-                    store: nox.netapps.directory.directorymanagerws.Directories.datastore,
+                    store: nox.ext.apps.directory.directorymanagerws.Directories.datastore,
                     query: { write_switch_enabled: true }
                 },
                     editAttr: "directoryName",
@@ -148,7 +148,7 @@ function init_page() {
             };
         } else {
             return {name: "directory", header: "Directory Name", attr: "directoryName", width: "20%",
-                    store: nox.netapps.directory.directorymanagerws.Directories.datastore,
+                    store: nox.ext.apps.directory.directorymanagerws.Directories.datastore,
                     query: { write_user_enabled: true }
             };
         }
@@ -242,7 +242,7 @@ var group = null;
 function init_directory() {
     coreui.base.update_page_title("Switch Group Information");
 
-    group = new nox.netapps.directory.directorymanagerws.SwitchGroup({
+    group = new nox.ext.apps.directory.directorymanagerws.SwitchGroup({
         initialData: { name: selected_group },
         updateList: [ "info" ]
     });
@@ -280,7 +280,7 @@ function init_directory() {
 }
 
 function fetch_directory() {
-    var g = new nox.netapps.directory.directorymanagerws.SwitchGroup({
+    var g = new nox.ext.apps.directory.directorymanagerws.SwitchGroup({
         initialData: { name: selected_group },
         updateList: ["info" ]
     });

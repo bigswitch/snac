@@ -1,6 +1,6 @@
-dojo.require("nox.webapps.coreui.coreui.base");
+dojo.require("nox.ext.apps.coreui.coreui.base");
 
-var coreui = nox.webapps.coreui.coreui
+var coreui = nox.ext.apps.coreui.coreui
 
 function set_response_headers(str) {
     var widget = dijit.byId("response_headers");

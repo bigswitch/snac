@@ -14,8 +14,8 @@
    dojo.require("dijit.layout.BorderContainer");
    dojo.require("dijit.form.Button");
    dojo.require("dijit.Tooltip");
-   dojo.require("nox.netapps.directory.directorymanagerws.PrincipalListFilter"); 
-   dojo.require("nox.netapps.directory.directorymanagerws._Principal"); 
+   dojo.require("nox.ext.apps.directory.directorymanagerws.PrincipalListFilter"); 
+   dojo.require("nox.ext.apps.directory.directorymanagerws._Principal"); 
 </%def>
 
 <%def name="head_js()">
@@ -23,8 +23,8 @@
   //HACK: within an iframe, we don't have our own Progress widget
   // for reporting errors.  Thus, we must use the one from the outer frame. 
   dojo.addOnLoad(function () {
-          nox.webapps.coreui.coreui.UpdateErrorHandler.showError =
-              top.nox.webapps.coreui.coreui.UpdateErrorHandler.showError;
+          nox.ext.apps.coreui.coreui.UpdateErrorHandler.showError =
+              top.nox.ext.apps.coreui.coreui.UpdateErrorHandler.showError;
 
   }); 
   

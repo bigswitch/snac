@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>Testing moonlight</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+onlo = function(sender){
+	if(sender.getHost){
+		console.log(sender.getHost().content.root.name);
+	}else{
+		console.log("nothing");
+	}
+};
+
+oner = function(sender, err){
+	var t = "Silverlight Error:\n" +
+		"Code: " + err.ErrorCode + "\n" +
+		"Type: " + err.ErrorType + "\n" +
+		"Message: " + err.ErrorMessage + "\n";
+	switch(err.ErrorType){
+		case "ParserError":
+			t += "XamlFile: " + err.xamlFile + "\n" +
+				"Line: " + err.lineNumber + "\n" +
+				"Position: " + err.charPosition + "\n";
+			break;
+		case "RuntimeError":
+			t += "MethodName: " + err.methodName + "\n";
+			if(err.lineNumber != 0){
+				t +=
+					"Line: " + err.lineNumber + "\n" +
+					"Position: " + err.charPosition + "\n";
+			}
+			break;
+	}
+	alert(t);
+};
+</script>
+</head>
+<body>
+<h1>Testing moonlight</h1>
+<p><button onclick="createSurface();">Go</button></p>
+<script type="text/xaml" id='d1'>
+<?xml version='1.0'?>
+<Canvas xmlns='http://schemas.microsoft.com/client/2007' Name='d3'>
+	<Rectangle Height="200" Width="200" Canvas.Left="100" Canvas.Top="100" Stroke="Black" StrokeThickness="1" Fill="red" />
+</Canvas>
+</script>
+<div>
+	<object type='application/x-silverlight' id='d2' width='500' height='500'>
+		<param name='windowless' value='true' />
+		<param name='maxFramerate' value='60' />
+		<param name='background' value='transparent' />
+		<param name='onLoad' value='onlo' />
+		<param name='onError' value='oner' />
+		<param name='source' value='#d1' />
+	</object>;
+</div>
+<p>That's all Folks!</p>
+</body>
+</html>

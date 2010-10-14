@@ -1,0 +1,134 @@
+.item-list-editor .dijitDialogPaneContent{
+	width: 500px;
+	height: 345px;
+	-moz-border-radius: 13px;
+	-webkit-border-radius: 13px;	
+}
+
+.item-list-editor .item-list-editor-layout {
+	width: 100%;
+	height: 100%;
+}
+
+.item-list-editor .item-list-editor-main-container {
+	width: 100%;
+	height: 295px;
+}
+
+.item-list-editor .item-list-editor-dialog-buttons-container {
+	width: 100%;
+	height: 50px;
+}
+
+.item-list-editor .item-list-editor-dialog-buttons-container hr {
+	color: #FFF;
+	border-top: 1px solid #C2C2C2;
+	border-bottom: 1px solid #FFF;
+}
+
+.item-list-editor .item-list-editor-left,
+.item-list-editor .item-list-editor-right {
+	width: 215px;
+	margin-top: 13px;
+	background: #FFF;
+	border: 1px solid #CECECE;
+	border-top: none;	
+}
+
+.item-list-editor .dojoxGridHeader {
+	display: none;
+}
+
+.item-list-editor .item-list-editor-list-container .item-list-editor-list-header,
+.item-list-editor .item-list-editor-list-container .item-list-editor-list-footer {
+	line-height: 25px;
+	padding-left: 7px;
+	background: #FFF url("/static/nox.ext.apps.coreui/coreui/images/dialogGridHeaderBg.png") repeat-x bottom left;
+	border-top: 1px solid #C2C2C2;
+	border-bottom: 1px solid #C2C2C2;
+	text-shadow:0 1px 0 #FEFEFE;
+}
+
+.item-list-editor .item-list-editor-list-container .dojoxGridMasterHeader {
+	border: none;
+}
+
+.item-list-editor .item-list-editor-list-container .dojoxGridScrollbox {
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.item-list-editor .item-list-editor-list-container .dojoxGridRowOdd {
+	background: #F5F6F8;
+}
+
+.item-list-editor .item-list-editor-list-container .dojoxGridRowEditing .dijitTextBox {
+	width: 177px !important;
+}
+
+.item-list-editor .item-list-editor-list-container .dojoxGridRowSelected {
+	background-color:#fff9e5;
+	background: url("/static/nox/ext/apps/snackui/policyui/images/ruleBackgroundSelected.gif") repeat-x bottom left #fffae9;
+}
+
+.item-list-editor .item-list-editor-list-container .item-list-editor-list-footer {
+	overflow: hidden;
+	border-bottom: none;
+}
+
+.addGroup,
+.editGroup,
+.remGroup {
+	height: 13px;
+	width: 13px;
+	background: url("/static/nox.ext.apps.coreui/coreui/images/spriteItemListEditor.png") no-repeat;
+	background-position: 0 0;
+	position: relative;
+	bottom: 1px;
+	left: 4px;
+}
+
+.addGroup {
+	background-position: 0 0;
+}
+
+.editGroup {
+	background-position: -13px 0;
+}
+
+.remGroup {
+	background-position: -26px 0;
+}
+
+.item-list-editor .item-list-editor-list-container .item-list-editor-list-footer .dijitButton {
+	margin: -3px 0 0 0;
+}
+
+.dj_safari .item-list-editor .item-list-editor-list-container .item-list-editor-list-footer .dijitButton {
+	margin: -1px 0 0 0;
+}
+
+.item-list-editor .item-list-editor-list-container .item-list-editor-list-footer .dijitTextBox {
+	width: 165px;
+	height: 14px;
+	margin-top: -2px;
+	padding: 3px 0 0 3px;
+	font-size: 10px;
+	color: #8A8A8A;
+}
+
+.item-list-editor .item-list-editor-center {
+	text-align: center;
+	margin-top: 40px;
+}
+
+.item-list-editor .item-list-editor-center hr {
+	width: 66%;
+	color: #FFF;
+	border-top: 1px solid #C2C2C2;
+	border-bottom: 1px solid #FFF;
+}
+
+.item-list-editor .item-list-editor-dialog-buttons {
+	text-align: right;
+}

@@ -1,0 +1,15 @@
+<!--{% load dojox.dtl.contrib.dijit %}-->
+<table class="item-inspector" dojoAttachPoint="table">
+<!--{% for m in model %}-->
+<!--{% if m.separator %}-->
+	<tr>
+		<td class="item-inspector-separator item-inspector-label {{ m.name }}" colspan="2">{% if m.header %}{{ m.header }}{% endif %}</td>
+	</tr>
+<!--{% else %}-->
+	<tr>
+		<td class="item-inspector-label">{{ m.header }}:</td>
+		<td class="{{ m.name }} item-inspector-value{% if m.editable or m.editAttr or m.editorProps %} item-inspector-editable{% endif %}{% if m.dialogEditor %} item-inspector-editable-dialog{% endif %}"><span class="item-inspector-value-wrapper">?</span><!--{% if m.editable or m.editAttr or m.editorProps %}--><img src="{{ editIconPath }}"class="item-inspector-edit-icon" style="visibility: hidden;" /><!--{% endif %}--></td>
+	</tr>
+<!--{% endif %}-->
+<!--{% endfor %}-->
+</table>

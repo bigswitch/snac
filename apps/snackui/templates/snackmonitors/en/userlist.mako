@@ -4,13 +4,13 @@
 
 <%def name="head_js()">
   ${parent.head_js()} 
-  dojo.require("nox.netapps.directory.directorymanagerws.User"); 
+  dojo.require("nox.ext.apps.directory.directorymanagerws.User"); 
   
   var pFilter = null;
   dojo.addOnLoad(function () {
-      var filters = nox.netapps.directory.directorymanagerws.PrincipalListFilter; 
+      var filters = nox.ext.apps.directory.directorymanagerws.PrincipalListFilter; 
       pFilter = filters.init_principal_list_page("user");
-      var dmws = nox.netapps.directory.directorymanagerws; 
+      var dmws = nox.ext.apps.directory.directorymanagerws; 
       filters.setup_simple_listpage_deauth_hooks(dmws.User); 
   }); 
 </%def>
@@ -20,9 +20,9 @@
 </%def> 
 
 <%!
-from nox.netapps.directory.directorymanager import demangle_name
+from nox.ext.apps.directory.directorymanager import demangle_name
 from nox.ext.apps.snackui.principal_list_pages import get_status_markup
-from nox.webapps.coreui.template_utils import utf8quote
+from nox.ext.apps.coreui.template_utils import utf8quote
 import urllib
 
 %> 

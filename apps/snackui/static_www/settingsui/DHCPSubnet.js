@@ -2,10 +2,10 @@
 
 dojo.provide("nox.ext.apps.snackui.settingsui.DHCPSubnet");
 
-dojo.require("nox.webapps.coreui.coreui._NamedEntity");
+dojo.require("nox.ext.apps.coreui.coreui._NamedEntity");
 
 dojo.declare("nox.ext.apps.snackui.settingsui.DHCPSubnet", 
-             [ nox.webapps.coreui.coreui._NamedEntity ], {
+             [ nox.ext.apps.coreui.coreui._NamedEntity ], {
    constructor: function (kwarg) {
        dojo.mixin(this.updateTypes, {
                "info": {

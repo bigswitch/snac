@@ -17,18 +17,18 @@
  along with NOX.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-dojo.provide("nox.apps.directory.directorymanagerws._Principal");
+dojo.provide("nox.ext.apps.directory.directorymanagerws._Principal");
 
-dojo.require("nox.apps.coreui.coreui.base");
-dojo.require("nox.apps.coreui.coreui._NamedEntity");
-dojo.require("nox.apps.directory.directorymanagerws.PrincipalModifyDialog");
+dojo.require("nox.ext.apps.coreui.coreui.base");
+dojo.require("nox.ext.apps.coreui.coreui._NamedEntity");
+dojo.require("nox.ext.apps.directory.directorymanagerws.PrincipalModifyDialog");
 
     
 dojo.declare("nox.apps.directory.directorymanagerws._Principal",
-             [ nox.apps.coreui.coreui._NamedEntity ], {
+             [ nox.ext.apps.coreui.coreui._NamedEntity ], {
 
-    coreui: nox.apps.coreui.coreui,
-    dmws: nox.apps.directory.directorymanagerws,
+    coreui: nox.ext.apps.coreui.coreui,
+    dmws: nox.ext.apps.directory.directorymanagerws,
 
     constructor: function (kwarg) {
         dojo.mixin(this.derivedAttributes, {
@@ -168,7 +168,7 @@ dojo.declare("nox.apps.directory.directorymanagerws._Principal",
         if (p == null)
             return document.createTextNode(name);
         else
-            return nox.apps.coreui.coreui.base.createLink(p, name);
+            return nox.ext.apps.coreui.coreui.base.createLink(p, name);
     },
 
     uiMonitorLinkText: function(/*optional*/use_mangled) {
@@ -215,7 +215,7 @@ dojo.declare("nox.apps.directory.directorymanagerws._Principal",
     },
 
     exists : function(onComplete) {
-        nox.apps.coreui.coreui.getUpdateMgr().xhrGet({
+        nox.ext.apps.coreui.coreui.getUpdateMgr().xhrGet({
             url: this.wsv1Path(),
             headers: { "content-type": "application/json"},
             load: function (response, ioArgs) {
@@ -271,7 +271,7 @@ dojo.declare("nox.apps.directory.directorymanagerws._Principal",
                                   hide_retry : true,
                                   validation_error: true });
         onNonexisting = function () {
-            nox.apps.coreui.coreui.getUpdateMgr().rawXhrPut({
+            nox.ext.apps.coreui.coreui.getUpdateMgr().rawXhrPut({
                   url: this.wsv1Path(),
                   headers: { "content-type": "application/json" },
                   putData: dojo.toJson({ name: newName }),
@@ -295,7 +295,7 @@ dojo.declare("nox.apps.directory.directorymanagerws._Principal",
     },
 
     _do_modify_request : function(path, method, onComplete) {
-        var coreui = nox.apps.coreui.coreui;
+        var coreui = nox.ext.apps.coreui.coreui;
         coreui.getUpdateMgr().xhr(method, {
             url: path,
             headers: { "content-type": "application/json" },
@@ -333,15 +333,15 @@ dojo.declare("nox.apps.directory.directorymanagerws._Principal",
               timeout: 30000,
               handleAs: "json",
               recur: false,
-              error: nox.apps.coreui.coreui.UpdateErrorHandler.create()
+              error: nox.ext.apps.coreui.coreui.UpdateErrorHandler.create()
           });
     }
 
 });
 
-dojo.declare("nox.apps.directory.directorymanagerws.PrincipalUtil", [], {
+dojo.declare("nox.ext.apps.directory.directorymanagerws.PrincipalUtil", [], {
 
-    dmws: nox.apps.directory.directorymanagerws,
+    dmws: nox.ext.apps.directory.directorymanagerws,
 
     show_modify_dialog : function(ptype, principal, title, ctor) {
         var appr = dijit.byId("modify_principal_id");
@@ -441,7 +441,7 @@ dojo.declare("nox.apps.directory.directorymanagerws.PrincipalUtil", [], {
     // principal store.  This essentially ignores errors for subqueries
     get_listpage_store_error_handler : function(type_plural) { 
       return  function(error, ioArgs, item, update_type) {
-              var ueh = nox.apps.coreui.coreui.UpdateErrorHandler; 
+              var ueh = nox.ext.apps.coreui.coreui.UpdateErrorHandler; 
               if(item == undefined || item == null) {
                 var error_type = ueh.get_error_type(error); 
                 if(error_type == 404 && update_type != null) {
@@ -480,7 +480,7 @@ dojo.declare("nox.apps.directory.directorymanagerws.PrincipalUtil", [], {
 });
 
 (function () {
-    var dmws = nox.apps.directory.directorymanagerws;
+    var dmws = nox.ext.apps.directory.directorymanagerws;
     var principal_util = null;
     dmws.getPrincipalUtil = function () {
         if (principal_util == null) {

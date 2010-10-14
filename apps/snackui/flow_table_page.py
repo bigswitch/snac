@@ -1,21 +1,21 @@
 from nox.lib.core import *
 
-from nox.webapps.coreui.authui import UISection, UIResource, Capabilities
-from nox.webapps.coreui.authui import redirect
-from nox.webapps.coreui import coreui
+from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
+from nox.ext.apps.coreui.authui import redirect
+from nox.ext.apps.coreui import coreui
 from nox.webapps.webservice.webservice import *
-from nox.webapps.coreui.monitorsui import *
+from nox.ext.apps.coreui.monitorsui import *
 from nox.netapps.bindings_storage.bindings_directory import *
-from nox.netapps.directory.directorymanager import *
+from nox.ext.apps.directory.directorymanager import *
 from nox.webapps.webservice.webservice import *
 from nox.lib.netinet.netinet import datapathid, create_datapathid_from_host
-from nox.netapps.directory.dir_utils import *
+from nox.ext.apps.directory.dir_utils import *
 from nox.webapps.webservice.web_arg_utils import new_get_cmp_fn,get_nametype_from_string, filter_item_list 
 from twisted.internet import defer
 from nox.ext.apps.visibility.visibility_ws import visibility_ws
 from nox.ext.apps.sepl.policy import PyPolicyComponent
-from nox.webapps.coreui.template_utils import utf8quote
-from nox.netapps.directory.directorymanager import directorymanager
+from nox.ext.apps.coreui.template_utils import utf8quote
+from nox.ext.apps.directory.directorymanager import directorymanager
 import copy 
 import math
 import urllib

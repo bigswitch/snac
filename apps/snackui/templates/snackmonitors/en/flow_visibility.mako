@@ -28,12 +28,12 @@ function toggle_all() {
 } 
 
 dojo.require("dijit.Tooltip");  
-dojo.require("nox.webapps.coreui.coreui.ListTableHelper"); 
+dojo.require("nox.ext.apps.coreui.coreui.ListTableHelper"); 
 
 var listHelper = null; 
  
 dojo.addOnLoad(function () {
-  listHelper = new nox.webapps.coreui.coreui.ListTableHelper({ 
+  listHelper = new nox.ext.apps.coreui.coreui.ListTableHelper({ 
       filters : [
           { id : "filter_time", urlParam : "received_ts"} ,
           { id : "filter_action", urlParam : "action"} ,
@@ -53,12 +53,12 @@ dojo.addOnLoad(function () {
       append_params : ${append_params}
     });
     // hide update spinner 
-    nox.webapps.coreui.coreui.getUpdateMgr()._recurring_updates = [];  
+    nox.ext.apps.coreui.coreui.getUpdateMgr()._recurring_updates = [];  
 
 %if hostname is not None:
-    host = new nox.netapps.directory.directorymanagerws.Host({ 
+    host = new nox.ext.apps.directory.directorymanagerws.Host({ 
               initialData : { name : '${hostname}' } });  
-    nox.webapps.coreui.coreui.base.set_nav_title([
+    nox.ext.apps.coreui.coreui.base.set_nav_title([
         {
             title_text: "Host:",
             nav_text: "Hosts",
@@ -91,7 +91,7 @@ dojo.addOnLoad(function () {
 
 import time
 from nox.webapps.webservice.web_arg_utils import get_html_for_select_box
-from nox.webapps.coreui.template_utils import utf8quote,get_principal_path,get_group_path
+from nox.ext.apps.coreui.template_utils import utf8quote,get_principal_path,get_group_path
 
 attr_map = { 'users' : "Users", 
              'host_groups' : "Host Groups", 

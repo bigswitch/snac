@@ -147,11 +147,11 @@ from nox.netapps.data.pydatacache import PyData_cache
 from nox.netapps.authenticator.pyauth import Host_auth_event, PyAuth
 from nox.netapps.bindings_storage.pybindings_storage import Name
 from nox.netapps.bindings_storage.pybindings_storage import pybindings_storage
-from nox.netapps.configuration.properties import *
-from nox.webapps.coreui import coreui
-from nox.webapps.coreui.authui import UIResource
-from nox.netapps.directory import directorymanager
-from nox.netapps.storage import TransactionalStorage
+from nox.ext.apps.configuration.properties import *
+from nox.ext.apps.coreui import coreui
+from nox.ext.apps.coreui.authui import UIResource
+from nox.ext.apps.directory import directorymanager
+from nox.ext.apps.storage.transactional_storage import TransactionalStorage
 from nox.netapps.user_event_log.pyuser_event_log import pyuser_event_log, LogEntry
 from nox.ext.apps.http_redirector.pyhttp_redirector import *
 from nox.ext.apps.redirproxy import redirproxy

@@ -15,7 +15,7 @@
   dojo.require("dijit.form.TextBox");
   dojo.require("dijit.form.Button");
   dojo.require("dijit.Dialog");
-  dojo.require("nox.webapps.coreui.coreui.simple_config"); 
+  dojo.require("nox.ext.apps.coreui.coreui.simple_config"); 
   dojo.require("dijit.TitlePane");
   
 
@@ -62,7 +62,7 @@
   }
   
   var f = function() { 
-    nox.webapps.coreui.coreui.getSimpleConfig().fill_form_from_config("main_form", after_load);
+    nox.ext.apps.coreui.coreui.getSimpleConfig().fill_form_from_config("main_form", after_load);
   } 
   dojo.addOnLoad(f);
 </%def>
@@ -79,7 +79,7 @@
           Commit Changes
           <script type="dojo/method" event="onClick">
             before_save();             
-            nox.webapps.coreui.coreui.getSimpleConfig().submit_form_with_callback("main_form", updatePreview);
+            nox.ext.apps.coreui.coreui.getSimpleConfig().submit_form_with_callback("main_form", updatePreview);
           </script>
         </button> 
         <span id="simple_config_status"></span>  
@@ -144,7 +144,7 @@
         <button dojoType="dijit.form.Button" id="submit_add">
           Upload File
           <script type="dojo/method" event="onClick">
-            nox.webapps.coreui.coreui.getSimpleConfig().submit_file_form("image_form", updatePreview); 
+            nox.ext.apps.coreui.coreui.getSimpleConfig().submit_file_form("image_form", updatePreview); 
             dijit.byId("change_image_dialog").hide(); 
           </script>
         </button>

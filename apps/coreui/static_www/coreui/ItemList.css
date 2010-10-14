@@ -1,0 +1,57 @@
+span.item-list-container {
+    margin: 0;
+    border: 0;
+    padding: 0;
+	float: left;
+}
+
+span.item-list-item-span {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+table.editable-item-list-items td:hover img {
+	display: inline !important;
+	margin-left: 2px;
+}
+
+.editable-item-list-items {
+	border-collapse: collapse;
+}
+
+.editable-item-list-item,
+.item-list-item {
+	float: left;
+	margin-right: 0px;
+	padding: 4px 4px 4px 16px !important;
+/*	padding: 4px !important; */
+	line-height: 16px;
+	background: url("/static/nox.ext.apps.coreui/coreui/images/itemOpen.png") no-repeat 2px 50%;
+	border: 1px solid transparent !important;
+	position: relative;
+}
+
+.editable-item-list-item:hover {
+	background: #E7EEF0;
+	border: 1px solid #DDDBDD !important;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	color: #3DA8F8;
+}
+
+.editable-item-list-item a,
+.editable-item-list-item a:hover {
+	text-decoration: none;
+	vertical-align: top;
+	border-bottom:1px dotted #3DA8F8;
+}
+
+.item-list-item img,
+.editable-item-list-item img {
+	position: absolute;
+	left: 0;
+	float: left;
+	margin-top: 2px;
+	cursor: pointer;
+}

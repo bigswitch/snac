@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>Tangentiales Exzentrum</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+			@import "../../../dojo/resources/dojo.css";
+			@import "../../../dijit/themes/tundra/tundra.css";
+			@import "../../../dijit/tests/css/dijitTests.css";
+		</style>
+		<!--
+		The next line should include Microsoft's Silverligth.js, if you plan to use the silverlight backend
+		<script type="text/javascript" src="Silverlight.js"></script>
+		-->
+		<script type="text/javascript" src="../../../dojo/dojo.js" djConfig="isDebug: true, parseOnLoad: true"></script>
+		<script type="text/javascript">
+			
+			dojo.require("dijit.form.Slider");
+			dojo.require("dojo.parser"); // scan page for widgets
+			
+			dojo.require("dojox.gfx");
+			
+			var rotation = new Array(0, 0, 0, 0, 0);
+			var scaling = 1;
+			var surface = dojox.gfx.matrix;
+			var g = new Array;
+			var m = new Array(dojox.gfx.matrix, dojox.gfx.matrix, dojox.gfx.matrix, dojox.gfx.matrix, dojox.gfx.matrix);
+			var size = 640;
+			var t = new Array({x: size/2, y: size/2}, {x: 0, y: 150}, {x: 0, y: 70}, {x: 0, y: 30}, {x: 0, y: 10})
+			var initial_matrix = new Array(
+				m[0].translate(t[0].x, t[0].y),
+				m[1].translate(t[1].x, t[1].y),
+				m[2].translate(t[2].x, t[2].y),
+				m[3].translate(t[3].x, t[3].y),
+				m[4].translate(t[4].x, t[4].y)
+			);
+			
+			var updateMatrix = function(i){
+				if(g[i])
+				{
+					g[i].setTransform([
+						m[i].rotategAt(rotation[i], t[i].x, t[i].y),
+						m[i].scaleAt(scaling, size/2, size/2),
+						initial_matrix[i]
+					]);
+				}
+			};
+			
+			var rotatingEvent = function(disc, value)
+			{
+				rotation[disc] = value;
+				//dojo.byId("rotationValue").innerHTML = rotation[disc];
+				updateMatrix(disc);
+			};
+			
+			var scalingEvent = function(value){
+				scaling = Math.exp(Math.LN10 * (value - 1));
+				dojo.byId("scaleValue").innerHTML = scaling.toFixed(3);
+				updateMatrix();
+			};
+			
+			var makeShapes = function(){
+				surface = dojox.gfx.createSurface(dojo.byId("gfx_holder"), size, size);
+				surface.createRect({x: 0, y: 0, width: size, height: size}).setFill("white");
+				
+				g[0] = surface.createGroup().setTransform(initial_matrix[0]);
+				g[0].createCircle({cx: 0, cy: 0, r: 310}).setFill("white");
+				g[0].createPath("M 0 -310 C -171.12 -310 -310 -171.12 -310 0 C -310 171.12 -171.12 310 0 310 L 0 -310 z ").setFill("rgb(0, 0, 0)");
+				g[0].createPath("M 0 -310 L 0 310 C 171.12 310 310 171.12 310 0 C 310 -171.12 171.12 -310 0 -310 z ").setFill("rgb(0, 0, 0, 0.3)");
+				g[0].createPath("M 10 -309.84375 L 10 309.84375 C 176.49586 304.55652 310 167.77255 310 0 C 310 -167.77255 176.49586 -304.55652 10 -309.84375 z ").setFill("rgb(0, 0, 0, 0.3)");
+				g[0].createPath("M 30 -308.5625 L 30 308.5625 C 187.06194 293.45887 310 161.00048 310 0 C 310 -161.00048 187.06194 -293.45887 30 -308.5625 z ").setFill("rgb(0, 0, 0, 0.3)");
+				g[0].createPath("M 70 -302.0625 L 70 302.0625 C 207.43669 270.29674 310 147.04568 310 0 C 310 -147.04568 207.43669 -270.29674 70 -302.0625 z ").setFill("rgb(0, 0, 0, 0.3)");
+				g[0].createPath("M 150 -271.28125 L 150 271.28125 C 245.37387 218.39887 310 116.71038 310 0 C 310 -116.71038 245.37387 -218.39887 150 -271.28125 z ").setFill("rgb(0, 0, 0, 0.3)");
+				
+				g[1] = g[0].createGroup().setTransform(initial_matrix[1]);
+				g[1].createCircle({cx: 0, cy: 0, r: 150}).setFill("white");
+				g[1].createPath("M 0 -150 C -82.8 -150 -150 -82.8 -150 0 C -150 82.8 -82.8 150 0 150 L 0 -150 z ").setFill("rgb(0, 0, 0)");
+				g[1].createPath("M 0 -150 L 0 150 C 82.8 150 150 82.8 150 0 C 150 -82.8 82.8 -150 0 -150 z ").setFill("rgb(0, 0, 0, 0.3)");
+				g[1].createPath("M 10 -149.65625 L 10 149.65625 C 88.141292 144.50261 150 79.438223 150 0 C 150 -79.438223 88.141292 -144.50261 10 -149.65625 z ").setFill("rgb(0, 0, 0, 0.3)");
+				g[1].createPath("M 30 -146.96875 L 30 146.96875 C 98.439126 133.05726 150 72.525998 150 0 C 150 -72.525998 98.439126 -133.05726 30 -146.96875 z ").setFill("rgb(0, 0, 0, 0.3)");
+				g[1].createPath("M 70 -132.65625 L 70 132.65625 C 117.56022 107.4915 150 57.519322 150 0 C 150 -57.519322 117.56022 -107.4915 70 -132.65625 z ").setFill("rgb(0, 0, 0, 0.3)");
+				
+				g[2] = g[1].createGroup().setTransform(initial_matrix[2]);
+				g[2].createCircle({cx: 0, cy: 0, r: 70}).setFill("white");
+				g[2].createPath("M 0 -70 C -38.64 -70 -70 -38.64 -70 0 C -70 38.64 -38.64 70 0 70 L 0 -70 z ").setFill("rgb(0, 0, 0)");
+				g[2].createPath("M 0 -70 L 0 70 C 38.64 70 70 38.64 70 0 C 70 -38.64 38.64 -70 0 -70 z ").setFill("rgb(0, 0, 0, 0.3)");
+				g[2].createPath("M 10 -69.28125 L 10 69.28125 C 43.907727 64.423529 70 35.244404 70 0 C 70 -35.244404 43.907727 -64.423529 10 -69.28125 z ").setFill("rgb(0, 0, 0, 0.3)");
+				g[2].createPath("M 30 -63.25 L 30 63.25 C 53.643772 52.009191 70 27.906667 70 0 C 70 -27.906667 53.643772 -52.009191 30 -63.25 z ").setFill("rgb(0, 0, 0, 0.3)");
+				
+				g[3] = g[2].createGroup().setTransform(initial_matrix[3]);
+				g[3].createCircle({cx: 0, cy: 0, r: 30}).setFill("white");
+				g[3].createPath("M 0 -30 C -16.466046 -29.84375 -29.84375 -16.466046 -29.84375 0 C -29.84375 16.466046 -16.466046 29.84375 0 29.84375 L 0 -29.84375 z ").setFill("rgb(0, 0, 0)");
+				g[3].createPath("M 0 -30 L 0 29.84375 C 16.466046 29.84375 29.84375 16.466046 29.84375 0 C 29.84375 -16.466046 16.466046 -29.84375 0 -29.84375 z ").setFill("rgb(0, 0, 0, 0.3)");
+				g[3].createPath("M 10 -28.125 L 10 28.125 C 21.552099 24.010921 29.84375 12.95863 29.84375 0 C 29.84375 -12.95863 21.552099 -24.010921 10 -28.125 z ").setFill("rgb(0, 0, 0, 0.3)");
+				
+				g[4] = g[3].createGroup().setTransform(initial_matrix[4]);
+				g[4].createCircle({cx: 0, cy: 0, r: 10}).setFill("white");
+				g[4].createPath("M 0 -10 C -5.52 -10 -10 -5.52 -10 0 C -10 5.52 -5.52 10 0 10 L 0 -10 z ").setFill("rgb(0, 0, 0)");
+				g[4].createPath("M 0 -10 L 0 10 C 5.52 10 10 5.52 10 0 C 10 -5.52 5.52 -10 0 -10 z ").setFill("rgb(0, 0, 0, 0.3)");
+				
+				dojo.connect(dijit.byId("rotatingSlider0"), "onChange", dojo.hitch(dijit.byId("rotatingSlider0"), rotatingEvent, 0));
+				dojo.connect(dijit.byId("rotatingSlider1"), "onChange", dojo.hitch(dijit.byId("rotatingSlider1"), rotatingEvent, 1));
+				dojo.connect(dijit.byId("rotatingSlider2"), "onChange", dojo.hitch(dijit.byId("rotatingSlider2"), rotatingEvent, 2));
+				dojo.connect(dijit.byId("rotatingSlider3"), "onChange", dojo.hitch(dijit.byId("rotatingSlider3"), rotatingEvent, 3));
+				dojo.connect(dijit.byId("rotatingSlider4"), "onChange", dojo.hitch(dijit.byId("rotatingSlider4"), rotatingEvent, 4));
+//				dojo.connect(dijit.byId("rotatingSlider4"), "onChange", rotatingEvent(4));
+				//dojo.connect(dijit.byId("scalingSlider"), "onChange", scalingEvent);
+			};
+			
+			dojo.addOnLoad(makeShapes);
+			
+		</script>
+		
+		<style type="text/css">
+			td.pad { padding: 0px 5px 0px 5px; }
+		</style>
+	</head>
+
+<!--
+	dojo.connect(obj, "event", dojo.hitch(connectedObject, "method", param1, param2, param3));
+
+when object.event is called, it will call connectedObject.method(param1, param2, param3, paramsFromEventObject)
+
+This is basically forcing those parameters in, but the destination
+method (connectedObject.method) will of course have to know to expect 4
+params and the event is int he 4th position, not the first.
+-->
+
+	<body class="tundra">
+		<h1><a href="http://pastiche.info/experiments/exzentrum/tangential_eccentric.jpg">Tangentiales Exzentrum</a></h1>
+		<p>Karl Gerstner, Programme entwerfen</p>
+		<table>
+			<!--<tr><td align="center" class="pad">Rotation (<span id="rotationValue">0</span>)</td></tr>-->
+			<tr><td>
+				<div id="rotatingSlider0" dojoType="dijit.form.HorizontalSlider" disc="0"
+						value="0" minimum="-180" maximum="180" discreteValues="73" showButtons="false" intermediateChanges="true"
+						style="width: 640px;">
+					<div dojoType="dijit.form.HorizontalRule" container="topDecoration" count="9" style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="73" style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" labels="-180,-135,-90,-45,0,45,90,135,180" style="height:1.2em;font-size:75%;color:gray;"></div>
+				</div>
+			</td></tr>
+			<tr><td>
+				<div id="rotatingSlider1" dojoType="dijit.form.HorizontalSlider" disc="1"
+						value="0" minimum="-180" maximum="180" discreteValues="73" showButtons="false" intermediateChanges="true"
+						style="width: 640px;">
+					<div dojoType="dijit.form.HorizontalRule" container="topDecoration" count="9" style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="73" style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" labels="-180,-135,-90,-45,0,45,90,135,180" style="height:1.2em;font-size:75%;color:gray;"></div>
+				</div>
+			</td></tr>
+			<tr><td>
+				<div id="rotatingSlider2" dojoType="dijit.form.HorizontalSlider" disc="2"
+						value="0" minimum="-180" maximum="180" discreteValues="73" showButtons="false" intermediateChanges="true"
+						style="width: 640px;">
+					<div dojoType="dijit.form.HorizontalRule" container="topDecoration" count="9" style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="73" style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" labels="-180,-135,-90,-45,0,45,90,135,180" style="height:1.2em;font-size:75%;color:gray;"></div>
+				</div>
+			</td></tr>
+			<tr><td>
+				<div id="rotatingSlider3" dojoType="dijit.form.HorizontalSlider" disc="3"
+						value="0" minimum="-180" maximum="180" discreteValues="73" showButtons="false" intermediateChanges="true"
+						style="width: 640px;">
+					<div dojoType="dijit.form.HorizontalRule" container="topDecoration" count="9" style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="73" style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" labels="-180,-135,-90,-45,0,45,90,135,180" style="height:1.2em;font-size:75%;color:gray;"></div>
+				</div>
+			</td></tr>
+			<tr><td>
+				<div id="rotatingSlider4" dojoType="dijit.form.HorizontalSlider" disc="4"
+						value="0" minimum="-180" maximum="180" discreteValues="73" showButtons="false" intermediateChanges="true"
+						style="width: 640px;">
+					<div dojoType="dijit.form.HorizontalRule" container="topDecoration" count="9" style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="73" style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" labels="-180,-135,-90,-45,0,45,90,135,180" style="height:1.2em;font-size:75%;color:gray;"></div>
+				</div>
+			</td></tr>
+<!--
+			<tr><td align="center" class="pad">Scaling (<span id="scaleValue">1.000</span>)</td></tr>
+			<tr><td>
+				<div id="scalingSlider" dojoType="dijit.form.HorizontalSlider"  intermediateChanges="true"
+						value="1" minimum="0" maximum="1"  showButtons="false" style="width: 640px;">
+					<div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="5" style="height:5px;"></div>
+					<div dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" labels="10%,18%,32%,56%,100%" style="height:1.2em;font-size:75%;color:gray;"></div>
+				</div>
+			</td></tr>
+-->
+		</table>
+		<div id="gfx_holder" style="width: 640px; height: 640px;"></div>
+	</body>
+</html>

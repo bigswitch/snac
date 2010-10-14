@@ -1,0 +1,623 @@
+/*
+ Copyright 2008 (C) Nicira, Inc.
+ 
+ This file is part of NOX.
+ 
+ NOX is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ NOX is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with NOX.  If not, see <http://www.gnu.org/licenses/>.
+
+
+
+ This theme is a compliment to the Nihilo theme of the Dojo Toolkit
+
+ */
+
+.nox .dijitSplitContainer-dijitContentPane,
+.nox .dijitBorderContainer-dijitContentPane {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
+
+.nox .dijitBorderContainer {
+	background: #EFF2F3;
+	padding: 0;
+}
+
+.nox .dijitGutterV, 	/* <---- Prevent the gutters from showing until this is handled via HTML. Not meant to be a permanent solution   */
+.nox .dijitGutterH {
+	display: none !important; 
+}
+
+.nox .dijitButtonNode {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/buttonBg.gif") repeat-x bottom left #fff;
+	border:1px solid #b3b3b3;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	padding:1px 1px 2px 1px;
+	margin-bottom:2px;
+	font-size:0.9em;
+}
+
+.dj_safari .nox .dijitButtonNode {
+	padding:2px 2px 3px 2px;
+}
+
+.nox .dijitComboBox .dijitDownArrowButton {
+	padding-bottom:1px;
+}
+
+.nox .dijitComboBox .dijitButtonNode,
+.nox .dijitSpinner .dijitButtonNode {
+	line-height: 19px;
+}
+
+.nox .dijitButtonHover .dijitButtonNode, 
+.nox .dijitDropDownButtonHover .dijitButtonNode,
+.nox .dijitComboBoxHover .dijitDownArrowButton {
+	border:1px solid #f7bf3b;
+	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/buttonBg.gif") repeat-x bottom left #fff;
+}
+
+.nox .dijitComboBoxHover .dijitDownArrowButton {
+	border-width:0 0 0 1px;
+	border-color:#f7dfa8;
+	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/dropDownArrowHover.gif") repeat-x bottom left #fffae9;
+}
+
+.nox .dijitButtonActive .dijitButtonNode,
+.nox .dijitDropDownButtonActive .dijitButtonNode,
+.nox .dijitArrowButtonActive .dijitButtonNode {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/buttonSelectedBg.gif") repeat-x bottom left #f4f4f4;
+	border:1px solid #f7bf3b;
+}
+
+.nox .dijitArrowButton {
+	-moz-border-radius:0;
+	-webkit-border-radius:0;
+	border-right:0;
+	border-top:0;
+	border-bottom:0;
+	margin-bottom:0;
+	padding:1px 3px;
+}
+
+.dj_ie .nox .dijitArrowButton {
+	padding:1px 3px 3px 3px;
+}
+
+.nox .dijitArrowButtonInner {
+	background-image: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/spriteArrows.png") !important;
+}
+
+.dj_ie6 .nox.dijitArrowButtonInner {
+	behavior: url("/static/nox.ext.apps.coreui/coreui/png/iepngfix.htc");
+}
+
+/* ---------- begin grid ---------- */
+
+.nihilo.nox .dojoxGrid {
+	background-color: transparent !important;
+}
+
+/* master messages */
+
+.nox.nihilo .dojoxGridMasterMessages {
+	left: 1px;
+	background-color: transparent !important;
+}
+
+/* header */
+
+.nihilo.nox .dojoxGridMasterHeader {
+	overflow: hidden;
+	border-top: 1px solid #D4D4D4;
+	border-right: 1px solid #E1E4E3;
+	border-bottom: 1px solid #CAD2D6;
+}
+
+.nihilo.nox .dojoxGridHeader { 
+	left: 0 !important;
+	background: #F1F4F5 url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/statusHeaderBg.png") repeat-x top left;
+	border-left: 1px solid #CAD2D6;
+	border-right: 1px solid #CAD2D6;
+}
+
+.dj_ie .nihilo.nox .dojoxGridHeader {
+	border-right: none !important;
+}
+
+.nihilo.nox .dojoxGridHeader table { 
+	height: 25px !important;
+}
+
+.nihilo.nox .dojoxGridHeader .dojoxGridCell {
+	height: 25px;
+	padding: 0 0 0 8px;
+	background: #F1F4F5 url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/statusHeaderBg.png") repeat-x top left;
+	font-family: "Trebuchet MS", Verdana, Helvetica, sans-serif;
+	color: #464646 !important;
+	font-size:12px;
+	border-top: none;
+	border-left: none;
+	border-right: 1px solid #FDFFFF;
+	border-bottom: none;
+	text-align: left !important;
+	vertical-align: middle;
+}
+
+.dj_ie .nihilo.nox .dojoxGridHeader .dojoxGridCell.dojoDndItem {
+	height: 25px;
+	padding: 0 0 0 8px;
+	background: #F1F4F5 url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/statusHeaderBg.png") repeat-x top left;
+	font-family: "Trebuchet MS", Verdana, Helvetica, sans-serif;
+	color: #464646 !important;
+	font-size:12px;
+	border-top: none;
+	border-left: none;
+	border-right: 1px solid #FDFFFF;
+	border-bottom: none;
+	text-align: left !important;
+	vertical-align: middle;
+}
+
+.nihilo.nox .dojoxGridHeader .dojoxGridCell .dojoxGridSortNode {
+	border-right: 1px solid #CBCBCB;
+	line-height: 25px;
+	white-space: nowrap;
+	text-shadow:0 1px 0 #FEFEFE;
+}
+
+.dj_safari .nihilo.nox .dojoxGridHeader .dojoxGridCell {
+	height: 20px;
+}
+
+.nihilo.nox .dojoxGridHeader .dojoxGridCellOver {
+	border-top: none;
+	padding-bottom: 0px;
+	background: #F1F4F5 url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/statusHeaderBg.png") repeat-x top left;
+}
+
+.nihilo.nox .dojoxGridHeader .dojoxGridCellOver .dojoxGridSortNode { 
+	color: #006EC1;
+}
+
+.nihilo.nox .dojoxGridArrowButtonNode {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/spriteArrows.png") left center no-repeat !important;
+	height: 11px;
+	padding: 0;
+	margin: 0 3px 0 0;
+}
+
+.nihilo.nox .dojoxGridSortUp .dojoxGridArrowButtonNode {
+	background-position: -21px 50% !important;
+}
+
+.nihilo.nox .dojoxGridHeader .dojoxGridArrowButtonNode {
+	margin: 7px 3px 0 0;
+}
+
+.dj_ie .nihilo.nox .dojoxGridHeader .dojoxGridArrowButtonNode {
+	margin: 3px 3px 0 0;
+}
+/* content */
+
+.nihilo.nox .dojoxGridScrollbox {
+	background-color: transparent;
+}
+
+.dj_ie .nihilo.nox .dojoxGridScrollbox {
+	background-color: #EFF2F3;
+}
+
+/* rows */
+
+.nihilo.nox .dojoxGridRow {
+	border: none;
+	background-color: transparent !important;
+}
+
+.nihilo.nox .dojoxGridRow td {
+	height: 28px;
+	text-align: left !important;
+	padding-left: 8px;
+	vertical-align: middle;
+}
+
+.dj_safari .nihilo.nox .dojoxGridRow td {
+	height: 21px;
+}
+
+.nihilo.nox .dojoxGridRowOdd {
+	border: none !important;
+	background-color: #E0E6E7 !important;
+}
+
+.nihilo.nox .dojoxGridRowOver .dojoxGridCell {
+	background-color: transparent !important; 
+}
+
+.nihilo.nox .dojoxGridRowSelected {
+	background-color:#fff9e5;
+	background: url("/static/nox/ext/apps/snackui/policyui/images/ruleBackgroundSelected.gif") repeat-x bottom left #fffae9 !important;
+}
+
+
+/* cells */
+
+.nihilo.nox .dojoxGridCell {
+	border: none !important;
+}
+
+.nihilo.niox .dojoxGridCellFocus {
+	border-top: none !important;
+}
+
+.nihilo.nox .dojoxGridCellOver {
+	border-top: none !important;
+}
+
+.nihilo.nox .dojoxGridCellFocus.dojoxGridCellOver {
+	border: none !important;
+}
+
+.nihilo.nox .dojoxGridCell a {
+	text-decoration: none;
+	border-bottom: 1px dotted #3DA8F8;
+}
+
+/* grid buttons */
+
+.nihilo.nox .dojoxGridCell button.moveUp, 
+.nihilo.nox .dojoxGridCell button.moveDown {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/buttonBg.gif") repeat-x bottom left #fff;
+	border:1px solid #b3b3b3;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	height: 19px;
+	width: 22px;
+	padding: 0;
+	position: relative;
+	vertical-align: middle;
+}
+
+.dj_safari .nihilo.nox .dojoxGridCell button.moveUp, 
+.dj_safari .nihilo.nox .dojoxGridCell button.moveDown, {
+	padding:2px 2px 3px 2px;
+}
+
+
+.nihilo.nox .dojoxGridCell button.moveUp:hover, 
+.nihilo.nox .dojoxGridCell button.moveDown:hover {
+	border:1px solid #f7bf3b;
+}
+
+.nihilo.nox .dojoxGridCell button.moveUp {
+	margin: 0 8px 0 16px;
+}
+
+
+.nihilo.nox .dojoxGridCell button.moveUp .moveUpIcon {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/spriteArrows.png") no-repeat;
+	background-position: -22px 0;
+	height: 11px;
+	width: 11px;
+	position: absolute;
+	top: -7px;
+	left: 2px;
+}
+
+.nihilo.nox .dojoxGridCell button.moveDown .moveDownIcon {
+	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/spriteArrows.png") no-repeat;
+	background-position: 0 0;
+	height: 11px;
+	width: 11px;
+	margin-right: 2px;
+	position: absolute;
+	top: -7px;
+	left: 1px;
+}
+
+.dj_safari .nihilo.nox .dojoxGridCell button.moveUp .moveUpIcon {
+	top: 3px;
+	left: 5px;
+}
+
+.dj_safari .nihilo.nox .dojoxGridCell button.moveDown .moveDownIcon {
+	top: 3px;
+	left: 4px;
+}
+
+.dj_ie .nihilo.nox .dojoxGridCell button.moveUp .moveUpIcon {
+	top: 2px;
+	left: 4px;
+}
+
+.dj_ie .nihilo.nox .dojoxGridCell button.moveDown .moveDownIcon {
+	top: 2px;
+	left: 3px;
+}
+
+
+/* ---------- end  grid ---------- */
+
+/* ---------- begin grid filter ---------- */
+
+.noxPrincipalGridFilter {
+	background: #eef2f3 url("/static/nox.ext.apps.coreui/coreui/images/gridFilterBg.gif") repeat-x bottom left;
+	border:1px solid #d7dbde;
+	border-collapse:collapse;
+	height: 25px;
+	vertical-align: middle;
+}
+
+.noxPrincipalGridFilter .filterTable {
+	border-collapse: collapse;
+}
+
+.noxPrincipalGridFilter .label {
+	float: left;
+	padding-left:5px;
+	line-height: 25px;
+}
+
+.noxPrincipalGridFilter .filterValue {
+	float: left;
+	height: 25px;
+	padding: 5px 10px 0 5px;
+	border-right:1px solid #cacdd0;
+	vertical-align: middle;
+}
+
+.noxPrincipalGridFilter .filterValue .dijitButtonNode {
+	margin-top: -3px;
+}
+
+.noxPrincipalGridFilter .filterValue .dijitTextBox {
+	width:150px;
+}
+
+.noxPrincipalGridFilter span.dijitButton {
+	margin: 1px 1px 0 0;
+}
+
+/* ---------- begin dialog ---------- */
+
+.dijitDialogUnderlay {
+	background: #343434;
+}
+
+.nihilo.nox .dijitDialog {
+	background: #EFF2F3;
+	border: 1px solid #9A9A9A;
+	-moz-border-radius: 13px;
+	-webkit-border-radius: 13px;	
+}
+
+.nihilo.nox .dijitDialogTitleBar {
+	height: 34px;
+	padding-top: 0;
+	padding-bottom: 0;
+	line-height: 34px;
+	font-size: 13px;
+	font-weight: normal;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;	
+	background: #020202 url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/dialogHeaderBg.png") repeat-x top left;
+}
+
+.dj_ff2 .nihilo.nox .dijitDialogTitleBar {
+	background: #020202; /*Fix for FF2 lack of support for rouding border with a backgroung image: https://bugzilla.mozilla.org/show_bug.cgi?id=24998 */
+}
+
+.nihilo.nox .dijitDialogTitle {
+	color: #FFF;
+	font-size: 13px;
+	font-weight: normal;
+}
+
+.nihilo.nox .dijitDialogCloseIcon,
+.dj_ie .nihilo.nox .dijitDialogCloseIcon {
+	top: 8px;
+	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/dialogClose.png") no-repeat top left;
+}
+
+.nihilo.nox .dijitDialog .dijitDialogPaneContent {
+	background: #EFF2F3;
+	padding: 2px 16px;
+	border: none;
+}
+
+.nihilo.nox .dijitDialog .labeledinfo {
+	border-spacing: 0 14px;
+}
+
+/* ---------- dialog: begin workaround for IE's lack of support for border-spacing ---------- */
+.dj_ie .nihilo.nox .dijitDialog .labeledinfo {
+	border-collapse: expression('separate', cellSpacing = '14px');
+	position: relative;
+}
+
+.dj_ie .nihilo.nox .dijitDialog .labeledinfo .label {
+	position: relative;
+	left: -14px;
+}
+
+.dj_ie .nihilo.nox .dijitDialog .labeledinfo .input {
+	position: relative;
+	left: -28px;
+}
+
+.dj_ie .nihilo.nox .dijitDialog .label {
+	padding: 0 33px 0 40px;
+}
+/* ---------- dialog: end workaround for IE's lack of support for border-spacing ---------- */
+
+.nihilo.nox .dijitDialog .label {
+	line-height: 28px;
+	padding: 0 12px 0 40px;
+	font-weight: normal;
+	color: #000;
+	vertical-align: middle;
+	background: #E0E6E7;
+	-moz-border-radius-topleft: 8px;
+	-moz-border-radius-bottomleft: 8px;
+	-webkit-border-top-left-radius: 8px;
+	-webkit-border-bottom-left-radius: 8px;
+	text-shadow:0 1px 0 #FEFEFE;
+}
+
+.nihilo.nox .dijitDialog .input {
+	line-height: 28px;
+	padding: 0 14px 0 8px;
+	font-weight: normal;
+	vertical-align: middle;
+	background: #FFF;
+	-moz-border-radius-topright: 8px;
+	-moz-border-radius-bottomright: 8px;
+	-webkit-border-top-right-radius: 8px;
+	-webkit-border-bottom-right-radius: 8px;		
+}
+
+.nihilo.nox .dijitDialog .dialogButtonContainer {
+	border-top: 1px solid #CCD0D5;
+	-moz-border-radius-bottomleft: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;		
+}
+
+.nihilo.nox .dijitDialog .dialogButtons {
+	float: left;
+	width: 100%;
+	padding: 8px 0;
+	border-top: 1px solid #FCFCFC;
+}
+
+.nihilo.nox .dijitDialog .buttonCancel,
+.nihilo.nox .dijitDialog .buttonConfirm {
+	float: right;
+}
+
+.nihilo.nox .dijitDialog .buttonCancel {
+	margin-right: 5px;
+}
+.nihilo.nox .dijitDialog .buttonConfirm {
+}
+
+/* ---------- begin add switch dialog unique  ---------- */
+#add-switch-dialog {
+	width: 368px;
+}
+
+.dj_ie #add-switch-dialog {
+	width: 375px;
+}
+
+.dj_ie .nihilo.nox #add-switch-dialog .dijitDialogPaneContent {
+	width: 368px;
+	overflow: hidden;
+}
+/* ---------- end add switch dialog unique ---------- */
+
+/* ---------- end dialog ---------- */
+
+.nihilo.nox #module_content .dijitTitlePane {
+	margin-top:10px;
+}
+
+.nihilo.nox  #module_content .dijitTitlePaneTitle {
+    background: transparent;
+    border: 0px;
+}
+
+.nihilo.nox  #module_content .dijitTitlePaneTitle .dijitTitlePaneTextNode {
+	font-size:15px;
+	margin:1.5em 0 0.75em 7px;
+	color:#464646;
+	font-weight:bold;
+}
+
+.nihilo.nox #module_content .dijitTitlePaneContentOuter {
+	border:0;
+	background:transparent;
+}
+
+.nihilo.nox #module_content .dijitTitlePaneContentInner {
+	padding:10px 0;
+}
+
+.nihilo.nox #module_content .dijitTitlePane .dijitOpen .dijitArrowNode, .nihilo.nox #module_content .dijitTitlePane .dijitClosed .dijitArrowNode {
+	background-image: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/spriteRoundedIconsSmall.png");
+}
+
+.nihilo.nox  .dijitMenuItem {
+	font-size: 12px;
+	font-family: "Trebuchet MS", Verdana, Helvetica, sans-serif;
+}
+
+/* ---------- begin tooltip ---------- */
+
+.nihilo.nox .dijitTooltipDialog {
+	background: transparent;
+}
+
+.nihilo.nox .dijitTooltipContainer {
+	background: #FFF;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+}
+
+.nihilo.nox .dijitTooltipContainer .dijitDialogTitleBar {
+	background: none;
+	height: auto;
+	line-height: 13px;
+	margin: 3px 0 5px 0;
+}
+
+.nihilo.nox .dijitTooltipContainer .dijitDialogTitleBar .closeText {
+	display: none;
+}
+
+.nihilo.nox .dijitTooltipContainer .dijitDialogTitle {
+	color: #464646;
+}
+
+.nihilo.nox .dijitTooltipContainer .dijitTooltipContents {
+	margin-left: 9px;
+	font-size: 12px;
+}
+
+.nihilo.nox .dijitTooltipContainer .dijitTooltipContents .dateTime {
+	font-size: 10px;
+}
+
+.nihilo.nox .dijitTooltipAbove .dijitTooltipConnector,
+.nihilo.nox .dijitTooltipBelow .dijitTooltipConnector {
+	left: 12px;
+}
+
+.nihilo.nox .dijitTooltipRight .dijitTooltipConnector,
+.nihilo.nox .dijitTooltipLeft .dijitTooltipConnector {
+	bottom: 10px;
+}
+
+.dj_ie .nihilo.nox .dijitTooltipContainer {
+	font-size: 11px;
+}
+
+.dj_ie .nihilo.nox .dijitTooltipAbove .dijitTooltipConnector {
+	bottom: -7px;
+}

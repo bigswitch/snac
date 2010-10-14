@@ -1,0 +1,68 @@
+/*
+ Copyright 2008 (C) Nicira,
+
+ This file is part of NOX.
+
+ NOX is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ NOX is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with NOX.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+table.components {
+    width: 98%;
+    border-collapse: collapse;
+    border-spacing: 0.5em 0em;
+	margin: 15px 0 0 17px;
+}
+
+tr {
+    vertical-align: top;
+	height: 32px;
+}
+td.label {
+    font-weight: bold;
+    text-align: right;
+}
+
+table.components th {
+    border-bottom: 1px solid black;
+    text-align: center;
+    font-weight: 900;
+}
+
+table.components td.name, table.components th.name {
+    width: 37%;
+}
+
+table.components td.name {
+    padding-left: 12px;
+}
+
+table.components td.version, table.components th.version {
+    width: 14%;
+}
+
+table.components td.version {
+	padding-left: 6px;
+}
+
+table.components td.current_state, table.components th.current_state {
+    width: 26%;
+}
+
+
+table.components td.required_state, table.components th.required_state {
+	width: 14%;
+}
+
+table.components td.required_state {
+}

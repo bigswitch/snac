@@ -32,8 +32,8 @@ import logging
 
 from nox.lib.core import Component 
 
-from nox.netapps.storage import TransactionalStorage
-from nox.netapps.configuration.properties import *
+from nox.ext.apps.storage.transactional_storage import TransactionalStorage
+from nox.ext.apps.configuration.properties import *
 from twisted.web import static, server, resource
 from twisted.internet import defer, reactor
 from twisted.internet.protocol import ServerFactory, Protocol, ClientFactory

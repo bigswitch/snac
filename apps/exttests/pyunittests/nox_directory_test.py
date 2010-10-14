@@ -4,7 +4,7 @@
 import logging
 from nox.lib.netinet.netinet import *
 from nox.netapps.tests import unittest
-from nox.netapps.storage import StorageTableUtil
+from nox.ext.apps.storage import StorageTableUtil
 from nox.ext.apps.directory_nox.nox_directory import *
 from twisted.internet import defer, reactor
 

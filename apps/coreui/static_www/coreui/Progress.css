@@ -1,0 +1,55 @@
+.noxCoreuiProgress {
+	float: right;
+	background-image: url('/static/nox.ext.apps.coreui/coreui/images/loader_sprite.png');
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+	color: white;
+	font-size: 11px;
+	width: 26px;
+	height: 26px;
+	position:relative;
+	right:17px;
+	top:5px;
+}
+
+.noxCoreuiProgressCanRefresh {
+	cursor:pointer;
+}
+
+.noxCoreuiProgressTooltip .progressBar {
+	width: 100px;
+}
+
+.noxCoreuiProgressSpinner {
+	padding-left: 5px;
+	padding-top: 5px;
+}
+
+.dj_ie .noxCoreuiProgressSpinner {
+	position:relative;
+	top:5px;
+	left:4px;
+}
+
+#noxErrorTooltip .errorHeader {
+	color: red;
+	display:block;
+  font-weight: bold; 
+	font-size: 15px;
+	margin-bottom:5px;
+}
+
+#noxErrorTooltip .errorMessage {
+	display:block;
+	font-size: 12px;
+	margin-bottom:5px;
+}
+
+.dj_ie6 .noxCoreuiProgress {
+	behavior: url("/static/nox.ext.apps.coreui/coreui/png/iepngfix.htc");
+}
+.progressMessage {
+	font-size:11px;
+	display:block;
+	margin-right:4px;
+}

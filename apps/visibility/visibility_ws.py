@@ -27,8 +27,8 @@ from twisted.internet import defer
 from twisted.python.failure import Failure
 from nox.netapps.authenticator.pyauth import PyAuth
 from nox.webapps.webservice.webservice import *
-from nox.netapps.directory.directorymanager import directorymanager, mangle_name
-from nox.netapps.directory.directorymanagerws import WSPathExistingDirName
+from nox.ext.apps.directory.directorymanager import directorymanager, mangle_name
+from nox.ext.apps.directory.directorymanagerws import WSPathExistingDirName
 from nox.ext.apps import sepl
 from nox.ext.apps.miscws.policyws import WSPathExistingPolicyId, \
         WSPathExistingRuleId

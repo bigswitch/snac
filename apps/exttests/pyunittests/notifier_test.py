@@ -20,8 +20,8 @@ from twisted.python.failure import Failure
 
 from nox.netapps.tests import unittest
 from nox.netapps.storage import Storage
-from nox.netapps.storage import TransactionalStorage, TransactionalConnection
-from nox.netapps.configuration.properties import Properties
+from nox.ext.apps.storage.transactional_storage import TransactionalStorage, TransactionalConnection
+from nox.ext.apps.configuration.properties import Properties
 from nox.netapps.tests.pyunittests.properties_test import DeleteSection
 from nox.ext.apps.notification.notifier import Notifier
 

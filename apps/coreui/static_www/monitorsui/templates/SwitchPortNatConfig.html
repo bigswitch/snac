@@ -1,0 +1,126 @@
+<div dojoAttachPoint="content" > 
+        <div id="of0_error_msg" style="display: none"> 
+        You cannot configure NAT for an of0 interface.
+      </div> 
+      <div id="main_content"> 
+        <div id="enabled_div"  style="display: none">NAT currently enabled. 
+                                (<a id="disable_link"> disable NAT )</a></div> 
+        <div id="disabled_div"  style="display: none">NAT currently disabled.
+                                (<a id="enable_link"> enable NAT )</a></div> 
+        <div id="config_div"  style="display: none">                           
+        <br>
+        <table> 
+          <tr> 
+            <td width="200"> </td> 
+            </td> 
+            <td width="200"> External IPv4 Address(es): </td> 
+            <td> 
+            <input type="text" dojoType="dijit.form.ValidationTextBox" dojoAttachPoint="ipv4_external_prefix"
+            regExp="(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(/[0-9]|/[1-2][0-9]|/3[0-2])?"
+            value="0.0.0.0" require="true" trim="true"
+            promptMessage="Enter IPv4 address or prefix (e.g., '10.0.0.1' or '10.0.0.0/16')"
+            invalidMessage="Not a valid IPv4 address or prefix"> 
+        </td></tr>
+      </table> 
+        <br>
+        <table> 
+          <tr> 
+            <td width="200"> </td> 
+            <td width="200"> Hosts to NAT: </td> 
+            <td> <input dojoType="dijit.form.RadioButton" id="srcip_all"
+            dojoAttachPoint="srcip_all"
+            name="srcip" value="all" type="radio"/> 
+            <label for="srcip_all"> All hosts on this port </label><br>  
+             <input dojoType="dijit.form.RadioButton" id="srcip_some" 
+          dojoAttachPoint="srcip_some"
+          name="srcip"  value="some" type="radio"/> 
+          <label for="srcip_some">
+            Only hosts in an IPv4 Prefix: </label> 
+              <input type="text" dojoType="dijit.form.ValidationTextBox" 
+            dojoAttachPoint="ipv4_internal_prefix"
+            regExp="(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(/[0-9]|/[1-2][0-9]|/3[0-2])"
+            value="" trim="true"
+            promptMessage="Enter an IPv4 prefix (e.g., '10.0.1.0/24' )"
+            invalidMessage="Invalid IPv4 prefix"> 
+        </td></tr>
+      </table>
+        <br>
+            <table>
+            <tr> 
+          <td width="200"> </td> 
+          <td width="200">  TCP:  </td> 
+          <td> <input dojoType="dijit.form.RadioButton" id="tcp_all" 
+            name="tcp_type" value="all" type="radio"/> 
+            <label for="tcp_all"> All  </label><br>  
+             <input dojoType="dijit.form.RadioButton" id="tcp_none" 
+          name="tcp_type"  value="none" type="radio"/> 
+          <label for="tcp_none"> None </label><br> 
+             <input dojoType="dijit.form.RadioButton" id="tcp_some" 
+          name="tcp_type"  value="some" type="radio"/> 
+          <label for="tcp_some"> Only specified ports: </label> 
+        <input type="text" dojoType="dijit.form.ValidationTextBox" dojoAttachPoint="tcp_ports"  
+        regExp="(([1-9])|([1-9][0-9])|([1-9][0-9]{2})|([1-9][0-9]{3})|(6[0-9]{4}))(\s*,\s*(([1-9])|([1-9][0-9])|([1-9][0-9]{2})|([1-9][0-9]{3})|(6[0-9]{4})))*"
+        promptMessage="Enter a comma separated list of ports (e.g., '80,443' )"
+        invalidMessage="Requires a comma-separated list of ports."
+        value="" trim="true" >
+        </td></tr> 
+      </table>
+        <br>
+            <table>
+            <tr> 
+          <td width="200"> </td> 
+          <td width="200"> UDP: </td> 
+          <td> <input dojoType="dijit.form.RadioButton" id="udp_all" 
+            name="udp" value="all" type="radio"/> 
+            <label for="udp_all"> All </label><br>  
+             <input dojoType="dijit.form.RadioButton" id="udp_none" 
+          name="udp"  value="none" type="radio"/> 
+          <label for="udp_none"> None </label><br> 
+             <input dojoType="dijit.form.RadioButton" id="udp_some" 
+          name="udp"  value="some" type="radio"/> 
+          <label for="udp_some"> Only specified ports: </label>  
+        <input type="text" dojoType="dijit.form.ValidationTextBox" dojoAttachPoint="udp_ports"  
+        regExp="(([1-9])|([1-9][0-9])|([1-9][0-9]{2})|([1-9][0-9]{3})|(6[0-9]{4}))(\s*,\s*(([1-9])|([1-9][0-9])|([1-9][0-9]{2})|([1-9][0-9]{3})|(6[0-9]{4})))*"
+        promptMessage="Enter a comma separated list of ports (e.g., '80,443' )"
+        invalidMessage="Requires a comma-separated list of ports."
+        value="" trim="true" > 
+        </td></tr> 
+      </table>
+        <br>
+            <table>
+            <tr> 
+          <td width="200"> </td> 
+          <td width="200"> ICMP: </td> 
+          <td> <input dojoType="dijit.form.RadioButton" id="icmp_all" 
+            name="icmp" value="all" type="radio"/> 
+            <label for="icmp_all"> All </label><br>  
+             <input dojoType="dijit.form.RadioButton" id="icmp_none" 
+          name="icmp"  value="none" type="radio"/> 
+          <label for="icmp_none"> None </label><br> 
+        </td></tr> 
+      </table>
+        <br>
+            <table>
+            <tr> 
+          <td width="200"> </td> 
+          <td width="200"> MAC Rewrite: </td> 
+          <td> <input dojoType="dijit.form.RadioButton" id="rewrite_none" 
+            name="rewrite" value="none" type="radio"/> 
+            <label for="rewrite_none"> No Rewriting </label><br>  
+             <input dojoType="dijit.form.RadioButton" id="rewrite_some" 
+          name="rewrite"  value="some" type="radio"/> 
+          <label for="rewrite_some"> Rewrite destination MAC address to:  </label>
+        <input type="text" dojoType="dijit.form.ValidationTextBox" dojoAttachPoint="mac_to_rewrite"  
+        regExp= "([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}"
+        promptMessage="Enter a colon delimited MAC address"
+        invalidMessage="Requires a colon delimited MAC address"
+        value="" trim="true" > 
+        </td></tr> 
+      </table>
+
+    <button dojoType="dijit.form.Button" dojoAttachPoint="addBtn" >Commit Changes</button>
+    <button dojoType="dijit.form.Button" dojoAttachPoint="cancelBtn">Reset Values</button>
+        <p><font size="2" color="red"> 
+          <span id="error_msg_div"> </font></p>
+        </div>
+    </div> 

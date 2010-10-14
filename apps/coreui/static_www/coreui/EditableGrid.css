@@ -1,0 +1,22 @@
+
+span.editable-grid-value-wrapper {
+	margin-right: 3px;
+	vertical-align: middle;
+	border-bottom: 1px dotted #3DA8F8;
+}
+/*
+span.editable-grid-value-wrapper:hover {
+	cursor: pointer;
+	vertical-align: middle;
+}
+*/ 
+
+span.editable-grid-entry:hover img.grid-edit-icon {
+	visibility: visible !important;
+	display:inline;
+	vertical-align: middle;
+}
+
+.dj_ie6 span.editable-grid-entry {
+	behavior: url("/static/nox.ext.apps.coreui/coreui/png/iepngfix.htc");
+}

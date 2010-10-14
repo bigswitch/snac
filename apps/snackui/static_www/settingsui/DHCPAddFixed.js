@@ -8,10 +8,10 @@ dojo.require("dijit._Templated");
 dojo.require("dijit.form.FilteringSelect");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.TextBox");
-dojo.require("nox.netapps.directory.directorymanagerws.Directories");
-dojo.require("nox.netapps.directory.directorymanagerws.HostStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directories");
+dojo.require("nox.ext.apps.directory.directorymanagerws.HostStore");
 
-var dmws = nox.netapps.directory.directorymanagerws;
+var dmws = nox.ext.apps.directory.directorymanagerws;
 var hostStore = null;
 var bindingStore = null;
 

@@ -16,9 +16,9 @@ from nox.coreapps.pyrt.pycomponent import *
 from nox.lib import config
 from nox.lib.netinet.netinet import *
 
-from nox.webapps.coreui import coreui
-from nox.webapps.coreui.authui import User
-from nox.webapps.coreui.authui import UIResource
+from nox.ext.apps.coreui import coreui
+from nox.ext.apps.coreui.authui import User
+from nox.ext.apps.coreui.authui import UIResource
 from nox.lib.directory import *
 from nox.ext.apps.directory_nox import nox_directory
 from nox.ext.apps.directory_ldap import pyldap_proxy

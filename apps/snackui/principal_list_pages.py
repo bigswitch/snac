@@ -1,21 +1,21 @@
 from nox.lib.core import *
 
-from nox.webapps.coreui.authui import UISection, UIResource, Capabilities
-from nox.webapps.coreui.authui import redirect
-from nox.webapps.coreui import coreui
+from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
+from nox.ext.apps.coreui.authui import redirect
+from nox.ext.apps.coreui import coreui
 from nox.webapps.webservice.webservice import *
-from nox.webapps.coreui.monitorsui import *
+from nox.ext.apps.coreui.monitorsui import *
 from nox.netapps.bindings_storage.bindings_directory import *
-from nox.netapps.directory.directorymanager import *
+from nox.ext.apps.directory.directorymanager import *
 from nox.webapps.webservice.webservice import *
-from nox.netapps.directory.dir_utils import *
+from nox.ext.apps.directory.dir_utils import *
 from nox.webapps.webservice.web_arg_utils import new_get_cmp_fn,get_nametype_from_string, filter_item_list 
 from nox.netapps.bindings_storage.bindings_directory import *
-from nox.netapps.directory.principal_search import do_principal_search
+from nox.ext.apps.directory.principal_search import do_principal_search
 from nox.netapps.switchstats.switchstats import switchstats
 from twisted.internet import defer
-from nox.netapps.directory.dm_ws_switch import dm_ws_switch
-from nox.netapps.directory.dm_ws_location import dm_ws_location
+from nox.ext.apps.directory.dm_ws_switch import dm_ws_switch
+from nox.ext.apps.directory.dm_ws_location import dm_ws_location
 import copy 
 import math
 import urllib

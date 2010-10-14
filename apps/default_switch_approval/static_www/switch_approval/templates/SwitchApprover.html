@@ -1,0 +1,27 @@
+<div dojoAttachPoint="content">
+  <div dojoType="dijit.Dialog" dojoAttachPoint="main_dialog" 
+        title="Register Switch">
+  <form dojoType="dijit.form.Form">
+    <div dojoAttachPoint="register_msg">  </div> 
+    <table> 
+    <tr> 
+      <td> <b> Directory:</b>  </td> 
+      <td>
+        <span dojoType="dijit.layout.ContentPane" dojoAttachPoint="dir_div"> 
+        </span> 
+  </td> 
+</tr> 
+    <tr> 
+      <td> <b> Switch Name:</b> </td> 
+      <td> <input type="text" dojoType="dijit.form.TextBox"
+            trim="true" dojoAttachPoint="name"/>
+      </td> 
+    </tr> 
+</table> 
+    <div class="rule-buttons">
+    <button dojoType="dijit.form.Button" dojoAttachPoint="registerBtn">Register</button>
+    <button dojoType="dijit.form.Button" dojoAttachPoint="cancelBtn">Cancel</button>
+    </div>
+  </form>
+</div> 
+</div>

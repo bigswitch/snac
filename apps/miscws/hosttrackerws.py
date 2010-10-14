@@ -11,12 +11,12 @@ from nox.webapps.webservice.webservice import json_parse_message_body
 from nox.webapps.webservice.webservice import NOT_DONE_YET,WSPathArbitraryString 
 from nox.lib.netinet.netinet import *
 from nox.netapps.authenticator.pyauth import Host_join_event
-from nox.netapps.directory.directorymanager import *
-from nox.netapps.directory.directorymanagerws import *
+from nox.ext.apps.directory.directorymanager import *
+from nox.ext.apps.directory.directorymanagerws import *
 from nox.coreapps.pyrt.pycomponent import CONTINUE 
-from nox.netapps.directory.pydirmanager import Principal_name_event
+from nox.ext.apps.directory.pydirmanager import Principal_name_event
 from nox.lib.directory import Directory
-from nox.netapps.configuration.simple_config import simple_config
+from nox.ext.apps.configuration.simple_config import simple_config
 
 PERIODIC_SAVE_INTERVAL = 60 # save every minute, if changes exist
 

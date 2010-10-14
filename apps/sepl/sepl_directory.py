@@ -8,10 +8,10 @@ from nox.lib.netinet import netinet
 from nox.lib.directory import Directory, SwitchInfo, LocationInfo, NetInfo, \
     HostInfo, UserInfo, GroupInfo
 
-from nox.netapps.directory.directorymanager import directorymanager, demangle_name
-from nox.netapps.directory.pydirmanager import Principal_name_event
-from nox.netapps.directory.pydirmanager import Group_name_event
-from nox.netapps.directory.simple_directory import simple_directory 
+from nox.ext.apps.directory.directorymanager import directorymanager, demangle_name
+from nox.ext.apps.directory.pydirmanager import Principal_name_event
+from nox.ext.apps.directory.pydirmanager import Group_name_event
+from nox.ext.apps.directory.simple_directory import simple_directory 
 
 from nox.coreapps.pyrt.pycomponent import CONTINUE
 

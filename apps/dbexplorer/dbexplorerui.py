@@ -1,8 +1,8 @@
 from nox.coreapps.pyrt.pycomponent import *
 from nox.lib.core import *
 
-from nox.webapps.coreui.authui import UISection, UIResource, Capabilities
-from nox.webapps.coreui import coreui
+from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
+from nox.ext.apps.coreui import coreui
 
 class DBExplorerSec(UISection):
     isLeaf = False

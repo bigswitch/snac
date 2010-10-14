@@ -4,7 +4,7 @@
 <%def name="page_title()">&nbsp;</%def>
 
 <%
-  from nox.webapps.coreui.template_utils import utf8quote
+  from nox.ext.apps.coreui.template_utils import utf8quote
   mangled_name = request.args.get('name', [''])[-1].replace(r'\\', r'\\\\')
 %> 
 

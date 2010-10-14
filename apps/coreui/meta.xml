@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components:components xmlns:components="http://www.noxrepo.org/components.xsd">
+
+  <component>
+    <name>coreui</name>
+    <dependency>
+      <name>simple_config</name>
+    </dependency>
+    <python>nox.ext.apps.coreui.coreui</python>
+  </component>
+
+  <component>
+    <name>authui</name>
+    <dependency>
+      <name>coreui</name>
+    </dependency>
+    <dependency>
+      <name>directorymanager</name>
+    </dependency>
+    <python>nox.ext.apps.coreui.authui</python>
+  </component>
+
+  <component>
+    <name>monitorsui</name>
+    <dependency>
+      <name>authui</name>
+    </dependency>
+    <dependency>
+      <name>componentws</name>
+    </dependency>
+    <dependency>
+      <name>directorymanagerws</name>
+    </dependency>
+    <dependency>
+      <name>switchstats</name>
+    </dependency>
+    <dependency>
+      <name>switchconfig</name>
+    </dependency>
+     <python>nox.ext.apps.coreui.monitorsui</python>
+  </component>
+
+</components:components>

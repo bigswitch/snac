@@ -13,7 +13,7 @@ from mako.template import Template
 from mako.lookup import TemplateLookup
 import os
 import types
-from nox.netapps.configuration.simple_config import simple_config
+from nox.ext.apps.configuration.simple_config import simple_config
 import logging
 import simplejson
 import hashlib
@@ -23,8 +23,8 @@ from twisted.internet import defer
 
 lg = logging.getLogger('pki')
 
-from nox.webapps.coreui.authui import UIResource
-from nox.webapps.coreui import coreui
+from nox.ext.apps.coreui.authui import UIResource
+from nox.ext.apps.coreui import coreui
 
 # this class uses the PROPERTIES table in CDB to hold on to cert data
 # with in that table, it maintains two 'sections', one for pending certificate 

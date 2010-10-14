@@ -1,0 +1,4 @@
+<?xml version='1.0'?>
+<Canvas xmlns='http://schemas.microsoft.com/client/2007' Name='d3'>
+	<Rectangle Height="200" Width="200" Canvas.Left="100" Canvas.Top="100" Stroke="Black" StrokeThickness="1" Fill="red" />
+</Canvas>

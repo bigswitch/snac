@@ -1,13 +1,13 @@
 dojo.provide("nox.ext.apps.snackui.snackmonitors.NWAddrGroups");
 
-dojo.require("nox.webapps.coreui.coreui.base");
-dojo.require("nox.netapps.directory.directorymanagerws.Directories");
-dojo.require("nox.netapps.directory.directorymanagerws.NWAddrGroupStore");
+dojo.require("nox.ext.apps.coreui.coreui.base");
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directories");
+dojo.require("nox.ext.apps.directory.directorymanagerws.NWAddrGroupStore");
 
 dojo.require("dojox.grid.DataGrid");
 
-var coreui = nox.webapps.coreui.coreui;
-var dmws = nox.netapps.directory.directorymanagerws;
+var coreui = nox.ext.apps.coreui.coreui;
+var dmws = nox.ext.apps.directory.directorymanagerws;
 
 var groupsStore = null;
 var groupsTable = null;

@@ -1,12 +1,12 @@
 from nox.coreapps.pyrt.pycomponent import *
 from nox.lib.core import *
 
-from nox.webapps.coreui.authui import UISection, UIResource, Capabilities
-from nox.webapps.coreui.authui import redirect
+from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
+from nox.ext.apps.coreui.authui import redirect
 
 from nox.netapps.user_event_log.UI_user_event_log import UI_user_event_log
 
-from nox.webapps.coreui import coreui
+from nox.ext.apps.coreui import coreui
 
 from twisted.web import server
 from nox.lib.netinet.netinet import create_datapathid_from_host, \

@@ -3,11 +3,11 @@ import sys
 from nox.coreapps.pyrt.pycomponent import *
 from nox.lib.core import *
 
-from nox.webapps.coreui.authui import UISection, UIResource, Capabilities
+from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
 from nox.netapps.user_event_log.UI_user_event_log import UI_user_event_log
-from nox.webapps.coreui import coreui
+from nox.ext.apps.coreui import coreui
 
-from nox.webapps.coreui.monitorsui import monitorsui, SimpleTemplateMonitor
+from nox.ext.apps.coreui.monitorsui import monitorsui, SimpleTemplateMonitor
 from nox.ext.apps.snackui.principal_list_pages import *
 from nox.ext.apps.snackui.search import SearchRes
 from nox.ext.apps.snackui.flow_table_page import FlowTableRes,HostFlowSummaryRes

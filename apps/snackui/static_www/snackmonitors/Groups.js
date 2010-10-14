@@ -1,14 +1,14 @@
 dojo.provide("nox.ext.apps.snackui.snackmonitors.Groups");
 
-dojo.require("nox.netapps.directory.directorymanagerws.SwitchGroupStore");
-dojo.require("nox.netapps.directory.directorymanagerws.HostGroupStore");
-dojo.require("nox.netapps.directory.directorymanagerws.UserGroupStore");
-dojo.require("nox.netapps.directory.directorymanagerws.LocationGroupStore");
-dojo.require("nox.netapps.directory.directorymanagerws.NWAddrGroupStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchGroupStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.HostGroupStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.UserGroupStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.LocationGroupStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.NWAddrGroupStore");
 
 (function () {
 
-    var dmws = nox.netapps.directory.directorymanagerws;
+    var dmws = nox.ext.apps.directory.directorymanagerws;
 
     function update_cnt(group_type, count) {
         var n = dojo.byId(group_type + "-group-count");

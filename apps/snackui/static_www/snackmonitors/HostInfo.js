@@ -4,20 +4,20 @@
 
 dojo.provide("nox.ext.apps.snackui.snackmonitors.HostInfo");
 
-dojo.require("nox.webapps.coreui.coreui.base");
-dojo.require("nox.netapps.directory.directorymanagerws.HostStore");
-dojo.require("nox.webapps.coreui.coreui.ItemList");
-dojo.require("nox.webapps.coreui.coreui.ItemInspector");
+dojo.require("nox.ext.apps.coreui.coreui.base");
+dojo.require("nox.ext.apps.directory.directorymanagerws.HostStore");
+dojo.require("nox.ext.apps.coreui.coreui.ItemList");
+dojo.require("nox.ext.apps.coreui.coreui.ItemInspector");
 dojo.require("dijit.form.FilteringSelect");
 dojo.require("dijit.Dialog");
 dojo.require("dijit.form.ComboBox");
 dojo.require("dijit.form.ValidationTextBox");
 dojo.require("nox.netapps.user_event_log.networkevents.NetEvents");
 dojo.require("dojo.data.ItemFileReadStore");
-dojo.require("nox.webapps.coreui.coreui.EditableGridUtil"); 
-dojo.require("nox.netapps.directory.directorymanagerws.Directories"); 
-dojo.require("nox.netapps.directory.directorymanagerws.PrincipalInfoEditUtils"); 
-dojo.require("nox.netapps.directory.directorymanagerws.PrincipalModifyDialog"); 
+dojo.require("nox.ext.apps.coreui.coreui.EditableGridUtil"); 
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directories"); 
+dojo.require("nox.ext.apps.directory.directorymanagerws.PrincipalInfoEditUtils"); 
+dojo.require("nox.ext.apps.directory.directorymanagerws.PrincipalModifyDialog"); 
 dojo.require("dojox.grid.DataGrid");
 dojo.require("dojox.grid.cells.dijit");
 
@@ -34,10 +34,10 @@ dojo.declare("nox.ext.apps.snackui.snackmonitors.ValidationCell", dojox.grid.cel
     }
 });
 
-var coreui = nox.webapps.coreui.coreui;
+var coreui = nox.ext.apps.coreui.coreui;
 var snackmon = nox.ext.apps.snackui.snackmonitors;
-var dmws = nox.netapps.directory.directorymanagerws;
-var pinfo_util = nox.netapps.directory.directorymanagerws.PrincipalInfoEditUtils;
+var dmws = nox.ext.apps.directory.directorymanagerws;
+var pinfo_util = nox.ext.apps.directory.directorymanagerws.PrincipalInfoEditUtils;
 
 var is_editable = false; // default. this value is set below
 hostInspector = null; 
@@ -179,7 +179,7 @@ var grid_row_count_hack;
 // query, and then calls build_page() in the callback. 
 function init_page() { 
     coreui.base.update_page_title("Host Information");
-    host = new nox.netapps.directory.directorymanagerws.Host({
+    host = new nox.ext.apps.directory.directorymanagerws.Host({
         initialData: { name: selected_host },
         updateList: [ "status", "info","lastSeen","osFingerprint" ]
     });

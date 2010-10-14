@@ -1,9 +1,9 @@
 from nox.coreapps.pyrt.pycomponent import *
 from nox.lib.core import *
 
-from nox.webapps.coreui.authui import UISection, UIResource, Capabilities, redirect
+from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities, redirect
 from nox.netapps.user_event_log.UI_user_event_log import UI_user_event_log
-from nox.webapps.coreui import coreui
+from nox.ext.apps.coreui import coreui
 
 class HelpSec(UISection):
     isLeaf = False

@@ -1,6 +1,6 @@
 # Copyright 2008 (C) Nicira, Inc.
 
-import nox.netapps.directory.discovered_directory as discovered
+import nox.ext.apps.directory.discovered_directory as discovered
 from nox.ext.apps.sepl.declare import *
 
 # all rules in the default policy should be protected

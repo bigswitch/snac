@@ -11,12 +11,12 @@ from nox.webapps.webservice.webservice import json_parse_message_body
 from nox.webapps.webservice.webservice import NOT_DONE_YET,WSPathArbitraryString 
 from nox.lib.netinet.netinet import *
 #from nox.netapps.authenticator.pyauth import Host_event
-from nox.netapps.directory.directorymanager import *
-from nox.netapps.directory.directorymanagerws import *
+from nox.ext.apps.directory.directorymanager import *
+from nox.ext.apps.directory.directorymanagerws import *
 from nox.coreapps.pyrt.pycomponent import CONTINUE 
-from nox.netapps.directory.pydirmanager import Principal_name_event
+from nox.ext.apps.directory.pydirmanager import Principal_name_event
 from nox.lib.directory import Directory
-from nox.netapps.configuration.simple_config import simple_config
+from nox.ext.apps.configuration.simple_config import simple_config
 from nox.netapps.bindings_storage.bindings_directory import *
 from nox.ext.apps.pf.pypf import PyPF, pf_results
 

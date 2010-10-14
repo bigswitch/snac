@@ -4,20 +4,20 @@
 
 dojo.provide("nox.ext.apps.snackui.snackmonitors.UserGroupInfo");
 
-dojo.require("nox.webapps.coreui.coreui.base");
-dojo.require("nox.webapps.coreui.coreui.UpdateMgr");
-dojo.require("nox.netapps.directory.directorymanagerws.UserGroupStore");
-dojo.require("nox.netapps.directory.directorymanagerws.GroupModifyDialog"); 
-dojo.require("nox.netapps.directory.directorymanagerws.Directories"); 
-dojo.require("nox.webapps.coreui.coreui.ItemList");
-dojo.require("nox.webapps.coreui.coreui.ItemListEditor");
-dojo.require("nox.webapps.coreui.coreui.ItemInspector");
+dojo.require("nox.ext.apps.coreui.coreui.base");
+dojo.require("nox.ext.apps.coreui.coreui.UpdateMgr");
+dojo.require("nox.ext.apps.directory.directorymanagerws.UserGroupStore");
+dojo.require("nox.ext.apps.directory.directorymanagerws.GroupModifyDialog"); 
+dojo.require("nox.ext.apps.directory.directorymanagerws.Directories"); 
+dojo.require("nox.ext.apps.coreui.coreui.ItemList");
+dojo.require("nox.ext.apps.coreui.coreui.ItemListEditor");
+dojo.require("nox.ext.apps.coreui.coreui.ItemInspector");
 dojo.require("dijit.form.FilteringSelect");
 
 dojo.require("dojox.grid.DataGrid");
 
-var coreui = nox.webapps.coreui.coreui;
-var dmws = nox.netapps.directory.directorymanagerws; 
+var coreui = nox.ext.apps.coreui.coreui;
+var dmws = nox.ext.apps.directory.directorymanagerws; 
 
 var notFoundError = false;
 var default_error_handlers =  {
@@ -133,7 +133,7 @@ function init_page() {
             return {name: "directory", header: "Directory Name", attr: "directoryName", width: "20%",
                     editor: dijit.form.FilteringSelect,
                     editorProps: {
-                    store: nox.netapps.directory.directorymanagerws.Directories.datastore,
+                    store: nox.ext.apps.directory.directorymanagerws.Directories.datastore,
                     query: { write_user_enabled: true }
                 },
                     editAttr: "directoryName",
@@ -148,7 +148,7 @@ function init_page() {
             };
         } else {
             return {name: "directory", header: "Directory Name", attr: "directoryName", width: "20%",
-                    store: nox.netapps.directory.directorymanagerws.Directories.datastore,
+                    store: nox.ext.apps.directory.directorymanagerws.Directories.datastore,
                     query: { write_user_enabled: true }
             };
         }
@@ -237,7 +237,7 @@ function init_page() {
 var group = null;
 
 function init_directory() {
-    group = new nox.netapps.directory.directorymanagerws.UserGroup({
+    group = new nox.ext.apps.directory.directorymanagerws.UserGroup({
         initialData: { name: selected_group},
         updateList: [ "info" ]
     });
@@ -275,7 +275,7 @@ function init_directory() {
 }
 
 function fetch_directory() {
-    var g = new nox.netapps.directory.directorymanagerws.UserGroup({
+    var g = new nox.ext.apps.directory.directorymanagerws.UserGroup({
         initialData: { name: selected_group },
         updateList: ["info" ]
     });

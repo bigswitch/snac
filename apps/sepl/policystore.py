@@ -1,7 +1,7 @@
 import logging
 
 from nox.netapps.storage import Storage
-from nox.netapps.storage import TransactionalStorage
+from nox.ext.apps.storage.transactional_storage import TransactionalStorage
 
 from nox.lib.core import Component
 

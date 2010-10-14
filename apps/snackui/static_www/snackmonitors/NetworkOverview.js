@@ -4,18 +4,18 @@
 
 dojo.provide("nox.ext.apps.snackui.snackmonitors.NetworkOverview");
 
-dojo.require("nox.webapps.coreui.coreui.base");
-dojo.require("nox.webapps.coreui.coreui.UpdateMgr");
-dojo.require("nox.webapps.coreui.coreui.UpdateErrorHandler");
-dojo.require("nox.webapps.coreui.coreui.ItemInspector");
-dojo.require("nox.webapps.coreui.coreui.base");
+dojo.require("nox.ext.apps.coreui.coreui.base");
+dojo.require("nox.ext.apps.coreui.coreui.UpdateMgr");
+dojo.require("nox.ext.apps.coreui.coreui.UpdateErrorHandler");
+dojo.require("nox.ext.apps.coreui.coreui.ItemInspector");
+dojo.require("nox.ext.apps.coreui.coreui.base");
 dojo.require("nox.netapps.user_event_log.networkevents.NetEvents");
 dojo.require("nox.ext.apps.snackui.snackmonitors.NetworkOverviewData");
 dojo.require("dijit.form.TextBox"); 
-dojo.require("nox.webapps.coreui.coreui.simple_config");
+dojo.require("nox.ext.apps.coreui.coreui.simple_config");
 dojo.require("nox.ext.apps.snackui.snackmonitors.SnackBarGraphs");
 
-var coreui = nox.webapps.coreui.coreui;
+var coreui = nox.ext.apps.coreui.coreui;
 var snackmonitors = nox.ext.apps.snackui.snackmonitors;
 
 

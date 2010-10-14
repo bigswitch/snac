@@ -1,0 +1,226 @@
+<html>
+<head>
+<title>dojox.html.dom performance test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<style type="text/css" rel="stylesheet" title="dojoDefault">
+	@import "../../../dojo/resources/dojo.css";
+	@import "../../../dijit/tests/css/dijitTests.css";
+	
+	.summary {font-weight: bold}
+</style>
+
+<script type="text/javascript" src="../../../dojo/dojo.js" djConfig="isDebug: true"></script>
+<script type="text/javascript">
+	dojo.require("dojox.html.dom");
+	dojo.require("dojox.lang.functional");
+	dojo.require("dojox.lang.functional.fold");
+	
+	var df = dojox.lang.functional;
+	
+	function repr(node){
+		if(!node){
+			return "#null";
+		}
+		if(node.nodeType === 3){
+			return "#text(" + node.nodeValue + ")";
+		}
+		if(node.nodeType === null){
+			return "#attr";
+		}
+		if(node.nodeType == 1){
+			var tag = node.tagName.toLowerCase(),
+				t = dojo.map(node.childNodes, repr);
+			return t.length ? tag + "(" + t.join(" ") + ")" : tag;
+		}
+		return "#" + node.nodeType;
+	}
+	
+	var patterns = [
+			"a", "form", "table", "select",
+			"<p>Hello world!</p>",
+			"<li value='3'>cool</li>",
+			"<table><thead><tr><th>cell</th></tr></thead></table>",
+			"<thead><tr><th>cell</th></tr></thead>",
+			"<tbody><tr><td>cell</td></tr></tbody>",
+			"<tfoot><tr><td>cell</td></tr></tfoot>",
+			"<tr><td>cell</td></tr>",
+			"<td>cell</td>",
+			"<th>cell</th>",
+			"<colgroup span='3'></colgroup>",
+			"<col span='3'></col>",
+			"<colgroup span='3'><col span='2'></col></colgroup>",
+			"<caption>boom</caption>",
+			"<legend>help</legend>",
+			"<option>42</option>",
+			"<p>malformed",
+			"malformed</p>",
+			"<malformed</p>",
+			"<p>malformed</a>"
+	];
+	
+	runTests = function(){
+		dojo.forEach(patterns, function(p){
+			var nl = dojox.html.dom.create(p);
+			console.log(p + " = " + nl.length + " elements:");
+			dojo.forEach(nl, function(node){
+				console.log("=> " + repr(node));
+			});
+		});
+	};
+	
+	var N = 1000, M = 10, matrix = [];
+	
+	runPerfOnce = function(){
+		var i, c, node, r1, r2, r3, r4, host = dojo.byId("host");
+		// 1st pass
+		c = dojox.html.dom.createElement;
+		r1 = (new Date()).getTime();
+		for(i = 0; i < N; ++i){
+			// create node
+			c("span", {
+				custom: "red",
+				style: {color: "blue"},
+				innerHTML: "<em>Hello world!</em>"
+			}, host);
+			// kill node
+			host.innerHTML = "";
+		}
+		r1 = (new Date()).getTime() - r1;
+		// 2nd pass
+		c = dojox.html.dom.element;
+		r2 = (new Date()).getTime();
+		for(i = 0; i < N; ++i){
+			// create node
+			c("span", {
+				custom: "red",
+				style: {color: "blue"},
+				innerHTML: "<em>Hello world!</em>"
+			}, host);
+			// kill node
+			host.innerHTML = "";
+		}
+		node = null;	// explicit clean up
+		r2 = (new Date()).getTime() - r2;
+		// 3rd pass
+		c = dojox.html.dom.element;
+		r3 = (new Date()).getTime();
+		for(i = 0; i < N; ++i){
+			// create node
+			c("span").attr({
+				custom: "red",
+				style: {color: "blue"},
+				innerHTML: "<em>Hello world!</em>"
+			}).place(host);
+			// kill node
+			host.innerHTML = "";
+		}
+		r3 = (new Date()).getTime() - r3;
+		// 4th pass
+		c = dojox.html.dom.create;
+		r4 = (new Date()).getTime();
+		for(i = 0; i < N; ++i){
+			// create node
+			c("span", "<em>Hello world!</em>").
+				attr({custom: "red"}).
+				style({color: "blue"}).
+				place(host);
+			// kill node
+			host.innerHTML = "";
+		}
+		r4 = (new Date()).getTime() - r4;
+		return [r1, r2, r3, r4];
+	};
+	
+	step = function(n){
+		var r = runPerfOnce();
+		// save data
+		matrix.push(r);
+		// build a row
+		var tr = dojox.html.dom.element("tr", null, "perf");
+		dojox.html.dom.element("td", {innerHTML: "#" + n}, tr);
+		dojo.forEach(r, function(ms){
+			dojox.html.dom.element("td", {innerHTML: "" + ms}, tr);
+		});
+		// iterate again, if needed
+		if(n < M){
+			setTimeout(dojo.hitch(null, step, n + 1), 20);
+			return;
+		}
+		// calculate statistics
+		var averages = [], medians = [];
+		for(var i = 0; i < matrix[0].length; ++i){
+			var column = dojo.map(matrix, function(r){ return r[i]; });
+			var average = df.reduce(column, "+") / column.length;
+			column.sort();
+			var median = column[Math.floor(column.length / 2)];
+			averages.push(average);
+			medians.push(median);
+		}
+		// show absolute averages
+		tr = dojox.html.dom.element("tr", null, "perf").addClass("summary");
+		dojox.html.dom.element("td", {innerHTML: "average time"}, tr.node);
+		dojo.forEach(averages, function(a){
+			dojox.html.dom.element("td", {innerHTML: a.toFixed(1)}, tr);
+		});
+		// show relative averages
+		tr = dojox.html.dom.element("tr", null, "perf").addClass("summary");
+		dojox.html.dom.element("td", {innerHTML: "average slowdown"}, tr);
+		dojo.forEach(averages, function(a){
+			dojox.html.dom.element("td", {innerHTML: (a / averages[0]).toFixed(2)}, tr);
+		});
+		// show absolute medians
+		tr = dojox.html.dom.element("tr", null, "perf").addClass("summary");
+		dojox.html.dom.element("td", {innerHTML: "median time"}, tr);
+		dojo.forEach(medians, function(m){
+			dojox.html.dom.element("td", {innerHTML: m.toFixed(1)}, tr);
+		});
+		// show relative medians
+		tr = dojox.html.dom.element("tr", null, "perf").addClass("summary");
+		dojox.html.dom.element("td", {innerHTML: "median slowdown"}, tr);
+		dojo.forEach(medians, function(m){
+			dojox.html.dom.element("td", {innerHTML: (m / medians[0]).toFixed(2)}, tr);
+		});
+		dojo.byId("perfBtn").disabled = false;
+	};
+	
+	runPerf = function(){
+		dojo.byId("perfBtn").disabled = true;
+		for(var perf = dojo.byId("perf"); perf.childNodes.length; dojo._destroyElement(perf.firstChild));
+		matrix = [];
+		step(1);
+	};
+</script>
+</head>
+
+<body>
+<h1>dojox.html.dom performance test</h1>
+<!--<p><button onclick="runTests()">Run Tests</button></p>-->
+<p>Notes:</p>
+<ul>
+	<li>In all cases nodes are created by tag. HTML fragments are not used anywhere.</li>
+	<li>Each test is creates and destroys 1000 nodes.</li>
+	<li>The test sequence is executed 10 times.</li>
+</ul>
+<p>Legend:</p>
+<ul>
+	<li>createElement &mdash; fast version without node wrapping.</li>
+	<li>element w/o ch. &mdash; similar to createElement, but with node wrapping; chaining is not used.</li>
+	<li>element w/ ch. &mdash; the same as the previous one, but chaining is used.</li>
+	<li>create (NodeList) &mdash; creates a node and wraps it with a NodeList; uses the whole weaponry from the NodeList arsenal.</li>
+	<li>All numbers are in milliseconds, except for slowdown factors, which are in 1.0-based percentage.</li>
+</ul>
+<p><button id="perfBtn" onclick="runPerf()">Run Perf</button></p>
+<table border="1">
+	<thead><tr>
+		<th>&nbsp;</th>
+		<th>createElement</th>
+		<th>element w/o ch.</th>
+		<th>element w/ ch.</th>
+		<th>create (NodeList)</th>
+	</tr></thead>
+	<tbody id="perf"><tr><td colspan="5"><em>Future performance results will be here.</em></td></tr></tbody>
+</table>
+<p id="host"></p>
+</body>
+</html>

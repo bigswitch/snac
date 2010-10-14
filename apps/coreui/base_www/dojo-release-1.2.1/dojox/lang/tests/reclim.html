@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<title>Recursion limits</title>
+		<script type="text/javascript">
+			// Linux/Midori 0.0.18 (WebKit 1.0.1): 149794
+			// Linux/Opera 9.50:  9999
+			// Linux/FF 2.0.0.13: 1000
+			// Linux/FF 3.0: 3000
+
+			// Windows/IE 6: 2542
+			// Windows/IE 7: 2556
+			// Windows/IE 8.0.6001.17184 Beta: 2385
+			// Windows/FF 1.5.0.12: 1000
+			// Windows/FF 2.0.0.14: 1000
+			// Windows/FF 3.0: 3000
+			// Windows/Opera 9.50: 9997
+			// Windows/Safari 3.1.1: 499
+			
+			// Macintosh/Safari 3.1.1: 499
+			// Macintosh/FF 3.0: 3000
+			
+			rec  = function(n){
+				if(n <= 1){ return 0; }
+				return rec(n - 1) + 1;
+			};
+			test2 = function(){
+				var depth = Number(document.getElementById("depth").value);
+				if(isNaN(depth) || depth < 1){
+					document.getElementById("result").innerHTML = "didn't run";
+					return;
+				}
+				depth = Math.round(depth);
+				document.getElementById("depth").value = depth.toString();
+				try{
+					rec(depth);
+				}catch(e){
+					document.getElementById("result").innerHTML = "exception: " + e;
+					return;
+				}
+				document.getElementById("result").innerHTML = "success";
+			};
+			test = function(){
+				document.getElementById("result").innerHTML = "running&hellip;";
+				window.setTimeout(test2, 20);
+			};
+		</script>
+	</head>
+	<body>
+		<p>Depth: <input type="text" id="depth">&nbsp;<button onclick="test()">Start</button></p>
+		<p>Result: <em id="result">not yet</em></p>
+	</body>
+</html>

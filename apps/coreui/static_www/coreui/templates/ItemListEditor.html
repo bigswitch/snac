@@ -1,0 +1,60 @@
+<div class="dijitDialog item-list-editor" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+	<div dojoAttachPoint="titleBar" class="dijitDialogTitleBar">
+	<span dojoAttachPoint="titleNode" class="dijitDialogTitle" id="${id}_title"></span>
+	<span dojoAttachPoint="closeButtonNode" class="dijitDialogCloseIcon" dojoAttachEvent="onclick: onCancel" title="${buttonCancel}">
+		<span dojoAttachPoint="closeText" class="closeText" title="${buttonCancel}">x</span>
+	</span>
+	</div>
+	<div dojoAttachPoint="containerNode" class="dijitDialogPaneContent">
+		<div dojoAttachPoint="layoutContainer" class="item-list-editor-layout"
+			dojoType="dijit.layout.BorderContainer" design="headline">
+			<div dojoType="dijit.layout.BorderContainer" class="item-list-editor-main-container"
+				design="sidebar" region="center">
+				<div dojoAttachPoint="left" region="left" class="item-list-editor-left item-list-editor-list-container"
+					dojoType="dijit.layout.BorderContainer" design="headline">
+					<div dojoType="dijit.layout.ContentPane" region="top" class="item-list-editor-list-header">
+						Groups
+					</div>
+					<!-- list goes here -->
+					<div dojoType="dijit.layout.ContentPane" region="bottom" class="item-list-editor-list-footer">
+						<button dojoType="dijit.form.Button" dojoAttachPoint="addGroup" dojoAttachEvent="onClick: onAddGroup" iconClass="addGroup"></button>
+						<button dojoType="dijit.form.Button" disabled="true" dojoAttachPoint="editGroup" dojoAttachEvent="onClick: onEditGroup" iconClass="editGroup"></button>
+						<button dojoType="dijit.form.Button" disabled="true" dojoAttachPoint="remGroup" dojoAttachEvent="onClick: onRemoveGroup" iconClass="remGroup"></button>
+					</div>
+				</div>
+				<div dojoAttachPoint="center" region="center" class="item-list-editor-center"
+					dojoType="dijit.layout.ContentPane">
+					<button dojoType="dijit.form.Button" dojoAttachPoint="addOne" dojoAttachEvent="onClick: onAddOne">&gt;&gt;</button>
+					<br/>
+					<button dojoType="dijit.form.Button" dojoAttachPoint="remOne" dojoAttachEvent="onClick: onRemOne">&lt;&lt;</button>
+					<hr/>
+					<button dojoType="dijit.form.Button" dojoAttachPoint="addAll" dojoAttachEvent="onClick: onAddAll">All &gt;&gt;</button>
+					<br/>
+					<button dojoType="dijit.form.Button" dojoAttachPoint="remAll" dojoAttachEvent="onClick: onRemAll">&lt;&lt; All</button>
+				</div>
+				<div dojoAttachPoint="right" region="right" class="item-list-editor-right item-list-editor-list-container"
+					dojoType="dijit.layout.BorderContainer" design="headline">
+					<div dojoType="dijit.layout.ContentPane" region="top" class="item-list-editor-list-header">
+						Selected
+					</div>
+					<!-- list goes here -->
+					<!--<div dojoType="dijit.layout.ContentPane" region="center">
+						<select multiple="true" dojoAttachPoint="allGroups" class="item-list-editor-list">
+						</select>
+					</div>-->
+					<div dojoType="dijit.layout.ContentPane" region="bottom" class="item-list-editor-list-footer">
+						<input type="text" dojoType="dijit.form.TextBox" dojoAttachPoint="quickAddText" dojoAttachEvent="onFocus: onQuickAddTextFocus, onBlur: onQuickAddTextBlur" value="${quickAddDefaultText}"/>
+						<button dojoType="dijit.form.Button" dojoAttachPoint="quickAddButton" dojoAttachEvent="onClick: onQuickAddClicked" iconClass="addGroup"></button>
+					</div>
+				</div>
+			</div>
+			<div dojoType="dijit.layout.ContentPane" class="item-list-editor-dialog-buttons-container" region="bottom">
+				<hr/>
+				<div class="item-list-editor-dialog-buttons">
+					<button dojoType="dijit.form.Button" dojoAttachPoint="cancelButton" dojoAttachEvent="onClick: onCancel" >Cancel</button>
+					<button dojoType="dijit.form.Button" dojoAttachPoint="doneButton" dojoAttachEvent="onClick: onExecute">Done</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

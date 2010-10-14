@@ -1,0 +1,699 @@
+<html>
+	<head>
+		<title>Recursion combinators</title>
+		<style type="text/css">
+			@import "../../../dojo/resources/dojo.css";
+		</style>
+		<script type="text/javascript" src="../../../dojo/dojo.js" djConfig="isDebug: true, debugAtAllCosts: true"></script>
+		<script type="text/javascript" src="../functional/util.js"></script>
+		<script type="text/javascript" src="../functional/linrec.js"></script>
+		<script type="text/javascript" src="../functional/tailrec.js"></script>
+		<script type="text/javascript" src="../functional/numrec.js"></script>
+		<script type="text/javascript" src="../functional/binrec.js"></script>
+		<script type="text/javascript" src="../functional/multirec.js"></script>
+		<script type="text/javascript">
+			dojo.require("dojox.lang.functional");
+			dojo.require("dojox.lang.functional.object");
+			dojo.require("dojox.lang.functional.listcomp");
+
+			dojo.require("dojox.lang.functional.linrec");
+			dojo.require("dojox.lang.functional.tailrec");
+			dojo.require("dojox.lang.functional.numrec");
+			dojo.require("dojox.lang.functional.binrec");
+			dojo.require("dojox.lang.functional.multirec");
+
+			var test = function(){
+				var df = dojox.lang.functional;
+
+				var linrec1 = function(cond, then, before, after){
+					var c = df.lambda(cond),
+						t = df.lambda(then),
+						b = df.lambda(before),
+						a = df.lambda(after);
+					return function(){
+						if(c.apply(this, arguments)){
+							return t.apply(this, arguments);
+						}
+						var args = b.apply(this, arguments);
+						var ret  = arguments.callee.apply(this, args);
+						return a.call(this, ret, arguments);
+					};
+				};
+
+				var linrec2 = function(cond, then, before, after){
+					var c = df.lambda(cond),
+						t = df.lambda(then),
+						b = df.lambda(before),
+						a = df.lambda(after);
+					return function(){
+						var args = arguments, top, ret;
+						// 1st part
+						while(!c.apply(this, args)){
+							top = {prev: top, args: args};
+							args = b.apply(this, args);
+						}
+						ret = t.apply(this, args);
+						//2nd part
+						for(; top; top = top.prev){
+							ret = a.call(this, ret, top.args);
+						}
+						return ret;
+					};
+				};
+				
+				var _inline = function(str, add2dict, init){
+						var s = df.rawLambda(str);
+						df.forEach(s.args, add2dict);
+						var ap = typeof init == "string",	// apply or call?
+							n = ap ? s.args.length : Math.min(s.args.length, init.length),
+							a = new Array(4 * n + 4), i, j = 1;
+						for(i = 0; i < n; ++i){
+							a[j++] = s.args[i];
+							a[j++] = "=";
+							a[j++] = ap ? init + "[" + i + "]": init[i];
+							a[j++] = ",";
+						}
+						a[0] = "(";
+						a[j++] = "(";
+						a[j++] = s.body;
+						a[j] = "))";
+						return a.join("");
+					},
+					_x = "x", _r_y_e = ["r", "y.e"];
+
+				var linrec3 = function(cond, then, before, after){
+					var c, t, b, a, cs, ts, bs, as, dict = {},
+						add2dict = function(x){ dict[x] = 1; };
+					if(typeof cond == "string"){
+						cs = _inline(cond, add2dict, _x);
+					}else{
+						c = df.lambda(cond);
+						cs = "c.apply(this, x)";
+					}
+					if(typeof then == "string"){
+						ts = _inline(then, add2dict, _x);
+					}else{
+						t = df.lambda(then);
+						ts = "t.apply(this, x)";
+					}
+					if(typeof before == "string"){
+						bs = _inline(before, add2dict, _x);
+					}else{
+						b = df.lambda(before);
+						bs = "b.apply(this, x)";
+					}
+					if(typeof after == "string"){
+						as = _inline(after, add2dict, _r_y_e);
+					}else{
+						a = df.lambda(after);
+						as = "a.call(this, r, y.e)";
+					}
+					var locals = df.keys(dict);
+					return new Function([], "var x=arguments,y,r".concat(
+						locals.length ? "," + locals.join(",") : "",
+						";while(!",
+						cs,
+						"){r=",
+						bs,
+						";y={p:y,e:r};x=r.args}r=",
+						ts,
+						";for(;y;y=y.p){r=",
+						as,
+						"}return r"
+					));
+				};
+
+				var tailrec1 = function(cond, then, before){
+					var c = df.lambda(cond),
+						t = df.lambda(then),
+						b = df.lambda(before);
+					return function(){
+						if(c.apply(this, arguments)){
+							return t.apply(this, arguments);
+						}
+						var args = b.apply(this, arguments);
+						return arguments.callee.apply(this, args);
+					};
+				};
+
+				var tailrec2 = function(cond, then, before){
+					var c = df.lambda(cond),
+						t = df.lambda(then),
+						b = df.lambda(before);
+					return function(){
+						var args = arguments;
+						for(; !c.apply(this, args); args = b.apply(this, args));
+						return t.apply(this, args);
+					};
+				};
+
+				var tailrec3 = function(cond, then, before){
+					var c, t, b, cs, ts, bs, dict = {},
+						add2dict = function(x){ dict[x] = 1; };
+					if(typeof cond == "string"){
+						cs = _inline(cond, add2dict, _x);
+					}else{
+						c = df.lambda(cond);
+						cs = "c.apply(this, x)";
+					}
+					if(typeof then == "string"){
+						ts = _inline(then, add2dict, _x);
+					}else{
+						t = df.lambda(then);
+						ts = "t.apply(this, x)";
+					}
+					if(typeof before == "string"){
+						bs = _inline(before, add2dict, _x);
+					}else{
+						b = df.lambda(before);
+						bs = "b.apply(this, x)";
+					}
+					var locals = df.keys(dict);
+					return new Function([], "var x=arguments".concat(
+						locals.length ? "," + locals.join(",") : "",
+						";for(;!",
+						cs,
+						";x=",
+						bs,
+						");return ",
+						ts
+					));
+				};
+				
+				var numrec1 = function(then, after){
+					var after = df.lambda(after);
+					return function(x){
+						return x ? after.call(this, arguments.callee.call(this, x - 1), x) : then;
+					};
+				};
+
+				var numrec2 = function(then, after){
+					var after = df.lambda(after);
+					return function(x){
+						var ret = then;
+						for(var i = 1; i <= x; ++i){
+							ret = after.call(this, ret, i);
+						}
+						return ret;
+					};
+				};
+				
+				var _x_y_o = ["x", "y.o"];
+
+				var numrec3 = function(then, after){
+					var t, a, ts, as, dict = {},
+						add2dict = function(x){ dict[x] = 1; };
+					if(typeof then == "string"){
+						ts = _inline(then, add2dict, []);
+					}else{
+						t = df.lambda(then);
+						ts = "t.call(this)";
+					}
+					if(typeof after == "string"){
+						as = _inline(after, add2dict, _x_y_o);
+					}else{
+						a = df.lambda(after);
+						as = "a.call(this, x, y.o)";
+					}
+					var locals = df.keys(dict);
+					return new Function(["x"], "var y".concat(
+						locals.length ? "," + locals.join(",") : "",
+						";while(x){y={p:y,o:x};--x}x=",
+						ts,
+						";for(;y;y=y.p){x=",
+						as,
+						"}return x"
+					));
+				};
+
+				var strrec1 = function(then, after){
+					var t = df.lambda(then),
+						a = df.lambda(after);
+					return function(x){
+						return x ? a.call(this, arguments.callee.call(this, x.substr(1)), x.charAt(0)) : t.call(this, x);
+					};
+				};
+
+				var strrec2 = function(then, after){
+					var t = df.lambda(then),
+						a = df.lambda(after);
+					return function(x){
+						var top;
+						// 1st part
+						while(x){
+							top = {prev: top, old: x.charAt(0)};
+							x = x.substr(1);
+						}
+						x = t.call(this);
+						//2nd part
+						for(; top; top = top.prev){
+							x = a.call(this, x, top.old);
+						}
+						return x;
+					};
+				};
+
+				var strrec3 = function(then, after){
+					var t, a, ts, as, dict = {},
+						add2dict = function(x){ dict[x] = 1; };
+					if(typeof then == "string"){
+						ts = _inline(then, add2dict, []);
+					}else{
+						t = df.lambda(then);
+						ts = "t.call(this)";
+					}
+					if(typeof after == "string"){
+						as = _inline(after, add2dict, _x_y_o);
+					}else{
+						a = df.lambda(after);
+						as = "a.call(this, x, y.o)";
+					}
+					var locals = df.keys(dict);
+					return new Function(["x"], "var y".concat(
+						locals.length ? "," + locals.join(",") : "",
+						";while(x){y={p:y,o:x.charAt(0)};x=x.substr(1)}x=",
+						ts,
+						";for(;y;y=y.p){x=",
+						as,
+						"}return x"
+					));
+				};
+
+				var arrayrec1 = function(then, after){
+					var t = df.lambda(then),
+						a = df.lambda(after);
+					return function(x){
+						return x.length ? a.call(this, arguments.callee.call(this, x.slice(1)), x[0]) : t.call(this, x);
+					};
+				};
+
+				var arrayrec2 = function(then, after){
+					var t = df.lambda(then),
+						a = df.lambda(after);
+					return function(x){
+						var top;
+						// 1st part
+						while(x){
+							top = {prev: top, old: x[0]};
+							x = x.slice(1);
+						}
+						x = t.call(this);
+						//2nd part
+						for(; top; top = top.prev){
+							x = a.call(this, x, top.old);
+						}
+						return x;
+					};
+				};
+
+				var arrayrec3 = function(then, after){
+					var t, a, ts, as, dict = {},
+						add2dict = function(x){ dict[x] = 1; };
+					if(typeof then == "string"){
+						ts = _inline(then, add2dict, []);
+					}else{
+						t = df.lambda(then);
+						ts = "t.call(this)";
+					}
+					if(typeof after == "string"){
+						as = _inline(after, add2dict, _x_y_o);
+					}else{
+						a = df.lambda(after);
+						as = "a.call(this, x, y.o)";
+					}
+					var locals = df.keys(dict);
+					return new Function(["x"], "var y".concat(
+						locals.length ? "," + locals.join(",") : "",
+						";while(x){y={p:y,o:x[0]};x=x.slice(1)}x=",
+						ts,
+						";for(;y;y=y.p){x=",
+						as,
+						"}return x"
+					));
+				};
+
+				var binrec1 = function(cond, then, before, after){
+					var c = df.lambda(cond),
+						t = df.lambda(then),
+						b = df.lambda(before),
+						a = df.lambda(after);
+					return function(){
+						if(c.apply(this, arguments)){
+							return t.apply(this, arguments);
+						}
+						var env  = b.apply(this, arguments);
+						var ret1 = arguments.callee.apply(this, env.args1);
+						var ret2 = arguments.callee.apply(this, env.args2);
+						return a.call(this, ret1, ret2, env);
+					};
+				};
+				
+				var binrec2 = function(cond, then, before, after){
+					var c = df.lambda(cond),
+						t = df.lambda(then),
+						b = df.lambda(before),
+						a = df.lambda(after);
+					return function(){
+						var top1, top2, ret, args = arguments;
+						// first part: start the pump
+						while(!c.apply(this, args)){
+							ret = b.apply(this, args);
+							top1 = {prev: top1, args: ret.args2};
+							top2 = {prev: top2, env: ret};
+							args = ret.args1;
+						}
+						for(;;){
+							// second part: mop up
+							do{
+								ret = t.apply(this, args);
+								if(!top2){
+									return ret;
+								}
+								while("ret" in top2){
+									ret = a.call(this, top2.ret, ret, top2.env);
+									if(!(top2 = top2.prev)){
+										return ret;
+									}
+								}
+								top2.ret = ret;
+								args = top1.args;
+								top1 = top1.prev;
+							}while(c.apply(this, args));
+							// first part (encore)
+							do{
+								ret = b.apply(this, args);
+								top1 = {prev: top1, args: ret.args2};
+								top2 = {prev: top2, env: ret};
+								args = ret.args1;
+							}while(!c.apply(this, args));
+						}
+					};
+				};
+				
+				var _z_r_r_z_e = ["z.r", "r", "z.e"];
+
+				var binrec3 = function(cond, then, before, after){
+					var c, t, b, a, cs, ts, bs, as, dict = {},
+						add2dict = function(x){ dict[x] = 1; };
+					if(typeof cond == "string"){
+						cs = _inline(cond, add2dict, _x);
+					}else{
+						c = df.lambda(cond);
+						cs = "c.apply(this, x)";
+					}
+					if(typeof then == "string"){
+						ts = _inline(then, add2dict, _x);
+					}else{
+						t = df.lambda(then);
+						ts = "t.apply(this, x)";
+					}
+					if(typeof before == "string"){
+						bs = _inline(before, add2dict, _x);
+					}else{
+						b = df.lambda(before);
+						bs = "b.apply(this, x)";
+					}
+					if(typeof after == "string"){
+						as = _inline(after, add2dict, _z_r_r_z_e);
+					}else{
+						a = df.lambda(after);
+						as = "a.call(this, z.r, r, z.e)";
+					}
+					var locals = df.keys(dict);
+					return new Function([], "var x=arguments,y,z,r".concat(
+						locals.length ? "," + locals.join(",") : "",
+						";while(!",
+						cs,
+						"){r=",
+						bs,
+						";y={p:y,r:r.args2};z={p:z,e:r};x=r.args1}for(;;){do{r=",
+						ts,
+						";if(!z)return r;while(\"r\" in z){r=",
+						as,
+						";if(!(z=z.p))return r}z.r=r;x=y.r;y=y.p}while(",
+						cs,
+						");do{r=",
+						bs,
+						";y={p:y,r:r.args2};z={p:z,e:r};x=r.args1}while(!",
+						cs,
+						")}"
+					));
+				};
+
+				var multirec1 = function(cond, then, before, after){
+					var c = df.lambda(cond),
+						t = df.lambda(then),
+						b = df.lambda(before),
+						a = df.lambda(after);
+					return function(){
+						if(c.apply(this, arguments)){
+							return t.apply(this, arguments);
+						}
+						var env = b.apply(this, arguments),
+							ret = new Array(env.args.length);
+						for(var i = 0; i < env.args.length; ++i){
+							ret[i] = arguments.callee.apply(this, env.args[i]);
+						}
+						return a.call(this, ret, env);
+					};
+				};
+				
+				var multirec2 = function(cond, then, before, after){
+					var c = df.lambda(cond),
+						t = df.lambda(then),
+						b = df.lambda(before),
+						a = df.lambda(after);
+					return function(){
+						var top = {args: arguments}, args, ret, parent, i;
+						for(;;){
+							for(;;){
+								if(top.env){
+									ret = a.call(this, top.ret, top.env);
+									break;
+								}
+								args = top.args;
+								if(c.apply(this, args)){
+									ret = t.apply(this, args);
+									break;
+								}
+								top.env = ret = b.apply(this, args);
+								top.ret = [];
+								parent = top;
+								args = ret.args;
+								for(i = args.length - 1; i >= 0; --i){
+									top = {prev: top, args: args[i], parent: parent};
+								}
+							}
+							if(!(parent = top.parent)){
+								return ret;
+							}
+							parent.ret.push(ret);
+							top = top.prev;
+						}
+					};
+				};
+
+				var _y_r_y_e = ["_y.r", "_y.e"];
+
+				var multirec3 = function(cond, then, before, after){
+					var c, t, b, a, cs, ts, bs, as, dict = {},
+						add2dict = function(x){ dict[x] = 1; };
+					if(typeof cond == "string"){
+						cs = _inline(cond, add2dict, "_x");
+					}else{
+						c = df.lambda(cond);
+						cs = "c.apply(this, x)";
+					}
+					if(typeof then == "string"){
+						ts = _inline(then, add2dict, "_x");
+					}else{
+						t = df.lambda(then);
+						ts = "t.apply(this, x)";
+					}
+					if(typeof before == "string"){
+						bs = _inline(before, add2dict, "_x");
+					}else{
+						b = df.lambda(before);
+						bs = "b.apply(this, x)";
+					}
+					if(typeof after == "string"){
+						as = _inline(after, add2dict, _y_r_y_e);
+					}else{
+						a = df.lambda(after);
+						as = "a.call(this, y.r, y.e)";
+					}
+					var locals = df.keys(dict);
+					return new Function([], "var _y={x:arguments},_x,_r,_z,_i".concat(
+						locals.length ? "," + locals.join(",") : "",
+						";for(;;){for(;;){if(_y.e){_r=",
+						as,
+						";break}_x=_y.x;if(",
+						cs,
+						"){_r=",
+						ts,
+						";break}_y.e=_r=",
+						bs,
+						";_y.r=[];_z=_y;_x=_r.args;for(_i=_x.length-1;_i>=0;--_i){_y={p:_y,x:_x[_i],z:_z}}}if(!(_z=_y.z)){return _r}_z.r.push(_r);_y=_y.p}"
+					));
+				};
+
+				var timedRun = function(name, n, args, f){
+					console.time(name);
+					for(var i = 0; i < n; ++i){
+						dojo.forEach(args, f);
+					}
+					console.timeEnd(name);
+				};
+
+				var timedRun2 = function(name, f, arg){
+					console.time(name);
+					try{
+						f(arg);
+					}catch(e){
+						console.log(name, arg, e);
+					}
+					console.timeEnd(name);
+				};
+
+				var fact1 = function(n){ return n ? n * arguments.callee.call(this, n - 1) : 1; };
+				var fact2 = function(n){
+					var ret = 1;
+					for(var i = 2; i <= n; ++i){
+						ret *= i;
+					}
+					return ret;
+				};
+				var fact3 = linrec1("<= 0", "1", "[n - 1]", "a * b[0]");
+				var fact4 = linrec2("<= 0", "1", "[n - 1]", "a * b[0]");
+				var fact5 = linrec3("<= 0", "1", "{old: n, args: [n - 1]}", "a * b.old");
+				var fact6 = numrec1(1, "*");
+				var fact7 = numrec2(1, "*");
+				var fact8 = numrec3("1", "*");
+				var fact9 = df.linrec("<= 0", "1", "{old: n, args: [n - 1]}", "a * b.old");
+				var fact10 = df.numrec(1, "*");
+				var fact11 = df.multirec("<= 0", "1", "{old: n, args: [[n - 1]]}", "a[0] * b.old");
+				var fact12a = df.tailrec("<= 1", "n, acc -> acc", "[n - 1, n * acc]");
+				var fact12 = function(n){ return fact12a(n, 1); };
+				
+				var args = df.listcomp("i for(i = 0; i < 10; ++i)");
+				
+				console.log(dojo.map(args, fact1).join(", "));
+				console.log(dojo.map(args, fact2).join(", "));
+				console.log(dojo.map(args, fact3).join(", "));
+				console.log(dojo.map(args, fact4).join(", "));
+				console.log(dojo.map(args, fact5).join(", "));
+				console.log(dojo.map(args, fact6).join(", "));
+				console.log(dojo.map(args, fact7).join(", "));
+				console.log(dojo.map(args, fact8).join(", "));
+				console.log(dojo.map(args, fact9).join(", "));
+				console.log(dojo.map(args, fact10).join(", "));
+				console.log(dojo.map(args, fact11).join(", "));
+				console.log(dojo.map(args, fact12).join(", "));
+/*
+				timedRun("fact1", 1000, args, fact1);
+				timedRun("fact2", 1000, args, fact2);
+				timedRun("fact3", 1000, args, fact3);
+				timedRun("fact4", 1000, args, fact4);
+				timedRun("fact5", 1000, args, fact5);
+				timedRun("fact6", 1000, args, fact6);
+				timedRun("fact7", 1000, args, fact7);
+				timedRun("fact8", 1000, args, fact8);
+				timedRun("fact9", 1000, args, fact9);
+				timedRun("fact10", 1000, args, fact10);
+				timedRun("fact11", 1000, args, fact11);
+				timedRun("fact12", 1000, args, fact12);
+*/
+
+				// recursion limits
+
+				// Linux/Midori 0.0.17 (WebKit 1.0.1): 250
+				// Linux/Opera 9.50 Beta 2:  5000
+				// Linux/FF 2.0.0.13: 500
+
+				// Windows/IE 6: 730
+				// Windows/IE 7: 1160
+				// Windows/IE 8 Beta: 1040
+				// Windows/FF 1.5:
+				// Windows/FF 2.0.0.14: 670
+				// Windows/FF 3.0pre:
+				// Windows/Opera 9.27: 2510
+				// Windows/Opera 9.50 Beta 2: 5000
+				// Windows/Safari 3.1.1: 250
+
+				// opera bombs on "too much recursion"
+
+				var N = 500;
+				
+				timedRun2("fact1", fact1, N);
+				timedRun2("fact2", fact2, N);
+				timedRun2("fact3", fact3, N);
+				timedRun2("fact4", fact4, N);
+				timedRun2("fact5", fact5, N);
+				timedRun2("fact6", fact6, N);
+				timedRun2("fact7", fact7, N);
+				timedRun2("fact8", fact8, N);
+
+/*
+				var fib1 = function(n){ return n <= 1 ? 1 : arguments.callee.call(this, n - 1) + arguments.callee.call(this, n - 2); };
+				var fib2 = function(n){
+					var a = 1, b = 1;
+					for(var i = 2; i <= n; ++i){
+						var c = a + b;
+						b = a;
+						a = c;
+					}
+					return a;
+				};
+				var fib3 = binrec1("<= 1", "1", "{args1: [n - 1], args2: [n - 2]}", "+");
+				var fib4 = binrec2("<= 1", "1", "{args1: [n - 1], args2: [n - 2]}", "+");
+				var fib5 = binrec3("<= 1", "1", "{args1: [n - 1], args2: [n - 2]}", "+");
+				var fib6 = df.binrec("<= 1", "1", "{args1: [n - 1], args2: [n - 2]}", "+");
+				var fib7 = multirec1("<= 1", "1", "{args: [[n - 1], [n - 2]]}", "a[0] + a[1]");
+				var fib8 = multirec2("<= 1", "1", "{args: [[n - 1], [n - 2]]}", "a[0] + a[1]");
+				var fib9 = multirec3("<= 1", "1", "{args: [[n - 1], [n - 2]]}", "a[0] + a[1]");
+				var fib10 = df.multirec("<= 1", "1", "{args: [[n - 1], [n - 2]]}", "a[0] + a[1]");
+
+				var args = df.listcomp("i for(i = 0; i < 10; ++i)");
+
+				console.log(dojo.map(args, fib1).join(", "));
+				console.log(dojo.map(args, fib2).join(", "));
+				console.log(dojo.map(args, fib3).join(", "));
+				console.log(dojo.map(args, fib4).join(", "));
+				console.log(dojo.map(args, fib5).join(", "));
+				console.log(dojo.map(args, fib6).join(", "));
+				console.log(dojo.map(args, fib7).join(", "));
+				console.log(dojo.map(args, fib8).join(", "));
+				console.log(dojo.map(args, fib9).join(", "));
+				console.log(dojo.map(args, fib10).join(", "));
+
+				timedRun("fib1", 100, args, fib1);
+				timedRun("fib2", 100, args, fib2);
+				timedRun("fib3", 100, args, fib3);
+				timedRun("fib4", 100, args, fib4);
+				timedRun("fib5", 100, args, fib5);
+				timedRun("fib6", 100, args, fib6);
+				timedRun("fib7", 100, args, fib7);
+				timedRun("fib8", 100, args, fib8);
+				timedRun("fib9", 100, args, fib9);
+				timedRun("fib10", 100, args, fib10);
+
+				timedRun2("fib1", fib1, 20);
+				timedRun2("fib2", fib2, 20);
+				timedRun2("fib3", fib3, 20);
+				timedRun2("fib4", fib4, 20);
+				timedRun2("fib5", fib5, 20);
+				timedRun2("fib6", fib6, 20);
+				timedRun2("fib7", fib7, 20);
+				timedRun2("fib8", fib8, 20);
+				timedRun2("fib9", fib9, 20);
+				timedRun2("fib10", fib10, 20);
+*/
+			};
+			//dojo.addOnLoad(test);
+		</script>
+	</head>
+	<body>
+		<p>This test is meant to run with Firebug. Open the console to see the output.</p>
+		<p><button onclick="test()">Start</button></p>
+	</body>
+</html>

@@ -1,0 +1,14 @@
+<div class="noxPrincipalGridFilter">
+<table class="filterTable" style="float: left;">
+	<tbody><tr>
+		<td class="label">Name:</td><td class="filterValue"><div dojoType="dijit.form.TextBox" dojoAttachPoint="name"></div></td>
+		<td class="label">Directory:</td><td class="filterValue"><select dojoType="dojox.form.DropDownSelect" dojoAttachPoint="directories"></select></td>
+		<td class="label">Status:</td><td class="filterValue"><select dojoType="dojox.form.DropDownSelect" dojoAttachPoint="status">
+			<option value="*"> </option>
+			<option value="active">Active</option>
+			<option value="inactive">Inactive</option>
+		</select></td>
+	</tr></tbody>
+</table>
+<button dojoType="dijit.form.Button" dojoAttachEvent="onClick: clear" style="float: right;"><img src="/static/nox.ext.apps.coreui/coreui/images/clearFilterButton.png" alt="Clear Filters" /></button>
+</div>

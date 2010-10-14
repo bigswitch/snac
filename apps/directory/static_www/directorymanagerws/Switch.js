@@ -27,7 +27,7 @@ dojo.require("nox.apps.coreui.coreui.UpdateMgr");
 dojo.require("dijit.form.FilteringSelect");
 dojo.require("dojo.data.ItemFileReadStore");
 dojo.require("dijit.Dialog"); 
-dojo.require("nox.apps.default_switch_approval.switch_approval.SwitchApprover");
+dojo.require("nox.ext.apps.default_switch_approval.switch_approval.SwitchApprover");
 
 dojo.declare("nox.apps.directory.directorymanagerws.Switch", [ nox.apps.directory.directorymanagerws._Principal ], {
 
@@ -204,7 +204,7 @@ show_switch_reg_dialog : function(switch_obj,props) {
                     props = {}; 
                   props.id = "approve_id";
                   props.switch_obj = switch_obj; 
-                  appr = new nox.apps.default_switch_approval.switch_approval.SwitchApprover(props);
+                  appr = new nox.ext.apps.default_switch_approval.switch_approval.SwitchApprover(props);
                   dojo.body().appendChild(appr.domNode);
                   appr.startup();
 

@@ -1,0 +1,12 @@
+{
+    "components": [
+        {
+            "name": "switch_approval",
+            "library": "default_switch_approval".
+            "dependencies": [
+                "csimple_config",
+                "cdirectorymanager"
+            ]
+        }
+    ]
+}
