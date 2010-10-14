@@ -8,7 +8,7 @@ NOX_RUNTIMEFILES = 		\
 	__init__.py		\
 	manager.py 		\
 	config.py		\
-	meta.xml
+	meta.json
 
 all-local: nox-runtimefiles-build 
 clean-local: nox-runtimefiles-clean

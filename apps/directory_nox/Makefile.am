@@ -4,7 +4,7 @@ include ../../Make.vars
 STATIC_SUBDIRS=www templates
 EMPTY_SUBDIRS=mako_modules
 
-NOX_RUNTIMEFILES = meta.xml __init__.py nox_directory.py default_groups.py \
+NOX_RUNTIMEFILES = meta.json __init__.py nox_directory.py default_groups.py \
                    testauthui.py schema_migration_plugin.py
 
 all-local: nox-all-local 

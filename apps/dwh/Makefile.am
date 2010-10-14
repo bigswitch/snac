@@ -11,7 +11,7 @@ dwh_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(top_src
 dwh_la_SOURCES = dwh.cc                  
 dwh_la_LDFLAGS = -module -export-dynamic
 
-NOX_RUNTIMEFILES = meta.xml
+NOX_RUNTIMEFILES = meta.json
 
 if PY_ENABLED
 NOX_RUNTIMEFILES += 	\

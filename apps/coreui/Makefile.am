@@ -4,7 +4,7 @@ EXTRA_DIST=\
    __init__.py \
    authui.py \
    coreui.py \
-   meta.xml \
+   meta.json \
    base_www \
    static_www \
    templates/ \
@@ -22,7 +22,7 @@ NOX_RUNTIMEFILES = \
    asyncwebserviceclient.py \
    authui.py \
    coreui.py \
-   meta.xml \
+   meta.json \
    monitorsui.py \
    template_utils.py
 

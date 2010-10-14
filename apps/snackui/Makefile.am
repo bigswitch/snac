@@ -6,7 +6,7 @@ MODULE=snackui
 MODULE_BASE_PATH=nox/ext/apps
 MODULE_BASE_ESCAPE=../../..
 
-NOX_RUNTIMEFILES = meta.xml __init__.py \
+NOX_RUNTIMEFILES = meta.json __init__.py \
 	snackmonitors.py policyui.py reportsui.py settingsui.py helpui.py \
 	snackui.py principal_list_pages.py search.py flow_table_page.py
 

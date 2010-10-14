@@ -23,7 +23,7 @@ tests_la_SOURCES = 				\
 	tests.cc			
 
 NOX_RUNTIMEFILES = 				\
-	meta.xml		
+	meta.json		
 
 if PY_ENABLED
 NOX_PYLIBFILES = _pytests.so

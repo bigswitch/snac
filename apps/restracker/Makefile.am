@@ -10,7 +10,7 @@ restracker_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(
 restracker_la_SOURCES = restracker.cc restracker.hh 
 restracker_la_LDFLAGS = -module -export-dynamic
 
-NOX_RUNTIMEFILES = meta.xml	
+NOX_RUNTIMEFILES = meta.json	
 
 if PY_ENABLED
 

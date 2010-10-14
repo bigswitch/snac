@@ -3,7 +3,7 @@ include ../../Make.vars
 
 EXTRA_DIST =								\
 	__init__.py							\
-	meta.xml							\
+	meta.json							\
 	pyreplicator.cc							\
 	pyreplicator.hh							\
 	replicator.i
@@ -25,7 +25,7 @@ replicator_la_SOURCES =							\
 	replicator.hh
 replicator_la_LDFLAGS = -module -export-dynamic
 
-NOX_RUNTIMEFILES = meta.xml
+NOX_RUNTIMEFILES = meta.json
 
 if PY_ENABLED
 

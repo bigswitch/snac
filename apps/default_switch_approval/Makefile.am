@@ -1,7 +1,7 @@
 include ../../Make.vars 
 
 EXTRA_DIST =\
-	meta.xml \
+	meta.json \
 	static_www
 
 if PY_ENABLED
@@ -20,7 +20,7 @@ MODULE=default_switch_approval
 MODULE_BASE_PATH=nox/ext/apps
 MODULE_BASE_ESCAPE=../../..
 
-NOX_RUNTIMEFILES = meta.xml	
+NOX_RUNTIMEFILES = meta.json	
 
 all-local: nox-all-local static-www-build
 clean-local: nox-clean-local static-www-clean

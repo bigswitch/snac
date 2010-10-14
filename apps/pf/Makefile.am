@@ -25,7 +25,7 @@ pf_la_SOURCES =			\
 	pf.hh
 pf_la_LDFLAGS = -module -export-dynamic
 
-NOX_RUNTIMEFILES = meta.xml
+NOX_RUNTIMEFILES = meta.json
 
 if PY_ENABLED
 pypf_wrap_includes = 		\

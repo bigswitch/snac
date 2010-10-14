@@ -1,6 +1,6 @@
 include ../../Make.vars
 
-EXTRA_DIST = meta.xml \
+EXTRA_DIST = meta.json \
 	__init__.py \
 	storage_schema.py \
 	base_storagews.py \
@@ -12,7 +12,7 @@ MODULE=storagews
 MODULE_BASE_PATH=nox/ext/apps
 MODULE_BASE_ESCAPE=../../..
 
-NOX_RUNTIMEFILES = meta.xml __init__.py storage_schema.py \
+NOX_RUNTIMEFILES = meta.json __init__.py storage_schema.py \
                    base_storagews.py storagews.py transactional_storagews.py
 
 all-local: nox-runtimefiles-build nox-all-local

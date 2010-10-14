@@ -1,7 +1,7 @@
 include ../../Make.vars 
 
 EXTRA_DIST = \
-	meta.xml \
+	meta.json \
 	__init__.py	\
 	StorageTableUtil.py	\
 	transactional-storage.i \
@@ -13,7 +13,7 @@ if PY_ENABLED
 AM_CPPFLAGS += $(PYTHON_CPPFLAGS)
 endif # PY_ENABLED
 
-NOX_RUNTIMEFILES = meta.xml
+NOX_RUNTIMEFILES = meta.json
 
 pkglib_LTLIBRARIES =							\
 	transactional-storage-backend.la

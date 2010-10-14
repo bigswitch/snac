@@ -8,7 +8,7 @@ http_redirector_la_SOURCES = http_redirector.cc http_redirector.hh \
                              redirected_flow_cache.cc redirected_flow_cache.hh
 http_redirector_la_LDFLAGS = -module -export-dynamic
 
-NOX_RUNTIMEFILES = meta.xml	
+NOX_RUNTIMEFILES = meta.json	
 
 if PY_ENABLED
 

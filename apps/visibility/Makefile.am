@@ -11,7 +11,7 @@ flow_cache_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/../ -I$(top_srcdir)/../ -I$(
 flow_cache_la_SOURCES = flow_cache.cc flow_cache.hh flow_info.hh
 flow_cache_la_LDFLAGS = -module -export-dynamic
 
-NOX_RUNTIMEFILES = meta.xml	
+NOX_RUNTIMEFILES = meta.json	
 
 if PY_ENABLED
 

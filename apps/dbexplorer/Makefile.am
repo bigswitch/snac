@@ -5,7 +5,7 @@ MODULE=dbexplorer
 MODULE_BASE_PATH=nox/ext/apps
 MODULE_BASE_ESCAPE=../../..
 
-NOX_RUNTIMEFILES = meta.xml __init__.py dbexplorerui.py
+NOX_RUNTIMEFILES = meta.json __init__.py dbexplorerui.py
 
 
 # Need to create a rule for actually installing LINK_SUBDIRS by

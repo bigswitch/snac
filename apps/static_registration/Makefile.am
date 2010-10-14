@@ -1,6 +1,6 @@
 include ../../Make.vars 
 
-NOX_RUNTIMEFILES = meta.xml	
+NOX_RUNTIMEFILES = meta.json	
 
 NOX_RUNTIMEFILES += \
 	__init__.py		\

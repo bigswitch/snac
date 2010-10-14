@@ -20,7 +20,7 @@ ldap_proxy_la_SOURCES = ldap_proxy.cc ldap_proxy.hh
 
 ldap_proxy_la_LDFLAGS = -module -export-dynamic $(LDAP_LDFLAGS)
 
-NOX_RUNTIMEFILES = meta.xml
+NOX_RUNTIMEFILES = meta.json
 
 if PY_ENABLED
 

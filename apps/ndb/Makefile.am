@@ -16,7 +16,7 @@ ndb_la_SOURCES = ndb.cc ndb.hh masterndb.cc masterndb.hh sqlitendb.cc sqlitendb.
                  cachendb.cc cachendb.hh
 ndb_la_LDFLAGS = -module -export-dynamic
 
-NOX_RUNTIMEFILES = meta.xml
+NOX_RUNTIMEFILES = meta.json
 
 if PY_ENABLED
 pyndb_wrap_includes = 		\

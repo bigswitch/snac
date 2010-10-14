@@ -7,7 +7,7 @@ MODULE_BASE_ESCAPE=../../..
 
 NOX_RUNTIMEFILES =							\
 	__init__.py							\
-	 meta.xml							\
+	 meta.json							\
 	notifier.py							\
 	smtp.py								\
 	syslog.py							\

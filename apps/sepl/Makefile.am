@@ -1,6 +1,6 @@
 include ../../Make.vars 
 
-EXTRA_DIST = meta.xml		\
+EXTRA_DIST = meta.json		\
 	compile.py		\
 	declare.py		\
 	example_policy.py	\
@@ -48,7 +48,7 @@ seplstats_la_CPPFLAGS =		\
 seplstats_la_SOURCES = sepl_stats.hh sepl_stats.cc
 seplstats_la_LDFLAGS = -module -export-dynamic
 
-NOX_RUNTIMEFILES = meta.xml
+NOX_RUNTIMEFILES = meta.json
 
 if PY_ENABLED
 

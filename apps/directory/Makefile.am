@@ -1,7 +1,7 @@
 include ../../Make.vars
 
 EXTRA_DIST = \
-	meta.xml \
+	meta.json \
 	__init__.py \
 	dm_ws_switch.py \
 	dm_ws_location.py \
@@ -99,7 +99,7 @@ MODULE_BASE_PATH=nox/ext/apps
 MODULE_BASE_ESCAPE=../../..
 
 NOX_RUNTIMEFILES = \
-	meta.xml \
+	meta.json \
 	__init__.py \
 	dm_ws_bindings.py\
 	dm_ws_groups.py \

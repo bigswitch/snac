@@ -1,7 +1,7 @@
 include ../../Make.vars
 
 NOX_RUNTIMEFILES = \
-	meta.xml \
+	meta.json \
 	__init__.py \
 	redirproxy.py
 

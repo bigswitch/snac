@@ -4,7 +4,7 @@ EXTRA_DIST = 								\
 	__init__.py							\
 	configuration.cc						\
 	configuration.hh						\
-	meta.xml 							\
+	meta.json 							\
 	properties.cc							\
 	properties.hh							\
 	simple_configws.py							\

@@ -94,6 +94,7 @@ apps/sepl/Makefile
 apps/snackui/Makefile
 apps/snackui/help_src/Makefile
 apps/storage/Makefile
+apps/storagews/Makefile
 apps/dbexplorer/Makefile
 apps/webservice_testui/Makefile
 apps/miscws/Makefile
