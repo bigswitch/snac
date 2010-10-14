@@ -14,16 +14,16 @@
 import logging
 import re
 from nox.lib.core    import *
-from nox.ext.apps.coreui import webservice
+from nox.webapps.webservice import webservice
 
 from twisted.python.failure import Failure
-from nox.netapps.authenticator.pyauth import Auth_event, Authenticator
+from nox.netapps.authenticator.pyauth import Host_auth_event, User_auth_event, PyAuth
 from nox.ext.apps.directory.directorymanager import *
 from nox.lib.directory_factory import Directory_Factory
 from nox.netapps.switchstats.switchstats    import switchstats
-from nox.ext.apps.coreui.webservice import json_parse_message_body
-from nox.ext.apps.coreui.webservice import NOT_DONE_YET, WSPathArbitraryString 
-from nox.ext.apps.coreui.web_arg_utils import *
+from nox.webapps.webservice.webservice import json_parse_message_body
+from nox.webapps.webservice.webservice import NOT_DONE_YET, WSPathArbitraryString 
+from nox.webapps.webservice.web_arg_utils import *
 from nox.ext.apps.directory.query import query
 from nox.lib.netinet.netinet import *
 from nox.lib.directory import *
@@ -506,13 +506,13 @@ class directorymanagerws(Component):
             dir_name  = arg["<dir name>"]
             principalid = mangle_name(dir_name, principal_name).encode('utf-8')
             if type_str == "user":
-                ae = Auth_event(Auth_event.DEAUTHENTICATE,
+                ae = User_auth_event(User_auth_event.DEAUTHENTICATE,
                         datapathid.from_host(0), 0, create_eaddr(0), 0, False,
-                        Authenticator.get_unknown_name(), principalid, 0, 0)
+                        self._auth.get_unknown_name(), principalid, 0, 0)
             elif type_str == "host":
-                ae = Auth_event(Auth_event.DEAUTHENTICATE,
+                ae = Host_auth_event(Host_auth_event.DEAUTHENTICATE,
                         datapathid.from_host(0), 0, create_eaddr(0), 0, False,
-                        principalid, Authenticator.get_unknown_name(), 0, 0)
+                        principalid, self._auth.get_unknown_name(), 0, 0)
             else:
                 raise Exception("Invalid principal type %s" % type_str)
             self._dm.post(ae)
@@ -524,6 +524,7 @@ class directorymanagerws(Component):
 
     def install(self):
         self._dm = self.resolve(directorymanager)
+        self._auth = self.resolve(PyAuth)
 
         ws  = self.resolve(str(webservice.webservice))
         v1  = ws.get_version("1")

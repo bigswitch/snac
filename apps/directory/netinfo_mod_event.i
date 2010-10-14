@@ -24,6 +24,9 @@
 #include "netinfo_mod_event.hh"
 #include "aggregate-stats-in.hh"
 #include "desc-stats-in.hh"
+#include "switch-mgr.hh"
+#include "switch-mgr-join.hh"
+#include "switch-mgr-leave.hh"
 #include "table-stats-in.hh"
 #include "port-stats-in.hh"
 #include "packet-in.hh"
@@ -32,8 +35,6 @@
 #include "pyrt/pycontext.hh"
 #include "pyrt/pyevent.hh"
 #include "pyrt/pyglue.hh"
-#include "switch-mgr-leave.hh"
-#include "switch-mgr-join.hh"
 
 using namespace vigil;
 %}

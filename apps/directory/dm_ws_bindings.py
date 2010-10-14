@@ -21,9 +21,9 @@ import simplejson
 import sets
 
 from twisted.internet import defer
-from nox.ext.apps.coreui      import webservice
-from nox.ext.apps.coreui.webservice import *
-from nox.ext.apps.coreui.web_arg_utils import get_principal_type_from_args
+from nox.webapps.webservice      import webservice
+from nox.webapps.webservice.webservice import *
+from nox.webapps.webservice.web_arg_utils import get_principal_type_from_args
 from nox.ext.apps.directory.directorymanagerws import *
 from nox.netapps.bindings_storage.bindings_directory import *
 from nox.ext.apps.directory.directorymanager import mangle_name

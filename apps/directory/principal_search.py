@@ -1,7 +1,7 @@
 
 
 from nox.ext.apps.directory.dir_utils import glob_to_regex, filter_list
-from nox.ext.apps.coreui.web_arg_utils import *
+from nox.webapps.webservice.web_arg_utils import *
 from nox.ext.apps.directory.dir_utils import *
 from nox.ext.apps.directory.directorymanager import *
     

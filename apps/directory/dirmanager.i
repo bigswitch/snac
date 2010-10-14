@@ -26,6 +26,9 @@
 #include "echo-request.hh"
 #include "flow-removed.hh"
 #include "flow-mod-event.hh"
+#include "switch-mgr.hh"
+#include "switch-mgr-join.hh"
+#include "switch-mgr-leave.hh"
 #include "packet-in.hh"
 #include "port-stats-in.hh"
 #include "port-status.hh"
@@ -38,17 +41,15 @@
 #include "group_event.hh"
 #include "location_del_event.hh"
 #include "principal_event.hh"
-#include "switch-mgr-leave.hh"
-#include "switch-mgr-join.hh"
 #include "pydirmanager.hh"
 using namespace vigil;
 using namespace vigil::applications;
 %}
 
-%include "common-defs.i"
 %import "netinet/netinet.i"
 %import(module="nox.coreapps.pyrt.pycomponent") "pyrt/event.i"
 
+%include "common-defs.i"
 %include "std_string.i"
 %include "directory.i"
 %include "pydirmanager.hh"
