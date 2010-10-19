@@ -22,7 +22,7 @@
 
 <%def name="dojo_imports()">
   ${parent.dojo_imports()}
-  @import "/static/nox.ext.apps.coreui/monitorsui/SwitchesMon.css";
+  @import "/static/nox/ext/apps/coreui/monitorsui/SwitchesMon.css";
 </%def>
 
 <%def name="dojo_requires()">

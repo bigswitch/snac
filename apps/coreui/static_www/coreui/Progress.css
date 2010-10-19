@@ -1,6 +1,6 @@
 .noxCoreuiProgress {
 	float: right;
-	background-image: url('/static/nox.ext.apps.coreui/coreui/images/loader_sprite.png');
+	background-image: url('/static/nox/ext/apps/coreui/coreui/images/loader_sprite.png');
 	background-position: 0px 0px;
 	background-repeat: no-repeat;
 	color: white;
@@ -46,7 +46,7 @@
 }
 
 .dj_ie6 .noxCoreuiProgress {
-	behavior: url("/static/nox.ext.apps.coreui/coreui/png/iepngfix.htc");
+	behavior: url("/static/nox/ext/apps/coreui/coreui/png/iepngfix.htc");
 }
 .progressMessage {
 	font-size:11px;

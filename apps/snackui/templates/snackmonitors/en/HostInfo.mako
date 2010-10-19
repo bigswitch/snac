@@ -10,11 +10,11 @@
 
 <%def name="dojo_imports()">
   ${parent.dojo_imports()}
-  @import "/static/nox/webapps/coreui/coreui/ItemInspector.css";
-  @import "/static/nox/webapps/coreui/coreui/ItemList.css";
+  @import "/static/nox/ext/apps/coreui/coreui/ItemInspector.css";
+  @import "/static/nox/ext/apps/coreui/coreui/ItemList.css";
   @import "/static/nox/ext/apps/snackui/snackmonitors/HostInfo.css";
-  @import "/static/nox/netapps/user_event_log/networkevents/NetEvents.css";
-  @import "/static/nox/webapps/coreui/coreui/EditableGrid.css";
+  @import "/static/nox/ext/apps/user_event_log/networkevents/NetEvents.css";
+  @import "/static/nox/ext/apps/coreui/coreui/EditableGrid.css";
 </%def>
 
 <%def name="dojo_requires()">

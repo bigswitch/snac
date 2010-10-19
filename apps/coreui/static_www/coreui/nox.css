@@ -40,7 +40,7 @@
 }
 
 .nox .dijitButtonNode {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/buttonBg.gif") repeat-x bottom left #fff;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/buttonBg.gif") repeat-x bottom left #fff;
 	border:1px solid #b3b3b3;
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
@@ -66,19 +66,19 @@
 .nox .dijitDropDownButtonHover .dijitButtonNode,
 .nox .dijitComboBoxHover .dijitDownArrowButton {
 	border:1px solid #f7bf3b;
-	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/buttonBg.gif") repeat-x bottom left #fff;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/buttonBg.gif") repeat-x bottom left #fff;
 }
 
 .nox .dijitComboBoxHover .dijitDownArrowButton {
 	border-width:0 0 0 1px;
 	border-color:#f7dfa8;
-	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/dropDownArrowHover.gif") repeat-x bottom left #fffae9;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/dropDownArrowHover.gif") repeat-x bottom left #fffae9;
 }
 
 .nox .dijitButtonActive .dijitButtonNode,
 .nox .dijitDropDownButtonActive .dijitButtonNode,
 .nox .dijitArrowButtonActive .dijitButtonNode {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/buttonSelectedBg.gif") repeat-x bottom left #f4f4f4;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/buttonSelectedBg.gif") repeat-x bottom left #f4f4f4;
 	border:1px solid #f7bf3b;
 }
 
@@ -97,11 +97,11 @@
 }
 
 .nox .dijitArrowButtonInner {
-	background-image: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/spriteArrows.png") !important;
+	background-image: url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/spriteArrows.png") !important;
 }
 
 .dj_ie6 .nox.dijitArrowButtonInner {
-	behavior: url("/static/nox.ext.apps.coreui/coreui/png/iepngfix.htc");
+	behavior: url("/static/nox/ext/apps/coreui/coreui/png/iepngfix.htc");
 }
 
 /* ---------- begin grid ---------- */
@@ -128,7 +128,7 @@
 
 .nihilo.nox .dojoxGridHeader { 
 	left: 0 !important;
-	background: #F1F4F5 url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/statusHeaderBg.png") repeat-x top left;
+	background: #F1F4F5 url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/statusHeaderBg.png") repeat-x top left;
 	border-left: 1px solid #CAD2D6;
 	border-right: 1px solid #CAD2D6;
 }
@@ -144,7 +144,7 @@
 .nihilo.nox .dojoxGridHeader .dojoxGridCell {
 	height: 25px;
 	padding: 0 0 0 8px;
-	background: #F1F4F5 url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/statusHeaderBg.png") repeat-x top left;
+	background: #F1F4F5 url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/statusHeaderBg.png") repeat-x top left;
 	font-family: "Trebuchet MS", Verdana, Helvetica, sans-serif;
 	color: #464646 !important;
 	font-size:12px;
@@ -159,7 +159,7 @@
 .dj_ie .nihilo.nox .dojoxGridHeader .dojoxGridCell.dojoDndItem {
 	height: 25px;
 	padding: 0 0 0 8px;
-	background: #F1F4F5 url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/statusHeaderBg.png") repeat-x top left;
+	background: #F1F4F5 url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/statusHeaderBg.png") repeat-x top left;
 	font-family: "Trebuchet MS", Verdana, Helvetica, sans-serif;
 	color: #464646 !important;
 	font-size:12px;
@@ -185,7 +185,7 @@
 .nihilo.nox .dojoxGridHeader .dojoxGridCellOver {
 	border-top: none;
 	padding-bottom: 0px;
-	background: #F1F4F5 url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/statusHeaderBg.png") repeat-x top left;
+	background: #F1F4F5 url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/statusHeaderBg.png") repeat-x top left;
 }
 
 .nihilo.nox .dojoxGridHeader .dojoxGridCellOver .dojoxGridSortNode { 
@@ -193,7 +193,7 @@
 }
 
 .nihilo.nox .dojoxGridArrowButtonNode {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/spriteArrows.png") left center no-repeat !important;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/spriteArrows.png") left center no-repeat !important;
 	height: 11px;
 	padding: 0;
 	margin: 0 3px 0 0;
@@ -280,7 +280,7 @@
 
 .nihilo.nox .dojoxGridCell button.moveUp, 
 .nihilo.nox .dojoxGridCell button.moveDown {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/buttonBg.gif") repeat-x bottom left #fff;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/buttonBg.gif") repeat-x bottom left #fff;
 	border:1px solid #b3b3b3;
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
@@ -308,7 +308,7 @@
 
 
 .nihilo.nox .dojoxGridCell button.moveUp .moveUpIcon {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/spriteArrows.png") no-repeat;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/spriteArrows.png") no-repeat;
 	background-position: -22px 0;
 	height: 11px;
 	width: 11px;
@@ -318,7 +318,7 @@
 }
 
 .nihilo.nox .dojoxGridCell button.moveDown .moveDownIcon {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/spriteArrows.png") no-repeat;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/spriteArrows.png") no-repeat;
 	background-position: 0 0;
 	height: 11px;
 	width: 11px;
@@ -354,7 +354,7 @@
 /* ---------- begin grid filter ---------- */
 
 .noxPrincipalGridFilter {
-	background: #eef2f3 url("/static/nox.ext.apps.coreui/coreui/images/gridFilterBg.gif") repeat-x bottom left;
+	background: #eef2f3 url("/static/nox/ext/apps/coreui/coreui/images/gridFilterBg.gif") repeat-x bottom left;
 	border:1px solid #d7dbde;
 	border-collapse:collapse;
 	height: 25px;
@@ -415,7 +415,7 @@
 	-moz-border-radius-topright: 10px;
 	-webkit-border-top-left-radius: 10px;
 	-webkit-border-top-right-radius: 10px;	
-	background: #020202 url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/dialogHeaderBg.png") repeat-x top left;
+	background: #020202 url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/dialogHeaderBg.png") repeat-x top left;
 }
 
 .dj_ff2 .nihilo.nox .dijitDialogTitleBar {
@@ -431,7 +431,7 @@
 .nihilo.nox .dijitDialogCloseIcon,
 .dj_ie .nihilo.nox .dijitDialogCloseIcon {
 	top: 8px;
-	background: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/dialogClose.png") no-repeat top left;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/dialogClose.png") no-repeat top left;
 }
 
 .nihilo.nox .dijitDialog .dijitDialogPaneContent {
@@ -560,7 +560,7 @@
 }
 
 .nihilo.nox #module_content .dijitTitlePane .dijitOpen .dijitArrowNode, .nihilo.nox #module_content .dijitTitlePane .dijitClosed .dijitArrowNode {
-	background-image: url("/static/nox.ext.apps.coreui/coreui/images/nox_theme/spriteRoundedIconsSmall.png");
+	background-image: url("/static/nox/ext/apps/coreui/coreui/images/nox_theme/spriteRoundedIconsSmall.png");
 }
 
 .nihilo.nox  .dijitMenuItem {

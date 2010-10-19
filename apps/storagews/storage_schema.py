@@ -22,9 +22,9 @@ import types
 
 from nox.lib.core import *
 
-from nox.apps.storage import TransactionalStorage
-from nox.apps.storage.storage import Storage, StorageException
-from nox.apps.storage.StorageTableUtil import *
+from nox.ext.apps.storage import TransactionalStorage
+from nox.netapps.storage.storage import Storage, StorageException
+from nox.ext.apps.storage.StorageTableUtil import *
 
 lg = logging.getLogger('storage_schema')
 

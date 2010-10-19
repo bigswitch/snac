@@ -7,7 +7,7 @@
 }
 
 tr#logs-header-table {
-	background: #FFF url("/static/nox/webapps/coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
+	background: #FFF url("/static/nox/ext/apps/coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
 	border: 1px solid #DADDDE;
 	-moz-border-radius: 10px;	
 }
@@ -38,7 +38,7 @@ table.log td {
 }
 
 .dj_ie6 tr#logs-header-table {
-	behavior: url("/static/nox/webapps/coreui/coreui/png/iepngfix.htc");
+	behavior: url("/static/nox/ext/apps/coreui/coreui/png/iepngfix.htc");
 }
 */ 
 
@@ -76,7 +76,7 @@ th#restore-column {
 	width: 98%;
 	height: 26px;
 	margin-bottom: 12px;
-  background: #FFF url("/static/nox/webapps/coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
+  background: #FFF url("/static/nox/ext/apps/coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
 	 
   border: 1px solid #DADDDE !important;
 	/*-moz-border-radius:8px;*/

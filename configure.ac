@@ -105,6 +105,7 @@ apps/restracker/Makefile
 apps/local_config/Makefile
 apps/local_config/debian/Makefile
 apps/visibility/Makefile
+apps/user_event_log/Makefile
 ])
 
 AC_OUTPUT

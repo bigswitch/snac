@@ -32,7 +32,7 @@ th#count-column {
 	width: 98%;
 	height: 26px;
 	margin-bottom: 12px;
-  background: #FFF url("/static/nox/webapps/coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
+  background: #FFF url("/static/nox/ext/apps/coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
 	 
   border: 1px solid #DADDDE !important;
 	/*-moz-border-radius:8px;*/

@@ -26,7 +26,7 @@
 
 <%def name="dojo_imports()">
   ${parent.dojo_imports()}
-  @import "/static/nox.ext.apps.coreui/monitorsui/NOXStatusMon.css";
+  @import "/static/nox/ext/apps/coreui/monitorsui/NOXStatusMon.css";
 </%def>
 
 <%def name="dojo_requires()">

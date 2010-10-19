@@ -58,7 +58,7 @@ var edit_fmt = function(value) {
           return '<span class="editable-grid-entry">' + 
             '<span class="editable-grid-value-wrapper">' + value + "</span>" + 
             '<img class="grid-edit-icon" style="visibility: hidden"' + 
-            ' src="/static/nox/webapps/coreui/coreui/images/editIndicator.png" />' + 
+            ' src="/static/nox/ext/apps/coreui/coreui/images/editIndicator.png" />' + 
             '</span>'; 
         } 
 

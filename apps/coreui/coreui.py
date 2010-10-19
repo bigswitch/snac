@@ -36,7 +36,7 @@ lg = logging.getLogger('coreui')
 supported_languages = ( "en", "ja" )
 
 class coreui(Component):
-    STATIC_FILE_BASEPATH = "nox/webapps/coreui/www/"
+    STATIC_FILE_BASEPATH = "nox/ext/apps/coreui/www/"
 
     def __init__(self, ctxt):
         Component.__init__(self, ctxt)

@@ -21,11 +21,11 @@ import types
 
 from nox.lib.core import *
 
-from nox.apps.coreui import coreui
-from nox.apps.coreui import webservice
-from nox.apps.coreui.authui import UISection, UIResource, Capabilities
-from nox.apps.storagews.storage_schema import storage_schema_factory
-from nox.apps.storage.storage import Storage, StorageException
+from nox.ext.apps.coreui import coreui
+from nox.webapps.webservice import webservice
+from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
+from nox.ext.apps.storagews.storage_schema import storage_schema_factory
+from nox.netapps.storage.storage import Storage, StorageException
 
 lg = logging.getLogger('base_storagews')
 

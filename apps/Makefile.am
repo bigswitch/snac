@@ -5,7 +5,7 @@ SUBDIRS=audit coreui ctlflood dwh ndb pf static_registration exttests \
 	snackui sepl dbexplorer webservice_testui miscws failover \
 	notification captiveportal debug local_config dhcp \
 	redirproxy restracker storage configuration visibility \
-	default_switch_approval switchconfig storagews
+	default_switch_approval switchconfig storagews user_event_log
 
 SUBDIRS += $(MODULES_apps)
 

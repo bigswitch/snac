@@ -21,7 +21,7 @@
 
 <%def name="dojo_imports()">
   ${parent.dojo_imports()}
-  @import "/static/nox.ext.apps.coreui/coreui/Progress.css";
+  @import "/static/nox/ext/apps/coreui/coreui/Progress.css";
 </%def>
 
 <%def name="dojo_requires()">

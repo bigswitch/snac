@@ -22,10 +22,10 @@
 
 <%def name="dojo_imports()">
   ${parent.dojo_imports()}
-  @import "/static/nox.ext.apps.user_event_log/networkevents/NetEvents.css"; 
-  @import "/static/nox.ext.apps.coreui/coreui/ItemInspector.css";
-  @import "/static/nox.ext.apps.coreui/coreui/ItemList.css";
-  @import "/static/nox.ext.apps.coreui/monitorsui/SwitchPortInfoMon.css";
+  @import "/static/nox/ext/apps/user_event_log/networkevents/NetEvents.css"; 
+  @import "/static/nox/ext/apps/coreui/coreui/ItemInspector.css";
+  @import "/static/nox/ext/apps/coreui/coreui/ItemList.css";
+  @import "/static/nox/ext/apps/coreui/monitorsui/SwitchPortInfoMon.css";
 </%def>
 
 <%def name="dojo_requires()">

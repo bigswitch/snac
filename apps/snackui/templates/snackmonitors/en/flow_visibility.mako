@@ -166,7 +166,7 @@ def get_group_link(type,name):
 <tr class="noxPrincipalGridFilter filterTable" >
 <td> 
 <button id="clear_btn" dojoType="dijit.form.Button" style="float: left;">
-<img src="/static/nox/webapps/coreui/coreui/images/clearFilterButton.png" alt="Clear Filters" />
+<img src="/static/nox/ext/apps/coreui/coreui/images/clearFilterButton.png" alt="Clear Filters" />
 <span dojoType="dijit.Tooltip" connectId="clear_btn" label="Clear Filters"></span> 
 </button>
 </td> 

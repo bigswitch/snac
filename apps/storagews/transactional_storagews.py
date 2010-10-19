@@ -21,14 +21,14 @@ import types
 
 from nox.lib.core import *
 
-from nox.apps.coreui import coreui
-from nox.apps.coreui import webservice
-from nox.apps.storage import TransactionalStorage
-from nox.apps.coreui.authui import UISection, UIResource, Capabilities
-from nox.apps.storage import StorageTableUtil
-from nox.apps.storage.storage import Storage, StorageException
-from nox.apps.storagews.base_storagews import *
-from nox.apps.storagews.storage_schema import storage_schema_factory
+from nox.ext.apps.coreui import coreui
+from nox.webapps.webservice import webservice
+from nox.ext.apps.storage.transactional_storage import TransactionalStorage
+from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
+from nox.ext.apps.storage import StorageTableUtil
+from nox.netapps.storage.storage import Storage, StorageException
+from nox.ext.apps.storagews.base_storagews import *
+from nox.ext.apps.storagews.storage_schema import storage_schema_factory
 
 from twisted.python.failure import Failure
 from twisted.internet import defer

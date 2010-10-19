@@ -30,8 +30,8 @@ dojo.require("nox.ext.apps.directory.directorymanagerws.LocationGroup");
 
 (function() {
 
-    var nef = nox.apps.user_event_log.networkevents.NetEventsFormatter;
-    var dmws = nox.apps.directory.directorymanagerws;
+    var nef = nox.ext.apps.user_event_log.networkevents.NetEventsFormatter;
+    var dmws = nox.ext.apps.directory.directorymanagerws;
 
     var objConstructors = {
         "switch" : dmws.Switch,

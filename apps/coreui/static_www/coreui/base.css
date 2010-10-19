@@ -81,7 +81,7 @@ body {
 
 /* ---------- header ----------*/
 #headerDiv {
-    background: #454a4e url("/static/nox.ext.apps.coreui/coreui/images/headerBg.gif") repeat-x bottom left;
+    background: #454a4e url("/static/nox/ext/apps/coreui/coreui/images/headerBg.gif") repeat-x bottom left;
 	width: 100%;
 	height: 82px;
 	border-top: 1px solid #666;
@@ -98,7 +98,7 @@ body {
 #headerDiv #logoDiv {
 	height: 50px;
 	float: right;	
-	background: url("/static/nox.ext.apps.coreui/coreui/images/logo.png") no-repeat 100% 50%;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/logo.png") no-repeat 100% 50%;
 	margin: 2px 10px 0 0;
 	padding-right: 65px;
 }
@@ -140,24 +140,24 @@ body {
 
 .nox #headerDiv #pagetoolbar .dijitButtonNode {
 	width: 66px;
-	background: url("/static/nox.ext.apps.coreui/coreui/images/toolbarButtonsBg.png") no-repeat 6px 0;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/toolbarButtonsBg.png") no-repeat 6px 0;
 	text-align:center;
 	display: block;
 }
 
 .nox #headerDiv #pagetoolbar .dijitToggleButtonHover .dijitButtonNode {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/toolbarButtonsBg.png") no-repeat -64px 0;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/toolbarButtonsBg.png") no-repeat -64px 0;
 }
 
 .nox #headerDiv #pagetoolbar a .dijitButtonChecked,
 .nox #headerDiv #pagetoolbar a .dijitToggleButtonChecked {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/toolbarButtonActiveBg.png") no-repeat;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/toolbarButtonActiveBg.png") no-repeat;
 	border: 1px solid transparent !important;
 }
 
 .nox #headerDiv #pagetoolbar .dijitButtonChecked .dijitButtonNode,
 .nox #headerDiv #pagetoolbar .dijitToggleButtonChecked .dijitButtonNode {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/toolbarButtonsBg.png") no-repeat -133px 0px;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/toolbarButtonsBg.png") no-repeat -133px 0px;
 }
 
 .nox #headerDiv #pagetoolbar .dijitButtonNode .dijitButtonText {
@@ -178,7 +178,7 @@ body {
 	top: 54px;
 	right: 0px;
   background-color: transparent; 
-  /*background: url("/static/nox.ext.apps.coreui/coreui/images/headerAppMetaBg.gif") no-repeat bottom left;
+  /*background: url("/static/nox/ext/apps/coreui/coreui/images/headerAppMetaBg.gif") no-repeat bottom left;
 	*/ 
   color: #999;
 	padding:2px 0 0 10px;
@@ -233,7 +233,7 @@ body {
 }
 
 .logoutButtonIcon {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/logout.png") no-repeat top left;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/logout.png") no-repeat top left;
 	width: 11px;
 	height: 11px;
 	position: absolute;
@@ -251,7 +251,7 @@ body {
 .settingsButtonIcon,
 .helpButtonIcon,
 .fixmeButtonIcon {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/toolbarIcons.png") no-repeat top left;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/toolbarIcons.png") no-repeat top left;
 	width: 24px;
 	height: 28px;
 	position: relative;
@@ -396,7 +396,7 @@ body {
 
 #lsidebar .dijitSplitterH {
 	border-top:1px solid #dce0e3;
-	background:#FFFFFF url("/static/nox.ext.apps.coreui/coreui/images/footerBarBg.gif") repeat-x 50% 50%;
+	background:#FFFFFF url("/static/nox/ext/apps/coreui/coreui/images/footerBarBg.gif") repeat-x 50% 50%;
 }
 
 ul.lsidebar {
@@ -411,7 +411,7 @@ ul.lsidebar li {
     border-bottom: 1px solid #FFF;
     padding: 9px 0;
     list-style: none;
-	background: url("/static/nox.ext.apps.coreui/coreui/images/moduleMenuBg.png") repeat-x bottom left;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/moduleMenuBg.png") repeat-x bottom left;
 }
 
 ul.lsidebar li a {
@@ -425,13 +425,13 @@ ul.lsidebar li a {
 ul.lsidebar li.active {
 	float: left;
 	width: 100%;
-	background: url("/static/nox.ext.apps.coreui/coreui/images/moduleMenuActiveBg.png") repeat-x bottom left #f2f6f7;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/moduleMenuActiveBg.png") repeat-x bottom left #f2f6f7;
 }
 
 ul.lsidebar li.active a {
 	float: left;
 	width: 83%;
-	background: url("/static/nox.ext.apps.coreui/coreui/images/activePointer.png") no-repeat center right;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/activePointer.png") no-repeat center right;
 }
 
 ul.lsidebar li a:hover {
@@ -440,7 +440,7 @@ ul.lsidebar li a:hover {
 
 
 #lsidebar #searchBox {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/titleBarBg.gif") repeat-x bottom left #f2f5f6;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/titleBarBg.gif") repeat-x bottom left #f2f5f6;
 	line-height: 36px;
 	padding-left: 17px;
 	font-size: 1.3em;
@@ -499,7 +499,7 @@ ul.lsidebar li a:hover {
 
 /* ---------- global footer ----------*/
 #footerBar {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/footerBarBg.gif") repeat-x bottom left #fff;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/footerBarBg.gif") repeat-x bottom left #fff;
 	border-top:1px solid #c2c6cc;
 	height:28px;
 	color:#70777d;
@@ -615,7 +615,7 @@ ul.lsidebar li a:hover {
 #networkStatusContainer .networkStatusTitleBar .collapseToggle {
 	width:8px;
 	height:9px;
-	background-image: url("/static/nox.ext.apps.coreui/coreui/images/networkStatusSprites.png");
+	background-image: url("/static/nox/ext/apps/coreui/coreui/images/networkStatusSprites.png");
 	background-repeat:no-repeat;
 	background-position:top left;
 	overflow: hidden;
@@ -624,7 +624,7 @@ ul.lsidebar li a:hover {
 /* ---------- normal status ---------------*/
 
 #networkStatusContainer .networkStatusNormal {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/footerBarBg.gif") repeat-x bottom left #fff;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/footerBarBg.gif") repeat-x bottom left #fff;
 	height:28px;
 }
 
@@ -651,7 +651,7 @@ ul.lsidebar li a:hover {
 
 /* ---------- minor status ---------------*/
 #networkStatusContainer .networkStatusMinor {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/networkStatusMinorBg.gif") repeat-x bottom left #f2e772;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/networkStatusMinorBg.gif") repeat-x bottom left #f2e772;
 }
 
 #networkStatusContainer .networkStatusMinor .statusContainer {
@@ -690,7 +690,7 @@ ul.lsidebar li a:hover {
 
 /* ---------- major issue ---------------*/
 #networkStatusContainer .networkStatusMajor {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/networkStatusMajorBg.gif") repeat-x bottom left #fd6555;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/networkStatusMajorBg.gif") repeat-x bottom left #fd6555;
 }
 
 #networkStatusContainer .networkStatusMajor .statusContainer {
@@ -762,7 +762,7 @@ ul.lsidebar li a:hover {
 	width: 100%;
 
 	padding-top: 1px;
-	background: url("/static/nox.ext.apps.coreui/coreui/images/titleBarBg.gif") repeat-x bottom left #f2f5f6;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/titleBarBg.gif") repeat-x bottom left #f2f5f6;
 }
 
 
@@ -818,7 +818,7 @@ table.item-table thead td,
 	width: 98%;
 	height: 26px;
 	margin-bottom: 12px;
-	background: #FFF url("/static/nox.ext.apps.coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
+	background: #FFF url("/static/nox/ext/apps/coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
 	border: 1px solid #DADDDE !important;
 	/*-moz-border-radius:8px;*/
 /*}*/
@@ -865,7 +865,7 @@ tr.rowclass0 td,tr.rowclass1 td {
 .componentHeaderContainer {
 	height: 26px;
 	width: 100%;
-	background: #FFF url("/static/nox.ext.apps.coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
+	background: #FFF url("/static/nox/ext/apps/coreui/coreui/images/statusHeaderBg.png") repeat-x bottom left;
 	border: 1px solid #DADDDE;
 	/*-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;	
@@ -1021,11 +1021,11 @@ table span.successmsg {
 }
 
 table span.successmsg {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/dotGreen.png") no-repeat center left;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/dotGreen.png") no-repeat center left;
 }
 
 table span.errormsg {
-	background: url("/static/nox.ext.apps.coreui/coreui/images/dotRed.png") no-repeat center left;
+	background: url("/static/nox/ext/apps/coreui/coreui/images/dotRed.png") no-repeat center left;
 }
 
 #module-titlebar h1 {
@@ -1228,5 +1228,5 @@ ul.lsidebar li {
 .dj_ie6 table span.errormsg,
 .dj_ie6 .statusHeaderContainer
 {
-	behavior: url("/static/nox.ext.apps.coreui/coreui/png/iepngfix.htc");
+	behavior: url("/static/nox/ext/apps/coreui/coreui/png/iepngfix.htc");
 }

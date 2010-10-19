@@ -30,7 +30,7 @@ along with NOX.  If not, see <http://www.gnu.org/licenses/>.
   @import "${self.dojo_root()}/dojo/resources/dojo.css";
   @import "${self.dojo_root()}/dijit/themes/nihilo/nihilo.css";
 
-  @import "/static/nox.ext.apps.coreui/coreui/base.css";
+  @import "/static/nox/ext/apps/coreui/coreui/base.css";
 </%def>
 <%def name="dojo_requires()">
   dojo.require("dojo.parser");
@@ -57,7 +57,7 @@ along with NOX.  If not, see <http://www.gnu.org/licenses/>.
       djConfig="parseOnLoad: true, isDebug: ${self.debugOn()}, debugAtAllCosts: ${self.debugAtAllCosts()}, usePlainJson: true"></script>
 
 <!--
-  <script type="text/javascript" src="/static/nox.ext.apps.coreui/coreui/_UpdatingStore.js"></script>
+  <script type="text/javascript" src="/static/nox/ext/apps/coreui/coreui/_UpdatingStore.js"></script>
 --> 
     <script type="text/javascript">
         ${self.dojo_requires()}
