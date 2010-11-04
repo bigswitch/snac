@@ -24,7 +24,8 @@ from nox.lib.core import *
 from nox.ext.apps.coreui import coreui
 from nox.webapps.webservice import webservice
 from nox.ext.apps.storage.transactional_storage import TransactionalStorage
-from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
+from nox.ext.apps.coreui.authui import UISection, UIResource
+from nox.webapps.webserver.webauth import Capabilities
 from nox.ext.apps.storage import StorageTableUtil
 from nox.netapps.storage.storage import Storage, StorageException
 from nox.ext.apps.storagews.base_storagews import *

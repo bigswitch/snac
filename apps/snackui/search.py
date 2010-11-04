@@ -1,7 +1,8 @@
 
 from nox.lib.core import *
-from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
-from nox.ext.apps.coreui.authui import redirect, get_current_session
+from nox.ext.apps.coreui.authui import UISection, UIResource
+from nox.webapps.webserver.webauth import Capabilities
+from nox.webapps.webserver.webserver import redirect, get_current_session
 from nox.ext.apps.coreui.monitorsui import *
 
 class SearchRes(MonitorResource): 

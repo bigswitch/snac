@@ -1,12 +1,11 @@
 from nox.coreapps.pyrt.pycomponent import *
 from nox.lib.core import *
 
-from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
-from nox.ext.apps.coreui.authui import redirect
+from nox.ext.apps.coreui.authui import UISection, UIResource
+from nox.webapps.webserver.webauth import Capabilities
+from nox.webapps.webserver import webserver
 
 from nox.ext.apps.user_event_log.UI_user_event_log import UI_user_event_log
-
-from nox.ext.apps.coreui import coreui
 
 from twisted.web import server
 from nox.lib.netinet.netinet import create_datapathid_from_host, \
@@ -48,7 +47,7 @@ class PolicySec(UISection):
         self.putChild("UserAuthRules", UserAuthRes(self.component))
 
     def render_GET(self, request):
-        return redirect(request, request.childLink('Rules?view=auth'))
+        return webserver.redirect(request, request.childLink('Rules?view=auth'))
 
 from nox.ext.apps import sepl
 from nox.ext.apps.sepl import compile
@@ -58,18 +57,16 @@ class policyui(Component):
 
     def __init__(self, ctxt):
         Component.__init__(self, ctxt)
-        self.coreui = None
+        self.webserver = None
 
     def install(self):
         Capabilities.register("viewpolicy", "View policy configuration.",
-                              ["Policy Administrator",
-                               "Network Operator",
-                               "Security Operator",
-                               "Viewer"])
-        self.coreui = self.resolve(str(coreui.coreui))
-        self.coreui.install_section(PolicySec(self))
+                              #["Policy Administrator", "Network Operator", "Security Operator", "Viewer"])
+                              ["Admin","Demo","Readonly"])
+        self.webserver = self.resolve(str(webserver.webserver))
+        self.webserver.install_section(PolicySec(self))
         
-        self.coreui.install_section(PolicyDebugSec(self), True) # always hidden
+        self.webserver.install_section(PolicyDebugSec(self), True) # always hidden
 
     def getInterface(self):
         return str(policyui)

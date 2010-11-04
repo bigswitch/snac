@@ -1,8 +1,9 @@
 from nox.coreapps.pyrt.pycomponent import *
 from nox.lib.core import *
+from nox.webapps.webserver import webserver
 
-from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
-from nox.ext.apps.coreui import coreui
+from nox.ext.apps.coreui.authui import UISection
+from nox.webapps.webserver.webauth import Capabilities
 
 class DBExplorerSec(UISection):
     isLeaf = False
@@ -24,7 +25,7 @@ class dbexplorerui(Component):
 
     def __init__(self, ctxt):
         Component.__init__(self, ctxt)
-        self.coreui = None
+        self.webserver = None
 
     def configure(self, configuration):
         for param in configuration['arguments']:
@@ -34,9 +35,9 @@ class dbexplorerui(Component):
     def install(self):
         Capabilities.register("viewdb", "Browse raw DB tables.", [])
         Capabilities.register("updatedb", "Update raw DB tables.", [])
-        self.coreui = self.resolve(str(coreui.coreui))
-        self.coreui.install_section(DBExplorerSec(self, persistent=True), self.hidden)
-        self.coreui.install_section(DBExplorerSec(self, persistent=False), self.hidden)
+        self.webserver = self.resolve(str(webserver.webserver))
+        self.webserver.install_section(DBExplorerSec(self, persistent=True), self.hidden)
+        self.webserver.install_section(DBExplorerSec(self, persistent=False), self.hidden)
 
     def getInterface(self):
         return str(dbexplorerui)

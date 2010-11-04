@@ -18,9 +18,11 @@ import sys
 
 from nox.coreapps.pyrt.pycomponent import *
 from nox.lib.core import *
+from nox.webapps.webserver import webserver
 
-from authui import UISection, UIResource, Capabilities
-from authui import redirect
+from authui import UISection, UIResource
+from nox.webapps.webserver.webauth import Capabilities
+from nox.webapps.webserver.webserver import redirect
 
 from nox.lib.registries import InstanceRegistry
 import coreui
@@ -73,7 +75,7 @@ class monitorsui(Component):
 
     def __init__(self, ctxt):
         Component.__init__(self, ctxt)
-        self._coreui = None
+        self.webserver = None
         self.monitors = MonitorsRegistry
 
     def bootstrap_complete_callback(self, *args):
@@ -88,13 +90,11 @@ class monitorsui(Component):
 
     def install(self):
         Capabilities.register("viewmonitors", "View realtime monitors.",
-                              ["Policy Administrator",
-                               "Network Operator",
-                               "Security Operator",
-                               "Viewer"])
+            #["Policy Administrator", "Network Operator", "Security Operator", "Viewer"])
+            ["Admin","Demo","Readonly"])
         self.uisection = MonitorsSec(self)
-        self._coreui = self.resolve(str(coreui.coreui))
-        self._coreui.install_section(self.uisection)
+        self.webserver = self.resolve(str(webserver.webserver))
+        self.webserver.install_section(self.uisection)
 
         self.register_for_bootstrap_complete(self.bootstrap_complete_callback)
         r = self.monitors.register

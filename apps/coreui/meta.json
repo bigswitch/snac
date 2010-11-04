@@ -3,7 +3,8 @@
         {
             "name": "coreui",
             "dependencies": [
-                "simple_config"
+                "simple_config",
+                "webserver"
             ],
             "python": "nox.ext.apps.coreui.coreui"
         },

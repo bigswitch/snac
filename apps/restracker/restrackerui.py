@@ -1,12 +1,11 @@
 from nox.coreapps.pyrt.pycomponent import *
 from nox.lib.core import *
 
-from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
-from nox.ext.apps.coreui.authui import redirect
+from nox.ext.apps.coreui.authui import UISection
+from nox.webapps.webserver.webauth import Capabilities
+from nox.webapps.webserver.webserver import redirect
 
 from nox.ext.apps.restracker.pyrestracker import pyrestracker
-
-from nox.ext.apps.coreui import coreui
 
 class ResTrackerDebugSec(UISection): 
     isLeaf = True
@@ -22,7 +21,7 @@ class restrackerui(Component):
 
     def __init__(self, ctxt):
         Component.__init__(self, ctxt)
-        self.coreui = None
+        self.webserver = None
 
     def install(self):
         # Capabilities.register("viewpolicy", "View policy configuration.",
@@ -30,9 +29,9 @@ class restrackerui(Component):
         #                        "Network Operator",
         #                        "Security Operator",
         #                        "Viewer"])
-        self.coreui = self.resolve(str(coreui.coreui))
+        self.webserver = self.resolve(str(webserver.webserver))
         
-        self.coreui.install_section(ResTrackerDebugSec(self), True) # always hidden
+        self.webserver.install_section(ResTrackerDebugSec(self), True) # always hidden
 
     def getInterface(self):
         return str(restrackerui)

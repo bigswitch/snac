@@ -1,7 +1,8 @@
 from nox.lib.core import *
 
-from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
-from nox.ext.apps.coreui.authui import redirect
+from nox.ext.apps.coreui.authui import UISection, UIResource
+from nox.webapps.webserver.webauth import Capabilities
+from nox.webapps.webserver.webserver import redirect
 from nox.ext.apps.coreui import coreui
 from nox.webapps.webservice.webservice import *
 from nox.ext.apps.coreui.monitorsui import *

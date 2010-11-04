@@ -197,7 +197,6 @@ from nox.lib.netinet.netinet import *
 from nox.netapps.authenticator.pyauth import Host_auth_event, PyAuth
 from nox.netapps.bindings_storage import pybindings_storage
 from nox.netapps.bindings_storage.pybindings_storage import Name
-from nox.ext.apps.coreui import coreui
 from nox.ext.apps.coreui.authui import UIResource
 from nox.ext.apps.directory import directorymanager
 from nox.coreapps.pyrt.pycomponent import *
@@ -270,7 +269,7 @@ class userauthportal(Component):
         Component.__init__(self, ctxt)
         self.auth   = None
         self.bs     = None
-        self.coreui = None
+        self.webserver = None
         self.dm     = None
         self.hr     = None
         self.uel    = None
@@ -279,7 +278,7 @@ class userauthportal(Component):
         self.cur_hashcookie = RANDOM.getrandbits(HASH_COOKIE_BITS)
 
     def bootstrap_complete_callback(self, *args):
-        self.coreui.install_resource(self._web_resource_root,
+        self.webserver.install_resource(self._web_resource_root,
                 AuthRes(self, self._web_resource_root))
         return CONTINUE
 
@@ -292,14 +291,14 @@ class userauthportal(Component):
         if self.bs is None:
             raise Exception("Unable to resolve required component: '%s'"
                             %str(pybindings_storage.py_bindings_storage))
-        self.coreui = self.resolve(coreui.coreui)
-        if self.coreui is None:
+        self.webserver = self.resolve(webserver.webserver)
+        if self.webserver is None:
             raise Exception("Unable to resolve required component: '%s'"
-                            %str(coreui.coreui))
+                            %str(webserver.webserver))
         self.dm = self.resolve(directorymanager.directorymanager)
-        if self.coreui is None:
+        if self.dm is None:
             raise Exception("Unable to resolve required component: '%s'"
-                            %str(coreui.coreui))
+                            %str(directorymanager.directorymanager))
         self.hr = self.resolve(pyhttp_redirector)
         if self.hr is None:
             raise Exception("Unable to resolve required component: '%s'"

@@ -15,8 +15,8 @@ from nox.lib.core import *
 from nox.coreapps.pyrt.pycomponent import *
 from nox.lib import config
 from nox.lib.netinet.netinet import *
+from nox.webapps.webserver import webserver
 
-from nox.ext.apps.coreui import coreui
 from nox.ext.apps.coreui.authui import User
 from nox.ext.apps.coreui.authui import UIResource
 from nox.lib.directory import *
@@ -27,19 +27,19 @@ class testauthui(Component):
 
     def __init__(self, ctxt):
         Component.__init__(self, ctxt)
-        self.coreui = None
+        self.webserver = None
         self.noxdir = None
         self.ldapauth = None
 
     def bootstrap_complete_callback(self, *args):
-        self.coreui.install_resource("/testauth", TestAuthRes(self))
+        self.webserver.install_resource("/testauth", TestAuthRes(self))
         return CONTINUE
 
     def install(self):
-        self.coreui = self.resolve(str(coreui.coreui))
-        if self.coreui is None:
+        self.webserver = self.resolve(str(webserver.webserver))
+        if self.webserver is None:
             raise Exception("Unable to resolve required component: '%s'"
-                            %str(coreui.coreui))
+                            %str(webserver.webserver))
         self.noxdir = self.resolve(nox_directory.NoxDirectory)
         if self.noxdir is None:
             raise Exception("Unable to resolve required component: '%s'"

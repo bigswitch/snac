@@ -4,7 +4,7 @@ import os, logging, shutil, simplejson, time
 from twisted.internet import reactor
 from twisted.internet.defer import Deferred
 
-from nox.ext.apps.coreui.coreui import *
+#from nox.ext.apps.coreui.coreui import *
 from nox.webapps.webservice.webservice import *
 from nox.ext.apps.storage.transactional_storage import TransactionalStorage, TransactionalConnection
 from nox.lib.core import Component

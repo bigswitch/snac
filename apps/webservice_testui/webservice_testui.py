@@ -2,9 +2,9 @@
 
 from nox.coreapps.pyrt.pycomponent import *
 from nox.lib.core import *
+from nox.webapps.webserver import webserver
 
-from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
-from nox.ext.apps.coreui import coreui
+from nox.ext.apps.coreui.authui import UISection
 
 class WebServiceTestSec(UISection):
     isLeaf = True
@@ -21,7 +21,7 @@ class webservice_testui(Component):
 
     def __init__(self, ctxt):
         Component.__init__(self, ctxt)
-        self.coreui = None
+        self.webserver = None
 
     def configure(self, configuration):
         for param in configuration['arguments']:
@@ -29,8 +29,8 @@ class webservice_testui(Component):
                 self.hidden = True
 
     def install(self):
-        self.coreui = self.resolve(str(coreui.coreui))
-        self.coreui.install_section(WebServiceTestSec(self), self.hidden)
+        self.webserver = self.resolve(str(webserver.webserver))
+        self.webserver.install_section(WebServiceTestSec(self), self.hidden)
 
     def getInterface(self):
         return str(webservice_testui)

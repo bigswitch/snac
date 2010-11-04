@@ -26,7 +26,7 @@ dojo.require("nox.ext.apps.directory.directorymanagerws.UserGroup");
 dojo.require("nox.ext.apps.directory.directorymanagerws.LocationGroup"); 
 
 // switch groups are not implemented yet
-//dojo.require("nox.apps.directory.directorymanagerws.SwitchGroup");
+//dojo.require("nox.ext.apps.directory.directorymanagerws.SwitchGroup");
 
 (function() {
 

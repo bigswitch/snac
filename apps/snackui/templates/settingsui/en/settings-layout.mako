@@ -6,7 +6,7 @@
   <ul class="lsidebar">
     <%
          from nox.ext.apps.dhcp.manager import DHCPManager
-         dhcp_enabled = siteConfig["coreui"].resolve(str(DHCPManager))
+         dhcp_enabled = siteConfig["webserver"].resolve(str(DHCPManager))
     %>
 
     <li><a href="/Settings/Controller">Policy Controller</a></li>

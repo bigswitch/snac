@@ -29,299 +29,39 @@ from mako.template import Template
 from mako.lookup import TemplateLookup
 
 from nox.ext.apps.directory.directorymanager import directorymanager
+from nox.webapps.webserver import webserver, webauth
 
 import os
 import types
 import urllib
 import coreui
     
-# Twisted hardcodes the string TWISTED_SESSION as the cookie name.  
-# This hack let's us append a Nicira string to that cookie name.  
-# In the future, we may want to override Request.getSession() 
-# as implemented in twisted/web/server.py to completely remove
-# TWISTED_SESSION from the cookie name.  
-# NOTE: spaces in the cookie name are incompatible with Opera
-def get_current_session(request): 
-        old_sitepath = request.sitepath
-        request.sitepath = [ "Nicira_Management_Interface" ]
-        session = request.getSession()
-        request.sitepath = old_sitepath
-        return session 
-
-
-all_immutable_roles = ["Superuser",
-                       "Policy Administrator",
-                       "Network Operator",
-                       "Security Operator",
-                       "Viewer",
-                       "No Access" ]
-
-
-class UnknownCapabilityError(Exception):
-    pass
-
-class InvalidRoleError(Exception):
-    pass
-
 class authui(Component):
 
     def __init__(self, ctxt):
         Component.__init__(self, ctxt)
-        self.coreui = None
+        self.webserver = None
         self.directorymanager = self.resolve(directorymanager)
-
-    def setup_immutable_roles(self):
-      # Create and register the immutable roles
-      for name in all_immutable_roles:
-        if name == "Superuser":
-            r = SuperuserRole(name)
-        elif name == "No Access":
-            r = NoAccessRole(name)
-        else:
-            r = Role(name, immutable=True)
-        Roles.register(r)
-    
-      self.coreui.authui_initialized = True
 
     def bootstrap_complete_callback(self, *args):
         # if these resources are installed within install(), 
         # they are not able to resolve authui
-        self.coreui.install_resource("/login", LoginRes(self))
-        self.coreui.install_resource("/logout", LogoutRes(self))
-        self.coreui.install_resource("/denied", DeniedRes(self))
-        self.coreui.install_resource("/server_error", ServerErrRes(self))
+        login_res = LoginRes(self)
+        self.webserver.install_resource("/login", LoginRes(self))
+        self.webserver.install_resource("/logout", LogoutRes(self))
+        self.webserver.install_resource("/denied", DeniedRes(self))
+        self.webserver.install_resource("/server_error", ServerErrRes(self))
 
-        self.setup_immutable_roles()
         return CONTINUE
     
     def install(self):
-        self.coreui = self.resolve(str(coreui.coreui))
+        self.webserver = self.resolve(webserver.webserver)
         self.register_for_bootstrap_complete(self.bootstrap_complete_callback)
-
-    def requestIsAuthenticated(self, request):
-        session = get_current_session(request)
-
-        if hasattr(session, "roles"):
-            return True
-
-        if not self.directorymanager.supports_authentication():
-            session.requestIsAllowed = requestIsAllowed
-            user = User("assumed-admin", set(("Superuser",)))
-            session.user = user
-            roles = [ Roles.get(r) for r in user.role_names ]
-            session.roles = roles
-            session.language = "en"
-            return True
-
-        return False
 
     def getInterface(self):
         return str(authui)
 
-class Capabilities:
-    """Stores and provides info on entire set of defined capabilities"""
-
-    def __init__(self):
-        self._dict = {}
-
-    def register(self, name, description, immutable_roles=None):
-        """Register a capability.
-
-        Capabilities used to control visibity and actions in the UI should
-        be registered using this method in the component's install() method.
-
-        Arguments are:
-            name: The name of the capability.  This is the string that will
-                 be used to refer to the capability subsequently in tests,
-                 etc.
-            description: A user-readable description of the capability.
-                 This will be displayed in the role definition UI to
-                 assist the user in determining the appropriate capabilities
-                 to give to the role.
-            immutable_roles: A list of the names of immutable roles that
-                 should have this capability.  Immutable roles are a default
-                 set of roles provided by Nicira which the user can not
-                 edit.  The capabilities for each of those roles are built
-                 from these lists.  This is needed because the capability
-                 set may change over time and the editable roles will always
-                 assume a role does not have a capability if the user did
-                 not specifically set it.  Note it is not neccesary to
-                 include the 'Superuser' role in this list as the
-                 implementation gurantees that role will have all
-                 capabilities."""
-
-        if immutable_roles == None:
-            immutable_roles = []
-        else:
-            for r in immutable_roles:
-                if r not in all_immutable_roles:
-                    raise InvalidRoleError, "Only roles in authui.all_immutable_roles are appropiate."
-
-        self._dict[name] = (description, immutable_roles)
-
-    def has_registered(self, name):
-        return self._dict.has_key(name)
-
-    def list(self):
-        return self._dict.keys()
-
-    def describe(self, name):
-        try:
-            return self._dict[name][0]
-        except KeyError, e:
-            raise UnknownCapabilityError, str(name)
-
-    def immutable_roles(self, name):
-        try:
-            return self._dict[name][1]
-        except KeyError, e:
-            raise UnknownCapabilityError, str(name)
-
-# Following ensures there is only ever one capabilities manager...
-Capabilities = Capabilities()
-
-class Role:
-    """Named set of capabilities"""
-    def __init__(self, name, immutable=False):
-        self.name = name
-        self._capabilities = set()
-        if immutable:
-            self._immutable = False # is overridden below...
-            if not  self.name in all_immutable_roles:
-                raise InvalidRoleError, "Only roles in authui.all_immutable_roles can be set immutable."
-            for c in Capabilities.list():
-                if name in Capabilities.immutable_roles(c):
-                    self.add_capability(c)
-        self._immutable = immutable
-
-    def capabilities(self):
-        return self._capabilities
-
-    def has_capability(self, name):
-        return name in self._capabilities
-
-    def has_all_capabilities(self, capability_set):
-        return len(capability_set.difference(self._capabilities)) == 0
-
-    def has_anyof_capabilities(self, capability_set):
-        return len(capability_set.intersection(self._capabilities)) != 0
-
-    def is_immutable(self):
-         return self._immutable
-
-    def add_capability(self, name):
-        if not self._immutable:
-            if Capabilities.has_registered(name):
-                self._capabilities.add(name)
-            else:
-                raise UnknownCapabilityError, "Name=%s" % name
-
-    def remove_capability(self, name):
-        if not self._immutable:
-            try:
-                self._capabilities.remove(name)
-            except KeyError, e:
-                pass
-
-class SuperuserRole(Role):
-    """Role guaranteed to always have all capabilities"""
-
-    def __init__(self, name):
-        Role.__init__(self, name, True)
-
-    def capabilities(self):
-        return Capabilities.list()
-
-    def has_capability(self, name):
-        return True
-
-    def has_all_capabilities(self, capability_set):
-        return True
-
-    def has_anyof_capabilities(self, capability_set):
-        return True
-
-class NoAccessRole(Role):
-    """Role guaranteed to never have any capabilities"""
-    def __init__(self, name):
-        Role.__init__(self, name, True)
-
-    def capabilities(self):
-        return []
-
-    def has_capability(self, name):
-        return False
-
-    def has_all_capabilities(self, capability_set):
-        return False
-
-    def has_anyof_capabilities(self, capability_set):
-        return False
-
-class Roles:
-    """Manages defined roles."""
-
-    def __init__(self):
-        self._roles = {}
-
-    def register(self, role):
-        self._roles[role.name] = role
-
-    def has_registered(self, role_name):
-        return self._roles.has_key(role_name)
-
-    def get(self, role_name):
-        try:
-            return self._roles[role_name]
-        except KeyError, e:
-            raise InvalidRoleError(role_name)
-
-    def names(self):
-        return [ r.name for r in self._roles.values() ]
-
-    def instances(self):
-        return self._roles.values()
-
-# Following ensures there is only ever one roles manager...
-Roles = Roles()
-
-
-class User:
-    """User information class"""
-    def __init__(self, username=None, role_names=set(), language=None):
-        self.username = username
-        self.language = language
-        self.role_names = role_names
-
-class InvaidAuthSystemError(Exception):
-    pass
-
-
-def redirect(request, uri):
-    # TBD: make handle child links automatically, normalize URI, etc.
-    return redirectTo(uri, request)
-
-
-
-def requestIsAllowed(request, cap):
-    session = get_current_session(request)
-    try:
-        roles = session.roles
-    except AttributeError:
-        e = "Forbidding access due to unknown role in requestIsAllowed()"
-        log.err(e, system="authui")
-        return False
-    if cap is None:
-        return True
-    for role in roles:
-        if role.has_all_capabilities(cap):
-            return True
-    return False
-
-
-class MissingTemplateError(Exception):
-    pass
-
+# FIXME: robv: Might be cleaner to move the following stuff into coreui.py
 
 class UIResource(Resource):
     """UI resource class handling template search and authentication.
@@ -340,7 +80,7 @@ class UIResource(Resource):
                 the user must hold to interact with this resource.
                 Capabilites in the list are supplied as strings naming the
                 capability and must also be registered with the capabilities
-                manager (authui.Capabilities).  Alternatively, can be a
+                manager (webauth.Capabilities).  Alternatively, can be a
                 dictionary keyed by request method containing a set of
                 capabilities for each request method implemented by the
                 resource.  If a method is implemented but has not entry
@@ -356,7 +96,7 @@ class UIResource(Resource):
     This class also sets up component specific template search paths,
     and provides a conveience function to render templates with global
     site configuration information passed into the template using the
-    contents of the coreui component siteConfig dictionary."""
+    contents of the webserver component siteConfig dictionary."""
 
     noUser = False
     required_capabilities = set()
@@ -376,8 +116,8 @@ class UIResource(Resource):
     def __init__(self, component):
         Resource.__init__(self)
         self.component = component
-        self.coreui = component.resolve(str(coreui.coreui))
-        self.authui = component.resolve(str(authui))
+        self.webserver = component.resolve(str(webserver.webserver))
+        self.webauth = component.resolve(str(webauth.webauth))
 
         # TBD: select base_module_dir based on whether started in build
         # TBD:    directory or not.
@@ -389,6 +129,7 @@ class UIResource(Resource):
         base_module_dir = self._tmpl_paths(self.component, "mako_modules")[i]
         base_template_dirs = []
         base_template_dirs.extend(self._tmpl_paths(self.component, "templates"))
+
         for o in self.template_search_path:
             if str(o) == self.component.getInterface():
                 continue
@@ -396,7 +137,7 @@ class UIResource(Resource):
             base_template_dirs.extend(self._tmpl_paths(c, "templates"))
 
         self.tlookups = {}
-        for l in coreui.supported_languages:
+        for l in webserver.supported_languages:
             template_dirs = []
             module_dir = os.path.join(base_module_dir, l)
             for d in base_template_dirs:
@@ -432,7 +173,7 @@ class UIResource(Resource):
                 lang = t[0].lower()
             base_lang = t[0].lower()
 
-        if base_lang not in coreui.supported_languages:
+        if base_lang not in webserver.supported_languages:
             lang = "en"   # This had better always be supported.
 
         return lang
@@ -579,14 +320,14 @@ class UIResource(Resource):
         return (None, "".join(failure_msg))
 
     def render_tmpl(self, request, name, *arg, **data):
-        session = get_current_session(request)
+        session = webserver.get_current_session(request)
         lang = getattr(session, "language", None)
         if lang == None:
             lang = self._lang_from_request(request)
             # This may be overridden after login based on user preferences
             session.language = lang
         tmpl = self._lookup_template(lang, name)
-        return tmpl.render(siteConfig=self.coreui.siteConfig,
+        return tmpl.render(siteConfig=self.webserver.siteConfig,
                            request=request, session=session, *arg, **data)
 
     def getChild(self, name, request):
@@ -597,11 +338,11 @@ class UIResource(Resource):
     def _authredirect(self, request):
 
         if self.noUser:       # If resource doesn't require user at all...
-            get_current_session(request).requestIsAllowed = requestIsAllowed
+            webserver.get_current_session(request).requestIsAllowed = webauth.requestIsAllowed
             return None
 
-        if not self.authui.requestIsAuthenticated(request):
-            get_current_session(request).requestIsAllowed = requestIsAllowed
+        if not self.webauth.requestIsAuthenticated(request):
+            webserver.get_current_session(request).requestIsAllowed = webauth.requestIsAllowed
             return "/login?last_page=" + urllib.quote(request.uri)
 
         if type(self.required_capabilities) == types.DictionaryType:
@@ -617,18 +358,18 @@ class UIResource(Resource):
             log.err(e, system="authui")
             return (False, "/server_error")
 
-        if not requestIsAllowed(request, cs):
+        if not webauth.requestIsAllowed(request, cs):
             return "/denied"
 
         return None
 
     def render(self, request):
       
-        session = get_current_session(request)
+        session = webserver.get_current_session(request)
         redirect_uri = self._authredirect(request)
         if redirect_uri != None:
             session.return_uri = request.uri
-            return redirect(request, redirect_uri)
+            return webserver.redirect(request, redirect_uri)
         else:
             return Resource.render(self, request)
 
@@ -638,7 +379,7 @@ class UISection(UIResource):
     A top-level section of the site is one that is available on the toolbar
     under the main site banner.  Typically this class will be subclassed
     for each top-level section and an instance of that subclass will be
-    registered to show up in the UI with the coreui component
+    registered to show up in the UI with the webserver component
     install_section() method."""
 
     def __init__(self, component, name, icon="fixmeButtonIcon"):
@@ -654,8 +395,8 @@ class UISection(UIResource):
                   be used.
 
         A subclass is free to register additional resources as children
-        of itself before and after registering the section with the coreui
-        code using the coreui component install_section() method."""
+        of itself before and after registering the section with the webserver
+        code using the webserver component install_section() method."""
         UIResource.__init__(self, component)
         self.section_name = name
         self.section_icon = icon
@@ -680,7 +421,7 @@ class UISection(UIResource):
         # Subclasses can override this if they have an alternative
         # method of providing data for a GET request on the top-level
         # section URI.
-        return redirect(request, self.redirect_URI(request))
+        return webserver.redirect(request, self.redirect_URI(request))
 
 class ServerErrRes(UIResource):
     isLeaf = True
@@ -709,7 +450,7 @@ class LoginRes(UIResource):
 
     def __init__(self, component):
         UIResource.__init__(self, component)
-        self.coreui           = self.component.resolve(str(coreui.coreui))
+        self.webserver        = self.component.resolve(str(webserver.webserver))
         self.directorymanager = self.component.resolve(str(directorymanager))
         if self.directorymanager is None:
             raise Exception("Unable to resolve required component '%s'"
@@ -717,11 +458,11 @@ class LoginRes(UIResource):
 
     def render_GET(self, request):
         if not self.directorymanager.supports_authentication():
-          uri =  self._return_uri(request,get_current_session(request))
+          uri =  self._return_uri(request,webserver.get_current_session(request))
           request.write(redirect(request,uri))
           return
 
-        get_current_session(request).expire()
+        webserver.get_current_session(request).expire()
         return self.render_tmpl(request, "login.mako", login_failed=False, last_page="")
 
     def _return_uri(self, request, session):
@@ -733,13 +474,13 @@ class LoginRes(UIResource):
             if last_page not in ("", "/login", "/logout", "/denied", "/server_error"):
                 return_uri = last_page
             else:
-                return_uri = self.coreui.default_uri
+                return_uri = self.webserver.default_uri
         return return_uri
 
     def render_POST(self, request):
         if not self.directorymanager.supports_authentication():
-          uri =  self._return_uri(request,get_current_session(request))
-          request.write(redirect(request,uri))
+          uri =  self._return_uri(request,webserver.get_current_session(request))
+          request.write(webserver.redirect(request,uri))
           return 
 
         username = request.args["username"][0]
@@ -751,16 +492,16 @@ class LoginRes(UIResource):
 
     def _auth_errback(self, failure, request):
         log.err("Failure during authentication: %s" %failure)
-        get_current_session(request).expire()
+        webserver.get_current_session(request).expire()
         request.write(self.render_tmpl(request, "login.mako", login_failed=True, last_page=request.args.get("last_page", [""])[0]))
         request.finish()
 
     def _auth_callback(self, res, request):
         if res.status == AuthResult.SUCCESS:
-            session = get_current_session(request)
-            session.user = User(res.username, set(res.nox_roles))
+            session = webserver.get_current_session(request)
+            session.user = webauth.User(res.username, set(res.nox_roles))
             try:
-                session.roles = [Roles.get(r) for r in session.user.role_names]
+                session.roles = [webauth.Roles.get(r) for r in session.user.role_names]
             except InvalidRoleError, e:
                 log.err("Failed to resolve user role: %s" %e)
                 request.write(self.render_tmpl(request, "server_error.mako"))
@@ -770,7 +511,7 @@ class LoginRes(UIResource):
                 session.language = session.user.language
             else:
                 session.language = self._lang_from_request(request)
-            request.write(redirect(request, self._return_uri(request,session)))
+            request.write(webserver.redirect(request, self._return_uri(request,session)))
         else:
             request.write(self.render_tmpl(request, "login.mako", login_failed=True, last_page=request.args.get("last_page", [""])[0]))
         request.finish()
@@ -783,7 +524,7 @@ class LogoutRes(UIResource):
         UIResource.__init__(self, component)
 
     def render_GET(self, request):
-        get_current_session(request).expire()
+        webserver.get_current_session(request).expire()
         return self.render_tmpl(request, "logout.mako", last_page="")
 
 

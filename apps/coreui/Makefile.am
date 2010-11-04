@@ -34,10 +34,10 @@ BASE_WWW_FILES=dojo-release-$(DOJO_VERSION)/dojo \
 	dojo-release-$(DOJO_VERSION)/util
 
 www-build:
-	mkdir -p ${builddir}/www
+	mkdir -p $(WWW_BUILD_SUBDIR)
 	@dlist="$(BASE_WWW_FILES)";for f in $$dlist; do \
 		echo "Soft-linking from base_www: $$f";\
-		(cd $(builddir)/www && ln -sf ../$(srcdir)/base_www/$$f .);\
+		ln -snf ../../../ext/apps/coreui/$(srcdir)/base_www/$$f $(WWW_BUILD_SUBDIR);\
 	done;
 
 www-clean:

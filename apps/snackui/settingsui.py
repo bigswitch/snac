@@ -1,10 +1,10 @@
 from nox.coreapps.pyrt.pycomponent import *
 from nox.lib.core import *
 
-from nox.ext.apps.coreui.authui import UISection, UIResource, Capabilities
-from nox.ext.apps.coreui.authui import redirect
+from nox.ext.apps.coreui.authui import UISection, UIResource
+from nox.webapps.webserver.webauth import Capabilities
+from nox.webapps.webserver import webserver
 from nox.ext.apps.user_event_log.UI_user_event_log import UI_user_event_log
-from nox.ext.apps.coreui import coreui
 
 class ControllerRes(UIResource):
     required_capabilities = set([ "viewsettings" ] )
@@ -57,22 +57,20 @@ class SettingsSec(UISection):
         self.putChild("Logs", LogRes(self.component))
 
     def render_GET(self, request):
-        return redirect(request, request.childLink('Controller'))
+        return webserver.redirect(request, request.childLink('Controller'))
 
 class settingsui(Component):
 
     def __init__(self, ctxt):
         Component.__init__(self, ctxt)
-        self.coreui = None
+        self.webserver = None
 
     def install(self):
         Capabilities.register("viewsettings", "View configuration settings.",
-                              ["Policy Administrator",
-                               "Network Operator",
-                               "Security Operator",
-                               "Viewer"])
-        self.coreui = self.resolve(str(coreui.coreui))
-        self.coreui.install_section(SettingsSec(self))
+                              ["Admin","Demo","Readonly"])
+                              #["Policy Administrator", "Network Operator", "Security Operator", "Viewer"])
+        self.webserver = self.resolve(str(webserver.webserver))
+        self.webserver.install_section(SettingsSec(self))
 
     def getInterface(self):
         return str(settingsui)

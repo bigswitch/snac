@@ -148,7 +148,7 @@ from nox.netapps.authenticator.pyauth import Host_auth_event, PyAuth
 from nox.netapps.bindings_storage.pybindings_storage import Name
 from nox.netapps.bindings_storage.pybindings_storage import pybindings_storage
 from nox.ext.apps.configuration.properties import *
-from nox.ext.apps.coreui import coreui
+from nox.webapps.webserver import webserver
 from nox.ext.apps.coreui.authui import UIResource
 from nox.ext.apps.directory import directorymanager
 from nox.ext.apps.storage.transactional_storage import TransactionalStorage
@@ -184,7 +184,7 @@ class captiveportal(Component):
         'js_lib'       : _static_url_root + 'cp.js' 
     }
 
-    _static_file_base = coreui.coreui.STATIC_FILE_BASEPATH + \
+    _static_file_base = webserver.webserver.STATIC_FILE_BASEPATH + \
             'nox/ext/apps/captiveportal/'
     _default_banner_file = _static_file_base + 'default_banner.jpg'
     _default_banner_content_type = u'image/jpeg'
@@ -205,7 +205,7 @@ class captiveportal(Component):
         Component.__init__(self, ctxt)
         self.auth    = None
         self.bs      = None
-        self.coreui  = None
+        self.webserver = None
         self.dm      = None
         self.hr      = None
         self.storage = None
@@ -229,14 +229,14 @@ class captiveportal(Component):
         if self.bs is None:
             raise Exception("Unable to resolve required component: '%s'"
                             %str(pybindings_storage))
-        self.coreui = self.resolve(coreui.coreui)
-        if self.coreui is None:
+        self.webserver = self.resolve(webserver.webserver)
+        if self.webserver is None:
             raise Exception("Unable to resolve required component: '%s'"
-                            %str(coreui.coreui))
+                            %str(webserver.webserver))
         self.dm = self.resolve(directorymanager.directorymanager)
-        if self.coreui is None:
+        if self.dm is None:
             raise Exception("Unable to resolve required component: '%s'"
-                            %str(coreui.coreui))
+                            %str(directorymanager.directorymanager))
         self.hr = self.resolve(pyhttp_redirector)
         if self.hr is None:
             raise Exception("Unable to resolve required component: '%s'"
@@ -265,14 +265,14 @@ class captiveportal(Component):
     
     def _register_resource_handlers(self, *args):
         self.authres = AuthRes(self)
-        self.coreui.install_resource(self._web_root, self.authres)
+        self.webserver.install_resource(self._web_root, self.authres)
 
         propres = PropertyRes(self, PROPERTIES_SECTION)
         propres.register_property_resource(self._banner_image_name,
                 'banner_image', None, 'banner_image_content_type', True)
         propres.register_property_resource(self._custom_css_name,
                 'custom_css', 'text/css', None, False)
-        self.coreui.install_resource(self._prop_root, propres)
+        self.webserver.install_resource(self._prop_root, propres)
         lg.debug("Ready for requests")
         return CONTINUE
 

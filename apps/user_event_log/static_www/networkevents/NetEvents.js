@@ -34,7 +34,7 @@ dojo.declare("nox.ext.apps.user_event_log.networkevents.NetEventsTable", [], {
     row.innerHTML = "<td class='priority msg-level-" + item.level + "'>" + 
     item.level + "</td><td class='timestamp msg-level-" + item.level + "'>" + 
     dt.toLocaleString() + "</td><td class='msg msg-level-" + item.level + 
-    "'>" + nox.apps.user_event_log.networkevents.NetEventsFormatter.format_msg(item.msg) + "</td>";
+    "'>" + nox.ext.apps.user_event_log.networkevents.NetEventsFormatter.format_msg(item.msg) + "</td>";
   }, 
 
   _get_error: function(error, ioArgs) { 
@@ -49,7 +49,7 @@ dojo.declare("nox.ext.apps.user_event_log.networkevents.NetEventsTable", [], {
     this.max_size = max_size; 
     this.filter_str = filter_str;
     this.highest_logid = 0; 
-    var coreui = nox.apps.coreui.coreui;
+    var coreui = nox.ext.apps.coreui.coreui;
     coreui.getUpdateMgr().suspendDuringMousemoveOn(this.table_elem);
       //    coreui.getUpdateMgr().recurrence_period = 1;
   

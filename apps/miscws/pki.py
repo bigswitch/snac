@@ -24,7 +24,6 @@ from twisted.internet import defer
 lg = logging.getLogger('pki')
 
 from nox.ext.apps.coreui.authui import UIResource
-from nox.ext.apps.coreui import coreui
 
 # this class uses the PROPERTIES table in CDB to hold on to cert data
 # with in that table, it maintains two 'sections', one for pending certificate 
@@ -206,8 +205,8 @@ LwIUPo56DieYKk0A4vy3C5FGO3DGq9I=
 class pki(Component):
     
     def install(self):
-        self.coreui = self.resolve(str(coreui.coreui))
-        self.coreui.install_resource("/pki", PKIResource(self))
+        self.webserver = self.resolve(str(webserver.webserver))
+        self.webserver.install_resource("/pki", PKIResource(self))
         self.simple_config = self.resolve(simple_config)
         self.priv_key = load_privatekey(FILETYPE_PEM, PRIVATE_KEY_TEXT) 
 
