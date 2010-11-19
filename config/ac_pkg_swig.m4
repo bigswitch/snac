@@ -107,10 +107,23 @@ AC_DEFUN([SWIG_ENABLE_CXX],[
 
 
 AC_DEFUN([SWIG_PYTHON],[
+        AC_MSG_CHECKING([for SWIG 64-bit support])
+        AC_EGREP_CPP(yes, [
+#include <stdint.h>
+#if __WORDSIZE == 64
+:yes
+#endif
+], swig_64bit=yes, swig_64bit=no)
+        AC_MSG_RESULT([$swig_64bit])
+
         AC_REQUIRE([AC_PROG_SWIG])
         AC_REQUIRE([AC_PYTHON_DEVEL])
         test "x$1" != "xno" || swig_shadow=" -noproxy"
-        AC_SUBST([SWIG_PYTHON_OPT],[-python$swig_shadow])
-        AC_SUBST([SWIG_PYTHON_CPPFLAGS],[$PYTHON_CPPFLAGS])
-])
+        if test "$swig_64bit" == "yes"; then
+           enable_swig_64bit=" -DSWIGWORDSIZE64"
+        fi
 
+        AC_SUBST([SWIG_PYTHON_OPT],["-python$swig_shadow $enable_swig_64bit"])
+        AC_SUBST([SWIG_PYTHON_CPPFLAGS],[$PYTHON_CPPFLAGS])
+
+])
