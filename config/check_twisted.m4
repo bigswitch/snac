@@ -6,13 +6,13 @@ dnl --
 AC_DEFUN([CHECK_TWISTED], [
   AC_ARG_WITH([python],
               [AC_HELP_STRING([--with-python=/path/to/python.binary],
-                              [Specify python binary (must be v2.5 or greater and must have twisted installed)])],
+                              [Specify python binary (must be v2.4 or greater and must have twisted installed)])],
                [path="$withval"], [path="no"])dnl
   if test "$path" = "yes"; then
-    AC_PYTHON_DEVEL([>='2.5'])
+    AC_PYTHON_DEVEL([>='2.4'])
   elif test -n "$path" & test "$path" != "no"; then
     PYTHON="$path"
-    AC_PYTHON_DEVEL([>='2.5'])
+    AC_PYTHON_DEVEL([>='2.4'])
 
     AC_MSG_CHECKING([whether twisted python is installed])
     `$PYTHON -c "import twisted" 2> /dev/null`

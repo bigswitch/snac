@@ -48,7 +48,7 @@ using namespace vigil::applications;
 
 
   def getFactory():
-        class Factory():
+        class Factory:
             def instance(self, context):
                 return pyhttp_redirector(context)
 

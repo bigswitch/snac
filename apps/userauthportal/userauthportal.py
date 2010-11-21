@@ -237,7 +237,7 @@ WAIT_FOR_PU_MAX_TM = 15
 #
 # - time out in-progress requests
 
-class uapConfig():
+class uapConfig:
 
     def __init__(self):
         #TODO: get this from CDB

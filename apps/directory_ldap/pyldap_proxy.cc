@@ -172,7 +172,7 @@ private:
 static void
 deferred_call(PyDeferred deferred, const string& method, PyObject* value) {
     Co_critical_section c;
-    PyObject* func = PyObject_GetAttrString(deferred, method.c_str());
+    PyObject* func = PyObject_GetAttrString(deferred, (char *) method.c_str());
     if (!func || !PyCallable_Check(func)) {
         const string exc = pretty_print_python_exception();
         const string msg = "Could not find method named '"+method+"' on "

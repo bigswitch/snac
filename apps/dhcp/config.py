@@ -8,7 +8,7 @@ the configuration using the simple config web service.
 
 from nox.lib.netinet.netinet import create_ipaddr
 
-class DHCPConfig():
+class DHCPConfig:
     def __init__(self, cfg):
         self.globals = {}
         self.subnets = {}

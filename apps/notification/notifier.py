@@ -28,7 +28,7 @@ log = logging.getLogger("notifier")
 __all__ = [ "Destination" ]
 
 
-class Destination():
+class Destination:
     """
     Notification destinations are plugins, which provide best-effort
     logging interface towards external systems.
@@ -54,7 +54,7 @@ class LogDestination(Destination):
     def log(self, event):
         log.info('Network event: ' + str(event))
 
-class Rule():
+class Rule:
     """
     Matcher checkes whether an event matches to the configured
     criterion.
@@ -123,7 +123,7 @@ class FieldComparisonRule(Rule):
 
         return False
 
-class Filter():
+class Filter:
     """
     """
     def __init__(self, matcher, destinations):

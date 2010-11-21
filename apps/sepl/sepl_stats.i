@@ -61,7 +61,7 @@ using namespace vigil::applications;
             self.stats.clear_denies()
 
     def getFactory():
-        class Factory():
+        class Factory:
             def instance(self, context):
                 return PySeplStats(context)
 

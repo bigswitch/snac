@@ -61,9 +61,9 @@ public:
 %{
     import array
     def getFactory():
-        class Factory():
+        class Factory:
             def instance(self, context):
-                class PF():
+                class PF:
                     def __init__(self, c):
                         self.pf = PyPF(c)
     

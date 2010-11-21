@@ -45,7 +45,7 @@ using namespace vigil::applications;
             self.enforcer.reset()
 
     def getFactory():
-        class Factory():
+        class Factory:
             def instance(self, context):
                 return PySeplEnforcer(context)
 

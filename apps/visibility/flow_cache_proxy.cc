@@ -22,6 +22,20 @@ namespace applications {
 typedef boost::function<bool(uint32_t, Directory::Group_Type&)>
         Group_type_resolver; 
 
+#if PY_VERSION_HEX < 0x02050000
+static PyObject *PySet_New(PyObject *iterable) {
+    return PyObject_CallFunctionObjArgs((PyObject *) &PySet_Type, iterable, NULL);
+}
+
+static int PySet_Add(PyObject *s, PyObject *key) {
+    PyObject *ret = PyObject_CallMethod(s, "add", "O", key);
+    if (ret == NULL)
+        return -1;
+    Py_DECREF(ret);
+    return 0;
+}
+#endif
+
 static inline PyObject* to_set(std::vector<uint32_t> intvec) {
     PyObject* ret = PySet_New(NULL);
     BOOST_FOREACH(uint32_t id, intvec) {

@@ -85,7 +85,7 @@ class ldap_dir_factory(Component, Directory_Factory):
 
 
 def getFactory():
-        class Factory():
+        class Factory:
             def instance(self, context):
                 return ldap_dir_factory(context)
 

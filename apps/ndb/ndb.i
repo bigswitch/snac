@@ -22,7 +22,7 @@ public:
 %pythoncode
 %{
     def getFactory():
-        class Factory():
+        class Factory:
             def instance(self, context):
                 from nox.ext.apps.ndb import API, PutOp, DependencyError, SchemaError
                 from twisted.internet import defer

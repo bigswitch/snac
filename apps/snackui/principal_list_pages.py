@@ -193,7 +193,7 @@ class HostListRes(PrincipalListRes):
 
 # helper classes / functions
 
-class gather_status_op(): 
+class gather_status_op: 
   def __init__(self):
     pass
   
@@ -232,7 +232,7 @@ class gather_status_op():
       if self.cb_count == self.p_count: 
         self.d.callback(self.data.values())
  
-class gather_hostlist_data_op(): 
+class gather_hostlist_data_op: 
     def __init__(self):
       pass
 
@@ -281,7 +281,7 @@ class gather_hostlist_data_op():
         dx.addCallback(self._get_ifaces_cb,h)
       return self.d
 
-class gather_switchstats_op(): 
+class gather_switchstats_op: 
   def __init__(self):
     pass
   
@@ -326,7 +326,7 @@ class gather_switchstats_op():
       self.data[name]["flowmiss_rate"] = self._get_flowmiss_rate(stats)
     self._got_stat_cb(res)
 
-class gather_switchcreds_op(): 
+class gather_switchcreds_op: 
   def __init__(self):
     pass
   
@@ -365,7 +365,7 @@ class gather_switchcreds_op():
       self._got_cred_cb(res)
 
 
-class gather_locinfo_op(): 
+class gather_locinfo_op: 
   def __init__(self):
     pass
   
