@@ -20,12 +20,11 @@ typedef boost::intrusive_ptr<PyObject> PyObject_ptr;
 PyStorage_replicator::PyStorage_replicator(PyObject* ctxt)
     : replicator(0)
 {
-    PySwigObject* swigo = SWIG_Python_GetSwigThis(ctxt);
-    if (!swigo || !swigo->ptr) {
+    if (!SWIG_Python_GetSwigThis(ctxt) || !SWIG_Python_GetSwigThis(ctxt)->ptr) {
         throw std::runtime_error("Unable to access Python context.");
     }
 
-    c = ((PyContext*)swigo->ptr)->c;
+    c = ((PyContext*)SWIG_Python_GetSwigThis(ctxt)->ptr)->c;
 
     c->resolve(replicator);
 }
