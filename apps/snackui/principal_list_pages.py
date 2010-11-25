@@ -313,7 +313,8 @@ class gather_switchstats_op:
       lookups = stats["total_lookup_pkt"]
       if matches == None or lookups == None:
         return None
-      if matches == 0: 
+      if lookups == 0:
+        lg.info("In _get_flowmiss_rate: lookups was 0, which would have caused divide by 0 exception")
         return 0
       return math.floor(100 * (lookups - matches) / lookups)
   
