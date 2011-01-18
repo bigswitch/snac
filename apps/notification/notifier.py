@@ -11,8 +11,6 @@ except ImportError:
 from twisted.internet import reactor
 from twisted.internet.defer import Deferred, DeferredList, succeed
 
-from twisted.mail.smtp import SMTPSenderFactory
-
 from nox.apps.bindings_storage.pybindings_storage \
     import pybindings_storage, Name
 from nox.apps.configuration import Properties

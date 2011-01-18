@@ -1,0 +1,36 @@
+# This is a POSIX shell fragment                -*- sh -*-
+
+# PRIVKEY: Name of file containing controller's private key.
+# Required if SSL enabled.
+PRIVKEY=/etc/nox/privkey.pem
+
+# CERT: Name of file containing certificate for private key.
+# Required if SSL enabled.
+CERT=/etc/nox/cert.pem
+
+# CACERT: Name of file containing switch CA certificate.
+# Required if SSL enabled.
+CACERT=/etc/nox/cacert.pem
+
+#OF_LISTEN="-i pssl::$PRIVKEY:$CERT:$CACERT"
+OF_LISTEN="-i ptcp:6633"
+WWW_LISTEN_PORT="80"
+
+# Additional options to pass to NOX
+NOX_ARGS="$OF_LISTEN routing switch_approval user_event_log=max_num_entries=3000 transactional_storage_backend=/var/lib/nox.cdb nat coreui=port=$WWW_LISTEN_PORT"
+
+# NOX_CORE_LIMIT: Maximum size for core dumps.
+#
+# Leaving this unset will use the system default.  Setting it to 0
+# will disable core dumps.  Setting it to "unlimited" will dump all
+# core files regardless of size.
+NOX_CORE_LIMIT=unlimited
+
+# NOX_FD_LIMIT: 
+#
+# This sets the maximum number of file descriptors the NOX process
+# may have open at the same time.  Leaving this unset will use the 
+# system default (usually 1024). On my debian, the max number of descriptors 
+# allowed for ALL processes is 334822.
+NOX_FD_LIMIT=100000
+

@@ -111,18 +111,23 @@ class local_config(Component):
     def determine_local_type(self):
         if os.path.isfile('/etc/debian_version'):
             self.type = 'debian'
+        elif os.path.isfile('/etc/redhat-release'):
+            self.type = 'redhat'
             
     def configure(self, something):    
         self.register_python_event(interface_change_event.static_get_name())
         self.determine_local_type()
 
     def install(self):
-        from nox.ext.apps.local_config.debian.debian_config import debian_config
-
         self.storage = self.resolve(Storage)
         
         if self.type == 'debian':
+            from nox.ext.apps.local_config.debian.debian_config import debian_config
             self.cfg = debian_config(self) 
+            return self.cfg.init()
+        elif self.type == 'redhat':
+            from nox.ext.apps.local_config.redhat.redhat_config import redhat_config
+            self.cfg = redhat_config(self) 
             return self.cfg.init()
         else:
             self.cfg = None

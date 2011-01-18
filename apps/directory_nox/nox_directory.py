@@ -828,8 +828,8 @@ class NoxDirectory(Component, Directory):
                 ret.callback(None)
         ret = defer.Deferred()
         try:
-            groups_module = __import__(self._default_groups_module,
-                    fromlist='*')
+            groups_module = __import__(self._default_groups_module, globals(),
+                                       locals(), ['*'])
             default_groups = getattr(groups_module, 'default_groups', None)
             if default_groups is not None:
                 if len(default_groups) == 0:

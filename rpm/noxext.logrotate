@@ -1,0 +1,7 @@
+/var/log/snacdb/snac.cdb.auto {
+   rotate 180 
+   daily
+   dateext
+   nocreate
+   endscript
+}

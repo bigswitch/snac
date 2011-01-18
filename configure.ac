@@ -99,6 +99,7 @@ apps/redirproxy/Makefile
 apps/restracker/Makefile
 apps/local_config/Makefile
 apps/local_config/debian/Makefile
+apps/local_config/redhat/Makefile
 apps/visibility/Makefile
 ])
 

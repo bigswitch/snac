@@ -1,0 +1,112 @@
+#! /bin/bash
+#
+# noxcore       Network Control Platform
+#
+# chkconfig: 2345 70 30
+# description: Start and stop the NOX daemon.
+#
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+DESC="Network Control Platform"
+NAME="noxcore"
+EXT_NAME="noxext"
+
+NOX_DAEMON="/usr/bin/noxcore"
+NOX_DPCTL="/usr/bin/dpctl"
+NOX_DPCTL_PROBE_CMD=
+NOX_CONF="/etc/nox/nox.xml"
+NOX_PIDFILE="/var/run/$NAME.pid"
+NOX_USER="root"
+NOX_EXTRA_START=
+NOX_CORE_LIMIT=
+
+SCRIPTNAME="/etc/init.d/$NAME"
+
+# Read the configuration variable file if it is present
+[ -r /etc/sysconfig/$NAME ] && . /etc/sysconfig/$NAME
+
+# Read the extension configuration variable file if it is present
+[ -r /etc/sysconfig/$EXT_NAME ] && . /etc/sysconfig/$EXT_NAME
+
+NOX_ARGS="--daemon --conf=$NOX_CONF --pid=$NOX_PIDFILE $NOX_ARGS $NOX_EXT_ARGS"
+
+start()
+{
+    echo -n $"Starting SNAC: "
+
+    # If defined, execute the extra start step
+    if [ -n "$NOX_EXTRA_START" ]; then
+	$NOX_EXTRA_START
+	[ $? -ne 0 ] && exit 1
+    fi
+    
+    if test -n "$NOX_CORE_LIMIT"; then
+        echo "Setting core limit to $NOX_CORE_LIMIT"
+        ulimit -c "$NOX_CORE_LIMIT" || true
+    fi
+    if test -n "$NOX_FD_LIMIT"; then
+        echo "Setting file descriptor limit to $NOX_CORE_LIMIT"
+        ulimit -n "$NOX_FD_LIMIT" || true
+    fi
+
+    daemon --pidfile=$NOX_PIDFILE --user=$NOX_USER $NOX_DAEMON $NOX_ARGS
+    RETVAL=$?
+    echo
+
+    return $RETVAL
+}
+
+stop()
+{
+    echo -n $"Stopping SNAC: "
+
+    killproc -p $NOX_PIDFILE -d 10 $NOX_DAEMON
+    RETVAL=$?
+    echo
+
+    return $RETVAL
+}
+
+monitor_nox()
+{
+    [ -z "$NOX_DPCTL_PROBE_CMD" ] && return 2
+
+    $NOX_DPCTL $NOX_DPCTL_PROBE_CMD 2>/dev/null
+    return "$?"
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+
+    stop)
+        stop
+        ;;
+
+    status)
+        status -p $NOX_PIDFILE $NOX_DAEMON
+        RETVAL=$?
+        ;;
+
+    restart)
+        stop
+        start
+        ;;
+
+    condrestart)
+        if [ -f ${pidfile} ] ; then
+            stop
+	    start
+        fi
+        ;;
+
+    *)
+	echo "Usage: noxcore {start|stop|status|restart|condrestart}" >&2
+	exit 1
+	;;
+esac
+
+:

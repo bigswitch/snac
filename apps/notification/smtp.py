@@ -4,7 +4,7 @@ import StringIO
 
 from twisted.internet import reactor
 from twisted.internet.defer import Deferred, DeferredList
-from twisted.mail.smtp import SMTPSenderFactory
+#from twisted.mail.smtp import SMTPSenderFactory
 
 from nox.ext.apps.notification.notifier import Destination
 
@@ -40,11 +40,12 @@ class SMTPDestination(Destination):
         msg = self.template
         msg = msg.replace("{msg}", event['msg'])
 
-        d = Deferred()
-        factory = SMTPSenderFactory(self.from_address, self.to_address,
-                                    StringIO(msg), d, retries=3, timeout=5)
-        reactor.connectTCP(self.smtp_host, self.smtp_port, factory)
-        return d
+        #d = Deferred()
+        #factory = SMTPSenderFactory(self.from_address, self.to_address,
+        #                            StringIO(msg), d, retries=3, timeout=5)
+        #reactor.connectTCP(self.smtp_host, self.smtp_port, factory)
+        #return d
+        return None
 
 def get_plugin_factory():
     return ('SMTP', lambda config: SMTPDestination(config) )

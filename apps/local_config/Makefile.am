@@ -1,6 +1,6 @@
 include ../../Make.vars 
 
-SUBDIRS=debian
+SUBDIRS=debian redhat
 
 EXTRA_DIST = \
 	meta.xml \
