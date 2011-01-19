@@ -1,6 +1,6 @@
 Name: snac
 Version: 0.4.1
-Release: 1.bigswitch
+Release: %{?release}%{!?release:devel.bigswitch}
 Summary: SNAC OpenFlow controller
 
 Group: Applications/Networking

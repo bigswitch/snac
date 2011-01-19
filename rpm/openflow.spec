@@ -1,6 +1,6 @@
 Name: openflow
 Version: 1.0.0
-Release: 1.bigswitch
+Release: %{?release}%{!?release:devel.bigswitch}
 Summary: OpenFlow
 
 Group: Applications/Networking

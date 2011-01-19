@@ -19,5 +19,5 @@ cat >${builddir}/.rpmmacros <<EOF
 %_rpmdir ${builddir}
 EOF
 
-HOME=${builddir} rpmbuild -ba ${builddir}/openflow.spec
-HOME=${builddir} rpmbuild -ba ${builddir}/snac.spec
+HOME=${builddir} rpmbuild -ba "$@" ${builddir}/openflow.spec
+HOME=${builddir} rpmbuild -ba "$@" ${builddir}/snac.spec
