@@ -34,9 +34,10 @@ Installing binary rpms:
   $ sudo rpm -Uv http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-4.noarch.rpm
   $ sudo rpm -Uv http://blackopsoft.com/el5/RPMS/noarch/blackop-el5-repo-1.0-2.noarch.rpm
 
-2. Unpack the SNAC binary rpms:
+2. Configure yum to upgrade only specific rpms from the Black Op repository, ignoring
+   others that are incompatible with SNAC:
 
-  $ tar xvf snac-rhel5-*.tar
+  $ sudo sed -i '/^gpgkey=/a\includepkgs=boost-*,blackop-*,sqlite*,git,perl-Git,swig' /etc/yum.repos.d/blackop.repo
 
 3. Install the SNAC rpms:
 
