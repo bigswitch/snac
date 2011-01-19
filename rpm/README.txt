@@ -1,4 +1,4 @@
-This directory contains work-in-progress spec files for
+This directory contains spec files for
 SNAC/NOX and the OpenFlow codebase, targeting CentOS/RHEL 5.5.
 
 
@@ -22,3 +22,55 @@ cd build
 ../configure --with-python=yes --prefix=/usr --enable-ndebug
 make -j4 all
 sudo make install
+
+
+Installing binary rpms:
+
+0. Install CentOS 5.5 x86_64.
+
+1. Install yum repo configuration for the EPEL (http://fedoraproject.org/wiki/EPEL)
+   and Black Op (http://blackopsoft.com/) repositories:
+
+  $ sudo rpm -Uv http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-4.noarch.rpm
+  $ sudo rpm -Uv http://blackopsoft.com/el5/RPMS/noarch/blackop-el5-repo-1.0-2.noarch.rpm
+
+2. Unpack the SNAC binary rpms:
+
+  $ tar xvf snac-rhel5-*.tar
+
+3. Install the SNAC rpms:
+
+  $ sudo yum --nogpg localinstall openflow-pki-*.rpm snac-*.rpm
+
+4. Start the SNAC nox_core daemon:
+
+  $ sudo service noxcore start
+
+5. Log into the web configuration interface at https://hostname (username admin, password
+   admin).
+
+
+Differences from Debian packaging:
+
+- Files are installed per Red Hat conventions (executables in /usr/bin, libraries and apps in
+  /usr/lib*/nox, config files in /etc/nox) rather than in a separate /opt/nox tree.
+
+- Daemon configuration files are /etc/sysconfig/{noxcore,noxext} rather than
+  /etc/defaults/{noxcore,noxext}.
+
+- SNAC is built into a single binary rpm (snac-*.rpm) rather than separate packages for
+  noxcore and noxext.
+
+
+Known bugs and missing functionality:
+
+- No init script is provided for the nox-monitor tool.
+
+- The dhcp app does not configure the DHCP daemon properly (config files have different
+  names/paths between Debian and Red Hat).
+
+- The notification app does not generate email notifications (Twisted email library is
+  not available for CentOS 5).
+
+- The local_config app should write network interface configuration into
+  /etc/sysconfig/network-scripts/ifcfg-* but this has not been tested.

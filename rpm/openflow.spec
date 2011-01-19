@@ -5,7 +5,7 @@ Summary: OpenFlow
 
 Group: Applications/Networking
 License: GPL
-Source0: openflow-1.0.0.tar.gz
+Source0: openflow.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: autoconf >= 2.59
@@ -31,7 +31,7 @@ man-in-the-middle attacks on the OpenFlow network infrastructure.
 OpenFlow is a protocol for flow-based control over network switching.
 
 %prep
-%setup -q
+%setup -q -n openflow
 sed -i 's/^AC_PREREQ(2.60)/AC_PREREQ(2.59)/;s/^AC_PROG_MKDIR_P/dnl AC_PROG_MKDIR_P/;/^AM_INIT_AUTOMAKE/a\AC_GNU_SOURCE' configure.ac
 sed -i 's/AC_REQUIRE(\[AC_USE_SYSTEM_EXTENSIONS\])/dnl AC_REQUIRE([AC_USE_SYSTEM_EXTENSIONS])/' m4/libopenflow.m4
 sed -i 's/$(MKDIR_P)/mkdir -p/g' lib/automake.mk
