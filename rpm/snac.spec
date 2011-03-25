@@ -1,5 +1,5 @@
 Name: snac
-Version: 0.4.1
+Version: 0.4.2
 Release: %{?release}%{!?release:devel.bigswitch}
 Summary: SNAC OpenFlow controller
 

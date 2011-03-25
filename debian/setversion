@@ -1,0 +1,5 @@
+#!/bin/bash
+VERSION=0.4.2.$1
+DATE=$(date -R)
+sed -i "s/^AC_INIT(.*/AC_INIT(nox,${VERSION})/" configure.ac src/nox/ext/configure.ac
+echo -e "nox (${VERSION}) unstable; urgency=low\n\n  * Automatic build.\n\n -- SNAC <snac@openflowhub.org>  ${DATE}" >debian/changelog
