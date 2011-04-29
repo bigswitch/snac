@@ -11,6 +11,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: autoconf >= 2.59
 BuildRequires: automake >= 1.9.6
 BuildRequires: libtool
+BuildRequires: pkgconfig
 BuildRequires: openssl-devel
 BuildRequires: ncurses-devel
 BuildRequires: pcre-devel

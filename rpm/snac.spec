@@ -16,6 +16,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: autoconf >= 2.59
 BuildRequires: automake >= 1.9.6
 BuildRequires: libtool
+BuildRequires: pkgconfig
+BuildRequires: gcc-c++
+BuildRequires: libstdc++-devel
 BuildRequires: boost-devel >= 1.34.1
 BuildRequires: sqlite-devel
 BuildRequires: swig >= 1.3.0
