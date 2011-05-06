@@ -7,7 +7,7 @@ Notes on compiling SNAC/NOX on CentOS 5.5:
 sudo rpm -Uv http://blackopsoft.com/el5/RPMS/noarch/blackop-el5-repo-1.0-2.noarch.rpm
 sudo rpm -Uv http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-4.noarch.rpm
 sudo sed -i '/^gpgkey=/a\includepkgs=boost-*,blackop-*,sqlite*,git,perl-Git,swig' /etc/yum.repos.d/blackop.repo
-sudo su -c 'echo "exclude=*.i386 *.i586 *.i686" >>/etc/yum.conf'
+sudo su -c 'echo "exclude=*.i386 *.i586 *.i686" >>/etc/yum.conf' (only on 64-bit host)
 sudo sed -i 's/^enabled=.*/enabled=0/g' /etc/yum/pluginconf.d/fastestmirror.conf
 sudo yum -y install boost-devel ccache sqlite-devel swig openssl-devel xerces-c-devel libtool automake autoconf rpmdevtools yum-utils \
   emacs-nox gcc-c++ git perl-Error python-sphinx openldap-devel java python-devel python-mako python-twisted-web python-simplejson
@@ -26,7 +26,7 @@ sudo make install
 
 Installing binary rpms:
 
-0. Install CentOS 5.5 x86_64.
+0. Install CentOS 5.5 (32- or 64-bit)
 
 1. Install yum repo configuration for the EPEL (http://fedoraproject.org/wiki/EPEL)
    and Black Op (http://blackopsoft.com/) repositories:
